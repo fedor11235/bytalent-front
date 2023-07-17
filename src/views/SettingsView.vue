@@ -3,8 +3,10 @@
     <div class="settings__backdrop"></div>
     <div class="settings__content">
       <HeaderComponent
-        urlButton="header/profile.png"
-        urlButtonHover="header/profile.png"
+        urlButton="header/settings.png"
+        urlButtonHover="header/settings.png"
+        type="cross"
+        @switch="router.push({name: 'home'})"
       />
       <div class="description">
         <div class="description__card">
@@ -29,17 +31,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import HeaderComponent from "@/components/home/HeaderComponent.vue";
-import TestButton from "@/components/TestButton.vue";
 import { useHomeStore } from  "@/store"
 
+const router = useRouter()
 const homeStore = useHomeStore()
 
 const menu = [
-  'Активные проекты',
   'Коммерция',
-  'Уведомления'
+  'Личные данные',
+  'Юридические данные',
+  'Официальный ссылки',
+  'Безопасность'
 ]
 
 const dropdown = [
@@ -85,21 +89,74 @@ const dropdown = [
     justify-content: space-between;
     .description {
       width: 100%;
-      height: auto;
+      height: 70%;
       justify-content: center;
       align-items: center;
-      margin-top: .7%;
+      margin-top: 3%;
       display: flex;
       &__card {
         width: 65.5%;
+        height: 100%;
         display: flex;
+        -webkit-backdrop-filter: blur(16px);
+        backdrop-filter: blur(16px);
+        background-color: #1d1d1d;
+        border: 0 solid #000;
+        border-top: 1px solid rgba(255, 255, 255, .47);
+        border-bottom: 1px solid rgba(250, 250, 250, .18);
+        border-radius: 15px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, .62);
+        padding: 12px;
       }
       &__info {
+        width: 67%;
+        box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0);
+        text-shadow: 0 3px 3px rgba(0, 0, 0, .85);
+        background-color: #252525;
+        border: 0 solid rgba(158, 158, 158, .07);
+        border-top: 1px solid rgba(231, 231, 231, .44);
+        border-bottom: 1px solid rgba(158, 158, 158, .31);
+        border-radius: 15px;
+        display: flex;
+        overflow: scroll;
+        box-shadow: 0 4px 5px rgba(0, 0, 0, .26);
+        display: flex;
+        flex-direction: column;
         &_elem {
+          width: 94%;
+          height: 8vh;
+          color: #fff;
+          text-align: left;
+          cursor: pointer;
+          background-color: rgba(0, 0, 0, 0);
+          border-top: 1px rgba(138, 138, 138, .87);
+          border-radius: 0;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 0%;
+          padding: 0% 0% .2%;
+          font-family: Jura, sans-serif;
+          font-size: 1.8vh;
+          font-weight: 300;
+          display: flex;
+          position: relative;
         }
       }
       &__menu {
+        width: 33%;
         &_elem {
+          width: 100%;
+          height: 50px;
+          color: #fff;
+          text-align: left;
+          cursor: pointer;
+          background-color: rgba(0, 0, 0, 0);
+          border-top: 1px solid rgba(138, 138, 138, .87);
+          border-radius: 9px;
+          font-size: 1.7vh;
+          font-weight: 300;
+          display: flex;
+          align-items: center;
           &:hover {
             text-shadow: 0 12px 12px rgba(0, 0, 0, .48);
             background-color: rgba(255, 255, 255, .03);

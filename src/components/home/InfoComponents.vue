@@ -5,6 +5,8 @@
       <HeaderComponent
         urlButton="header/profile.png"
         urlButtonHover="header/profile.png"
+        type="cross"
+        @switch="homeStore.infoPage = !homeStore.infoPage"
       />
       <div class="description">
         <div class="description__card">

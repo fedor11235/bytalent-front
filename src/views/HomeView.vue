@@ -22,6 +22,8 @@
       <HeaderComponent
         urlButton="header/visualization.png"
         urlButtonHover="header/visualization-hover.png"
+        type="burger"
+        @switch="homeStore.infoPage = !homeStore.infoPage"
       />
       <ContentComponent />
       <FooterComponent />

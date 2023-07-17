@@ -4,7 +4,7 @@
     <LineLeftComponent />
     <ButtonComponent :url="urlButton" :urlHover="urlButtonHover"/>
     <LineRightComponent />
-    <BurgerComponent @click="homeStore.infoPage = !homeStore.infoPage" />
+    <BurgerComponent :type="type" @click="emit('switch')" />
   </div>
 </template>
 
@@ -14,13 +14,13 @@ import ButtonComponent from "@/components/ButtonComponent.vue";
 import LineRightComponent from "@/components/LineRightComponent.vue";
 import LineLeftComponent from "@/components/LineLeftComponent.vue";
 import LogoComponent from "@/components/LogoComponent.vue";
-import { useHomeStore } from  "@/store"
 
-const homeStore = useHomeStore()
+const emit = defineEmits(['switch'])
 
 defineProps<{
   urlButton: string
   urlButtonHover: string
+  type: 'burger' | 'cross'
 }>()
 
 </script>
