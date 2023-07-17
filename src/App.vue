@@ -1,9 +1,16 @@
 <template>
-  <!-- <nav>
-    <router-link to="/">Home</router-link> |
-  </nav> -->
+  <Transition name="fade">
+    <InfoComponents v-if="homeStore.infoPage" />
+  </Transition>
   <router-view />
 </template>
+
+<script setup lang="ts">
+import InfoComponents from "@/components/home/InfoComponents.vue";
+import { useHomeStore } from  "@/store"
+
+const homeStore = useHomeStore()
+</script>
 
 <style>
 #app {
@@ -18,16 +25,12 @@ body {
   margin: 0;
 }
 
-/* nav {
-  padding: 30px;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
 }
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
-
-nav a.router-link-exact-active {
-  color: #42b983;
-} */
 </style>

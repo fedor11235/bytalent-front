@@ -7,7 +7,7 @@
       <div class="content__text">
         {{ homeStore.secondPage? 'Описание уровня' : 'Вы можете заказать проект либо загрузить свой уровень' }}
       </div>
-      <TestButton v-if="homeStore.secondPage" class="content__button">Управление</TestButton>
+      <TestButton v-if="homeStore.secondPage" @click="router.push({name: 'new-lavel'})" class="content__button">Управление</TestButton>
       <TestButton v-else @click="homeStore.uploadProject = true" class="content__button">Заказать</TestButton>
     </div>
   </div>
@@ -15,8 +15,10 @@
 
 <script setup lang="ts">
 import TestButton from "@/components/TestButton.vue";
+import { useRouter } from 'vue-router'
 import { useHomeStore } from  "@/store"
 
+const router = useRouter()
 const homeStore = useHomeStore()
 </script>
 

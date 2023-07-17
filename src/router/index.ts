@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import ErrorView from "../views/ErrorView.vue";
 import SettingsView from "../views/SettingsView.vue";
+import NewLavelView from "../views/NewLavelView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -18,6 +19,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/settings",
     name: "settings",
     component: SettingsView,
+  },
+  {
+    path: "/new-lavel",
+    name: "new-lavel",
+    component: NewLavelView,
   },
 ];
 

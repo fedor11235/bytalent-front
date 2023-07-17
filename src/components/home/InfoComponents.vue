@@ -45,7 +45,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
 import HeaderComponent from "@/components/home/HeaderComponent.vue";
 import TestButton from "@/components/TestButton.vue";
 import { useHomeStore } from  "@/store"
@@ -77,7 +76,7 @@ const dropdown = [
 <style lang="scss" scoped>
 .info {
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   height: 100vh;
   width: 100vw;
   overflow: hidden;

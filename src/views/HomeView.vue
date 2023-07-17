@@ -3,9 +3,6 @@
     class="home"
     :style="{backgroundImage: `url(${require(`@/assets/${homeStore.secondPage? 'bg-second' : 'bg-first'}.jpeg`)})`}"
   >
-    <Transition name="fade">
-      <InfoComponents v-if="homeStore.infoPage" />
-    </Transition>
     <Transition name="trans">
       <div class="blackout" v-if="blackout" />
     </Transition>

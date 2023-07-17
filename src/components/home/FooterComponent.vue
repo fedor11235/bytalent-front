@@ -23,7 +23,8 @@
     </div>
     <div class="footer__download">
       <div>|</div>
-      <div @click="homeStore.uploadProject = true" class="footer__download_button">+ Загрузить готовый проект</div>
+      <div v-if="homeStore.secondPage" @click="router.push({name: 'new-lavel'})" class="footer__download_button">Новый уровень</div>
+      <div v-else @click="homeStore.uploadProject = true" class="footer__download_button">+ Загрузить готовый проект</div>
       <div>|</div>
       <div>|</div>
       <div>|</div>
@@ -35,7 +36,9 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import { useHomeStore } from  "@/store"
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const homeStore = useHomeStore()
 
 const leftArrowHover = ref(false);
