@@ -35,9 +35,9 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
-import HeaderComponent from "@/components/home/HeaderComponent.vue";
+import { useRouter } from 'vue-router';
 import { useHomeStore } from  "@/store"
+import HeaderComponent from "@/components/home/HeaderComponent.vue";
 
 const router = useRouter()
 const homeStore = useHomeStore()

@@ -31,7 +31,7 @@
           <div class="personal__row">+7 (933) 666-66-63</div>
           <div class="personal__row">Генеральный директор</div>
           <div class="personal__footer">
-            <RouterLink to="/settings"><TestButton class="personal__button">Настройки</TestButton></RouterLink>
+            <TestButton @click="handlerClick" class="personal__button">Настройки</TestButton>
           </div>
         </div>
       </div>
@@ -47,8 +47,10 @@
 <script setup lang="ts">
 import HeaderComponent from "@/components/home/HeaderComponent.vue";
 import TestButton from "@/components/TestButton.vue";
+import { useRouter } from 'vue-router'
 import { useHomeStore } from  "@/store"
 
+const router = useRouter()
 const homeStore = useHomeStore()
 
 const menu = [
@@ -71,6 +73,11 @@ const dropdown = [
     date: '01.04.2024'
   },
 ]
+
+function handlerClick() {
+  router.push({ name: 'settings'})
+  homeStore.infoPage = false
+}
 </script>
 
 <style lang="scss" scoped>

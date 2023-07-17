@@ -1,11 +1,5 @@
 <template>
-  <div
-    class="home"
-    :style="{backgroundImage: `url(${require(`@/assets/${homeStore.secondPage? 'bg-second' : 'bg-first'}.jpeg`)})`}"
-  >
-    <Transition name="trans">
-      <div class="blackout" v-if="blackout" />
-    </Transition>
+  <div class="streaming">
     <Transition name="fade">
       <PopupOrder v-if="homeStore.popupOrder" />
     </Transition>
@@ -15,10 +9,10 @@
         <div @click="homeStore.popupOrder = true" class="order__project">Загрузить готовый дизайн-проект </div>
       </div>
     </Transition>
-    <div class="home__backdrop">
+    <div class="streaming__backdrop">
       <HeaderComponent
-        urlButton="header/visualization.png"
-        urlButtonHover="header/visualization-hover.png"
+        urlButton="header/streaming.png"
+        urlButtonHover="header/streaming.png"
         type="burger"
         @switch="homeStore.infoPage = !homeStore.infoPage"
       />
@@ -49,21 +43,14 @@ watch(
 </script>
 
 <style lang="scss" scoped>
-.home {
+.streaming {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background-image: url(@/assets/bg-first.jpeg);
+  background-image: url(@/assets/streaming/bg.jpeg);
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
-  .blackout {
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
-    background-color: black;
-    z-index: 1;
-  }
   .order {
     position: fixed;
     height: 100vh;
@@ -76,36 +63,13 @@ watch(
     flex-direction: column;
     justify-content: center;
     row-gap: 10vh;
-    &__visualization {
-      color: #fff;
-      text-align: center;
-      font-family: Jura, sans-serif;
-      font-size: 3vh;
-      line-height: 4vh;
-      text-decoration: underline;
-      cursor: pointer;
-      &:hover {
-        text-shadow: 1px 1px 2px #fff;
-      }
-    }
-    &__project {
-      color: #fff;
-      text-align: center;
-      font-family: Jura, sans-serif;
-      font-size: 3vh;
-      line-height: 4vh;
-      text-decoration: underline;
-      cursor: pointer;
-      &:hover {
-        text-shadow: 1px 1px 2px #fff;
-      }
-    }
   }
   &__backdrop {
     height: 100vh;
     width: 100vw;
+    -webkit-backdrop-filter: blur(7px);
     backdrop-filter: blur(7px);
-    background-color: rgba(0, 0, 0, 0.58);
+    background-color: rgba(255, 255, 255, .51);
   }
 }
 .fade-enter-active,
