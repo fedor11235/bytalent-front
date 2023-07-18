@@ -11,13 +11,15 @@
             : "Вы можете заказать проект либо загрузить свой уровень"
         }}
       </div>
-      <TestButton
+      <ButtonComponent
         v-if="visualizationStore.secondPage"
         @click="router.push({ name: 'new-lavel' })"
+        url="content/control.png"
+        urlHover="content/control-hover.png"
         class="content__button"
-        >Управление</TestButton
-      >
+      />
       <ButtonComponent
+        v-else
         @click="rootStore.uploadProject = true"
         url="content/order.png"
         urlHover="content/order-hover.png"
