@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import InfoComponents from "@/components/home/InfoComponents.vue";
+import InfoComponents from "@/components/common/InfoComponents.vue";
 import { useHomeStore } from "@/store";
 
 const homeStore = useHomeStore();

@@ -1,20 +1,16 @@
 <template>
   <div class="streaming">
-    <Transition name="fade">
-      <PopupOrder v-if="homeStore.popupOrder" />
-    </Transition>
+    <!-- <Transition name="fade">
+      <PopupOrder v-if="streamingStore.popupConnect" />
+    </Transition> -->
     <Transition name="fade">
       <div
-        v-if="homeStore.uploadProject"
-        @click.self="homeStore.uploadProject = false"
-        class="order"
+        v-if="streamingStore.popupConnect"
+        @click.self="streamingStore.popupConnect = false"
+        class="connect"
       >
-        <div @click="homeStore.popupOrder = true" class="order__visualization">
-          Заказать визуализацию объекта недвижимости
-        </div>
-        <div @click="homeStore.popupOrder = true" class="order__project">
-          Загрузить готовый дизайн-проект
-        </div>
+        Сперва добавьте визуализацию!
+        <div class="connect__button"></div>
       </div>
     </Transition>
     <div class="streaming__backdrop">
@@ -23,7 +19,6 @@
         urlButtonHover="header/streaming.png"
         type="burger"
         theme="light"
-        @switch="homeStore.infoPage = !homeStore.infoPage"
       />
       <ContentComponent />
       <FooterComponent theme="light" :curentPages="0" :numberPages="0" />
@@ -37,18 +32,10 @@ import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import ContentComponent from "@/components/streaming/ContentComponent.vue";
 import FooterComponent from "@/components/common/FooterComponent.vue";
 import PopupOrder from "@/components/home/PopupOrder.vue";
-import { useHomeStore } from "@/store";
+import { useStreamingStore } from "@/store";
 
-const homeStore = useHomeStore();
+const streamingStore = useStreamingStore();
 const blackout = ref(false);
-
-watch(
-  () => homeStore.secondPage,
-  () => {
-    blackout.value = true;
-    setTimeout(() => (blackout.value = false), 300);
-  }
-);
 </script>
 
 <style lang="scss" scoped>
@@ -60,18 +47,30 @@ watch(
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
-  .order {
+  .connect {
     position: fixed;
     height: 100vh;
     width: 100vw;
     z-index: 1;
-    background-color: rgba(0, 0, 0, 0.78);
+    background-color: rgba(255, 255, 255, 0.95);
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     row-gap: 10vh;
+    font-family: Jura, sans-serif;
+    font-size: 4vh;
+    color: #333;
+    &__button {
+      background-image: url(@/assets/streaming/botton_ok.png);
+      width: 206px;
+      height: 45px;
+      background-position: 50%;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
   }
   &__backdrop {
     height: 100vh;
