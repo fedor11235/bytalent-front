@@ -1,6 +1,10 @@
 <template>
   <div class="menu-container">
-    <div v-if="type === 'burger'" class="menu menu-burger" :class="['menu', 'menu-burger', `menu-burger-${backgroundColor}`]">
+    <div
+      v-if="type === 'burger'"
+      class="menu menu-burger"
+      :class="['menu', 'menu-burger', `menu-burger-${backgroundColor}`]"
+    >
       <div></div>
       <div></div>
       <div></div>
@@ -12,19 +16,19 @@
 </template>
 
 <script setup lang="ts">
-import { toRef, computed } from 'vue'
+import { toRef, computed } from "vue";
 
 const props = defineProps<{
-  type: 'burger' | 'cross'
-  theme?: 'light'
-}>()
+  type: "burger" | "cross";
+  theme?: "light";
+}>();
 
-const theme = toRef(props, 'theme')
+const theme = toRef(props, "theme");
 
 const backgroundColor = computed(() => {
-  if(theme.value === 'light') return 'black'
-  else return 'white'
-})
+  if (theme.value === "light") return "black";
+  else return "white";
+});
 </script>
 
 <style lang="scss" scoped>
@@ -35,17 +39,23 @@ const backgroundColor = computed(() => {
     transform-origin: center;
     &:hover {
       animation-name: animate;
-      animation-duration: .9s;
+      animation-duration: 0.9s;
 
       @keyframes animate {
-        0%   {transform: scaleY(1);}
-        50%  {transform: scaleY(0);}
-        100% {transform: scaleY(1);}
+        0% {
+          transform: scaleY(1);
+        }
+        50% {
+          transform: scaleY(0);
+        }
+        100% {
+          transform: scaleY(1);
+        }
       }
     }
     &-burger {
       &-black {
-        div{
+        div {
           background: black;
           border: 1px solid black;
         }
@@ -67,13 +77,15 @@ const backgroundColor = computed(() => {
     }
     &-cross {
       &-black {
-        div:before, div:after {
+        div:before,
+        div:after {
           border: 1px solid black;
           background-color: black;
         }
       }
       &-white {
-        div:before, div:after {
+        div:before,
+        div:after {
           border: 1px solid white;
           background-color: white;
         }
@@ -82,7 +94,8 @@ const backgroundColor = computed(() => {
         position: relative;
         cursor: pointer;
       }
-      div:before, div:after {
+      div:before,
+      div:after {
         content: "";
         position: absolute;
         top: 8px;

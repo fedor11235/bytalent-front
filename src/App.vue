@@ -7,9 +7,9 @@
 
 <script setup lang="ts">
 import InfoComponents from "@/components/home/InfoComponents.vue";
-import { useHomeStore } from  "@/store"
+import { useHomeStore } from "@/store";
 
-const homeStore = useHomeStore()
+const homeStore = useHomeStore();
 </script>
 
 <style>

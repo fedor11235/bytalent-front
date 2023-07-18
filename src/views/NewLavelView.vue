@@ -11,19 +11,25 @@
       <div class="media">
         <div class="carousel">
           <div class="carousel__arrow carousel__arrow-left"></div>
-          <img class="carousel__img" src="@/assets/lvel/bg.jpeg" alt="img">
-          <img class="carousel__img" src="@/assets/lvel/bg.jpeg" alt="img">
-          <img class="carousel__img" src="@/assets/lvel/bg.jpeg" alt="img">
-          <img class="carousel__img" src="@/assets/lvel/bg.jpeg" alt="img">
-          <img class="carousel__img" src="@/assets/lvel/bg.jpeg" alt="img">
+          <img class="carousel__img" src="@/assets/lvel/bg.jpeg" alt="img" />
+          <img class="carousel__img" src="@/assets/lvel/bg.jpeg" alt="img" />
+          <img class="carousel__img" src="@/assets/lvel/bg.jpeg" alt="img" />
+          <img class="carousel__img" src="@/assets/lvel/bg.jpeg" alt="img" />
+          <img class="carousel__img" src="@/assets/lvel/bg.jpeg" alt="img" />
           <div class="carousel__arrow carousel__arrow-right"></div>
-        </div> 
+        </div>
       </div>
       <div class="settings__title">Новый уровень</div>
       <div class="settings__text">Адрес</div>
       <div class="settings__assistant">
         <div class="settings__assistant_menu">
-          <div class="settings__assistant_menu_item" v-for="item of menu" :key="item">{{ item }}</div>
+          <div
+            class="settings__assistant_menu_item"
+            v-for="item of menu"
+            :key="item"
+          >
+            {{ item }}
+          </div>
         </div>
         <div class="settings__assistant_chat">
           <textarea class="settings__assistant_chat_input"></textarea>
@@ -35,20 +41,19 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
-import { useHomeStore } from  "@/store"
+import { useRouter } from "vue-router";
+import { useHomeStore } from "@/store";
 import HeaderComponent from "@/components/home/HeaderComponent.vue";
 
-const router = useRouter()
-const homeStore = useHomeStore()
+const router = useRouter();
+const homeStore = useHomeStore();
 
 const menu = [
-  'Личный ассистент',
-  'Технические требования',
-  'Правли размещения',
-  'Интеграция'
-]
-
+  "Личный ассистент",
+  "Технические требования",
+  "Правли размещения",
+  "Интеграция",
+];
 </script>
 
 <style lang="scss" scoped>
@@ -69,7 +74,7 @@ const menu = [
     width: 100vw;
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
-    background-color: rgba(0, 0, 0, .66);
+    background-color: rgba(0, 0, 0, 0.66);
   }
   &__content {
     position: fixed;
@@ -97,7 +102,7 @@ const menu = [
         }
         &__arrow {
           position: absolute;
-          opacity: .6;
+          opacity: 0.6;
           border-radius: 12px;
           box-shadow: 0 2px 5px #000;
           width: 40px;
@@ -132,7 +137,7 @@ const menu = [
     line-height: 70%;
     text-align: left;
     margin: auto;
-    padding: 21px 0;;
+    padding: 21px 0;
   }
   &__text {
     width: 66%;
@@ -155,10 +160,10 @@ const menu = [
     margin: auto;
     padding: 0.1vh 0.1vh 0.1vh 1vh;
     height: 36vh;
-    opacity: .72;
+    opacity: 0.72;
     -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
-    box-shadow: 0 2px 8px #000, inset 0 0 5px 2px rgba(255, 255, 255, .22);
+    box-shadow: 0 2px 8px #000, inset 0 0 5px 2px rgba(255, 255, 255, 0.22);
     &_menu {
       width: 31.5%;
       height: 100%;
@@ -172,9 +177,9 @@ const menu = [
         text-align: left;
         cursor: pointer;
         background-color: rgba(0, 0, 0, 0);
-        border-top: 1px solid rgba(138, 138, 138, .87);
+        border-top: 1px solid rgba(138, 138, 138, 0.87);
         border-radius: 9px;
-        padding-bottom: .2%;
+        padding-bottom: 0.2%;
         font-family: Jura, sans-serif;
         font-size: 1.7vh;
         font-weight: 300;
@@ -182,8 +187,8 @@ const menu = [
         align-items: center;
         justify-content: center;
         &:hover {
-          text-shadow: 0 12px 12px rgba(0, 0, 0, .48);
-          background-color: rgba(255, 255, 255, .03);
+          text-shadow: 0 12px 12px rgba(0, 0, 0, 0.48);
+          background-color: rgba(255, 255, 255, 0.03);
         }
       }
     }
@@ -193,13 +198,14 @@ const menu = [
       height: 97%;
       background-color: #1f1f1f;
       border-radius: 15px;
-      box-shadow: 0 0 5px rgba(255, 255, 255, .52), inset 0 -1px 10px -1px rgba(0, 0, 0, .93);
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.52),
+        inset 0 -1px 10px -1px rgba(0, 0, 0, 0.93);
       &_input {
         width: 70%;
         height: 30%;
         min-height: 5vh;
         color: #f0f0f0;
-        background-color: rgba(104, 104, 104, .29);
+        background-color: rgba(104, 104, 104, 0.29);
         border: 1px solid #000;
         border-radius: 11px;
         padding: 16px 25% 16px 25px;
@@ -207,18 +213,19 @@ const menu = [
         bottom: 0;
         left: 0;
         overflow-y: scroll;
-        box-shadow: 0 -2px 5px rgba(0, 0, 0, .35), inset 0 2px 5px rgba(255, 255, 255, .2);
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.35),
+          inset 0 2px 5px rgba(255, 255, 255, 0.2);
       }
       &_button {
         padding: 8px 16px;
         text-align: center;
         background-color: #292929;
-        border: 1px solid rgba(255, 255, 255, .09);
+        border: 1px solid rgba(255, 255, 255, 0.09);
         border-radius: 11px;
         position: absolute;
         bottom: 16px;
         right: 32px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, .44);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.44);
         display: flex;
         color: white;
         cursor: pointer;

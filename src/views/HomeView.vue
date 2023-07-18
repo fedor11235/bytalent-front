@@ -1,7 +1,11 @@
 <template>
   <div
     class="home"
-    :style="{backgroundImage: `url(${require(`@/assets/${homeStore.secondPage? 'bg-second' : 'bg-first'}.jpeg`)})`}"
+    :style="{
+      backgroundImage: `url(${require(`@/assets/${
+        homeStore.secondPage ? 'bg-second' : 'bg-first'
+      }.jpeg`)})`,
+    }"
   >
     <Transition name="trans">
       <div class="blackout" v-if="blackout" />
@@ -10,9 +14,17 @@
       <PopupOrder v-if="homeStore.popupOrder" />
     </Transition>
     <Transition name="fade">
-      <div v-if="homeStore.uploadProject" @click.self="homeStore.uploadProject = false" class="order">
-        <div @click="homeStore.popupOrder = true" class="order__visualization">Заказать визуализацию объекта недвижимости</div>
-        <div @click="homeStore.popupOrder = true" class="order__project">Загрузить готовый дизайн-проект </div>
+      <div
+        v-if="homeStore.uploadProject"
+        @click.self="homeStore.uploadProject = false"
+        class="order"
+      >
+        <div @click="homeStore.popupOrder = true" class="order__visualization">
+          Заказать визуализацию объекта недвижимости
+        </div>
+        <div @click="homeStore.popupOrder = true" class="order__project">
+          Загрузить готовый дизайн-проект
+        </div>
       </div>
     </Transition>
     <div class="home__backdrop">
@@ -29,23 +41,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch } from "vue";
 import HeaderComponent from "@/components/home/HeaderComponent.vue";
 import ContentComponent from "@/components/home/ContentComponent.vue";
 import FooterComponent from "@/components/home/FooterComponent.vue";
 import PopupOrder from "@/components/home/PopupOrder.vue";
-import { useHomeStore } from  "@/store"
+import { useHomeStore } from "@/store";
 
-const homeStore = useHomeStore()
-const blackout = ref(false)
+const homeStore = useHomeStore();
+const blackout = ref(false);
 
 watch(
   () => homeStore.secondPage,
   () => {
-    blackout.value = true
-    setTimeout(() => blackout.value = false, 300)
+    blackout.value = true;
+    setTimeout(() => (blackout.value = false), 300);
   }
-)
+);
 </script>
 
 <style lang="scss" scoped>
@@ -69,7 +81,7 @@ watch(
     height: 100vh;
     width: 100vw;
     z-index: 1;
-    background-color: rgba(0, 0, 0, .78);
+    background-color: rgba(0, 0, 0, 0.78);
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     display: flex;
@@ -119,7 +131,7 @@ watch(
 
 .trans-enter-active,
 .trans-leave-active {
-  transition: opacity .2s ease;
+  transition: opacity 0.2s ease;
 }
 .trans-enter-from,
 .trans-leave-to {

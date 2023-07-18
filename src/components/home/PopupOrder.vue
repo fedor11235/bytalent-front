@@ -3,16 +3,30 @@
     <div class="popup">
       <div class="popup__row popup__row-border">
         <div>Название</div>
-        <input v-model="name" placeholder="Введите название" class="popup__fill"/>
+        <input
+          v-model="name"
+          placeholder="Введите название"
+          class="popup__fill"
+        />
       </div>
       <div class="popup__row popup__row-border">
         <div>Адрес</div>
-        <input v-model="address" placeholder="Введите адрес"  class="popup__fill"/>
+        <input
+          v-model="address"
+          placeholder="Введите адрес"
+          class="popup__fill"
+        />
       </div>
       <div class="popup__row">
         <div>Тип проекта</div>
         <select class="popup__fill" v-model="type">
-          <option v-for="project of typesProgect" :key="project.value" :value="project.value">{{ project.name }}</option>
+          <option
+            v-for="project of typesProgect"
+            :key="project.value"
+            :value="project.value"
+          >
+            {{ project.name }}
+          </option>
         </select>
       </div>
       <div class="popup__create">Создать</div>
@@ -21,23 +35,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useHomeStore } from  "@/store"
+import { ref } from "vue";
+import { useHomeStore } from "@/store";
 
 const typesProgect = [
-  { name: 'Выберите тип проекта', value: 0 },
-  { name: 'Жилой комплекс', value: 1 },
-  { name: 'Коттеджный посёлок', value: 2 },
-  { name: 'Частный дом', value: 3 },
-  { name: 'Музей / Галерея', value: 4 },
-  { name: 'Прочее', value: 5 }
-]
+  { name: "Выберите тип проекта", value: 0 },
+  { name: "Жилой комплекс", value: 1 },
+  { name: "Коттеджный посёлок", value: 2 },
+  { name: "Частный дом", value: 3 },
+  { name: "Музей / Галерея", value: 4 },
+  { name: "Прочее", value: 5 },
+];
 
-const name = ref('')
-const address = ref('')
-const type = ref(typesProgect[0].value)
+const name = ref("");
+const address = ref("");
+const type = ref(typesProgect[0].value);
 
-const homeStore = useHomeStore()
+const homeStore = useHomeStore();
 </script>
 
 <style lang="scss" scoped>
@@ -53,7 +67,7 @@ const homeStore = useHomeStore()
     width: 55%;
     height: 45%;
     background-color: #141414;
-    border: 1px solid rgba(255, 255, 255, .14);
+    border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: 20px;
     display: flex;
     flex-direction: column;
@@ -89,12 +103,12 @@ const homeStore = useHomeStore()
         }
       }
       &-border {
-        border-bottom: 1px solid rgba(255, 255, 255, .26);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.26);
       }
     }
     &__create {
       background-color: rgba(0, 0, 0, 0);
-      border: 1px solid rgba(255, 255, 255, .28);
+      border: 1px solid rgba(255, 255, 255, 0.28);
       border-radius: 15px;
       width: 23%;
       height: 11%;

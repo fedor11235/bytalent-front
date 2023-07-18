@@ -11,13 +11,21 @@
       <div class="description">
         <div class="description__card">
           <div class="description__info">
-            <div v-for="elem of dropdown" :key="elem.date" class="description__info_elem">
+            <div
+              v-for="elem of dropdown"
+              :key="elem.date"
+              class="description__info_elem"
+            >
               <span class="description__info_elem_text">{{ elem.text }}</span>
               <span class="description__info_elem_date">{{ elem.date }}</span>
             </div>
           </div>
           <div class="description__menu">
-            <div v-for="elem of menu" :key="elem" class="description__menu_elem">
+            <div
+              v-for="elem of menu"
+              :key="elem"
+              class="description__menu_elem"
+            >
               <span>{{ elem }}</span>
             </div>
           </div>
@@ -31,13 +39,21 @@
           <div class="personal__row">+7 (933) 666-66-63</div>
           <div class="personal__row">Генеральный директор</div>
           <div class="personal__footer">
-            <TestButton @click="handlerClick" class="personal__button">Настройки</TestButton>
+            <TestButton @click="handlerClick" class="personal__button"
+              >Настройки</TestButton
+            >
           </div>
         </div>
       </div>
       <div class="doc">
-        <div class="doc__text">Пользовательское соглашение АО "ГК Талент" в соответствии со статьёй 428 гражданского кодекса Российской Федерации</div>
-        <div class="doc__text">Политика обработки персональных данных согласно Федеральному закону "О персональных данных" от 27.07.2006 N 152-ФЗ</div>
+        <div class="doc__text">
+          Пользовательское соглашение АО "ГК Талент" в соответствии со статьёй
+          428 гражданского кодекса Российской Федерации
+        </div>
+        <div class="doc__text">
+          Политика обработки персональных данных согласно Федеральному закону "О
+          персональных данных" от 27.07.2006 N 152-ФЗ
+        </div>
         <div class="doc__text">Договор публичной оферты АО "ГК Талент"</div>
       </div>
     </div>
@@ -47,36 +63,32 @@
 <script setup lang="ts">
 import HeaderComponent from "@/components/home/HeaderComponent.vue";
 import TestButton from "@/components/TestButton.vue";
-import { useRouter } from 'vue-router'
-import { useHomeStore } from  "@/store"
+import { useRouter } from "vue-router";
+import { useHomeStore } from "@/store";
 
-const router = useRouter()
-const homeStore = useHomeStore()
+const router = useRouter();
+const homeStore = useHomeStore();
 
-const menu = [
-  'Активные проекты',
-  'Коммерция',
-  'Уведомления'
-]
+const menu = ["Активные проекты", "Коммерция", "Уведомления"];
 
 const dropdown = [
   {
-    text: 'Выставлен счёт №0126 на сумму 150 050 рублей',
-    date: '01.04.2024'
+    text: "Выставлен счёт №0126 на сумму 150 050 рублей",
+    date: "01.04.2024",
   },
   {
-    text: 'Выставлен счёт №0126 на сумму 150 050 рублей',
-    date: '01.04.2024'
+    text: "Выставлен счёт №0126 на сумму 150 050 рублей",
+    date: "01.04.2024",
   },
   {
-    text: 'Выставлен счёт №0126 на сумму 150 050 рублей',
-    date: '01.04.2024'
+    text: "Выставлен счёт №0126 на сумму 150 050 рублей",
+    date: "01.04.2024",
   },
-]
+];
 
 function handlerClick() {
-  router.push({ name: 'settings'})
-  homeStore.infoPage = false
+  router.push({ name: "settings" });
+  homeStore.infoPage = false;
 }
 </script>
 
@@ -96,7 +108,7 @@ function handlerClick() {
     background-position: 50% 100%;
     background-repeat: no-repeat;
     background-size: contain;
-    opacity: .08;
+    opacity: 0.08;
   }
   &__content {
     position: fixed;
@@ -110,7 +122,7 @@ function handlerClick() {
       height: auto;
       justify-content: center;
       align-items: center;
-      margin-top: .7%;
+      margin-top: 0.7%;
       display: flex;
       &__card {
         width: 65.5%;
@@ -120,9 +132,9 @@ function handlerClick() {
         z-index: 1;
         width: 60%;
         background-color: rgba(0, 0, 0, 0);
-        border: 0 solid rgba(255, 255, 255, .12);
-        border-top: 1px solid rgba(255, 255, 255, .47);
-        border-bottom: 1px solid rgba(255, 255, 255, .22);
+        border: 0 solid rgba(255, 255, 255, 0.12);
+        border-top: 1px solid rgba(255, 255, 255, 0.47);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.22);
         border-radius: 20px;
         flex-direction: column;
         justify-content: flex-start;
@@ -130,11 +142,11 @@ function handlerClick() {
         font-size: 2vh;
         display: flex;
         overflow: scroll;
-        box-shadow: 0 4px rgba(0, 0, 0, .6);
+        box-shadow: 0 4px rgba(0, 0, 0, 0.6);
         &_elem {
           width: 80%;
           min-height: 40%;
-          border-bottom: 1px solid rgba(255, 255, 255, .2);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.2);
           flex-direction: row;
           justify-content: center;
           align-items: flex-start;
@@ -161,7 +173,7 @@ function handlerClick() {
         z-index: 1;
         width: 40%;
         background-color: rgba(0, 0, 0, 0);
-        border: 0 solid rgba(255, 255, 255, .1);
+        border: 0 solid rgba(255, 255, 255, 0.1);
         border-radius: 20px;
         flex-direction: column;
         justify-content: space-between;
@@ -171,13 +183,13 @@ function handlerClick() {
         font-size: 2vh;
         display: flex;
         overflow: visible;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, .6);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
         &_elem {
           color: #fff;
           text-align: left;
           cursor: pointer;
           background-color: rgba(0, 0, 0, 0);
-          border-top: 1px solid rgba(138, 138, 138, .87);
+          border-top: 1px solid rgba(138, 138, 138, 0.87);
           border-radius: 9px;
           justify-content: flex-start;
           align-items: center;
@@ -188,8 +200,8 @@ function handlerClick() {
           height: 60px;
           width: 100%;
           &:hover {
-            text-shadow: 0 12px 12px rgba(0, 0, 0, .48);
-            background-color: rgba(255, 255, 255, .03);
+            text-shadow: 0 12px 12px rgba(0, 0, 0, 0.48);
+            background-color: rgba(255, 255, 255, 0.03);
           }
           span {
             margin-left: 16px;
@@ -202,15 +214,15 @@ function handlerClick() {
       height: auto;
       justify-content: center;
       align-items: center;
-      margin-top: .7%;
+      margin-top: 0.7%;
       display: flex;
       &__row {
         width: 80%;
         height: 6vh;
         text-align: center;
-        border: 0 solid rgba(255, 255, 255, .09);
+        border: 0 solid rgba(255, 255, 255, 0.09);
         border-top-width: 1px;
-        border-bottom: 1px solid rgba(255, 255, 255, .13);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.13);
         border-radius: 0;
         justify-content: center;
         align-items: center;
@@ -221,27 +233,27 @@ function handlerClick() {
         height: 6vh;
         text-align: center;
         background-color: #181818;
-        border: 0 solid rgba(255, 255, 255, .09);
+        border: 0 solid rgba(255, 255, 255, 0.09);
         border-top-width: 1px;
-        border-bottom: 1px solid rgba(255, 255, 255, .13);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.13);
         border-radius: 0;
         justify-content: center;
         align-items: center;
         display: flex;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, .34);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.34);
       }
       &__card {
         width: 65.5%;
         background-color: rgba(0, 0, 0, 0);
         border: 0 solid #000;
-        border-top: 1px solid rgba(255, 255, 255, .4);
-        border-bottom: 1px solid rgba(255, 255, 255, .21);
+        border-top: 1px solid rgba(255, 255, 255, 0.4);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.21);
         border-radius: 20px;
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
         display: flex;
-        box-shadow: 0 4px rgba(0, 0, 0, .6);
+        box-shadow: 0 4px rgba(0, 0, 0, 0.6);
         overflow: hidden;
         color: #b6b6b6;
         font-family: Jura, sans-serif;
@@ -251,14 +263,14 @@ function handlerClick() {
         height: 7vh;
         text-align: center;
         background-color: #181818;
-        border: 0 solid rgba(255, 255, 255, .13);
-        border-top: 1px solid rgba(255, 255, 255, .31);
+        border: 0 solid rgba(255, 255, 255, 0.13);
+        border-top: 1px solid rgba(255, 255, 255, 0.31);
         border-radius: 0;
         justify-content: center;
         align-items: center;
         width: 100%;
         display: flex;
-        box-shadow: -2px 0 5px rgba(0, 0, 0, .34);
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.34);
       }
       &__button {
         height: 60%;
@@ -267,7 +279,7 @@ function handlerClick() {
     .doc {
       &__text {
         width: 60%;
-        opacity: .75;
+        opacity: 0.75;
         color: #fff;
         text-align: justify;
         margin: auto;

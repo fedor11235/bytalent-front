@@ -6,60 +6,75 @@
         urlButton="header/settings.png"
         urlButtonHover="header/settings.png"
         type="cross"
-        @switch="router.push({name: 'home'})"
+        @switch="router.push({ name: 'home' })"
       />
       <div class="description">
         <div class="description__card">
           <div class="description__info">
-            <div v-for="elem of dropdown" :key="elem.date" class="description__info_elem">
+            <div
+              v-for="elem of dropdown"
+              :key="elem.date"
+              class="description__info_elem"
+            >
               <span class="description__info_elem_text">{{ elem.text }}</span>
               <span class="description__info_elem_date">{{ elem.date }}</span>
             </div>
           </div>
           <div class="description__menu">
-            <div v-for="elem of menu" :key="elem" class="description__menu_elem">
+            <div
+              v-for="elem of menu"
+              :key="elem"
+              class="description__menu_elem"
+            >
               <span>{{ elem }}</span>
             </div>
           </div>
         </div>
       </div>
       <div class="doc">
-        © 2023 Все права защищены. Пользователь уведомлен, что любые материалы, размещенные на сайте, являются объектами интеллектуальной собственности АО «ГК Талент» (правообладателя). Пользователь не вправе без предварительного письменного разрешения правообладателя осуществлять какие-либо действия с объектами интеллектуальной собственности, в противном случае, правообладатель оставляет за собой право на взыскание штрафов, предусмотренных законодательством РФ, а также на обращение в компетентные органы за защитой своих прав и законных интересов.
+        © 2023 Все права защищены. Пользователь уведомлен, что любые материалы,
+        размещенные на сайте, являются объектами интеллектуальной собственности
+        АО «ГК Талент» (правообладателя). Пользователь не вправе без
+        предварительного письменного разрешения правообладателя осуществлять
+        какие-либо действия с объектами интеллектуальной собственности, в
+        противном случае, правообладатель оставляет за собой право на взыскание
+        штрафов, предусмотренных законодательством РФ, а также на обращение в
+        компетентные органы за защитой своих прав и законных интересов.
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
+import { useRouter } from "vue-router";
 import HeaderComponent from "@/components/home/HeaderComponent.vue";
-import { useHomeStore } from  "@/store"
+import { useHomeStore } from "@/store";
 
-const router = useRouter()
-const homeStore = useHomeStore()
+const router = useRouter();
+const homeStore = useHomeStore();
 
 const menu = [
-  'Коммерция',
-  'Личные данные',
-  'Юридические данные',
-  'Официальный ссылки',
-  'Безопасность'
-]
+  "Коммерция",
+  "Личные данные",
+  "Юридические данные",
+  "Официальный ссылки",
+  "Безопасность",
+];
 
 const dropdown = [
   {
-    text: 'Выставлен счёт №0126 на сумму 150 050 рублей',
-    date: '01.04.2024'
+    text: "Выставлен счёт №0126 на сумму 150 050 рублей",
+    date: "01.04.2024",
   },
   {
-    text: 'Выставлен счёт №0126 на сумму 150 050 рублей',
-    date: '01.04.2024'
+    text: "Выставлен счёт №0126 на сумму 150 050 рублей",
+    date: "01.04.2024",
   },
   {
-    text: 'Выставлен счёт №0126 на сумму 150 050 рублей',
-    date: '01.04.2024'
+    text: "Выставлен счёт №0126 на сумму 150 050 рублей",
+    date: "01.04.2024",
   },
-]
+];
 </script>
 
 <style lang="scss" scoped>
@@ -78,7 +93,7 @@ const dropdown = [
     background-position: 50% 100%;
     background-repeat: no-repeat;
     background-size: contain;
-    opacity: .08;
+    opacity: 0.08;
   }
   &__content {
     position: fixed;
@@ -102,24 +117,24 @@ const dropdown = [
         backdrop-filter: blur(16px);
         background-color: #1d1d1d;
         border: 0 solid #000;
-        border-top: 1px solid rgba(255, 255, 255, .47);
-        border-bottom: 1px solid rgba(250, 250, 250, .18);
+        border-top: 1px solid rgba(255, 255, 255, 0.47);
+        border-bottom: 1px solid rgba(250, 250, 250, 0.18);
         border-radius: 15px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, .62);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.62);
         padding: 12px;
       }
       &__info {
         width: 67%;
         box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0);
-        text-shadow: 0 3px 3px rgba(0, 0, 0, .85);
+        text-shadow: 0 3px 3px rgba(0, 0, 0, 0.85);
         background-color: #252525;
-        border: 0 solid rgba(158, 158, 158, .07);
-        border-top: 1px solid rgba(231, 231, 231, .44);
-        border-bottom: 1px solid rgba(158, 158, 158, .31);
+        border: 0 solid rgba(158, 158, 158, 0.07);
+        border-top: 1px solid rgba(231, 231, 231, 0.44);
+        border-bottom: 1px solid rgba(158, 158, 158, 0.31);
         border-radius: 15px;
         display: flex;
         overflow: scroll;
-        box-shadow: 0 4px 5px rgba(0, 0, 0, .26);
+        box-shadow: 0 4px 5px rgba(0, 0, 0, 0.26);
         display: flex;
         flex-direction: column;
         &_elem {
@@ -129,12 +144,12 @@ const dropdown = [
           text-align: left;
           cursor: pointer;
           background-color: rgba(0, 0, 0, 0);
-          border-top: 1px rgba(138, 138, 138, .87);
+          border-top: 1px rgba(138, 138, 138, 0.87);
           border-radius: 0;
           justify-content: center;
           align-items: center;
           margin-bottom: 0%;
-          padding: 0% 0% .2%;
+          padding: 0% 0% 0.2%;
           font-family: Jura, sans-serif;
           font-size: 1.8vh;
           font-weight: 300;
@@ -151,15 +166,15 @@ const dropdown = [
           text-align: left;
           cursor: pointer;
           background-color: rgba(0, 0, 0, 0);
-          border-top: 1px solid rgba(138, 138, 138, .87);
+          border-top: 1px solid rgba(138, 138, 138, 0.87);
           border-radius: 9px;
           font-size: 1.7vh;
           font-weight: 300;
           display: flex;
           align-items: center;
           &:hover {
-            text-shadow: 0 12px 12px rgba(0, 0, 0, .48);
-            background-color: rgba(255, 255, 255, .03);
+            text-shadow: 0 12px 12px rgba(0, 0, 0, 0.48);
+            background-color: rgba(255, 255, 255, 0.03);
           }
           span {
             margin-left: 16px;
@@ -168,7 +183,7 @@ const dropdown = [
       }
     }
     .doc {
-      opacity: .75;
+      opacity: 0.75;
       color: #fff;
       text-align: center;
       margin: auto;
