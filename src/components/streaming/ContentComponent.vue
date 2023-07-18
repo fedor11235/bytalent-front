@@ -6,7 +6,7 @@
         Сперва вам необходимо добавить визуализацию
       </div>
       <TestButton
-        @click="homeStore.uploadProject = true"
+        @click="streamingStore.popupConnect = true"
         class="content__button"
         >Подключить</TestButton
       >
@@ -16,6 +16,9 @@
 
 <script setup lang="ts">
 import TestButton from "@/components/TestButton.vue";
+import { useStreamingStore } from "@/store";
+
+const streamingStore = useStreamingStore();
 </script>
 
 <style lang="scss" scoped>
