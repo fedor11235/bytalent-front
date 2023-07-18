@@ -51,6 +51,7 @@
       <div
         v-if="typeof curentPages === 'number'"
         class="footer__download__cross"
+        @click="homeStore.uploadProject = true"
       ></div>
       <div
         v-else-if="homeStore.secondPage"
