@@ -5,7 +5,9 @@
   <Transition name="fade">
     <PopupOrder v-if="rootStore.uploadProject" />
   </Transition>
-  <router-view />
+  <Transition name="fade">
+    <router-view />
+  </Transition>
 </template>
 
 <script setup lang="ts">
@@ -16,4 +18,5 @@ import { useRootStore } from "@/store";
 const rootStore = useRootStore();
 </script>
 
-<style></style>
+<style>
+</style>
