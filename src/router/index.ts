@@ -4,7 +4,7 @@ import ErrorView from "../views/ErrorView.vue";
 import SettingsView from "../views/SettingsView.vue";
 import NewLavelView from "../views/NewLavelView.vue";
 import AppView from "../views/AppView.vue";
-import StremingView from "../views/StremingView.vue";
+import StreamingView from "../views/StreamingView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -33,9 +33,9 @@ const routes: Array<RouteRecordRaw> = [
     component: AppView,
   },
   {
-    path: "/streming",
-    name: "streming",
-    component: StremingView,
+    path: "/streaming",
+    name: "streaming",
+    component: StreamingView,
   },
 ];
 

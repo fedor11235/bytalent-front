@@ -14,6 +14,7 @@
         urlButton="header/streaming.png"
         urlButtonHover="header/streaming.png"
         type="burger"
+        theme="light"
         @switch="homeStore.infoPage = !homeStore.infoPage"
       />
       <ContentComponent />

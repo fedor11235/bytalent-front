@@ -1,20 +1,30 @@
 <template>
   <div class="menu-container">
-    <div v-if="type === 'burger'" class="menu menu-burger">
+    <div v-if="type === 'burger'" class="menu menu-burger" :class="['menu', 'menu-burger', `menu-burger-${backgroundColor}`]">
       <div></div>
       <div></div>
       <div></div>
     </div>
-    <div v-else class="menu-cross">
+    <div v-else :class="['menu-cross', `menu-cross-${backgroundColor}`]">
       <div></div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-defineProps<{
+import { toRef, computed } from 'vue'
+
+const props = defineProps<{
   type: 'burger' | 'cross'
+  theme?: 'light'
 }>()
+
+const theme = toRef(props, 'theme')
+
+const backgroundColor = computed(() => {
+  if(theme.value === 'light') return 'black'
+  else return 'white'
+})
 </script>
 
 <style lang="scss" scoped>
@@ -34,18 +44,40 @@ defineProps<{
       }
     }
     &-burger {
+      &-black {
+        div{
+          background: black;
+          border: 1px solid black;
+        }
+      }
+      &-white {
+        div {
+          background: white;
+          border: 1px solid white;
+        }
+      }
       div {
         box-sizing: border-box;
         width: 20px;
         height: 1px;
         margin-bottom: 5px;
-        background: white;
         border-radius: 3px;
         z-index: 1;
-        border: 1px solid white;
       }
     }
     &-cross {
+      &-black {
+        div:before, div:after {
+          border: 1px solid black;
+          background-color: black;
+        }
+      }
+      &-white {
+        div:before, div:after {
+          border: 1px solid white;
+          background-color: white;
+        }
+      }
       div {
         position: relative;
         cursor: pointer;
@@ -57,8 +89,6 @@ defineProps<{
         right: 0;
         width: 20px;
         height: 1px;
-        border: 1px solid white;
-        background-color: white;
       }
       div:before {
         transform: rotate(45deg);
