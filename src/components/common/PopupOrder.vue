@@ -1,18 +1,20 @@
 <template>
-  <div @click.self="homeStore.uploadProject = false" class="order">
-    <div @click="homeStore.popupOrder = true" class="order__visualization">
+  <div @click.self="rootStore.uploadProject = false" class="order">
+    <div @click="visualizationStore.popupOrder = true" class="order__visualization">
       Заказать визуализацию объекта недвижимости
     </div>
-    <div @click="homeStore.popupOrder = true" class="order__project">
+    <div @click="visualizationStore.popupOrder= true" class="order__project">
       Загрузить готовый дизайн-проект
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useHomeStore } from "@/store";
+import { useRootStore } from "@/store";
+import { useVisualizationStore } from "@/store";
 
-const homeStore = useHomeStore();
+const visualizationStore = useVisualizationStore();
+const rootStore = useRootStore();
 </script>
 
 <style lang="scss" scoped>

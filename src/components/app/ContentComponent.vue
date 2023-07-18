@@ -5,13 +5,17 @@
       <div class="content__text">
         Персональное приложения для доступа в уровни Unreal Engine 5
       </div>
-      <TestButton class="content__button">Подробнее</TestButton>
+      <ButtonComponent
+        url="content/more.png"
+        urlHover="content/more-hover.png"
+        class="content__button"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import TestButton from "@/components/TestButton.vue";
+import ButtonComponent from "@/components/ButtonComponent.vue";
 </script>
 
 <style lang="scss" scoped>
@@ -29,23 +33,18 @@ import TestButton from "@/components/TestButton.vue";
     &__title {
       color: #fff;
       white-space: pre-line;
-      font-family: Jura, sans-serif;
+      font-family: JuraMedium, sans-serif;
       font-size: 8vh;
-      font-style: normal;
       font-weight: 400;
       line-height: 120%;
     }
     &__text {
       color: #b6b6b6;
-      font-family: Oswald, sans-serif;
+      font-family: OswaldExtraLight, sans-serif;
       font-size: 26px;
-      font-weight: 200;
     }
     &__button {
-      width: 240px;
-      &:hover {
-        box-shadow: 0 0 1px 1px white;
-      }
+      height: 60px;
     }
   }
 }

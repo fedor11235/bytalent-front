@@ -1,8 +1,5 @@
 <template>
   <div class="streaming">
-    <!-- <Transition name="fade">
-      <PopupOrder v-if="streamingStore.popupConnect" />
-    </Transition> -->
     <Transition name="fade">
       <div
         v-if="streamingStore.popupConnect"
@@ -10,7 +7,7 @@
         class="connect"
       >
         Сперва добавьте визуализацию!
-        <div class="connect__button"></div>
+        <div @click="streamingStore.popupConnect = false" class="connect__button"></div>
       </div>
     </Transition>
     <div class="streaming__backdrop">
@@ -31,7 +28,6 @@ import { ref, watch } from "vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import ContentComponent from "@/components/streaming/ContentComponent.vue";
 import FooterComponent from "@/components/common/FooterComponent.vue";
-import PopupOrder from "@/components/home/PopupOrder.vue";
 import { useStreamingStore } from "@/store";
 
 const streamingStore = useStreamingStore();
@@ -70,6 +66,7 @@ const blackout = ref(false);
       background-position: 50%;
       background-repeat: no-repeat;
       background-size: contain;
+      cursor: pointer;
     }
   }
   &__backdrop {

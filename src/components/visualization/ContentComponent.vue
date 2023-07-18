@@ -2,38 +2,41 @@
   <div class="content-container">
     <div class="content">
       <div class="content__title">
-        {{ homeStore.secondPage ? "Новый уровень" : "Нет активных уровней" }}
+        {{ visualizationStore.secondPage ? "Новый уровень" : "Нет активных уровней" }}
       </div>
       <div class="content__text">
         {{
-          homeStore.secondPage
+          visualizationStore.secondPage
             ? "Описание уровня"
             : "Вы можете заказать проект либо загрузить свой уровень"
         }}
       </div>
       <TestButton
-        v-if="homeStore.secondPage"
+        v-if="visualizationStore.secondPage"
         @click="router.push({ name: 'new-lavel' })"
         class="content__button"
         >Управление</TestButton
       >
-      <TestButton
-        v-else
-        @click="homeStore.uploadProject = true"
+      <ButtonComponent
+        @click="rootStore.uploadProject = true"
+        url="content/order.png"
+        urlHover="content/order-hover.png"
         class="content__button"
-        >Заказать</TestButton
-      >
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import TestButton from "@/components/TestButton.vue";
+import ButtonComponent from "@/components/ButtonComponent.vue";
 import { useRouter } from "vue-router";
-import { useHomeStore } from "@/store";
+import { useRootStore } from "@/store";
+import { useVisualizationStore } from "@/store";
 
 const router = useRouter();
-const homeStore = useHomeStore();
+
+const rootStore = useRootStore();
+const visualizationStore = useVisualizationStore();
 </script>
 
 <style lang="scss" scoped>
@@ -62,10 +65,7 @@ const homeStore = useHomeStore();
       font-size: 26px;
     }
     &__button {
-      width: 240px;
-      &:hover {
-        box-shadow: 0 0 1px 1px white;
-      }
+      height: 60px;
     }
   }
 }

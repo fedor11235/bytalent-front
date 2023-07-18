@@ -49,10 +49,8 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
-import { useHomeStore } from "@/store";
 
 const router = useRouter();
-const homeStore = useHomeStore();
 
 const menu = [
   "Коммерция",

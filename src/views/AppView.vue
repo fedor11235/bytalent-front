@@ -5,7 +5,7 @@
         urlButton="header/app.png"
         urlButtonHover="header/app.png"
         type="burger"
-        @switch="homeStore.infoPage = !homeStore.infoPage"
+        @switch="rootStore.infoPage = !rootStore.infoPage"
       />
       <ContentComponent />
       <FooterComponent
@@ -22,9 +22,9 @@
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import ContentComponent from "@/components/app/ContentComponent.vue";
 import FooterComponent from "@/components/common/FooterComponent.vue";
-import { useHomeStore } from "@/store";
+import { useRootStore } from "@/store";
 
-const homeStore = useHomeStore();
+const rootStore = useRootStore();
 </script>
 
 <style lang="scss" scoped>

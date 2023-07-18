@@ -1,5 +1,5 @@
 <template>
-  <div class="back-screen" @click.self="homeStore.popupOrder = false">
+  <div class="back-screen" @click.self="visualizationStore.popupOrder = false">
     <div class="popup">
       <div class="popup__row popup__row-border">
         <div>Название</div>
@@ -36,7 +36,9 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { useHomeStore } from "@/store";
+import { useVisualizationStore } from "@/store";
+
+const visualizationStore = useVisualizationStore();
 
 const typesProgect = [
   { name: "Выберите тип проекта", value: 0 },
@@ -50,8 +52,6 @@ const typesProgect = [
 const name = ref("");
 const address = ref("");
 const type = ref(typesProgect[0].value);
-
-const homeStore = useHomeStore();
 </script>
 
 <style lang="scss" scoped>

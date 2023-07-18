@@ -7,7 +7,7 @@
         urlButtonHover="header/profile.png"
         type="cross"
         :isTitleButton="true"
-        @switch="homeStore.infoPage = !homeStore.infoPage"
+        @switch="rootStore.infoPage = !rootStore.infoPage"
       />
       <div class="description">
         <div class="description__card">
@@ -65,10 +65,11 @@
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import TestButton from "@/components/TestButton.vue";
 import { useRouter } from "vue-router";
-import { useHomeStore } from "@/store";
+import { useRootStore } from "@/store";
+
+const rootStore = useRootStore();
 
 const router = useRouter();
-const homeStore = useHomeStore();
 
 const menu = ["Активные проекты", "Коммерция", "Уведомления"];
 
@@ -89,7 +90,7 @@ const dropdown = [
 
 function handlerClick() {
   router.push({ name: "settings" });
-  homeStore.infoPage = false;
+  rootStore.infoPage = false;
 }
 </script>
 

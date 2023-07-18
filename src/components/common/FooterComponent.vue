@@ -19,7 +19,7 @@
         {{ "0" + curentPages }}
       </div>
       <div v-else class="footer__page-one" :style="{ color: textPageOne }">
-        {{ homeStore.secondPage ? "02" : "01" }}
+        {{ visualizationStore.secondPage ? "02" : "01" }}
       </div>
       <div class="footer__page-up">
         <img
@@ -61,10 +61,10 @@
       <div
         v-else-if="typeof curentPages === 'number'"
         class="footer__download__cross"
-        @click="homeStore.uploadProject = true"
+        @click="rootStore.uploadProject = true"
       ></div>
       <div
-        v-else-if="homeStore.secondPage"
+        v-else-if="visualizationStore.secondPage"
         @click="router.push({ name: 'new-lavel' })"
         class="footer__download_button"
         :style="{ color: textColor, textShadow: `1px 1px 6px ${textColor}` }"
@@ -73,7 +73,7 @@
       </div>
       <div
         v-else
-        @click="homeStore.uploadProject = true"
+        @click="rootStore.uploadProject = true"
         class="footer__download_button"
         :style="{ color: textColor, textShadow: `1px 1px 6px ${textColor}` }"
       >
@@ -105,11 +105,13 @@
 
 <script setup lang="ts">
 import { ref, computed, toRef } from "vue";
-import { useHomeStore } from "@/store";
 import { useRouter } from "vue-router";
+import { useRootStore } from "@/store";
+import { useVisualizationStore } from "@/store";
 
 const router = useRouter();
-const homeStore = useHomeStore();
+const rootStore = useRootStore();
+const visualizationStore = useVisualizationStore();
 
 const props = defineProps<{
   theme?: "light";
@@ -179,7 +181,7 @@ const rightArrowImg = computed(() => {
 
 function handlerNextPage() {
   if (typeof curentPages.value === "number") return;
-  homeStore.secondPage = !homeStore.secondPage;
+  visualizationStore.secondPage = !visualizationStore.secondPage;
 }
 </script>
 

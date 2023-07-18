@@ -7,7 +7,7 @@
         urlButtonHover="header/main.png"
         type="burger"
         :isTitleButton="true"
-        @switch="homeStore.infoPage = !homeStore.infoPage"
+        @switch="rootStore.infoPage = !rootStore.infoPage"
       />
       <div class="media">
         <div class="carousel">
@@ -42,12 +42,10 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from "vue-router";
-import { useHomeStore } from "@/store";
+import { useRootStore } from "@/store";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 
-const router = useRouter();
-const homeStore = useHomeStore();
+const rootStore = useRootStore();
 
 const menu = [
   "Личный ассистент",

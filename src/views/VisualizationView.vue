@@ -1,9 +1,9 @@
 <template>
   <div
-    class="home"
+    class="visualization"
     :style="{
       backgroundImage: `url(${require(`@/assets/${
-        homeStore.secondPage ? 'bg-second' : 'bg-first'
+        visualizationStore.secondPage ? 'bg-second' : 'bg-first'
       }.jpeg`)})`,
     }"
   >
@@ -11,14 +11,14 @@
       <div class="blackout" v-if="blackout" />
     </Transition>
     <Transition name="fade">
-      <PopupOrder v-if="homeStore.popupOrder" />
+      <PopupOrder v-if="visualizationStore.popupOrder" />
     </Transition>
-    <div class="home__backdrop">
+    <div class="visualization__backdrop">
       <HeaderComponent
         urlButton="header/visualization.png"
         urlButtonHover="header/visualization-hover.png"
         type="burger"
-        @switch="homeStore.infoPage = !homeStore.infoPage"
+        @switch="rootStore.infoPage = !rootStore.infoPage"
       />
       <ContentComponent />
       <FooterComponent :numberPages="2" />
@@ -29,16 +29,18 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
-import ContentComponent from "@/components/home/ContentComponent.vue";
+import ContentComponent from "@/components/visualization/ContentComponent.vue";
 import FooterComponent from "@/components/common/FooterComponent.vue";
-import PopupOrder from "@/components/home/PopupOrder.vue";
-import { useHomeStore } from "@/store";
+import PopupOrder from "@/components/visualization/PopupOrder.vue";
+import { useRootStore } from "@/store";
+import { useVisualizationStore } from "@/store";
 
-const homeStore = useHomeStore();
+const rootStore = useRootStore();
+const visualizationStore = useVisualizationStore();
 const blackout = ref(false);
 
 watch(
-  () => homeStore.secondPage,
+  () => visualizationStore.secondPage,
   () => {
     blackout.value = true;
     setTimeout(() => (blackout.value = false), 300);
@@ -47,7 +49,7 @@ watch(
 </script>
 
 <style lang="scss" scoped>
-.home {
+.visualization {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
