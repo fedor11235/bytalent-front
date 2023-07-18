@@ -33,8 +33,8 @@
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import HeaderComponent from "@/components/home/HeaderComponent.vue";
-import ContentComponent from "@/components/home/ContentComponent.vue";
+import HeaderComponent from "@/components/common/HeaderComponent.vue";
+import ContentComponent from "@/components/streaming/ContentComponent.vue";
 import FooterComponent from "@/components/common/FooterComponent.vue";
 import PopupOrder from "@/components/home/PopupOrder.vue";
 import { useHomeStore } from "@/store";

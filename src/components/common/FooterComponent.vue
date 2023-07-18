@@ -56,6 +56,7 @@
         v-else-if="homeStore.secondPage"
         @click="router.push({ name: 'new-lavel' })"
         class="footer__download_button"
+        :style="{ color: textColor, textShadow: `1px 1px 6px ${textColor}` }"
       >
         Новый уровень
       </div>
@@ -63,6 +64,7 @@
         v-else
         @click="homeStore.uploadProject = true"
         class="footer__download_button"
+        :style="{ color: textColor, textShadow: `1px 1px 6px ${textColor}` }"
       >
         + Загрузить готовый проект
       </div>

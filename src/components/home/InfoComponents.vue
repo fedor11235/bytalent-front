@@ -61,7 +61,7 @@
 </template>
 
 <script setup lang="ts">
-import HeaderComponent from "@/components/home/HeaderComponent.vue";
+import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import TestButton from "@/components/TestButton.vue";
 import { useRouter } from "vue-router";
 import { useHomeStore } from "@/store";

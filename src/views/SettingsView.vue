@@ -47,7 +47,7 @@
 
 <script setup lang="ts">
 import { useRouter } from "vue-router";
-import HeaderComponent from "@/components/home/HeaderComponent.vue";
+import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import { useHomeStore } from "@/store";
 
 const router = useRouter();
