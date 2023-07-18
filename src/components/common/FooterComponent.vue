@@ -1,14 +1,17 @@
 <template>
   <div class="footer">
     <div class="footer__navigation">
-      <img
-        :src="require(`@/assets/footer/${leftArrowImg}.svg`)"
+      <div
+        class="footer__navigation_img"
+        :style="{
+          backgroundImage: `url(${require(`@/assets/footer/${leftArrowImg}`)})`,
+        }"
         @mouseover="leftArrowHover = true"
         @mouseleave="leftArrowHover = false"
         @click="homeStore.secondPage = !homeStore.secondPage"
         alt="left arrow"
-      />
-      <div class="footer__page-one">
+      ></div>
+      <div class="footer__page-one" :style="{ color: textPageOne }">
         {{ homeStore.secondPage ? "02" : "01" }}
       </div>
       <div class="footer__page-up">
@@ -17,15 +20,18 @@
           src="@/assets/footer/slash.svg"
           alt="slash"
         />
-        <div class="footer__page-two">02</div>
+        <div class="footer__page-two" :style="{ color: textPageTwo }">02</div>
       </div>
-      <img
-        :src="require(`@/assets/footer/${rightArrowImg}.svg`)"
+      <div
+        class="footer__navigation_img"
+        :style="{
+          backgroundImage: `url(${require(`@/assets/footer/${rightArrowImg}`)})`,
+        }"
         @mouseover="rightArrowHover = true"
         @mouseleave="rightArrowHover = false"
         @click="homeStore.secondPage = !homeStore.secondPage"
         alt="left arrow"
-      />
+      ></div>
     </div>
     <div class="footer__download">
       <div>|</div>
@@ -33,6 +39,7 @@
         v-if="homeStore.secondPage"
         @click="router.push({ name: 'new-lavel' })"
         class="footer__download_button"
+        :style="{ color: textColor, textShadow: `1px 1px 6px ${textColor}` }"
       >
         Новый уровень
       </div>
@@ -40,6 +47,7 @@
         v-else
         @click="homeStore.uploadProject = true"
         class="footer__download_button"
+        :style="{ color: textColor, textShadow: `1px 1px 6px ${textColor}` }"
       >
         + Загрузить готовый проект
       </div>
@@ -52,29 +60,71 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, toRef } from "vue";
 import { useHomeStore } from "@/store";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 const homeStore = useHomeStore();
 
+const props = defineProps<{
+  theme?: "light";
+}>();
+
+const theme = toRef(props, "theme");
+
 const leftArrowHover = ref(false);
 const rightArrowHover = ref(false);
 
+const textColor = computed(() => {
+  if (theme.value === "light") {
+    return "black";
+  } else {
+    return "white";
+  }
+});
+
+const textPageOne = computed(() => {
+  if (theme.value === "light") {
+    return "#161616";
+  } else {
+    return "#d4d4d4";
+  }
+});
+
+const textPageTwo = computed(() => {
+  if (theme.value === "light") {
+    return "#353535";
+  } else {
+    return "#8b8b8b";
+  }
+});
+
 const leftArrowImg = computed(() => {
   if (leftArrowHover.value) {
-    return "left-arrow-active";
+    if (theme.value === "light") {
+      return "left-arrow-light-active.png";
+    }
+    return "left-arrow-active.svg";
   } else {
-    return "left-arrow";
+    if (theme.value === "light") {
+      return "left-arrow-light.png";
+    }
+    return "left-arrow.svg";
   }
 });
 
 const rightArrowImg = computed(() => {
   if (rightArrowHover.value) {
-    return "right-arrow-active";
+    if (theme.value === "light") {
+      return "right-arrow-light-active.png";
+    }
+    return "right-arrow-active.svg";
   } else {
-    return "right-arrow";
+    if (theme.value === "light") {
+      return "right-arrow-light.png";
+    }
+    return "right-arrow.svg";
   }
 });
 </script>
@@ -95,15 +145,21 @@ const rightArrowImg = computed(() => {
     width: 35%;
     height: 7vh;
     justify-content: space-between;
+    &_img {
+      width: 20%;
+      height: 100%;
+      background-position: 100%;
+      background-repeat: no-repeat;
+      background-size: 80%;
+      cursor: pointer;
+    }
   }
   &__download {
     display: flex;
     justify-content: space-between;
     width: 55%;
     div {
-      color: #fff;
       text-align: center;
-      text-shadow: 1px 1px 6px #fff;
       cursor: pointer;
       margin-top: -1%;
       font-family: "Jost 100 hairline", sans-serif;
@@ -113,11 +169,7 @@ const rightArrowImg = computed(() => {
       scale: 1.01;
     }
   }
-  img {
-    cursor: pointer;
-  }
   &__page-one {
-    color: #d4d4d4;
     letter-spacing: -8px;
     font-family: Jura, sans-serif;
     font-size: 8.5vh;
@@ -135,7 +187,6 @@ const rightArrowImg = computed(() => {
     margin-bottom: 1vh;
   }
   &__page-two {
-    color: #8b8b8b;
     letter-spacing: -4px;
     font-family: Jura, sans-serif;
     font-size: 5vh;

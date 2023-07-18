@@ -26,7 +26,7 @@
         @switch="homeStore.infoPage = !homeStore.infoPage"
       />
       <ContentComponent />
-      <FooterComponent />
+      <FooterComponent theme="light" />
     </div>
   </div>
 </template>
@@ -35,7 +35,7 @@
 import { ref, watch } from "vue";
 import HeaderComponent from "@/components/home/HeaderComponent.vue";
 import ContentComponent from "@/components/home/ContentComponent.vue";
-import FooterComponent from "@/components/home/FooterComponent.vue";
+import FooterComponent from "@/components/common/FooterComponent.vue";
 import PopupOrder from "@/components/home/PopupOrder.vue";
 import { useHomeStore } from "@/store";
 
