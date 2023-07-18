@@ -26,7 +26,7 @@
         @switch="homeStore.infoPage = !homeStore.infoPage"
       />
       <ContentComponent />
-      <FooterComponent theme="light" />
+      <FooterComponent theme="light" :curentPages="0" :numberPages="0" />
     </div>
   </div>
 </template>

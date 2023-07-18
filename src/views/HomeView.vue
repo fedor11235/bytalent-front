@@ -35,7 +35,7 @@
         @switch="homeStore.infoPage = !homeStore.infoPage"
       />
       <ContentComponent />
-      <FooterComponent />
+      <FooterComponent :numberPages="2" />
     </div>
   </div>
 </template>

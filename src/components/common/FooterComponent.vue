@@ -8,10 +8,17 @@
         }"
         @mouseover="leftArrowHover = true"
         @mouseleave="leftArrowHover = false"
-        @click="homeStore.secondPage = !homeStore.secondPage"
+        @click="handlerNextPage"
         alt="left arrow"
       ></div>
-      <div class="footer__page-one" :style="{ color: textPageOne }">
+      <div
+        v-if="typeof curentPages === 'number'"
+        class="footer__page-one"
+        :style="{ color: textPageOne }"
+      >
+        {{ "0" + curentPages }}
+      </div>
+      <div v-else class="footer__page-one" :style="{ color: textPageOne }">
         {{ homeStore.secondPage ? "02" : "01" }}
       </div>
       <div class="footer__page-up">
@@ -20,7 +27,9 @@
           src="@/assets/footer/slash.svg"
           alt="slash"
         />
-        <div class="footer__page-two" :style="{ color: textPageTwo }">02</div>
+        <div class="footer__page-two" :style="{ color: textPageTwo }">
+          {{ "0" + numberPages }}
+        </div>
       </div>
       <div
         class="footer__navigation_img"
@@ -29,17 +38,24 @@
         }"
         @mouseover="rightArrowHover = true"
         @mouseleave="rightArrowHover = false"
-        @click="homeStore.secondPage = !homeStore.secondPage"
+        @click="handlerNextPage"
         alt="left arrow"
       ></div>
     </div>
     <div class="footer__download">
-      <div>|</div>
       <div
-        v-if="homeStore.secondPage"
+        :style="{ color: textColor, textShadow: `1px 1px 6px ${textColor}` }"
+      >
+        |
+      </div>
+      <div
+        v-if="typeof curentPages === 'number'"
+        class="footer__download__cross"
+      ></div>
+      <div
+        v-else-if="homeStore.secondPage"
         @click="router.push({ name: 'new-lavel' })"
         class="footer__download_button"
-        :style="{ color: textColor, textShadow: `1px 1px 6px ${textColor}` }"
       >
         Новый уровень
       </div>
@@ -47,14 +63,29 @@
         v-else
         @click="homeStore.uploadProject = true"
         class="footer__download_button"
-        :style="{ color: textColor, textShadow: `1px 1px 6px ${textColor}` }"
       >
         + Загрузить готовый проект
       </div>
-      <div>|</div>
-      <div>|</div>
-      <div>|</div>
-      <div>|</div>
+      <div
+        :style="{ color: textColor, textShadow: `1px 1px 6px ${textColor}` }"
+      >
+        |
+      </div>
+      <div
+        :style="{ color: textColor, textShadow: `1px 1px 6px ${textColor}` }"
+      >
+        |
+      </div>
+      <div
+        :style="{ color: textColor, textShadow: `1px 1px 6px ${textColor}` }"
+      >
+        |
+      </div>
+      <div
+        :style="{ color: textColor, textShadow: `1px 1px 6px ${textColor}` }"
+      >
+        |
+      </div>
     </div>
   </div>
 </template>
@@ -69,9 +100,12 @@ const homeStore = useHomeStore();
 
 const props = defineProps<{
   theme?: "light";
+  numberPages?: number;
+  curentPages?: number;
 }>();
 
 const theme = toRef(props, "theme");
+const curentPages = toRef(props, "curentPages");
 
 const leftArrowHover = ref(false);
 const rightArrowHover = ref(false);
@@ -127,6 +161,11 @@ const rightArrowImg = computed(() => {
     return "right-arrow.svg";
   }
 });
+
+function handlerNextPage() {
+  if (typeof curentPages.value === "number") return;
+  homeStore.secondPage = !homeStore.secondPage;
+}
 </script>
 
 <style lang="scss" scoped>
@@ -158,6 +197,14 @@ const rightArrowImg = computed(() => {
     display: flex;
     justify-content: space-between;
     width: 55%;
+    &__cross {
+      background-image: url(http://localhost:8080/img/cross.2af0edda.svg);
+      height: 35px;
+      width: 35px;
+      cursor: pointer;
+      background-size: cover;
+      transform: rotate(45deg);
+    }
     div {
       text-align: center;
       cursor: pointer;
