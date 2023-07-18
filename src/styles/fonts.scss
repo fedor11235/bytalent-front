@@ -1,5 +1,16 @@
 @font-face {
-  font-family: "TrebleBold";
-  src: local("TrebleBold"),
-    url("@/styles/fonts/TrebleBold.ttf") format("truetype")
+  font-family: "JuraMedium";
+  src: local("JuraMedium"),
+    url("@/styles/fonts/JuraMedium.ttf") format("truetype")
 }
+@font-face {
+  font-family: "Jost100Hairline";
+  src: local("Jost100Hairline"),
+    url("@/styles/fonts/Jost100Hairline.ttf") format("truetype")
+}
+@font-face {
+  font-family: "OswaldExtraLight";
+  src: local("OswaldExtraLight"),
+    url("@/styles/fonts/OswaldExtraLight.ttf") format("truetype")
+}
+

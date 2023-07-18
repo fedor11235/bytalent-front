@@ -51,17 +51,15 @@ const homeStore = useHomeStore();
     &__title {
       color: #fff;
       white-space: pre-line;
-      font-family: Jura, sans-serif;
+      font-family: JuraMedium, sans-serif;
       font-size: 8vh;
       font-style: normal;
-      font-weight: 400;
       line-height: 120%;
     }
     &__text {
       color: #b6b6b6;
-      font-family: Oswald, sans-serif;
+      font-family: OswaldExtraLight, sans-serif;
       font-size: 26px;
-      font-weight: 200;
     }
     &__button {
       width: 240px;

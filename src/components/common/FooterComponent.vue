@@ -224,7 +224,7 @@ function handlerNextPage() {
       text-align: center;
       cursor: pointer;
       margin-top: -1%;
-      font-family: "Jost 100 hairline", sans-serif;
+      font-family: Jost100Hairline, sans-serif;
       font-size: 24px;
     }
     &_button:hover {
@@ -233,7 +233,7 @@ function handlerNextPage() {
   }
   &__page-one {
     letter-spacing: -8px;
-    font-family: Jura, sans-serif;
+    font-family: JuraMedium, sans-serif;
     font-size: 8.5vh;
     font-style: normal;
     line-height: 44%;
@@ -250,7 +250,7 @@ function handlerNextPage() {
   }
   &__page-two {
     letter-spacing: -4px;
-    font-family: Jura, sans-serif;
+    font-family: JuraMedium, sans-serif;
     font-size: 5vh;
     line-height: 42px;
   }
