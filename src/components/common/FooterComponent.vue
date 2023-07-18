@@ -27,7 +27,10 @@
           src="@/assets/footer/slash.svg"
           alt="slash"
         />
-        <div class="footer__page-two" :style="{ color: textPageTwo }">
+        <div
+          class="footer__page-two"
+          :style="{ color: colorTwoPages ?? textPageTwo }"
+        >
           {{ "0" + numberPages }}
         </div>
       </div>
@@ -49,7 +52,14 @@
         |
       </div>
       <div
-        v-if="typeof curentPages === 'number'"
+        v-if="textButton"
+        class="footer__download_button"
+        :style="{ color: textColor, textShadow: `1px 1px 6px ${textColor}` }"
+      >
+        {{ textButton }}
+      </div>
+      <div
+        v-else-if="typeof curentPages === 'number'"
         class="footer__download__cross"
         @click="homeStore.uploadProject = true"
       ></div>
@@ -105,6 +115,8 @@ const props = defineProps<{
   theme?: "light";
   numberPages?: number;
   curentPages?: number;
+  colorTwoPages?: string;
+  textButton?: string;
 }>();
 
 const theme = toRef(props, "theme");
