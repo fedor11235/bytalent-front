@@ -69,21 +69,4 @@ watch(
     background-color: rgba(0, 0, 0, 0.58);
   }
 }
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.trans-enter-active,
-.trans-leave-active {
-  transition: opacity 0.2s ease;
-}
-.trans-enter-from,
-.trans-leave-to {
-  opacity: 0;
-}
 </style>

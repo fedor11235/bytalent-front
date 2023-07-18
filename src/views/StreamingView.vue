@@ -80,21 +80,4 @@ const blackout = ref(false);
     background-color: rgba(255, 255, 255, 0.51);
   }
 }
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.trans-enter-active,
-.trans-leave-active {
-  transition: opacity 0.2s ease;
-}
-.trans-enter-from,
-.trans-leave-to {
-  opacity: 0;
-}
 </style>
