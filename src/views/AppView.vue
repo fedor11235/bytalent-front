@@ -2,8 +2,8 @@
   <div class="app">
     <div class="app__backdrop">
       <HeaderComponent
-        urlButton="header/visualization.png"
-        urlButtonHover="header/visualization-hover.png"
+        urlButton="header/app.png"
+        urlButtonHover="header/app.png"
         type="burger"
         @switch="homeStore.infoPage = !homeStore.infoPage"
       />

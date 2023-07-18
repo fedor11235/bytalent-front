@@ -6,6 +6,7 @@
         urlButton="header/main.png"
         urlButtonHover="header/main.png"
         type="burger"
+        :isTitleButton="true"
         @switch="homeStore.infoPage = !homeStore.infoPage"
       />
       <div class="media">

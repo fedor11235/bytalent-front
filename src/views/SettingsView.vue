@@ -6,6 +6,7 @@
         urlButton="header/settings.png"
         urlButtonHover="header/settings.png"
         type="cross"
+        :isTitleButton="true"
         @switch="router.push({ name: 'home' })"
       />
       <div class="description">

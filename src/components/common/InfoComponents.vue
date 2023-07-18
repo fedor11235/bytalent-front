@@ -6,6 +6,7 @@
         urlButton="header/profile.png"
         urlButtonHover="header/profile.png"
         type="cross"
+        :isTitleButton="true"
         @switch="homeStore.infoPage = !homeStore.infoPage"
       />
       <div class="description">

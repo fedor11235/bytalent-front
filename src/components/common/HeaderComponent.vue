@@ -10,7 +10,27 @@
         backgroundImage: `url(${require(`@/assets/${lineLeft}.png`)})`,
       }"
     ></div>
-    <ButtonComponent :url="urlButton" :urlHover="urlButtonHover" />
+    <ButtonComponent
+      v-if="isTitleButton"
+      :url="urlButton"
+      :urlHover="urlButtonHover"
+    />
+    <div v-else class="header__button">
+      <ButtonComponent
+        :url="urlButton"
+        :urlHover="urlButtonHover"
+        @click="isDropDawn = !isDropDawn"
+      />
+      <div v-if="isDropDawn" class="header__dropdawn">
+        <ButtonComponent
+          v-for="button of hiddenButtons"
+          :key="button.path"
+          :url="button.static"
+          :urlHover="button.hover"
+          @click="router.push({ name: button.path })"
+        />
+      </div>
+    </div>
     <div
       class="header__line-right"
       :style="{
@@ -22,9 +42,18 @@
 </template>
 
 <script setup lang="ts">
-import { computed, toRef } from "vue";
+import { ref, computed, toRef } from "vue";
 import BurgerComponent from "@/components/BurgerComponent.vue";
 import ButtonComponent from "@/components/ButtonComponent.vue";
+import { useRouter } from "vue-router";
+
+type Buttons = {
+  static: string;
+  hover: string;
+  path: string;
+};
+
+const router = useRouter();
 
 const emit = defineEmits(["switch"]);
 
@@ -33,9 +62,34 @@ const props = defineProps<{
   urlButton: string;
   urlButtonHover: string;
   type: "burger" | "cross";
+  isTitleButton?: boolean;
 }>();
 
+const buttons = [
+  {
+    static: "header/visualization.png",
+    hover: "header/visualization-hover.png",
+    path: "home",
+  },
+  {
+    static: "header/streaming.png",
+    hover: "header/streaming.png",
+    path: "streaming",
+  },
+  { static: "header/app.png", hover: "header/app.png", path: "app" },
+];
+
+const hiddenButtons: Array<Buttons> = [];
+
+for (const button of buttons) {
+  if (button.static != props.urlButton) {
+    hiddenButtons.push(button);
+  }
+}
+
 const theme = toRef(props, "theme");
+
+const isDropDawn = ref(false);
 
 const logo = computed(() => {
   if (theme.value === "light") return "logo-light";
@@ -74,6 +128,13 @@ const lineRight = computed(() => {
     background-position: 100%;
     background-repeat: no-repeat;
     background-size: 90px;
+  }
+  &__button {
+    position: relative;
+  }
+  &__dropdawn {
+    position: absolute;
+    scale: 0.9;
   }
   &__line-right {
     height: 4px;
