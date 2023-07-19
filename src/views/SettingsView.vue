@@ -84,11 +84,11 @@ const dropdown = [
 ];
 
 function chooseIcon(item: string) {
-  if(item === "Коммерция") return "cards"
-  if(item === "Личные данные") return "personal"
-  if(item === "Юридические данные") return "docs"
-  if(item === "Официальный ссылки") return "integration"
-  if(item === "Безопасность") return "security"
+  if (item === "Коммерция") return "cards";
+  if (item === "Личные данные") return "personal";
+  if (item === "Юридические данные") return "docs";
+  if (item === "Официальный ссылки") return "integration";
+  if (item === "Безопасность") return "security";
 }
 </script>
 
@@ -149,9 +149,9 @@ function chooseIcon(item: string) {
         display: flex;
         flex-direction: column;
         align-items: center;
-        box-shadow: 0 4px 5px rgba(0, 0, 0, .26);
+        box-shadow: 0 4px 5px rgba(0, 0, 0, 0.26);
         &_elem {
-          text-shadow: 0 3px 3px rgba(0, 0, 0, .85);
+          text-shadow: 0 3px 3px rgba(0, 0, 0, 0.85);
           width: 94%;
           height: 8vh;
           color: #fff;
@@ -162,7 +162,7 @@ function chooseIcon(item: string) {
           font-size: 1.8vh;
           font-weight: 300;
           display: flex;
-          border-bottom: 1px solid rgba(255, 255, 255, .1);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
       }
       &__menu {
