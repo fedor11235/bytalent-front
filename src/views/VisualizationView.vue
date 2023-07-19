@@ -2,8 +2,8 @@
   <div
     class="visualization"
     :style="{
-      backgroundImage: `url(${require(`@/assets/${
-        visualizationStore.secondPage ? 'bg-second' : 'bg-first'
+      backgroundImage: `url(${require(`@/assets/backgrounds/${
+        visualizationStore.secondPage ? 'visualization-second' : 'visualization-first'
       }.jpeg`)})`,
     }"
   >
@@ -53,7 +53,6 @@ watch(
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background-image: url(@/assets/bg-first.jpeg);
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;

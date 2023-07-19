@@ -12,11 +12,11 @@
       <div class="media">
         <div class="carousel">
           <div class="carousel__arrow carousel__arrow-left"></div>
-          <img class="carousel__img" src="@/assets/lvel/bg.jpeg" alt="img" />
-          <img class="carousel__img" src="@/assets/lvel/bg.jpeg" alt="img" />
-          <img class="carousel__img" src="@/assets/lvel/bg.jpeg" alt="img" />
-          <img class="carousel__img" src="@/assets/lvel/bg.jpeg" alt="img" />
-          <img class="carousel__img" src="@/assets/lvel/bg.jpeg" alt="img" />
+          <img class="carousel__img" src="@/assets/lvel/carousel.jpeg" alt="img" />
+          <img class="carousel__img" src="@/assets/lvel/carousel.jpeg" alt="img" />
+          <img class="carousel__img" src="@/assets/lvel/carousel.jpeg" alt="img" />
+          <img class="carousel__img" src="@/assets/lvel/carousel.jpeg" alt="img" />
+          <img class="carousel__img" src="@/assets/lvel/carousel.jpeg" alt="img" />
           <div class="carousel__arrow carousel__arrow-right"></div>
         </div>
       </div>
@@ -62,7 +62,7 @@ const menu = [
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background-image: url(@/assets/lvel/bg.jpeg);
+  background-image: url(@/assets/backgrounds/lvel.jpeg);
   background-position: 0 0;
   box-shadow: inset 0 0 5px #000;
   background-repeat: no-repeat;

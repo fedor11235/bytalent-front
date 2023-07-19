@@ -88,7 +88,7 @@ const dropdown = [
     position: fixed;
     height: 100vh;
     width: 100vw;
-    background-image: url(@/assets/info/bg.png);
+    background-image: url(@/assets/backgrounds/info.png);
     background-position: 50% 100%;
     background-repeat: no-repeat;
     background-size: contain;

@@ -39,7 +39,7 @@ const blackout = ref(false);
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background-image: url(@/assets/streaming/bg.jpeg);
+  background-image: url(@/assets/backgrounds/streaming.jpeg);
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;

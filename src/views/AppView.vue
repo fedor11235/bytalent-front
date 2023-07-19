@@ -32,7 +32,7 @@ const rootStore = useRootStore();
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background-image: url(@/assets/app/bg.jpg);
+  background-image: url(@/assets/backgrounds/app.jpg);
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;

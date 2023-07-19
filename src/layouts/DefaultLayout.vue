@@ -1,18 +1,10 @@
-<!-- <template>
+<template>
   <div
-    class="visualization"
+    class="layout"
     :style="{
-      backgroundImage: `url(${require(`@/assets/${
-        visualizationStore.secondPage ? 'bg-second' : 'bg-first'
-      }.jpeg`)})`,
+      backgroundImage: `url(${require(`@/assets/backgrounds/${bg}`)})`,
     }"
   >
-    <Transition name="trans">
-      <div class="blackout" v-if="blackout" />
-    </Transition>
-    <Transition name="fade">
-      <PopupOrder v-if="visualizationStore.popupOrder" />
-    </Transition>
     <div class="visualization__backdrop">
       <HeaderComponent
         urlButton="header/visualization.png"
@@ -27,33 +19,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import ContentComponent from "@/components/visualization/ContentComponent.vue";
 import FooterComponent from "@/components/common/FooterComponent.vue";
-import PopupOrder from "@/components/visualization/PopupOrder.vue";
 import { useRootStore } from "@/store";
-import { useVisualizationStore } from "@/store";
 
 const rootStore = useRootStore();
-const visualizationStore = useVisualizationStore();
-const blackout = ref(false);
 
-watch(
-  () => visualizationStore.secondPage,
-  () => {
-    blackout.value = true;
-    setTimeout(() => (blackout.value = false), 300);
-  }
-);
+defineProps<{
+  bg: string;
+}>();
 </script>
 
 <style lang="scss" scoped>
-.visualization {
+.layout {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background-image: url(@/assets/bg-first.jpeg);
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -71,4 +53,4 @@ watch(
     background-color: rgba(0, 0, 0, 0.58);
   }
 }
-</style> -->
+</style>
