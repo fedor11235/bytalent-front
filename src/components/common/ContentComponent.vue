@@ -12,7 +12,7 @@
         {{ text }}
       </div>
       <ButtonComponent
-        @click="rootStore.uploadProject = true"
+        @click="handlerBtnContentClick"
         :url="`content/${urlBtn}.png`"
         :urlHover="`content/${urlBtnHover}.png`"
         class="content__button"
@@ -22,10 +22,8 @@
 </template>
 
 <script setup lang="ts">
+import { inject } from 'vue'
 import ButtonComponent from "@/components/ButtonComponent.vue";
-import { useRootStore } from "@/store";
-
-const rootStore = useRootStore();
 
 defineProps<{
   theme?: "light";
@@ -34,6 +32,8 @@ defineProps<{
   urlBtn: string;
   urlBtnHover: string;
 }>();
+
+const handlerBtnContentClick = inject('handlerBtnContentClick') as (...args: any[]) => void;
 </script>
 
 <style lang="scss" scoped>

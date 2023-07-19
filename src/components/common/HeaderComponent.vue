@@ -28,6 +28,7 @@
           :url="button.static"
           :urlHover="button.hover"
           @click="router.push({ name: button.path })"
+          class="header__dropdawn_button"
         />
       </div>
     </div>
@@ -135,6 +136,13 @@ const lineRight = computed(() => {
   &__dropdawn {
     position: absolute;
     scale: 0.9;
+    &_button {
+      margin-top: 8px;
+      transition: transform .3s;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
   }
   &__line-right {
     height: 4px;

@@ -16,7 +16,17 @@
 </template>
 
 <script setup lang="ts">
+import { provide } from 'vue'
+import { useRootStore } from "@/store";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
+
+const rootStore = useRootStore();
+
+function handlerBtnContentClick() {
+  rootStore.uploadProject = true
+}
+
+provide('handlerBtnContentClick', handlerBtnContentClick)
 </script>
 
 <style lang="scss" scoped></style>
