@@ -1,5 +1,5 @@
 <template>
-  <div class="back-screen" @click.self="visualizationStore.popupOrder = false">
+  <div class="back-screen" @click.self="rootStore.popupUpload = false">
     <div class="popup">
       <div class="popup__row popup__row-border">
         <div>Название</div>
@@ -36,9 +36,9 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { useVisualizationStore } from "@/store";
+import { useRootStore } from "@/store";
 
-const visualizationStore = useVisualizationStore();
+const rootStore = useRootStore();
 
 const typesProgect = [
   { name: "Выберите тип проекта", value: 0 },
@@ -96,7 +96,7 @@ const type = ref(typesProgect[0].value);
         color: #e2e2e2;
         background-color: rgba(0, 0, 0, 0);
         border: 1px solid rgba(0, 0, 0, 0);
-        font-family: Jura, sans-serif;
+        font-family: JuraMedium, sans-serif;
         font-size: 2.7vh;
         &:focus {
           outline: 0;
@@ -112,7 +112,7 @@ const type = ref(typesProgect[0].value);
       border-radius: 15px;
       width: 23%;
       height: 11%;
-      font-family: Jura, sans-serif;
+      font-family: JuraMedium, sans-serif;
       font-size: 2vh;
       font-weight: 600;
       color: white;

@@ -1,12 +1,12 @@
 <template>
   <div @click.self="rootStore.uploadProject = false" class="order">
     <div
-      @click="visualizationStore.popupOrder = true"
+      @click="rootStore.popupUpload = true"
       class="order__visualization"
     >
       Заказать визуализацию объекта недвижимости
     </div>
-    <div @click="visualizationStore.popupOrder = true" class="order__project">
+    <div @click="rootStore.popupUpload = true" class="order__project">
       Загрузить готовый дизайн-проект
     </div>
   </div>
@@ -14,9 +14,7 @@
 
 <script setup lang="ts">
 import { useRootStore } from "@/store";
-import { useVisualizationStore } from "@/store";
 
-const visualizationStore = useVisualizationStore();
 const rootStore = useRootStore();
 </script>
 
