@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { inject } from 'vue'
+import { inject } from "vue";
 import ButtonComponent from "@/components/ButtonComponent.vue";
 
 defineProps<{
@@ -33,7 +33,9 @@ defineProps<{
   urlBtnHover: string;
 }>();
 
-const handlerBtnContentClick = inject('handlerBtnContentClick') as (...args: any[]) => void;
+const handlerBtnContentClick = inject("handlerBtnContentClick") as (
+  ...args: any[]
+) => void;
 </script>
 
 <style lang="scss" scoped>

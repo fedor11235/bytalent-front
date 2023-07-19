@@ -8,6 +8,7 @@
         }"
         @mouseover="leftArrowHover = true"
         @mouseleave="leftArrowHover = false"
+        @click="handlerBtnNavigationClick"
         alt="left arrow"
       ></div>
       <div class="footer__page-one" :style="{ color: textPageOne }">
@@ -30,49 +31,35 @@
         }"
         @mouseover="rightArrowHover = true"
         @mouseleave="rightArrowHover = false"
+        @click="handlerBtnNavigationClick"
         alt="left arrow"
       ></div>
     </div>
     <div class="footer__download">
-      <div
-        :style="{ color: textColor, textShadow: `1px 1px 6px ${textColor}` }"
-      >
-        |
-      </div>
+      <div :style="verticalBarStyle">|</div>
       <div
         v-if="textButton"
         class="footer__download_button"
-        :style="{ color: textColor, textShadow: `1px 1px 6px ${textColor}` }"
+        :style="verticalBarStyle"
+        @click="handlerBtnFooterClick"
       >
         {{ textButton }}
       </div>
-      <div v-else class="footer__download__cross"></div>
       <div
-        :style="{ color: textColor, textShadow: `1px 1px 6px ${textColor}` }"
-      >
-        |
-      </div>
-      <div
-        :style="{ color: textColor, textShadow: `1px 1px 6px ${textColor}` }"
-      >
-        |
-      </div>
-      <div
-        :style="{ color: textColor, textShadow: `1px 1px 6px ${textColor}` }"
-      >
-        |
-      </div>
-      <div
-        :style="{ color: textColor, textShadow: `1px 1px 6px ${textColor}` }"
-      >
-        |
-      </div>
+        v-else
+        @click="handlerBtnFooterClick"
+        class="footer__download__cross"
+      ></div>
+      <div :style="verticalBarStyle">|</div>
+      <div :style="verticalBarStyle">|</div>
+      <div :style="verticalBarStyle">|</div>
+      <div :style="verticalBarStyle">|</div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, toRef } from "vue";
+import { ref, computed, toRef, inject } from "vue";
 
 const props = defineProps<{
   theme?: "light";
@@ -88,6 +75,13 @@ const curentPages = toRef(props, "curentPages");
 const leftArrowHover = ref(false);
 const rightArrowHover = ref(false);
 
+const handlerBtnFooterClick = inject("handlerBtnFooterClick") as (
+  ...args: any[]
+) => void;
+const handlerBtnNavigationClick = inject("handlerBtnNavigationClick") as (
+  ...args: any[]
+) => void;
+
 const textColor = computed(() => {
   if (theme.value === "light") {
     return "black";
@@ -102,6 +96,13 @@ const textPageOne = computed(() => {
   } else {
     return "#d4d4d4";
   }
+});
+
+const verticalBarStyle = computed(() => {
+  return {
+    color: textColor.value,
+    textShadow: `1px 1px 6px ${textColor.value}`,
+  };
 });
 
 const leftArrowImg = computed(() => {

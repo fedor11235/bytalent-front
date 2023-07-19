@@ -138,7 +138,7 @@ const lineRight = computed(() => {
     scale: 0.9;
     &_button {
       margin-top: 8px;
-      transition: transform .3s;
+      transition: transform 0.3s;
       &:hover {
         transform: scale(1.1);
       }

@@ -16,17 +16,25 @@
 </template>
 
 <script setup lang="ts">
-import { provide } from 'vue'
+import { provide } from "vue";
 import { useRootStore } from "@/store";
+import { useRouter } from "vue-router";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 
+const router = useRouter();
 const rootStore = useRootStore();
 
-function handlerBtnContentClick() {
-  rootStore.uploadProject = true
+function showUploadProject() {
+  rootStore.uploadProject = true;
 }
 
-provide('handlerBtnContentClick', handlerBtnContentClick)
+function nextPage() {
+  router.push({ name: "visualization-second" });
+}
+
+provide("handlerBtnContentClick", showUploadProject);
+provide("handlerBtnFooterClick", showUploadProject);
+provide("handlerBtnNavigationClick", nextPage);
 </script>
 
 <style lang="scss" scoped></style>
