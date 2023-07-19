@@ -8,18 +8,10 @@
         }"
         @mouseover="leftArrowHover = true"
         @mouseleave="leftArrowHover = false"
-        @click="handlerNextPage"
         alt="left arrow"
       ></div>
-      <div
-        v-if="typeof curentPages === 'number'"
-        class="footer__page-one"
-        :style="{ color: textPageOne }"
-      >
+      <div class="footer__page-one" :style="{ color: textPageOne }">
         {{ "0" + curentPages }}
-      </div>
-      <div v-else class="footer__page-one" :style="{ color: textPageOne }">
-        {{ visualizationStore.secondPage ? "02" : "01" }}
       </div>
       <div class="footer__page-up">
         <img
@@ -41,7 +33,6 @@
         }"
         @mouseover="rightArrowHover = true"
         @mouseleave="rightArrowHover = false"
-        @click="handlerNextPage"
         alt="left arrow"
       ></div>
     </div>
@@ -63,22 +54,6 @@
         class="footer__download__cross"
         @click="rootStore.uploadProject = true"
       ></div>
-      <div
-        v-else-if="visualizationStore.secondPage"
-        @click="router.push({ name: 'new-lavel' })"
-        class="footer__download_button"
-        :style="{ color: textColor, textShadow: `1px 1px 6px ${textColor}` }"
-      >
-        Новый уровень
-      </div>
-      <div
-        v-else
-        @click="rootStore.uploadProject = true"
-        class="footer__download_button"
-        :style="{ color: textColor, textShadow: `1px 1px 6px ${textColor}` }"
-      >
-        + Загрузить готовый проект
-      </div>
       <div
         :style="{ color: textColor, textShadow: `1px 1px 6px ${textColor}` }"
       >
@@ -105,13 +80,9 @@
 
 <script setup lang="ts">
 import { ref, computed, toRef } from "vue";
-import { useRouter } from "vue-router";
 import { useRootStore } from "@/store";
-import { useVisualizationStore } from "@/store";
 
-const router = useRouter();
 const rootStore = useRootStore();
-const visualizationStore = useVisualizationStore();
 
 const props = defineProps<{
   theme?: "light";
@@ -178,11 +149,6 @@ const rightArrowImg = computed(() => {
     return "right-arrow.svg";
   }
 });
-
-function handlerNextPage() {
-  if (typeof curentPages.value === "number") return;
-  visualizationStore.secondPage = !visualizationStore.secondPage;
-}
 </script>
 
 <style lang="scss" scoped>

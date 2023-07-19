@@ -12,11 +12,31 @@
       <div class="media">
         <div class="carousel">
           <div class="carousel__arrow carousel__arrow-left"></div>
-          <img class="carousel__img" src="@/assets/lvel/carousel.jpeg" alt="img" />
-          <img class="carousel__img" src="@/assets/lvel/carousel.jpeg" alt="img" />
-          <img class="carousel__img" src="@/assets/lvel/carousel.jpeg" alt="img" />
-          <img class="carousel__img" src="@/assets/lvel/carousel.jpeg" alt="img" />
-          <img class="carousel__img" src="@/assets/lvel/carousel.jpeg" alt="img" />
+          <img
+            class="carousel__img"
+            src="@/assets/lvel/carousel.jpeg"
+            alt="img"
+          />
+          <img
+            class="carousel__img"
+            src="@/assets/lvel/carousel.jpeg"
+            alt="img"
+          />
+          <img
+            class="carousel__img"
+            src="@/assets/lvel/carousel.jpeg"
+            alt="img"
+          />
+          <img
+            class="carousel__img"
+            src="@/assets/lvel/carousel.jpeg"
+            alt="img"
+          />
+          <img
+            class="carousel__img"
+            src="@/assets/lvel/carousel.jpeg"
+            alt="img"
+          />
           <div class="carousel__arrow carousel__arrow-right"></div>
         </div>
       </div>

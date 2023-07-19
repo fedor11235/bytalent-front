@@ -18,5 +18,4 @@ import { useRootStore } from "@/store";
 const rootStore = useRootStore();
 </script>
 
-<style>
-</style>
+<style></style>

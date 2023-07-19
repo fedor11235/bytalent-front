@@ -7,7 +7,10 @@
         class="connect"
       >
         Сперва добавьте визуализацию!
-        <div @click="streamingStore.popupConnect = false" class="connect__button"></div>
+        <div
+          @click="streamingStore.popupConnect = false"
+          class="connect__button"
+        ></div>
       </div>
     </Transition>
     <div class="streaming__backdrop">
@@ -24,14 +27,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import ContentComponent from "@/components/streaming/ContentComponent.vue";
 import FooterComponent from "@/components/common/FooterComponent.vue";
 import { useStreamingStore } from "@/store";
 
 const streamingStore = useStreamingStore();
-const blackout = ref(false);
 </script>
 
 <style lang="scss" scoped>

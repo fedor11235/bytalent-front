@@ -2,14 +2,9 @@
   <div
     class="visualization"
     :style="{
-      backgroundImage: `url(${require(`@/assets/backgrounds/${
-        visualizationStore.secondPage ? 'visualization-second' : 'visualization-first'
-      }.jpeg`)})`,
+      backgroundImage: `url(${require(`@/assets/backgrounds/visualization-second.jpeg`)})`,
     }"
   >
-    <Transition name="trans">
-      <div class="blackout" v-if="blackout" />
-    </Transition>
     <Transition name="fade">
       <PopupOrder v-if="visualizationStore.popupOrder" />
     </Transition>
@@ -21,15 +16,19 @@
         @switch="rootStore.infoPage = !rootStore.infoPage"
       />
       <ContentComponent />
-      <FooterComponent :numberPages="2" />
+      <FooterComponent
+        :curentPages="2"
+        :numberPages="2"
+        colorTwoPages="#8b8b8b"
+        textButton="Новый уровень"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
-import ContentComponent from "@/components/visualization/ContentComponent.vue";
+import ContentComponent from "@/components/visualization-second/ContentComponent.vue";
 import FooterComponent from "@/components/common/FooterComponent.vue";
 import PopupOrder from "@/components/visualization/PopupOrder.vue";
 import { useRootStore } from "@/store";
@@ -37,15 +36,6 @@ import { useVisualizationStore } from "@/store";
 
 const rootStore = useRootStore();
 const visualizationStore = useVisualizationStore();
-const blackout = ref(false);
-
-watch(
-  () => visualizationStore.secondPage,
-  () => {
-    blackout.value = true;
-    setTimeout(() => (blackout.value = false), 300);
-  }
-);
 </script>
 
 <style lang="scss" scoped>

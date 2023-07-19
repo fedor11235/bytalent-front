@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import VisualizationView from "../views/VisualizationView.vue";
+import VisualizationFirstView from "../views/VisualizationFirstView.vue";
+import VisualizationSecondView from "../views/VisualizationSecondView.vue";
 import ErrorView from "../views/ErrorView.vue";
 import SettingsView from "../views/SettingsView.vue";
 import NewLavelView from "../views/NewLavelView.vue";
@@ -9,8 +10,17 @@ import StreamingView from "../views/StreamingView.vue";
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    name: "home",
-    component: VisualizationView,
+    redirect: { name: "visualization-first" },
+  },
+  {
+    path: "/visualization-first",
+    name: "visualization-first",
+    component: VisualizationFirstView,
+  },
+  {
+    path: "/visualization-second",
+    name: "visualization-second",
+    component: VisualizationSecondView,
   },
   {
     path: "/:pathMatch(.*)*",

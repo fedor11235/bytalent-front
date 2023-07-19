@@ -1,9 +1,12 @@
 <template>
   <div @click.self="rootStore.uploadProject = false" class="order">
-    <div @click="visualizationStore.popupOrder = true" class="order__visualization">
+    <div
+      @click="visualizationStore.popupOrder = true"
+      class="order__visualization"
+    >
       Заказать визуализацию объекта недвижимости
     </div>
-    <div @click="visualizationStore.popupOrder= true" class="order__project">
+    <div @click="visualizationStore.popupOrder = true" class="order__project">
       Загрузить готовый дизайн-проект
     </div>
   </div>
