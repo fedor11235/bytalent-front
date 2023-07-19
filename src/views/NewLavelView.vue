@@ -79,7 +79,7 @@ const menu = [
 ];
 
 function returnHome() {
-  router.push({name: 'visualization-first'})
+  router.push({ name: "visualization-first" });
 }
 
 provide("handlerBtnHeaderClick", returnHome);

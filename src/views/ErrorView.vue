@@ -1,7 +1,7 @@
 <template>
   <div class="error">
     <div class="content">
-      <img src="@/assets/error.svg" alt="error" />
+      <img src="@/assets/error/error.svg" alt="error" />
       <div class="title">Page Not Found</div>
       <div class="text">
         The page you are looking for doesn&#x27;t exist or has been moved

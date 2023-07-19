@@ -2,12 +2,14 @@
   <div class="header">
     <div
       class="header__logo"
-      :style="{ backgroundImage: `url(${require(`@/assets/${logo}.png`)})` }"
+      :style="{
+        backgroundImage: `url(${require(`@/assets/header/${logo}.png`)})`,
+      }"
     ></div>
     <div
       class="header__line-left"
       :style="{
-        backgroundImage: `url(${require(`@/assets/${lineLeft}.png`)})`,
+        backgroundImage: `url(${require(`@/assets/header/${lineLeft}.png`)})`,
       }"
     ></div>
     <ButtonComponent
@@ -36,7 +38,7 @@
     <div
       class="header__line-right"
       :style="{
-        backgroundImage: `url(${require(`@/assets/${lineRight}.png`)})`,
+        backgroundImage: `url(${require(`@/assets/header/${lineRight}.png`)})`,
       }"
     ></div>
     <BurgerComponent :type="type" @click="emit('switch')" :theme="theme" />
@@ -152,7 +154,6 @@ const lineRight = computed(() => {
   &__line-right {
     height: 4px;
     width: 50%;
-    background-image: url("@/assets/line-right.png");
     background-position: 0%;
     background-repeat: no-repeat;
     background-size: 1048px;

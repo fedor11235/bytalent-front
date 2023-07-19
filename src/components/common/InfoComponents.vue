@@ -27,6 +27,14 @@
               :key="elem"
               class="description__menu_elem"
             >
+              <div
+                :style="{
+                  backgroundImage: `url(${require(`@/assets/icons/${chooseIcon(
+                    elem
+                  )}.png`)})`,
+                }"
+                class="description__menu_elem_icon"
+              ></div>
               <span>{{ elem }}</span>
             </div>
           </div>
@@ -40,9 +48,7 @@
           <div class="personal__row">+7 (933) 666-66-63</div>
           <div class="personal__row">Генеральный директор</div>
           <div class="personal__footer">
-            <TestButton @click="handlerClick" class="personal__button"
-              >Настройки</TestButton
-            >
+            <div @click="handlerClick" class="personal__button"></div>
           </div>
         </div>
       </div>
@@ -63,7 +69,6 @@
 
 <script setup lang="ts">
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
-import TestButton from "@/components/TestButton.vue";
 import { useRouter } from "vue-router";
 import { useRootStore } from "@/store";
 
@@ -87,6 +92,11 @@ const dropdown = [
     date: "01.04.2024",
   },
 ];
+
+function chooseIcon(name: string) {
+  if (name === "Активные проекты" || name === "Уведомления") return "personal";
+  if (name === "Коммерция") return "cards";
+}
 
 function handlerClick() {
   router.push({ name: "settings" });
@@ -151,7 +161,7 @@ function handlerClick() {
           border-bottom: 1px solid rgba(255, 255, 255, 0.2);
           flex-direction: row;
           justify-content: center;
-          align-items: flex-start;
+          align-items: center;
           display: flex;
           margin: auto;
           &_text {
@@ -160,12 +170,13 @@ function handlerClick() {
             font-weight: 300;
             display: flex;
             text-align: left;
+            font-family: JuraMedium, sans-serif;
           }
           &_date {
             width: 25%;
             color: #757575;
             text-align: right;
-            font-family: Montserrat, sans-serif;
+            font-family: MontserratRegular400, sans-serif;
             font-size: 1.5vh;
             line-height: 15px;
           }
@@ -195,7 +206,7 @@ function handlerClick() {
           border-radius: 9px;
           justify-content: flex-start;
           align-items: center;
-          font-family: Jura, sans-serif;
+          font-family: JuraMedium, sans-serif;
           font-size: 1.7vh;
           font-weight: 300;
           display: flex;
@@ -204,6 +215,13 @@ function handlerClick() {
           &:hover {
             text-shadow: 0 12px 12px rgba(0, 0, 0, 0.48);
             background-color: rgba(255, 255, 255, 0.03);
+          }
+          &_icon {
+            width: 17%;
+            height: 45%;
+            background-position: 50%;
+            background-repeat: no-repeat;
+            background-size: contain;
           }
           span {
             margin-left: 16px;
@@ -258,7 +276,7 @@ function handlerClick() {
         box-shadow: 0 4px rgba(0, 0, 0, 0.6);
         overflow: hidden;
         color: #b6b6b6;
-        font-family: Jura, sans-serif;
+        font-family: JuraMedium, sans-serif;
         font-size: 2.5vh;
       }
       &__footer {
@@ -275,7 +293,16 @@ function handlerClick() {
         box-shadow: -2px 0 5px rgba(0, 0, 0, 0.34);
       }
       &__button {
-        height: 60%;
+        height: 41px;
+        width: 185px;
+        background-image: url(@/assets/settings/settings.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        cursor: pointer;
+        &:hover {
+          background-image: url(@/assets/settings/settings-hover.png);
+        }
       }
     }
     .doc {
@@ -285,6 +312,7 @@ function handlerClick() {
         color: #fff;
         text-align: justify;
         margin: auto;
+        font-family: Arial, sans-serif;
         font-size: 1.6vh;
         font-weight: 400;
         text-decoration: none;

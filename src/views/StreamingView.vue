@@ -20,13 +20,11 @@
 
 <script setup lang="ts">
 import { provide } from "vue";
-import { useRouter } from "vue-router";
 import { useRootStore } from "@/store";
 import { useStreamingStore } from "@/store";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import PopupConnect from "@/components/streaming/PopupConnect.vue";
 
-const router = useRouter();
 const rootStore = useRootStore();
 const streamingStore = useStreamingStore();
 
