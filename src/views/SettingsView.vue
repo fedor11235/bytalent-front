@@ -7,7 +7,7 @@
         urlButtonHover="header/settings.png"
         type="cross"
         :isTitleButton="true"
-        @switch="router.push({ name: 'home' })"
+        @switch="router.push({ name: 'visualization-first' })"
       />
       <div class="description">
         <div class="description__card">

@@ -62,9 +62,13 @@
 </template>
 
 <script setup lang="ts">
+import { provide } from "vue";
 import { useRootStore } from "@/store";
+import { useRouter } from "vue-router";
+
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 
+const router = useRouter();
 const rootStore = useRootStore();
 
 const menu = [
@@ -73,6 +77,12 @@ const menu = [
   "Правли размещения",
   "Интеграция",
 ];
+
+function returnHome() {
+  router.push({name: 'visualization-first'})
+}
+
+provide("handlerBtnHeaderClick", returnHome);
 </script>
 
 <style lang="scss" scoped>

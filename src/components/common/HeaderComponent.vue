@@ -14,6 +14,7 @@
       v-if="isTitleButton"
       :url="urlButton"
       :urlHover="urlButtonHover"
+      @click="handlerBtnHeaderClick"
     />
     <div v-else class="header__button">
       <ButtonComponent
@@ -43,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, toRef } from "vue";
+import { ref, computed, toRef, inject } from "vue";
 import BurgerComponent from "@/components/BurgerComponent.vue";
 import ButtonComponent from "@/components/ButtonComponent.vue";
 import { useRouter } from "vue-router";
@@ -65,6 +66,10 @@ const props = defineProps<{
   type: "burger" | "cross";
   isTitleButton?: boolean;
 }>();
+
+const handlerBtnHeaderClick = inject("handlerBtnHeaderClick") as (
+  ...args: any[]
+) => void;
 
 const buttons = [
   {

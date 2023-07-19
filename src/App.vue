@@ -5,9 +5,7 @@
   <Transition name="fade">
     <PopupOrder v-if="rootStore.uploadProject" />
   </Transition>
-  <Transition name="fade">
-    <router-view />
-  </Transition>
+  <router-view />
 </template>
 
 <script setup lang="ts">
