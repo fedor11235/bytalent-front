@@ -69,7 +69,7 @@ const buttons = [
   {
     static: "header/visualization.png",
     hover: "header/visualization-hover.png",
-    path: "home",
+    path: "visualization-first",
   },
   {
     static: "header/streaming.png",

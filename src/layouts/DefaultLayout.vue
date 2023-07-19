@@ -5,22 +5,40 @@
       backgroundImage: `url(${require(`@/assets/backgrounds/${bg}`)})`,
     }"
   >
-    <div class="visualization__backdrop">
+    <div
+      :class="[
+        'layout__backdrop',
+        { layout__blackout: blackout, layout__whiteout: whiteout },
+      ]"
+    >
       <HeaderComponent
-        urlButton="header/visualization.png"
-        urlButtonHover="header/visualization-hover.png"
+        :theme="theme"
+        :urlButton="`header/${urlBtnHeader}.png`"
+        :urlButtonHover="`header/${urlBtnHeaderHover}.png`"
         type="burger"
         @switch="rootStore.infoPage = !rootStore.infoPage"
       />
-      <ContentComponent />
-      <FooterComponent :numberPages="2" />
+      <ContentComponent
+        :theme="theme"
+        :title="titleContent"
+        :text="textContent"
+        :urlBtn="urlBtnContent"
+        :urlBtnHover="urlBtnContentHover"
+      />
+      <FooterComponent
+        :theme="theme"
+        :curentPages="curentPagesFooter"
+        :numberPages="numberPagesFooter"
+        :textButton="textButtonFooter"
+        :colorTwoPages="colorTwoPagesFooter"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
-import ContentComponent from "@/components/visualization/ContentComponent.vue";
+import ContentComponent from "@/components/common/ContentComponent.vue";
 import FooterComponent from "@/components/common/FooterComponent.vue";
 import { useRootStore } from "@/store";
 
@@ -28,6 +46,19 @@ const rootStore = useRootStore();
 
 defineProps<{
   bg: string;
+  theme?: "light";
+  blackout: boolean;
+  whiteout: boolean;
+  urlBtnHeader: string;
+  urlBtnHeaderHover: string;
+  curentPagesFooter: number;
+  numberPagesFooter: number;
+  textButtonFooter: string;
+  colorTwoPagesFooter: string;
+  titleContent: string;
+  textContent: string;
+  urlBtnContent: string;
+  urlBtnContentHover: string;
 }>();
 </script>
 
@@ -39,18 +70,17 @@ defineProps<{
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
-  .blackout {
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
-    background-color: black;
-    z-index: 1;
-  }
   &__backdrop {
     height: 100vh;
     width: 100vw;
-    backdrop-filter: blur(7px);
+  }
+  &__blackout {
     background-color: rgba(0, 0, 0, 0.58);
+    backdrop-filter: blur(7px);
+  }
+  &__whiteout {
+    background-color: rgba(255, 255, 255, 0.51);
+    backdrop-filter: blur(7px);
   }
 }
 </style>

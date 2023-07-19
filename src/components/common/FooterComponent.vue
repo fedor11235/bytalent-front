@@ -19,10 +19,7 @@
           src="@/assets/footer/slash.svg"
           alt="slash"
         />
-        <div
-          class="footer__page-two"
-          :style="{ color: colorTwoPages ?? textPageTwo }"
-        >
+        <div class="footer__page-two" :style="{ color: colorTwoPages }">
           {{ "0" + numberPages }}
         </div>
       </div>
@@ -49,11 +46,7 @@
       >
         {{ textButton }}
       </div>
-      <div
-        v-else-if="typeof curentPages === 'number'"
-        class="footer__download__cross"
-        @click="rootStore.uploadProject = true"
-      ></div>
+      <div v-else class="footer__download__cross"></div>
       <div
         :style="{ color: textColor, textShadow: `1px 1px 6px ${textColor}` }"
       >
@@ -80,9 +73,6 @@
 
 <script setup lang="ts">
 import { ref, computed, toRef } from "vue";
-import { useRootStore } from "@/store";
-
-const rootStore = useRootStore();
 
 const props = defineProps<{
   theme?: "light";
@@ -111,14 +101,6 @@ const textPageOne = computed(() => {
     return "#161616";
   } else {
     return "#d4d4d4";
-  }
-});
-
-const textPageTwo = computed(() => {
-  if (theme.value === "light") {
-    return "#353535";
-  } else {
-    return "#8b8b8b";
   }
 });
 

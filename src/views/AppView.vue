@@ -1,44 +1,21 @@
 <template>
-  <div class="app">
-    <div class="app__backdrop">
-      <HeaderComponent
-        urlButton="header/app.png"
-        urlButtonHover="header/app.png"
-        type="burger"
-        @switch="rootStore.infoPage = !rootStore.infoPage"
-      />
-      <ContentComponent />
-      <FooterComponent
-        :curentPages="1"
-        :numberPages="1"
-        colorTwoPages="#c7c7c7"
-        textButton="+ Заказать разработку приложения"
-      />
-    </div>
-  </div>
+  <DefaultLayout
+    bg="app.jpg"
+    urlBtnHeader="app"
+    urlBtnHeaderHover="app"
+    titleContent="Приложение byTALENT"
+    textContent="Персональное приложения для доступа в уровни Unreal Engine 5"
+    urlBtnContent="more"
+    urlBtnContentHover="more-hover"
+    :curentPagesFooter="1"
+    :numberPagesFooter="1"
+    textButtonFooter="+ Заказать разработку приложения"
+    colorTwoPagesFooter="#c7c7c7"
+  />
 </template>
 
 <script setup lang="ts">
-import HeaderComponent from "@/components/common/HeaderComponent.vue";
-import ContentComponent from "@/components/app/ContentComponent.vue";
-import FooterComponent from "@/components/common/FooterComponent.vue";
-import { useRootStore } from "@/store";
-
-const rootStore = useRootStore();
+import DefaultLayout from "@/layouts/DefaultLayout.vue";
 </script>
 
-<style lang="scss" scoped>
-.app {
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-  background-image: url(@/assets/backgrounds/app.jpg);
-  background-position: 50%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  &__backdrop {
-    height: 100vh;
-    width: 100vw;
-  }
-}
-</style>
+<style lang="scss" scoped></style>
