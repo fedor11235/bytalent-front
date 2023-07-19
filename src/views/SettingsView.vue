@@ -27,6 +27,14 @@
               :key="elem"
               class="description__menu_elem"
             >
+              <div
+                :style="{
+                  backgroundImage: `url(${require(`@/assets/icons/${chooseIcon(
+                    elem
+                  )}.png`)})`,
+                }"
+                class="description__menu_elem_icon"
+              ></div>
               <span>{{ elem }}</span>
             </div>
           </div>
@@ -74,6 +82,14 @@ const dropdown = [
     date: "01.04.2024",
   },
 ];
+
+function chooseIcon(item: string) {
+  if(item === "Коммерция") return "cards"
+  if(item === "Личные данные") return "personal"
+  if(item === "Юридические данные") return "docs"
+  if(item === "Официальный ссылки") return "integration"
+  if(item === "Безопасность") return "security"
+}
 </script>
 
 <style lang="scss" scoped>
@@ -121,39 +137,32 @@ const dropdown = [
         border-radius: 15px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.62);
         padding: 12px;
+        column-gap: 16px;
       }
       &__info {
         width: 67%;
-        box-shadow: inset 0 2px 5px rgba(255, 255, 255, 0);
-        text-shadow: 0 3px 3px rgba(0, 0, 0, 0.85);
         background-color: #252525;
         border: 0 solid rgba(158, 158, 158, 0.07);
         border-top: 1px solid rgba(231, 231, 231, 0.44);
         border-bottom: 1px solid rgba(158, 158, 158, 0.31);
         border-radius: 15px;
         display: flex;
-        overflow: scroll;
-        box-shadow: 0 4px 5px rgba(0, 0, 0, 0.26);
-        display: flex;
         flex-direction: column;
+        align-items: center;
+        box-shadow: 0 4px 5px rgba(0, 0, 0, .26);
         &_elem {
+          text-shadow: 0 3px 3px rgba(0, 0, 0, .85);
           width: 94%;
           height: 8vh;
           color: #fff;
-          text-align: left;
           cursor: pointer;
-          background-color: rgba(0, 0, 0, 0);
-          border-top: 1px rgba(138, 138, 138, 0.87);
-          border-radius: 0;
           justify-content: center;
           align-items: center;
-          margin-bottom: 0%;
-          padding: 0% 0% 0.2%;
-          font-family: Jura, sans-serif;
+          font-family: JuraMedium, sans-serif;
           font-size: 1.8vh;
           font-weight: 300;
           display: flex;
-          position: relative;
+          border-bottom: 1px solid rgba(255, 255, 255, .1);
         }
       }
       &__menu {
@@ -171,9 +180,17 @@ const dropdown = [
           font-weight: 300;
           display: flex;
           align-items: center;
+          font-family: JuraMedium, sans-serif;
           &:hover {
             text-shadow: 0 12px 12px rgba(0, 0, 0, 0.48);
             background-color: rgba(255, 255, 255, 0.03);
+          }
+          &_icon {
+            width: 17%;
+            height: 45%;
+            background-position: 50%;
+            background-repeat: no-repeat;
+            background-size: contain;
           }
           span {
             margin-left: 16px;
@@ -184,11 +201,14 @@ const dropdown = [
     .doc {
       opacity: 0.75;
       color: #fff;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      line-height: 20px;
       text-align: center;
-      margin: auto;
+      margin: 2%;
+      margin-top: 0;
       font-size: 1.6vh;
       font-weight: 400;
-      margin-bottom: 2vh;
       padding: 16px;
     }
   }
