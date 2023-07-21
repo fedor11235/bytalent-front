@@ -14,49 +14,49 @@ const routes: Array<RouteRecordRaw> = [
     redirect: { name: "visualization-first" },
   },
   {
-    path: "/login",
+    path: "/bytalent-front/login",
     name: "login",
     component: LoginView,
   },
   {
-    path: "/visualization-first",
+    path: "/bytalent-front/visualization-first",
     name: "visualization-first",
     component: VisualizationFirstView,
   },
   {
-    path: "/visualization-second",
+    path: "/bytalent-front/visualization-second",
     name: "visualization-second",
     component: VisualizationSecondView,
   },
+  // {
+  //   path: "/:pathMatch(.*)*",
+  //   name: "error",
+  //   component: ErrorView,
+  // },
   {
-    path: "/:pathMatch(.*)*",
-    name: "error",
-    component: ErrorView,
-  },
-  {
-    path: "/settings",
+    path: "/bytalent-front/settings",
     name: "settings",
     component: SettingsView,
   },
   {
-    path: "/new-lavel",
+    path: "/bytalent-front/new-lavel",
     name: "new-lavel",
     component: NewLavelView,
   },
   {
-    path: "/app",
+    path: "/bytalent-front/app",
     name: "app",
     component: AppView,
   },
   {
-    path: "/streaming",
+    path: "/bytalent-front/streaming",
     name: "streaming",
     component: StreamingView,
   },
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes,
 });
 
