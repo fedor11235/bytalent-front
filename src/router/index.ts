@@ -14,17 +14,17 @@ const routes: Array<RouteRecordRaw> = [
     redirect: { name: "visualization-first" },
   },
   {
-    path: "/bytalent-front/login",
+    path: "/login",
     name: "login",
     component: LoginView,
   },
   {
-    path: "/bytalent-front/visualization-first",
+    path: "/visualization-first",
     name: "visualization-first",
     component: VisualizationFirstView,
   },
   {
-    path: "/bytalent-front/visualization-second",
+    path: "/visualization-second",
     name: "visualization-second",
     component: VisualizationSecondView,
   },
@@ -34,22 +34,22 @@ const routes: Array<RouteRecordRaw> = [
   //   component: ErrorView,
   // },
   {
-    path: "/bytalent-front/settings",
+    path: "/settings",
     name: "settings",
     component: SettingsView,
   },
   {
-    path: "/bytalent-front/new-lavel",
+    path: "/new-lavel",
     name: "new-lavel",
     component: NewLavelView,
   },
   {
-    path: "/bytalent-front/app",
+    path: "/app",
     name: "app",
     component: AppView,
   },
   {
-    path: "/bytalent-front/streaming",
+    path: "/streaming",
     name: "streaming",
     component: StreamingView,
   },
