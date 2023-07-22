@@ -1,5 +1,13 @@
 <template>
   <div class="login">
+    <div>
+      <!-- <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="ByTALENTBot" data-size="medium" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
+      <script type="text/javascript">
+        function onTelegramAuth(user) {
+          alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
+        }
+      </script> -->
+    </div>
     <div class="login__form">
       <div class="login__title">Добро пожаловать!</div>
       <div class="login__enter">Вход через Telegram</div>
