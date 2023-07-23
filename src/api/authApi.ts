@@ -8,7 +8,7 @@ export default {
     formData.append("password", password);
     return api.post("/auth/login", formData);
   },
-  userLogout() {
-    console.log("logout");
+  checkToken() {
+    return api.get("/auth/check");
   },
 };
