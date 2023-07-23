@@ -12,16 +12,7 @@
       <div class="description">
         <div class="description__card">
           <div class="description__info">
-            <div v-if="comerce">
-              <div
-                v-for="item in comerce.invoicePayments"
-                :key="item.date"
-                class="description__info_elem"
-              >
-                <span class="description__info_elem_text">{{ item.text }}</span>
-                <span class="description__info_elem_date">{{ item.date }}</span>
-              </div>
-            </div>
+            <ComerceNorifications />
           </div>
           <div class="description__menu">
             <div
@@ -70,38 +61,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
-import commerceService from "@/services/commerceService";
+import ComerceNorifications from "@/components/notifications/ComerceNorifications.vue";
 import { useRouter } from "vue-router";
 import { useRootStore } from "@/store";
 
 const rootStore = useRootStore();
-
 const router = useRouter();
 
 const menu = ["Активные проекты", "Коммерция", "Уведомления"];
-
-const dropdown = [
-  {
-    text: "Выставлен счёт №0126 на сумму 150 050 рублей",
-    date: "01.04.2024",
-  },
-  {
-    text: "Выставлен счёт №0126 на сумму 150 050 рублей",
-    date: "01.04.2024",
-  },
-  {
-    text: "Выставлен счёт №0126 на сумму 150 050 рублей",
-    date: "01.04.2024",
-  },
-];
-
-const comerce = ref();
-
-commerceService.getCommerce().then((res) =>
-  comerce.value= res
-)
 
 function chooseIcon(name: string) {
   if (name === "Активные проекты" || name === "Уведомления") return "personal";
@@ -165,32 +133,6 @@ function handlerClick() {
         display: flex;
         overflow: scroll;
         box-shadow: 0 4px rgba(0, 0, 0, 0.6);
-        &_elem {
-          width: 80%;
-          min-height: 40%;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-          flex-direction: row;
-          justify-content: center;
-          align-items: center;
-          display: flex;
-          margin: auto;
-          &_text {
-            width: 75%;
-            color: #fff;
-            font-weight: 300;
-            display: flex;
-            text-align: left;
-            font-family: JuraMedium, sans-serif;
-          }
-          &_date {
-            width: 25%;
-            color: #757575;
-            text-align: right;
-            font-family: MontserratRegular400, sans-serif;
-            font-size: 1.5vh;
-            line-height: 15px;
-          }
-        }
       }
       &__menu {
         z-index: 1;
