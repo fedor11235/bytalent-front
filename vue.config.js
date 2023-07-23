@@ -4,15 +4,15 @@ const fs = require("fs");
 module.exports = defineConfig({
   pwa: {
     workboxOptions: {
-      exclude: [/_redirects/]
-    }
+      exclude: [/_redirects/],
+    },
   },
   transpileDependencies: true,
   devServer: {
-    port: '8080',
+    port: "8080",
     https: {
-      key: fs.readFileSync('./privateKey.key'),
-      cert: fs.readFileSync('./certificate.crt'),
+      key: fs.readFileSync("./privateKey.key"),
+      cert: fs.readFileSync("./certificate.crt"),
     },
   },
   // publicPath: process.env.NODE_ENV === 'production'
