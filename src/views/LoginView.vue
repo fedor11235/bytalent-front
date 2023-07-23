@@ -17,9 +17,8 @@
       <!-- TODO тестовый вход -->
       <div class="login__title">Тестовый вход</div>
       <input class="test-input" v-model="login" />
-      <input class="test-input" v-model="password" />
+      <!-- <input class="test-input" v-model="password" /> -->
       <div @click="handlerLogin" class="test-button">Вход</div>
-      <div @click="handlerLogout" class="test-button">Тест</div>
     </div>
   </div>
 </template>
@@ -31,15 +30,11 @@ import authService from "@/services/authService";
 const login = ref("");
 const password = ref("");
 
-function handlerLogin() {
-  authService.userLogin({
+async function handlerLogin() {
+  await authService.userLogin({
     login: login.value,
     password: password.value,
   });
-}
-
-function handlerLogout() {
-  authService.checkToken();
 }
 </script>
 

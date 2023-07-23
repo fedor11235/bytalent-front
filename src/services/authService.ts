@@ -1,5 +1,8 @@
 import api from "@/api";
 import authApi from "@/api/authApi";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 export default {
   async userLogin(payload: any) {
@@ -15,6 +18,7 @@ export default {
         },
         (error) => error,
       );
+      router.push({ name: 'visualization-first' })
     } catch (e) {
       console.error(e);
     }

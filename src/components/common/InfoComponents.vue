@@ -12,13 +12,15 @@
       <div class="description">
         <div class="description__card">
           <div class="description__info">
-            <div
-              v-for="elem of dropdown"
-              :key="elem.date"
-              class="description__info_elem"
-            >
-              <span class="description__info_elem_text">{{ elem.text }}</span>
-              <span class="description__info_elem_date">{{ elem.date }}</span>
+            <div v-if="comerce">
+              <div
+                v-for="item in comerce.invoicePayments"
+                :key="item.date"
+                class="description__info_elem"
+              >
+                <span class="description__info_elem_text">{{ item.text }}</span>
+                <span class="description__info_elem_date">{{ item.date }}</span>
+              </div>
             </div>
           </div>
           <div class="description__menu">
@@ -68,7 +70,9 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
+import commerceService from "@/services/commerceService";
 import { useRouter } from "vue-router";
 import { useRootStore } from "@/store";
 
@@ -92,6 +96,12 @@ const dropdown = [
     date: "01.04.2024",
   },
 ];
+
+const comerce = ref();
+
+commerceService.getCommerce().then((res) =>
+  comerce.value= res
+)
 
 function chooseIcon(name: string) {
   if (name === "Активные проекты" || name === "Уведомления") return "personal";
