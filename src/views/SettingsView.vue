@@ -12,13 +12,14 @@
       <div class="description">
         <div class="description__card">
           <div class="description__info">
-            <ProfileSettings />
+            <component :is="settings" />
           </div>
           <div class="description__menu">
             <div
               v-for="elem of menu"
               :key="elem"
               class="description__menu_elem"
+              @click="chooseElemMenu(elem)"
             >
               <div
                 :style="{
@@ -48,9 +49,11 @@
 </template>
 
 <script setup lang="ts">
+import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import ProfileSettings from "@/components/settings/ProfileSettings.vue";
+import LinksSettings from "@/components/settings/LinksSettings.vue";
 
 const router = useRouter();
 
@@ -61,6 +64,31 @@ const menu = [
   "Официальный ссылки",
   "Безопасность",
 ];
+
+const activeElemMenu = ref("Коммерция");
+
+const settings = computed(() => {
+  if (activeElemMenu.value === "Коммерция") {
+    return ProfileSettings;
+  }
+  if (activeElemMenu.value === "Личные данные") {
+    return ProfileSettings;
+  }
+  if (activeElemMenu.value === "Юридические данные") {
+    return ProfileSettings;
+  }
+  if (activeElemMenu.value === "Официальный ссылки") {
+    return LinksSettings;
+  }
+  if (activeElemMenu.value === "Безопасность") {
+    return ProfileSettings;
+  }
+  return "";
+});
+
+function chooseElemMenu(elem: string) {
+  activeElemMenu.value = elem;
+}
 
 function chooseIcon(item: string) {
   if (item === "Коммерция") return "cards";
@@ -107,12 +135,12 @@ function chooseIcon(item: string) {
         width: 67%;
         height: 92%;
         background-color: #252525;
-        border: 0 solid rgba(158, 158, 158, .07);
-        border-top: 1px solid rgba(231, 231, 231, .44);
-        border-bottom: 1px solid rgba(158, 158, 158, .31);
+        border: 0 solid rgba(158, 158, 158, 0.07);
+        border-top: 1px solid rgba(231, 231, 231, 0.44);
+        border-bottom: 1px solid rgba(158, 158, 158, 0.31);
         border-radius: 15px;
         padding-top: 3%;
-        box-shadow: 0 4px 5px rgba(0, 0, 0, .26);
+        box-shadow: 0 4px 5px rgba(0, 0, 0, 0.26);
       }
       &__card {
         width: 65.5%;

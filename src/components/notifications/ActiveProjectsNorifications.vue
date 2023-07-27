@@ -1,13 +1,9 @@
 <template>
   <div v-if="projects" class="projects-container">
     <div class="projects-outline">
-      <div
-        v-for="item in projects"
-        :key="item.date"
-        class="projects"
-      >
+      <div v-for="item in projects" :key="item.date" class="projects">
         <span class="projects_text">{{ item.text }}</span>
-        <span class="projects_date">{{ 'на проверке' }}</span>
+        <span class="projects_date">{{ "на проверке" }}</span>
       </div>
     </div>
   </div>
@@ -19,7 +15,9 @@ import projectService from "@/services/projectService";
 
 const projects = ref();
 
-projectService.getActiveProjects().then((res) => (projects.value = res.projects));
+projectService
+  .getActiveProjects()
+  .then((res) => (projects.value = res.projects));
 </script>
 
 <style lang="scss" scoped>

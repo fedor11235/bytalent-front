@@ -1,36 +1,21 @@
 <template>
-  <div v-for="(elem, index) of profile" :key="elem + index" class="profile-row">
-    <span class="profile-row__name">{{ index }}</span>
-    <span class="profile-row__value">{{ elem }}</span>
+  <div v-for="(elem, index) of links" :key="elem + index" class="links-row">
+    <span class="links-row__name">{{ index }}</span>
+    <span class="links-row__value">{{ elem }}</span>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
-import profileService from "@/services/profileService";
+import linksService from "@/services/linksService";
 
-const dropdown = [
-  {
-    text: "Выставлен счёт №0126 на сумму 150 050 рублей",
-    date: "01.04.2024",
-  },
-  {
-    text: "Выставлен счёт №0126 на сумму 150 050 рублей",
-    date: "01.04.2024",
-  },
-  {
-    text: "Выставлен счёт №0126 на сумму 150 050 рублей",
-    date: "01.04.2024",
-  },
-];
+const links = ref([]);
 
-const profile = ref([]);
-
-profileService.getProfile().then((res) => (profile.value = res));
+linksService.getLinks().then((res) => (links.value = res));
 </script>
 
 <style lang="scss" scoped>
-.profile-row {
+.links-row {
   text-shadow: 0 3px 3px rgba(0, 0, 0, 0.85);
   width: 87%;
   height: 8vh;

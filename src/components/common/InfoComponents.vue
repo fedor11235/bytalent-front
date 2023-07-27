@@ -62,7 +62,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from "vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import ActiveProjectsNorifications from "@/components/notifications/ActiveProjectsNorifications.vue";
 import ComerceNorifications from "@/components/notifications/ComerceNorifications.vue";
@@ -75,19 +75,19 @@ const router = useRouter();
 
 const menu = ["Активные проекты", "Коммерция", "Уведомления"];
 
-const activeElemMenu = ref('Активные проекты')
+const activeElemMenu = ref("Активные проекты");
 
 const norifications = computed(() => {
-  if(activeElemMenu.value === 'Активные проекты') {
-    return ActiveProjectsNorifications
+  if (activeElemMenu.value === "Активные проекты") {
+    return ActiveProjectsNorifications;
   }
-  if(activeElemMenu.value === 'Коммерция') {
-    return ComerceNorifications
+  if (activeElemMenu.value === "Коммерция") {
+    return ComerceNorifications;
   }
-  if(activeElemMenu.value === 'Уведомления') {
-    return AllNorifications
+  if (activeElemMenu.value === "Уведомления") {
+    return AllNorifications;
   }
-  return ''
+  return "";
 });
 
 function chooseIcon(name: string) {
@@ -96,8 +96,7 @@ function chooseIcon(name: string) {
 }
 
 function chooseElemMenu(elem: string) {
-  console.log(elem)
-  activeElemMenu.value = elem
+  activeElemMenu.value = elem;
 }
 
 function handlerClick() {

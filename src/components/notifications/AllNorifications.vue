@@ -1,10 +1,6 @@
 <template>
   <div v-if="notifications">
-    <div
-      v-for="item in notifications"
-      :key="item.date"
-      class="notifications"
-    >
+    <div v-for="item in notifications" :key="item.date" class="notifications">
       <span class="notifications_text">{{ item.text }}</span>
       <span class="notifications_date">{{ item.date }}</span>
     </div>
@@ -17,7 +13,9 @@ import notificationsService from "@/services/notificationsService";
 
 const notifications = ref();
 
-notificationsService.getAllNotifications().then((res) => (notifications.value = res.notifications));
+notificationsService
+  .getAllNotifications()
+  .then((res) => (notifications.value = res.notifications));
 </script>
 
 <style lang="scss" scoped>
