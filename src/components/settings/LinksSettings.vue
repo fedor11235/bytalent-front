@@ -1,7 +1,8 @@
 <template>
   <div v-for="(elem, index) of links" :key="elem + index" class="links-row">
     <span class="links-row__name">{{ index }}</span>
-    <span class="links-row__value">{{ elem }}</span>
+    <span v-if="elem" class="links-row__value">{{ elem }}</span>
+    <span v-else class="links-row__img"></span>
   </div>
 </template>
 
@@ -40,6 +41,14 @@ linksService.getLinks().then((res) => (links.value = res));
     color: #fff;
     font-family: JuraMedium, sans-serif;
     font-size: 1.8vh;
+  }
+  &__img {
+    background-image: url(@/assets/icons/integration.png);
+    background-position: left;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 6%;
+    height: 20%;
   }
 }
 </style>

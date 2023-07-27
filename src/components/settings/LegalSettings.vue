@@ -1,7 +1,8 @@
 <template>
   <div v-for="(elem, index) of legal" :key="elem + index" class="legal-row">
     <span class="legal-row__name">{{ index }}</span>
-    <span class="legal-row__value">{{ elem }}</span>
+    <span v-if="elem" class="legal-row__value">{{ elem }}</span>
+    <span v-else class="legal-row__img"></span>
   </div>
 </template>
 
@@ -40,6 +41,14 @@ legalService.getlegal().then((res) => (legal.value = res));
     color: #fff;
     font-family: JuraMedium, sans-serif;
     font-size: 1.8vh;
+  }
+  &__img {
+    background-image: url(@/assets/lvel/pen.png);
+    background-position: left;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 6%;
+    height: 20%;
   }
 }
 </style>

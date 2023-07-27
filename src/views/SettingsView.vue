@@ -146,7 +146,7 @@ function chooseIcon(item: string) {
         box-shadow: 0 4px 5px rgba(0, 0, 0, 0.26);
       }
       &__card {
-        width: 65.5%;
+        width: 75%;
         height: 100%;
         display: flex;
         -webkit-backdrop-filter: blur(16px);

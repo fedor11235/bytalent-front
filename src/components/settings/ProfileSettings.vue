@@ -1,28 +1,14 @@
 <template>
   <div v-for="(elem, index) of profile" :key="elem + index" class="profile-row">
     <span class="profile-row__name">{{ index }}</span>
-    <span class="profile-row__value">{{ elem }}</span>
+    <span v-if="elem" class="profile-row__value">{{ elem }}</span>
+    <span v-else class="profile-row__img"></span>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 import profileService from "@/services/profileService";
-
-const dropdown = [
-  {
-    text: "Выставлен счёт №0126 на сумму 150 050 рублей",
-    date: "01.04.2024",
-  },
-  {
-    text: "Выставлен счёт №0126 на сумму 150 050 рублей",
-    date: "01.04.2024",
-  },
-  {
-    text: "Выставлен счёт №0126 на сумму 150 050 рублей",
-    date: "01.04.2024",
-  },
-];
 
 const profile = ref([]);
 
@@ -55,6 +41,14 @@ profileService.getProfile().then((res) => (profile.value = res));
     color: #fff;
     font-family: JuraMedium, sans-serif;
     font-size: 1.8vh;
+  }
+  &__img {
+    background-image: url(@/assets/lvel/pen.png);
+    background-position: left;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 6%;
+    height: 20%;
   }
 }
 </style>
