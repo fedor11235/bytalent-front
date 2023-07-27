@@ -2,13 +2,14 @@
   <div v-if="notifications">
     <div v-for="item in notifications" :key="item.date" class="notifications">
       <span class="notifications_text">{{ item.text }}</span>
-      <span class="notifications_date">{{ item.date }}</span>
+      <span class="notifications_date">{{ parseDateT(item.date) }}<br />{{ parseDateHMY(item.date) }}</span>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { parseDateHMY, parseDateT } from "@/utils/date";
 import notificationsService from "@/services/notificationsService";
 
 const notifications = ref();
@@ -20,7 +21,6 @@ notificationsService
 
 <style lang="scss" scoped>
 .notifications {
-  width: 80%;
   min-height: 40%;
   height: 100%;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);

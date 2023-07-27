@@ -7,13 +7,16 @@
       class="comerce"
     >
       <span class="comerce_text">{{ item.text }}</span>
-      <span class="comerce_date">{{ item.date }}</span>
+      <span class="comerce_date"
+        >{{ parseDateT(item.date) }}<br />{{ parseDateHMY(item.date) }}</span
+      >
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { parseDateHMY, parseDateT } from "@/utils/date";
 import commerceService from "@/services/commerceService";
 
 const comerce = ref();
