@@ -55,6 +55,7 @@ import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import ProfileSettings from "@/components/settings/ProfileSettings.vue";
 import LinksSettings from "@/components/settings/LinksSettings.vue";
 import SecuritySettings from "@/components/settings/SecuritySettings.vue";
+import LegalSettings from "@/components/settings/LegalSettings.vue";
 
 const router = useRouter();
 
@@ -76,7 +77,7 @@ const settings = computed(() => {
     return ProfileSettings;
   }
   if (activeElemMenu.value === "Юридические данные") {
-    return ProfileSettings;
+    return LegalSettings;
   }
   if (activeElemMenu.value === "Официальный ссылки") {
     return LinksSettings;

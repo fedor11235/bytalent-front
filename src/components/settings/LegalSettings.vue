@@ -1,27 +1,21 @@
 <template>
-  <div
-    v-for="(elem, index) of security"
-    :key="elem + index"
-    class="security-row"
-  >
-    <span class="security-row__name">{{ index }}</span>
-    <span v-if="index !== '2FA'" class="security-row__value">{{ elem }}</span>
-    <span v-else-if="elem" class="security-row__value">{{ elem }}</span>
-    <span v-else class="security-row__value">подключить</span>
+  <div v-for="(elem, index) of legal" :key="elem + index" class="legal-row">
+    <span class="legal-row__name">{{ index }}</span>
+    <span class="legal-row__value">{{ elem }}</span>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
-import securityService from "@/services/securityService";
+import legalService from "@/services/legalService";
 
-const security = ref([]);
+const legal = ref([]);
 
-securityService.getSecurity().then((res) => (security.value = res));
+legalService.getlegal().then((res) => (legal.value = res));
 </script>
 
 <style lang="scss" scoped>
-.security-row {
+.legal-row {
   text-shadow: 0 3px 3px rgba(0, 0, 0, 0.85);
   width: 87%;
   height: 8vh;
