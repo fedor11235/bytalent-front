@@ -12,13 +12,14 @@
       <div class="description">
         <div class="description__card">
           <div class="description__info">
-            <ComerceNorifications />
+            <component :is="norifications" />
           </div>
           <div class="description__menu">
             <div
               v-for="elem of menu"
               :key="elem"
               class="description__menu_elem"
+              @click="chooseElemMenu(elem)"
             >
               <div
                 :style="{
@@ -61,8 +62,11 @@
 </template>
 
 <script setup lang="ts">
+import { computed, ref } from 'vue'
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
+import ActiveProjectsNorifications from "@/components/notifications/ActiveProjectsNorifications.vue";
 import ComerceNorifications from "@/components/notifications/ComerceNorifications.vue";
+import AllNorifications from "@/components/notifications/AllNorifications.vue";
 import { useRouter } from "vue-router";
 import { useRootStore } from "@/store";
 
@@ -71,9 +75,29 @@ const router = useRouter();
 
 const menu = ["Активные проекты", "Коммерция", "Уведомления"];
 
+const activeElemMenu = ref('Активные проекты')
+
+const norifications = computed(() => {
+  if(activeElemMenu.value === 'Активные проекты') {
+    return ActiveProjectsNorifications
+  }
+  if(activeElemMenu.value === 'Коммерция') {
+    return ComerceNorifications
+  }
+  if(activeElemMenu.value === 'Уведомления') {
+    return AllNorifications
+  }
+  return ''
+});
+
 function chooseIcon(name: string) {
   if (name === "Активные проекты" || name === "Уведомления") return "personal";
   if (name === "Коммерция") return "cards";
+}
+
+function chooseElemMenu(elem: string) {
+  console.log(elem)
+  activeElemMenu.value = elem
 }
 
 function handlerClick() {

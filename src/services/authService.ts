@@ -8,17 +8,17 @@ export default {
   async userLogin(payload: any) {
     try {
       const { data } = await authApi.userLogin(payload);
-      window.localStorage.setItem('token', data.access_token)
+      window.localStorage.setItem("token", data.access_token);
       api.interceptors.request.use(
         (config) => {
           if (config.headers) {
-            config.headers['Authorization'] = 'Bearer ' + data.access_token;
+            config.headers["Authorization"] = "Bearer " + data.access_token;
           }
           return config;
         },
-        (error) => error,
+        (error) => error
       );
-      router.push({ name: 'visualization-first' })
+      router.push({ name: "visualization-first" });
     } catch (e) {
       console.error(e);
     }
@@ -26,7 +26,7 @@ export default {
   async checkToken() {
     try {
       await authApi.checkToken();
-      return true
+      return true;
     } catch (e) {
       console.error(e);
       return false;

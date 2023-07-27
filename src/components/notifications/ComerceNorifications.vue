@@ -1,5 +1,6 @@
 <template>
   <div v-if="comerce">
+    <div class="comerce_header">Баланс: {{ comerce.balance }}</div>
     <div
       v-for="item in comerce.invoicePayments"
       :key="item.date"
@@ -12,17 +13,27 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from "vue";
 import commerceService from "@/services/commerceService";
 
 const comerce = ref();
 
-commerceService.getCommerce().then((res) =>
-  comerce.value= res
-)
+commerceService.getCommerce().then((res) => (comerce.value = res));
 </script>
 
 <style lang="scss" scoped>
+.comerce_header {
+  width: 100%;
+  min-height: 40%;
+  background-color: #1f1f1f;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-family: JuraMedium, sans-serif;
+  font-size: 2.5vh;
+  padding: 0 10%;
+  display: flex;
+  align-items: center;
+}
 .comerce {
   width: 80%;
   min-height: 40%;

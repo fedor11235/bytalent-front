@@ -15,64 +15,64 @@ const routes: Array<RouteRecordRaw> = [
     path: "/",
     redirect: { name: "visualization-first" },
     meta: {
-      auth: true
-    }
+      auth: true,
+    },
   },
   {
     path: "/visualization-first",
     name: "visualization-first",
     component: VisualizationFirstView,
     meta: {
-      auth: true
-    }
+      auth: true,
+    },
   },
   {
     path: "/visualization-second",
     name: "visualization-second",
     component: VisualizationSecondView,
     meta: {
-      auth: true
-    }
+      auth: true,
+    },
   },
   {
     path: "/settings",
     name: "settings",
     component: SettingsView,
     meta: {
-      auth: true
-    }
+      auth: true,
+    },
   },
   {
     path: "/new-lavel",
     name: "new-lavel",
     component: NewLavelView,
     meta: {
-      auth: true
-    }
+      auth: true,
+    },
   },
   {
     path: "/app",
     name: "app",
     component: AppView,
     meta: {
-      auth: true
-    }
+      auth: true,
+    },
   },
   {
     path: "/streaming",
     name: "streaming",
     component: StreamingView,
     meta: {
-      auth: true
-    }
+      auth: true,
+    },
   },
   {
     path: "/login",
     name: "login",
     component: LoginView,
     meta: {
-      login: true
-    }
+      login: true,
+    },
   },
   {
     path: "/:pathMatch(.*)*",
@@ -87,34 +87,34 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  const token = window.localStorage.getItem('token')
+  const token = window.localStorage.getItem("token");
   api.interceptors.request.use(
     (config) => {
       if (config.headers) {
-        config.headers['Authorization'] = 'Bearer ' + token;
+        config.headers["Authorization"] = "Bearer " + token;
       }
       return config;
     },
-    (error) => error,
+    (error) => error
   );
 
   const check = await authService.checkToken();
-  
+
   if (to.meta?.auth) {
-    if(check) {
-      next()
+    if (check) {
+      next();
     } else {
-      next({ name: 'login' })
+      next({ name: "login" });
     }
   } else if (to.meta?.login) {
-    if(!check) {
-      next()
+    if (!check) {
+      next();
     } else {
-      next({ name: 'visualization-first' })
+      next({ name: "visualization-first" });
     }
   } else {
-    next()
+    next();
   }
-})
+});
 
 export default router;
