@@ -56,6 +56,7 @@ import ProfileSettings from "@/components/settings/ProfileSettings.vue";
 import LinksSettings from "@/components/settings/LinksSettings.vue";
 import SecuritySettings from "@/components/settings/SecuritySettings.vue";
 import LegalSettings from "@/components/settings/LegalSettings.vue";
+import ComerceSettings from "@/components/settings/ComerceSettings.vue";
 
 const router = useRouter();
 
@@ -71,7 +72,7 @@ const activeElemMenu = ref("Коммерция");
 
 const settings = computed(() => {
   if (activeElemMenu.value === "Коммерция") {
-    return ProfileSettings;
+    return ComerceSettings;
   }
   if (activeElemMenu.value === "Личные данные") {
     return ProfileSettings;
