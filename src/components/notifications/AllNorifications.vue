@@ -2,7 +2,9 @@
   <div v-if="notifications">
     <div v-for="item in notifications" :key="item.date" class="notifications">
       <span class="notifications_text">{{ item.text }}</span>
-      <span class="notifications_date">{{ parseDateT(item.date) }}<br />{{ parseDateHMY(item.date) }}</span>
+      <span class="notifications_date"
+        >{{ parseDateT(item.date) }}<br />{{ parseDateHMY(item.date) }}</span
+      >
     </div>
   </div>
 </template>
