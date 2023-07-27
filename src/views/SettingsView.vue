@@ -12,14 +12,7 @@
       <div class="description">
         <div class="description__card">
           <div class="description__info">
-            <div
-              v-for="elem of dropdown"
-              :key="elem.date"
-              class="description__info_elem"
-            >
-              <span class="description__info_elem_text">{{ elem.text }}</span>
-              <span class="description__info_elem_date">{{ elem.date }}</span>
-            </div>
+            <ProfileSettings />
           </div>
           <div class="description__menu">
             <div
@@ -57,6 +50,7 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
+import ProfileSettings from "@/components/settings/ProfileSettings.vue";
 
 const router = useRouter();
 
@@ -66,21 +60,6 @@ const menu = [
   "Юридические данные",
   "Официальный ссылки",
   "Безопасность",
-];
-
-const dropdown = [
-  {
-    text: "Выставлен счёт №0126 на сумму 150 050 рублей",
-    date: "01.04.2024",
-  },
-  {
-    text: "Выставлен счёт №0126 на сумму 150 050 рублей",
-    date: "01.04.2024",
-  },
-  {
-    text: "Выставлен счёт №0126 на сумму 150 050 рублей",
-    date: "01.04.2024",
-  },
 ];
 
 function chooseIcon(item: string) {
@@ -124,6 +103,17 @@ function chooseIcon(item: string) {
       align-items: center;
       margin-top: 3%;
       display: flex;
+      &__info {
+        width: 67%;
+        height: 92%;
+        background-color: #252525;
+        border: 0 solid rgba(158, 158, 158, .07);
+        border-top: 1px solid rgba(231, 231, 231, .44);
+        border-bottom: 1px solid rgba(158, 158, 158, .31);
+        border-radius: 15px;
+        padding-top: 3%;
+        box-shadow: 0 4px 5px rgba(0, 0, 0, .26);
+      }
       &__card {
         width: 65.5%;
         height: 100%;
@@ -138,32 +128,6 @@ function chooseIcon(item: string) {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.62);
         padding: 12px;
         column-gap: 16px;
-      }
-      &__info {
-        width: 67%;
-        background-color: #252525;
-        border: 0 solid rgba(158, 158, 158, 0.07);
-        border-top: 1px solid rgba(231, 231, 231, 0.44);
-        border-bottom: 1px solid rgba(158, 158, 158, 0.31);
-        border-radius: 15px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        box-shadow: 0 4px 5px rgba(0, 0, 0, 0.26);
-        &_elem {
-          text-shadow: 0 3px 3px rgba(0, 0, 0, 0.85);
-          width: 94%;
-          height: 8vh;
-          color: #fff;
-          cursor: pointer;
-          justify-content: center;
-          align-items: center;
-          font-family: JuraMedium, sans-serif;
-          font-size: 1.8vh;
-          font-weight: 300;
-          display: flex;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
       }
       &__menu {
         width: 33%;

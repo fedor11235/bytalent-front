@@ -1,1 +1,8 @@
-export default (api: any) => ({});
+import api from ".";
+
+export default {
+  getProfile() {
+    return api.get("/profile");
+  },
+};
+
