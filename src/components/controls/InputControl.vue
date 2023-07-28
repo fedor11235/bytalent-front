@@ -16,7 +16,7 @@
       v-if="modelValue === false"
       class="input-setting__img"
       :style="{
-        backgroundImage: `url(${require(`@/assets/${icon()}`)})`
+        backgroundImage: `url(${require(`@/assets/${icon()}`)})`,
       }"
     ></span>
   </div>
@@ -26,12 +26,12 @@
 import type { Ref } from "vue";
 import { ref, toRef } from "vue";
 
-type Icon = 'integration' | undefined
+type Icon = "integration" | undefined;
 
 const props = defineProps<{
   name: string;
   modelValue: string | boolean;
-  icon?: Icon
+  icon?: Icon;
 }>();
 
 const modelValue = toRef(props, "modelValue");
@@ -43,10 +43,10 @@ const emit = defineEmits<{
 const valueInpyt: Ref<HTMLInputElement | null> = ref(null);
 
 const icon = () => {
-  if(props.icon === 'integration') {
-    return 'icons/integration.png'
+  if (props.icon === "integration") {
+    return "icons/integration.png";
   }
-  return 'lvel/pen.png'
+  return "lvel/pen.png";
 };
 
 function handlerChange() {

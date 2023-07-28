@@ -4,7 +4,7 @@
       <div class="popup__row popup__row-border">
         <div>Название</div>
         <input
-          v-model="name"
+          v-model="title"
           placeholder="Введите название"
           class="popup__fill"
         />
@@ -29,7 +29,7 @@
           </option>
         </select>
       </div>
-      <div class="popup__create">Создать</div>
+      <div @click="handlerCreate" class="popup__create">Создать</div>
     </div>
   </div>
 </template>
@@ -37,6 +37,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRootStore } from "@/store";
+import projectService from "@/services/projectService";
 
 const rootStore = useRootStore();
 
@@ -49,9 +50,17 @@ const typesProgect = [
   { name: "Прочее", value: 5 },
 ];
 
-const name = ref("");
+const title = ref("");
 const address = ref("");
 const type = ref(typesProgect[0].value);
+
+function handlerCreate() {
+  projectService.orderVisualization({
+    title: title.value,
+    address: address.value,
+    type: type.value,
+  });
+}
 </script>
 
 <style lang="scss" scoped>
@@ -119,6 +128,7 @@ const type = ref(typesProgect[0].value);
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
     }
   }
 }

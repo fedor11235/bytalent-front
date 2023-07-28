@@ -2,7 +2,10 @@
   <div class="commerce" v-if="commerce">
     <div class="commerce-row commerce-balance">
       <span class="commerce-row__name">Баланс:</span>
-      <span class="commerce-row__value">{{ commerce.balance }}</span>
+      <span class="commerce-row__value">
+        {{ commerce.balance }}
+        <span class="commerce__top-up">Пополнить</span>
+      </span>
     </div>
     <div class="commerce-row_item">
       <div
@@ -63,6 +66,14 @@ commerceService.getCommerce().then((res) => (commerce.value = res));
 .commerce {
   overflow-y: scroll;
   height: 100%;
+  &__top-up {
+    color: rgba(255, 255, 255, 0.72);
+    margin-left: 4vh;
+    text-decoration: underline;
+    &:hover {
+      color: #fff;
+    }
+  }
   &-balance {
     position: sticky;
     background-color: #252525;
