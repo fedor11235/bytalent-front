@@ -5,7 +5,9 @@
       @blur="handlerChange"
       v-show="modelValue || modelValue === ''"
       :value="modelValue"
-      @input="emit('update:modelValue', ($event?.target as HTMLInputElement).value)"
+      @input="
+        emit('update:modelValue', ($event?.target as HTMLInputElement).value)
+      "
       ref="valueInpyt"
       class="input-setting__value"
     />
@@ -13,6 +15,9 @@
       @click="handlerFocusInputValue"
       v-if="modelValue === false"
       class="input-setting__img"
+      :style="{
+        backgroundImage: `url(${require(`@/assets/${icon()}`)})`
+      }"
     ></span>
   </div>
 </template>
@@ -21,9 +26,12 @@
 import type { Ref } from "vue";
 import { ref, toRef } from "vue";
 
+type Icon = 'integration' | undefined
+
 const props = defineProps<{
   name: string;
   modelValue: string | boolean;
+  icon?: Icon
 }>();
 
 const modelValue = toRef(props, "modelValue");
@@ -34,13 +42,20 @@ const emit = defineEmits<{
 
 const valueInpyt: Ref<HTMLInputElement | null> = ref(null);
 
+const icon = () => {
+  if(props.icon === 'integration') {
+    return 'icons/integration.png'
+  }
+  return 'lvel/pen.png'
+};
+
 function handlerChange() {
   if (modelValue.value === "") {
-    emit('update:modelValue', false)
+    emit("update:modelValue", false);
   }
 }
 function handlerFocusInputValue() {
-  emit('update:modelValue', "")
+  emit("update:modelValue", "");
   if (valueInpyt.value) {
     valueInpyt.value.focus();
   }
@@ -77,7 +92,6 @@ function handlerFocusInputValue() {
     border: none;
   }
   &__img {
-    background-image: url(@/assets/lvel/pen.png);
     background-position: left;
     background-size: contain;
     background-repeat: no-repeat;

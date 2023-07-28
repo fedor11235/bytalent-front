@@ -1,177 +1,66 @@
 <template>
-  <div class="profile-row">
-    <span class="profile-row__name">имя</span>
-    <input
-      @blur="handlerChange('companyName')"
-      v-show="name || name === ''"
-      v-model="name"
-      ref="nameInpyt"
-      class="profile-row__value"
-    />
-    <span
-      @click="handlerFocusInputName"
-      v-if="name === false"
-      class="profile-row__img"
-    ></span>
-  </div>
+  <InputControl name="Название компании" v-model="companyName" />
+  <InputControl name="Организационная форма" v-model="organizationalForms" />
+  <InputControl name="ОГРН" v-model="oGRN" />
+  <InputControl name="ИНН" v-model="iNN" />
+  <InputControl name="БИК банка" v-model="bankBIC" />
+  <InputControl name="Расчётный счёт" v-model="checkingAccount" />
 
-  <div class="profile-row">
-    <span class="profile-row__name">имя</span>
-    <input
-      @blur="handlerChange('name')"
-      v-show="name || name === ''"
-      v-model="name"
-      ref="nameInpyt"
-      class="profile-row__value"
-    />
-    <span
-      @click="handlerFocusInputName"
-      v-if="name === false"
-      class="profile-row__img"
-    ></span>
-  </div>
-
-  <div class="profile-row">
-    <span class="profile-row__name">имя</span>
-    <input
-      @blur="handlerChange('name')"
-      v-show="name || name === ''"
-      v-model="name"
-      ref="nameInpyt"
-      class="profile-row__value"
-    />
-    <span
-      @click="handlerFocusInputName"
-      v-if="name === false"
-      class="profile-row__img"
-    ></span>
-  </div>
-
-  <div class="profile-row">
-    <span class="profile-row__name">имя</span>
-    <input
-      @blur="handlerChange('name')"
-      v-show="name || name === ''"
-      v-model="name"
-      ref="nameInpyt"
-      class="profile-row__value"
-    />
-    <span
-      @click="handlerFocusInputName"
-      v-if="name === false"
-      class="profile-row__img"
-    ></span>
-  </div>
-
-  <div class="profile-row">
-    <span class="profile-row__name">имя</span>
-    <input
-      @blur="handlerChange('name')"
-      v-show="name || name === ''"
-      v-model="name"
-      ref="nameInpyt"
-      class="profile-row__value"
-    />
-    <span
-      @click="handlerFocusInputName"
-      v-if="name === false"
-      class="profile-row__img"
-    ></span>
-  </div>
-
-  <div class="profile-row">
-    <span class="profile-row__name">имя</span>
-    <input
-      @blur="handlerChange('name')"
-      v-show="name || name === ''"
-      v-model="name"
-      ref="nameInpyt"
-      class="profile-row__value"
-    />
-    <span
-      @click="handlerFocusInputName"
-      v-if="name === false"
-      class="profile-row__img"
-    ></span>
-  </div>
+  <div @click="handlerSaveLegal" class="legal-save">Сохранить</div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
+import InputControl from "@/components/controls/InputControl";
 import legalService from "@/services/legalService";
 
-const companyName = ref([]);
-const organizationalForms = ref([]);
-const oGRN = ref([]);
-const iNN = ref([]);
-const bankBIC = ref([]);
-const checkingAccount = ref([]);
+const companyName = ref(false);
+const organizationalForms = ref(false);
+const oGRN = ref(false);
+const iNN = ref(false);
+const bankBIC = ref(false);
+const checkingAccount = ref(false);
 
 legalService.getlegal().then((res) => {
-  companyName.value = res.companyName;
-  organizationalForms.value = res.organizationalForms;
-  oGRN.value = res.oGRN;
-  iNN.value = res.iNN;
-  bankBIC.value = res.bankBIC;
-  checkingAccount.value = res.checkingAccount;
+  companyName.value = res.companyName ? res.companyName : false;
+  organizationalForms.value = res.organizationalForms
+    ? res.organizationalForms
+    : false;
+  oGRN.value = res.oGRN ? res.oGRN : false;
+  iNN.value = res.iNN ? res.iNN : false;
+  bankBIC.value = res.bankBIC ? res.bankBIC : false;
+  checkingAccount.value = res.checkingAccount ? res.checkingAccount : false;
 });
 
-function handlerChange(val: string) {
-  if (val === "companyName" && companyName.value === "") {
-    companyName.value = false;
-  }
-  if (val === "organizationalForms" && organizationalForms.value === "") {
-    organizationalForms.value = false;
-  }
-  if (val === "oGRN" && oGRN.value === "") {
-    oGRN.value = false;
-  }
-  if (val === "iNN" && iNN.value === "") {
-    iNN.value = false;
-  }
-  if (val === "bankBIC" && bankBIC.value === "") {
-    bankBIC.value = false;
-  }
-  if (val === "email" && checkingAccount.value === "") {
-    checkingAccount.value = false;
-  }
+function handlerSaveLegal(val: string) {
+  legalService.setLegal({
+    companyName: companyName.value,
+    organizationalForms: organizationalForms.value,
+    oGRN: oGRN.value,
+    iNN: iNN.value,
+    bankBIC: bankBIC.value,
+    checkingAccount: checkingAccount.value,
+  });
 }
 </script>
 
 <style lang="scss" scoped>
-.legal-row {
-  text-shadow: 0 3px 3px rgba(0, 0, 0, 0.85);
-  width: 87%;
-  height: 8vh;
-  color: #fff;
-  cursor: pointer;
-  justify-content: center;
-  align-items: center;
+.legal-save {
+  padding: 8px 12px;
   font-family: JuraMedium, sans-serif;
   font-size: 1.8vh;
-  font-weight: 300;
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  margin: auto;
-  &__name {
-    font-size: 1.7vh;
-    line-height: 2vh;
-    color: rgba(255, 255, 255, 0.56);
-    text-shadow: 0 3px 3px rgba(0, 0, 0, 0.93);
-  }
-  &__value {
-    color: #fff;
-    font-family: JuraMedium, sans-serif;
-    font-size: 1.8vh;
-  }
-  &__img {
-    background-image: url(@/assets/lvel/pen.png);
-    background-position: left;
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 6%;
-    height: 20%;
+  color: rgba(255, 255, 255, 0.56);
+  margin-right: 5%;
+  margin-top: 18px;
+  float: right;
+  width: 30%;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.56);
+  border-radius: 8px;
+  cursor: pointer;
+  &:hover {
+    color: white;
+    border-color: white;
   }
 }
 </style>

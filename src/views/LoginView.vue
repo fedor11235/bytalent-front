@@ -25,7 +25,10 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import authService from "@/services/authService";
+
+const router = useRouter();
 
 const login = ref("");
 const password = ref("");
@@ -35,6 +38,7 @@ async function handlerLogin() {
     login: login.value,
     password: password.value,
   });
+  router.push({ name: "visualization-first" });
 }
 </script>
 
