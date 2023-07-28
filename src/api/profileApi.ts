@@ -4,7 +4,7 @@ export default {
   getProfile() {
     return api.get("/profile");
   },
-  setProfile(payload: any) {
+  setProfile(payload: FormData) {
     return api.post("/profile", payload);
   },
 };

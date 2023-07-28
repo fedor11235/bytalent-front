@@ -1,13 +1,15 @@
 import api from "@/api";
 import authApi from "@/api/authApi";
 import { useRouter } from "vue-router";
+import { createFormData } from "@/utils/formData";
 
 const router = useRouter();
 
 export default {
   async userLogin(payload: any) {
     try {
-      const { data } = await authApi.userLogin(payload);
+      const formData = createFormData(payload);
+      const { data } = await authApi.userLogin(formData);
       window.localStorage.setItem("token", data.access_token);
       api.interceptors.request.use(
         (config) => {

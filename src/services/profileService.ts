@@ -1,4 +1,5 @@
 import profileApi from "@/api/profileApi";
+import { createFormData } from "@/utils/formData";
 
 type PayloadSetProfile = {
   name?: string;
@@ -29,10 +30,7 @@ export default {
 
   async setProfile(payload: any) {
     try {
-      const formData = new FormData();
-      for (const key of Object.keys(payload)) {
-        formData.append(key, payload[key] ? payload[key] : "");
-      }
+      const formData = createFormData(payload);
       const { data } = await profileApi.setProfile(formData);
       return data;
     } catch (e) {

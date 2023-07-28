@@ -1,99 +1,15 @@
 <template>
-  <div class="profile-row">
-    <span class="profile-row__name">имя</span>
-    <input
-      @blur="handlerChange('name')"
-      v-show="name || name === ''"
-      v-model="name"
-      ref="nameInpyt"
-      class="profile-row__value"
-    />
-    <span
-      @click="handlerFocusInputName"
-      v-if="name === false"
-      class="profile-row__img"
-    ></span>
-  </div>
+  <InputControl name="Имя" v-model="name"/>
 
-  <div class="profile-row">
-    <span class="profile-row__name">Фамилия</span>
-    <input
-      @blur="handlerChange('surname')"
-      v-show="surname || surname === ''"
-      v-model="surname"
-      ref="surnameInpyt"
-      class="profile-row__value"
-    />
-    <span
-      @click="handlerFocusInputSurname"
-      v-if="surname === false"
-      class="profile-row__img"
-    ></span>
-  </div>
+  <InputControl name="Фамилия" v-model="surname"/>
 
-  <div class="profile-row">
-    <span class="profile-row__name">Организация</span>
-    <input
-      @blur="handlerChange('organization')"
-      v-show="organization || organization === ''"
-      v-model="organization"
-      ref="organizationInpyt"
-      class="profile-row__value"
-    />
-    <span
-      @click="handlerFocusInputOrganization"
-      v-if="organization === false"
-      class="profile-row__img"
-    ></span>
-  </div>
+  <InputControl name="Организация" v-model="organization"/>
 
-  <div class="profile-row">
-    <span class="profile-row__name">Должность</span>
-    <input
-      @blur="handlerChange('position')"
-      v-show="position || position === ''"
-      v-model="position"
-      ref="positionInpyt"
-      class="profile-row__value"
-    />
-    <span
-      @click="handlerFocusInputPosition"
-      v-if="position === false"
-      class="profile-row__img"
-    ></span>
-  </div>
+  <InputControl name="Должность" v-model="position"/>
 
-  <div class="profile-row">
-    <span class="profile-row__name">Номер телефона</span>
-    <input
-      @blur="handlerChange('phone')"
-      v-show="phone || phone === ''"
-      v-model="phone"
-      ref="phoneInpyt"
-      class="profile-row__value"
-    />
-    <span
-      @click="handlerFocusInputPhone"
-      v-if="phone === false"
-      class="profile-row__img"
-    ></span>
-  </div>
+  <InputControl name="Номер телефона" v-model="phone"/>
 
-  <div class="profile-row">
-    <span class="profile-row__name">Email</span>
-    <input
-      @blur="handlerChange('email')"
-      v-show="email || email === ''"
-      v-model="email"
-      ref="emailInpyt"
-      class="profile-row__value"
-    />
-    <span
-      @click="handlerFocusInputEmail"
-      v-if="email === false"
-      class="profile-row__img"
-    ></span>
-  </div>
+  <InputControl name="email" v-model="email"/>
 
   <div @click="handlerSaveProfile" class="profile-save">Сохранить</div>
 </template>
@@ -101,13 +17,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import profileService from "@/services/profileService";
-
-const nameInpyt = ref(null);
-const surnameInpyt = ref(null);
-const organizationInpyt = ref(null);
-const positionInpyt = ref(null);
-const phoneInpyt = ref(null);
-const emailInpyt = ref(null);
+import InputControl from "@/components/controls/InputControl";
 
 const name = ref(false);
 const surname = ref(false);
@@ -136,50 +46,6 @@ function handlerSaveProfile(val: string) {
     phone: phone.value,
     email: email.value,
   });
-}
-function handlerChange(val: string) {
-  if (val === "name" && name.value === "") {
-    name.value = false;
-  }
-  if (val === "surname" && surname.value === "") {
-    surname.value = false;
-  }
-  if (val === "organization" && organization.value === "") {
-    organization.value = false;
-  }
-  if (val === "position" && position.value === "") {
-    position.value = false;
-  }
-  if (val === "phone" && phone.value === "") {
-    phone.value = false;
-  }
-  if (val === "email" && email.value === "") {
-    email.value = false;
-  }
-}
-function handlerFocusInputName() {
-  name.value = "";
-  nameInpyt.value.focus();
-}
-function handlerFocusInputSurname() {
-  surname.value = "";
-  surnameInpyt.value.focus();
-}
-function handlerFocusInputOrganization() {
-  organization.value = "";
-  organizationInpyt.value.focus();
-}
-function handlerFocusInputPosition() {
-  position.value = "";
-  positionInpyt.value.focus();
-}
-function handlerFocusInputPhone() {
-  phone.value = "";
-  phoneInpyt.value.focus();
-}
-function handlerFocusInputEmail() {
-  email.value = "";
-  emailInpyt.value.focus();
 }
 </script>
 
