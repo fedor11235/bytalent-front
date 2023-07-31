@@ -1,10 +1,10 @@
 <template>
-  <div class="settings">
+  <div class="new-level">
     <Transition name="fade">
       <PopupLavel v-if="isShowPopup" @close="isShowPopup = false" />
     </Transition>
-    <div class="settings__backdrop"></div>
-    <div class="settings__content">
+    <div class="new-level__backdrop"></div>
+    <div class="new-level__content">
       <HeaderComponent
         urlButton="header/main.png"
         urlButtonHover="header/main.png"
@@ -13,7 +13,7 @@
         @switch="rootStore.infoPage = !rootStore.infoPage"
       />
       <div class="media">
-        <div class="settings__content__control">
+        <div class="new-level__content__control">
           <div class="media__btn"></div>
         </div>
         <div class="carousel">
@@ -37,34 +37,34 @@
           ></div>
         </div>
       </div>
-      <div class="settings__info">
-        <div class="settings__header">
-          <div class="settings__content__control">
-            <div class="settings__header__btn"></div>
+      <div class="new-level__info">
+        <div class="new-level__header">
+          <div class="new-level__content__control">
+            <div class="new-level__header__btn"></div>
           </div>
           <div>
-            <div class="settings__title">Новый уровень</div>
-            <div class="settings__text">Адрес</div>
+            <div class="new-level__title">Новый уровень</div>
+            <div class="new-level__text">Адрес</div>
           </div>
         </div>
       </div>
       <div class="assistant">
-        <div class="settings__content__control">
+        <div class="new-level__content__control">
           <div class="assistant__btn"></div>
         </div>
-        <div class="settings__assistant">
-          <div class="settings__assistant_menu">
+        <div class="new-level__assistant">
+          <div class="new-level__assistant_menu">
             <div
-              class="settings__assistant_menu_item"
+              class="new-level__assistant_menu_item"
               v-for="item of menu"
               :key="item"
             >
               {{ item }}
             </div>
           </div>
-          <div class="settings__assistant_chat">
-            <textarea class="settings__assistant_chat_input"></textarea>
-            <div class="settings__assistant_chat_button">Отправить</div>
+          <div class="new-level__assistant_chat">
+            <textarea class="new-level__assistant_chat_input"></textarea>
+            <div class="new-level__assistant_chat_button">Отправить</div>
           </div>
         </div>
         <div class="assistant__btns">
@@ -155,7 +155,7 @@ provide("handlerBtnHeaderClick", returnHome);
 </script>
 
 <style lang="scss" scoped>
-.settings {
+.new-level {
   position: fixed;
   z-index: 1;
   height: 100vh;
