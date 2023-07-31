@@ -1,20 +1,24 @@
 <template>
   <div class="popup-level">
     <div class="popup-level__carousel">
-      <img @click="emit('close')" class="popup-level__close" src="@/assets/icons/close.png" alt="close" />
+      <img
+        @click="emit('close')"
+        class="popup-level__close"
+        src="@/assets/icons/close.png"
+        alt="close"
+      />
       <div class="popup-level__arrow popup-level__arrow-pos-left">
         <div @click="handlerLeftMove" class="popup-level__arrow-left"></div>
       </div>
       <div ref="sliders" class="popup-level__sliders">
-        <div             
+        <div
           v-for="img in imgs"
           :key="img.id"
           class="popup-level__slider"
           :style="{
             backgroundImage: `url(${require(`@/assets/lvel/${img.img}`)})`,
           }"
-        >
-        </div>
+        ></div>
       </div>
       <div class="popup-level__sliders"></div>
       <div class="popup-level__arrow popup-level__arrow-pos-right">
@@ -22,8 +26,12 @@
       </div>
     </div>
     <div class="popup-level__control">
-      <div class="popup-level__control__icon popup-level__control__icon_screen"></div>
-      <div class="popup-level__control__icon popup-level__control__icon_trash"></div>
+      <div
+        class="popup-level__control__icon popup-level__control__icon_screen"
+      ></div>
+      <div
+        class="popup-level__control__icon popup-level__control__icon_trash"
+      ></div>
     </div>
   </div>
 </template>
@@ -110,7 +118,7 @@ function handlerRightMove() {
   &__sliders {
     height: 100%;
     width: 100%;
-    transition: transform .3s;
+    transition: transform 0.3s;
     display: flex;
   }
   &__slider {
@@ -180,7 +188,7 @@ function handlerRightMove() {
       cursor: pointer;
       position: relative;
       &::before {
-        content: '';
+        content: "";
         font-family: JuraMedium;
         position: absolute;
         bottom: 0;
@@ -189,14 +197,14 @@ function handlerRightMove() {
         color: white;
         text-wrap: nowrap;
         opacity: 0;
-        transition: opacity .3s;
+        transition: opacity 0.3s;
       }
       &_screen {
         background-image: url(@/assets/icons/screen.png);
         &:hover {
           &::before {
             opacity: 1;
-            content: 'Сделать фоновым';
+            content: "Сделать фоновым";
           }
         }
       }
@@ -205,7 +213,7 @@ function handlerRightMove() {
         &:hover {
           &::before {
             opacity: 1;
-            content: 'Удалить';
+            content: "Удалить";
           }
         }
       }
