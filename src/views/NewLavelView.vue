@@ -14,7 +14,7 @@
       />
       <div class="media">
         <div class="new-level__content__control">
-          <div class="media__btn"></div>
+          <div @click="isMediaAdd = !isMediaAdd" class="media__btn"></div>
         </div>
         <div class="carousel">
           <div
@@ -36,6 +36,19 @@
             class="carousel__arrow carousel__arrow-right"
           ></div>
         </div>
+        <Transition name="fade">
+          <div v-if="isMediaAdd" class="media__add">
+            <img
+              class="media__add_icon"
+              src="@/assets/lvel/clip.png"
+              alt="add"
+            />
+            Добавление медиа файлов<br />
+            (Нажмите для выбора, либо перетащите файлы в<br />данное поле)
+            <br /><br />
+            jpg/png/gif/mp4/mov
+          </div>
+        </Transition>
       </div>
       <div class="new-level__info">
         <div class="new-level__header">
@@ -50,10 +63,22 @@
       </div>
       <div class="assistant">
         <div class="new-level__content__control">
-          <div class="assistant__btn"></div>
+          <div
+            :class="['assistant__btn', { assistant__btn_big: isExpand }]"
+          ></div>
         </div>
-        <div class="new-level__assistant">
-          <div class="new-level__assistant_menu">
+        <div
+          :class="[
+            'new-level__assistant',
+            { 'new-level__assistant_big': isExpand },
+          ]"
+        >
+          <div
+            :class="[
+              'new-level__assistant_menu',
+              { 'new-level__assistant_menu_big': isExpand },
+            ]"
+          >
             <div
               class="new-level__assistant_menu_item"
               v-for="item of menu"
@@ -64,6 +89,12 @@
           </div>
           <div class="new-level__assistant_chat">
             <textarea class="new-level__assistant_chat_input"></textarea>
+            <img
+              @click="isExpand = !isExpand"
+              src="@/assets/icons/expand.png"
+              alt="expand"
+              class="new-level__assistant_expand"
+            />
             <div class="new-level__assistant_chat_button">Отправить</div>
           </div>
         </div>
@@ -122,6 +153,8 @@ let move = 0;
 
 const sliders: Ref<HTMLDivElement | null> = ref(null);
 const isShowPopup = ref(false);
+const isMediaAdd = ref(false);
+const isExpand = ref(false);
 
 function handlerShowPopup() {
   isShowPopup.value = true;
@@ -189,6 +222,38 @@ provide("handlerBtnHeaderClick", returnHome);
     .media {
       display: flex;
       margin-top: 21px;
+      &__add {
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        background-color: #1f1f1f;
+        border: 1px solid rgba(70, 70, 70, 0.85);
+        border-radius: 17px;
+        box-shadow: inset 0 0 8px 2px rgba(122, 122, 122, 0.36),
+          0 2px 8px rgba(0, 0, 0, 0.49);
+        position: absolute;
+        width: 66%;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 45vh;
+        top: 10vh;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        font-family: JuraMedium;
+        &_icon {
+          width: 32px;
+          height: 28px;
+          opacity: 0.9;
+          background-position: 50%;
+          background-repeat: no-repeat;
+          background-size: contain;
+          margin-bottom: 12px;
+        }
+      }
       &__btn {
         width: 32px;
         height: 28px;
@@ -198,6 +263,24 @@ provide("handlerBtnHeaderClick", returnHome);
         background-repeat: no-repeat;
         background-size: contain;
         cursor: pointer;
+        position: relative;
+        &:hover {
+          &::before {
+            opacity: 1;
+          }
+        }
+        &::before {
+          content: "Добавить медиа";
+          font-family: JuraMedium;
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translate(-50%, 100%);
+          color: white;
+          text-wrap: nowrap;
+          opacity: 0;
+          transition: opacity 0.3s;
+        }
       }
       .carousel {
         position: relative;
@@ -233,11 +316,11 @@ provide("handlerBtnHeaderClick", returnHome);
           justify-content: center;
           cursor: pointer;
           user-select: none;
-          z-index: 1;
           &:hover {
             opacity: 1;
           }
           &-left {
+            z-index: 1;
             left: 12px;
             &::before {
               content: "";
@@ -278,6 +361,24 @@ provide("handlerBtnHeaderClick", returnHome);
       background-repeat: no-repeat;
       background-size: contain;
       cursor: pointer;
+      position: relative;
+      &:hover {
+        &::before {
+          opacity: 1;
+        }
+      }
+      &::before {
+        content: "Редактировать информацию";
+        font-family: JuraMedium;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 100%);
+        color: white;
+        opacity: 0;
+        transition: opacity 0.3s;
+        text-align: center;
+      }
     }
   }
   &__title {
@@ -318,9 +419,32 @@ provide("handlerBtnHeaderClick", returnHome);
       background-repeat: no-repeat;
       background-size: contain;
       cursor: pointer;
+      position: relative;
+      &_big {
+        position: relative;
+        bottom: 22vh;
+      }
+      &:hover {
+        &::before {
+          opacity: 1;
+        }
+      }
+      &::before {
+        content: "Загрузка файлов";
+        font-family: JuraMedium;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 100%);
+        color: white;
+        opacity: 0;
+        transition: opacity 0.3s;
+        text-align: center;
+      }
     }
     &__btns {
       width: 17%;
+      height: 36vh;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -350,6 +474,7 @@ provide("handlerBtnHeaderClick", returnHome);
     }
   }
   &__assistant {
+    position: relative;
     display: flex;
     align-items: center;
     width: 66%;
@@ -361,12 +486,36 @@ provide("handlerBtnHeaderClick", returnHome);
     -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
     box-shadow: 0 2px 8px #000, inset 0 0 5px 2px rgba(255, 255, 255, 0.22);
+    &_big {
+      position: relative;
+      bottom: 44vh;
+      height: 80vh;
+    }
+    &_expand {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 27.33px;
+      height: 25.96px;
+      -o-object-fit: contain;
+      object-fit: contain;
+      opacity: 0.5;
+      cursor: pointer;
+      &:hover {
+        opacity: 1;
+      }
+    }
     &_menu {
+      position: relative;
+      bottom: 0;
       width: 31.5%;
-      height: 100%;
+      height: 36vh;
       padding-top: 1%;
       padding-bottom: 1%;
       padding-right: 1%;
+      &_big {
+        top: 22vh;
+      }
       &_item {
         width: 100%;
         height: 20%;
