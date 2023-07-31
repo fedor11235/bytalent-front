@@ -1,5 +1,8 @@
 <template>
   <div class="settings">
+    <Transition name="fade">
+      <PopupLavel v-if="isShowPopup" @close="isShowPopup = false" />
+    </Transition>
     <div class="settings__backdrop"></div>
     <div class="settings__content">
       <HeaderComponent
@@ -14,33 +17,24 @@
           <div class="media__btn"></div>
         </div>
         <div class="carousel">
-          <div class="carousel__arrow carousel__arrow-left"></div>
-          <img
-            class="carousel__img"
-            src="@/assets/lvel/carousel.jpeg"
-            alt="img"
-          />
-          <img
-            class="carousel__img"
-            src="@/assets/lvel/carousel.jpeg"
-            alt="img"
-          />
-          <img
-            class="carousel__img"
-            src="@/assets/lvel/carousel.jpeg"
-            alt="img"
-          />
-          <img
-            class="carousel__img"
-            src="@/assets/lvel/carousel.jpeg"
-            alt="img"
-          />
-          <img
-            class="carousel__img"
-            src="@/assets/lvel/carousel.jpeg"
-            alt="img"
-          />
-          <div class="carousel__arrow carousel__arrow-right"></div>
+          <div
+            @click="handlerLeftMove"
+            class="carousel__arrow carousel__arrow-left"
+          ></div>
+          <div class="sliders" ref="sliders">
+            <img
+              class="carousel__img"
+              v-for="img in imgs"
+              :key="img.id"
+              @click="handlerShowPopup"
+              :src="require(`@/assets/lvel/${img.img}`)"
+              alt="img"
+            />
+          </div>
+          <div
+            @click="handlerRightMove"
+            class="carousel__arrow carousel__arrow-right"
+          ></div>
         </div>
       </div>
       <div class="settings__info">
@@ -86,10 +80,12 @@
 </template>
 
 <script setup lang="ts">
-import { provide } from "vue";
+import type { Ref } from "vue";
+import { provide, ref } from "vue";
 import { useRootStore } from "@/store";
 import { useRouter } from "vue-router";
 
+import PopupLavel from "@/components/newLavel/PopupLavel.vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 
 const router = useRouter();
@@ -102,8 +98,57 @@ const menu = [
   "Интеграция",
 ];
 
+const imgs = [
+  {
+    id: 1,
+    img: "carousel.jpeg",
+  },
+  {
+    id: 2,
+    img: "carousel.jpeg",
+  },
+  {
+    id: 3,
+    img: "carousel.jpeg",
+  },
+  {
+    id: 4,
+    img: "carousel.jpeg",
+  },
+];
+
+const widthSlid = 33.75;
+let move = 0;
+
+const sliders: Ref<HTMLDivElement | null> = ref(null);
+const isShowPopup = ref(false);
+
+function handlerShowPopup() {
+  isShowPopup.value = true;
+}
+
 function returnHome() {
   router.push({ name: "visualization-first" });
+}
+
+function handlerLeftMove() {
+  move += widthSlid;
+  if ((imgs.length - 1) * widthSlid <= move) {
+    move = (imgs.length - 1) * -widthSlid;
+  }
+  if (sliders.value) {
+    sliders.value.style.transform = `translateX(${move}%)`;
+  }
+}
+
+function handlerRightMove() {
+  move -= widthSlid;
+  if (imgs.length * -widthSlid >= move) {
+    move = (imgs.length - 2) * widthSlid;
+  }
+  if (sliders.value) {
+    sliders.value.style.transform = `translateX(${move}%)`;
+  }
 }
 
 provide("handlerBtnHeaderClick", returnHome);
@@ -158,9 +203,13 @@ provide("handlerBtnHeaderClick", returnHome);
         position: relative;
         width: 66%;
         height: 27vh;
-        display: flex;
-        column-gap: 12px;
         overflow: hidden;
+        .sliders {
+          display: flex;
+          column-gap: 1.25%;
+          transition: transform 0.3s;
+          height: 100%;
+        }
         &__img {
           height: 100%;
           width: 32.5%;
@@ -168,6 +217,7 @@ provide("handlerBtnHeaderClick", returnHome);
           max-width: none;
           border-radius: 10px;
           box-shadow: 0 7px 8px -5px #000;
+          cursor: pointer;
         }
         &__arrow {
           position: absolute;
@@ -178,15 +228,40 @@ provide("handlerBtnHeaderClick", returnHome);
           height: 40px;
           top: 50%;
           transform: translateY(-50%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
           cursor: pointer;
+          user-select: none;
+          z-index: 1;
           &:hover {
             opacity: 1;
           }
           &-left {
             left: 12px;
+            &::before {
+              content: "";
+              position: relative;
+              left: 4px;
+              width: 50%;
+              height: 50%;
+              border-top: 4px solid white;
+              border-right: 4px solid white;
+              transform: rotate(-135deg);
+            }
           }
           &-right {
             right: 12px;
+            &::before {
+              content: "";
+              position: relative;
+              right: 4px;
+              width: 50%;
+              height: 50%;
+              border-top: 4px solid white;
+              border-right: 4px solid white;
+              transform: rotate(45deg);
+            }
           }
         }
       }
