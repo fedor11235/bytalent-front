@@ -1,5 +1,12 @@
 <template>
-  <div class="new-level">
+  <div
+    class="new-level"
+    :style="{
+      backgroundImage: projectStore.background
+        ? `url(${projectStore.background})`
+        : `url(${require('@/assets/backgrounds/lvel.jpeg')})`,
+    }"
+  >
     <Transition name="fade">
       <PopupLavel
         v-if="isShowPopup"
@@ -29,10 +36,10 @@
           <div class="sliders" ref="sliders">
             <img
               class="carousel__img"
-              v-for="(img, index) in backgrounds"
-              :key="index"
-              @click="handlerShowPopup(index)"
-              :src="img"
+              v-for="background in backgrounds"
+              :key="background.id"
+              @click="handlerShowPopup(background.id)"
+              :src="background.img"
               alt="img"
             />
           </div>
@@ -119,14 +126,21 @@
 import type { Ref } from "vue";
 import { provide, ref } from "vue";
 import { useRootStore } from "@/store";
+import { useProjectStore } from "@/store";
 import { useRouter } from "vue-router";
 import projectService from "@/services/projectService";
 
 import PopupLavel from "@/components/newLavel/PopupLavel.vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 
+type Background = {
+  id: number;
+  img: string;
+};
+
 const router = useRouter();
 const rootStore = useRootStore();
+const projectStore = useProjectStore();
 
 const menu = [
   "Личный ассистент",
@@ -137,7 +151,7 @@ const menu = [
 
 const widthSlid = 33.75;
 let move = 0;
-let backgrounds = ref([]);
+let backgrounds: Ref<Background[]> = ref([]);
 projectService.getBackgrounds().then((res) => {
   backgrounds.value = res.backgrounds;
 });
@@ -187,7 +201,6 @@ provide("handlerBtnHeaderClick", returnHome);
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background-image: url(@/assets/backgrounds/lvel.jpeg);
   background-position: 0 0;
   box-shadow: inset 0 0 5px #000;
   background-repeat: no-repeat;

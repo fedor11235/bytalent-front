@@ -16,11 +16,11 @@
         :style="{ transform: `translateX(${move}%)` }"
       >
         <div
-          v-for="(img, index) in backgrounds"
-          :key="index"
+          v-for="background in backgrounds"
+          :key="background.id"
           class="popup-level__slider"
           :style="{
-            backgroundImage: `url(${img})`,
+            backgroundImage: `url(${background.img})`,
           }"
         ></div>
       </div>
@@ -31,9 +31,11 @@
     </div>
     <div class="popup-level__control">
       <div
+        @click="handlerAddBackground"
         class="popup-level__control__icon popup-level__control__icon_screen"
       ></div>
       <div
+        @click="handlerDeleteBackground"
         class="popup-level__control__icon popup-level__control__icon_trash"
       ></div>
     </div>
@@ -43,6 +45,10 @@
 <script setup lang="ts">
 import type { Ref } from "vue";
 import { toRef, ref } from "vue";
+import { useProjectStore } from "@/store";
+
+const projectStore = useProjectStore();
+
 const emit = defineEmits(["close"]);
 
 const props = defineProps<{
@@ -51,17 +57,31 @@ const props = defineProps<{
 }>();
 
 const backgrounds = toRef(props, "backgrounds");
-const indexBackgrounds = toRef(props, "indexBackgrounds");
+const indexBackgroundsProp = toRef(props, "indexBackgrounds");
+const indexBackgroundsAdd = ref(indexBackgroundsProp.value - 1);
 
 const widthSlid = 100;
-let move = indexBackgrounds.value * -widthSlid;
+let move = indexBackgroundsAdd.value * -widthSlid;
 
 const sliders: Ref<HTMLDivElement | null> = ref(null);
+
+function handlerAddBackground() {
+  projectStore.background = backgrounds.value.find(
+    (background) => background.id === indexBackgroundsAdd.value + 1
+  ).img;
+}
+
+function handlerDeleteBackground(index: number) {
+  console.log("delete: ", backgrounds.value[0]);
+}
 
 function handlerLeftMove() {
   move += widthSlid;
   if (0 < move) {
     move = (backgrounds.value.length - 1) * -widthSlid;
+    indexBackgroundsAdd.value = backgrounds.value.length - 1;
+  } else {
+    indexBackgroundsAdd.value -= 1;
   }
   if (sliders.value) {
     sliders.value.style.transform = `translateX(${move}%)`;
@@ -72,6 +92,9 @@ function handlerRightMove() {
   move -= widthSlid;
   if (backgrounds.value.length * -widthSlid >= move) {
     move = 0;
+    indexBackgroundsAdd.value = 0;
+  } else {
+    indexBackgroundsAdd.value += 1;
   }
   if (sliders.value) {
     sliders.value.style.transform = `translateX(${move}%)`;
