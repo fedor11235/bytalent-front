@@ -1,7 +1,12 @@
 <template>
   <div class="new-level">
     <Transition name="fade">
-      <PopupLavel v-if="isShowPopup" @close="isShowPopup = false" />
+      <PopupLavel
+        v-if="isShowPopup"
+        :backgrounds="backgrounds"
+        :indexBackgrounds="indexBackgrounds"
+        @close="isShowPopup = false"
+      />
     </Transition>
     <div class="new-level__backdrop"></div>
     <div class="new-level__content">
@@ -24,10 +29,10 @@
           <div class="sliders" ref="sliders">
             <img
               class="carousel__img"
-              v-for="img in imgs"
-              :key="img.id"
-              @click="handlerShowPopup"
-              :src="require(`@/assets/lvel/${img.img}`)"
+              v-for="(img, index) in backgrounds"
+              :key="index"
+              @click="handlerShowPopup(index)"
+              :src="img"
               alt="img"
             />
           </div>
@@ -115,6 +120,7 @@ import type { Ref } from "vue";
 import { provide, ref } from "vue";
 import { useRootStore } from "@/store";
 import { useRouter } from "vue-router";
+import projectService from "@/services/projectService";
 
 import PopupLavel from "@/components/newLavel/PopupLavel.vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
@@ -129,34 +135,21 @@ const menu = [
   "Интеграция",
 ];
 
-const imgs = [
-  {
-    id: 1,
-    img: "carousel.jpeg",
-  },
-  {
-    id: 2,
-    img: "carousel.jpeg",
-  },
-  {
-    id: 3,
-    img: "carousel.jpeg",
-  },
-  {
-    id: 4,
-    img: "carousel.jpeg",
-  },
-];
-
 const widthSlid = 33.75;
 let move = 0;
+let backgrounds = ref([]);
+projectService.getBackgrounds().then((res) => {
+  backgrounds.value = res.backgrounds;
+});
 
 const sliders: Ref<HTMLDivElement | null> = ref(null);
+const indexBackgrounds = ref(0);
 const isShowPopup = ref(false);
 const isMediaAdd = ref(false);
 const isExpand = ref(false);
 
-function handlerShowPopup() {
+function handlerShowPopup(index: number) {
+  indexBackgrounds.value = index;
   isShowPopup.value = true;
 }
 
@@ -166,8 +159,8 @@ function returnHome() {
 
 function handlerLeftMove() {
   move += widthSlid;
-  if ((imgs.length - 1) * widthSlid <= move) {
-    move = (imgs.length - 1) * -widthSlid;
+  if ((backgrounds.value.length - 1) * widthSlid <= move) {
+    move = (backgrounds.value.length - 1) * -widthSlid;
   }
   if (sliders.value) {
     sliders.value.style.transform = `translateX(${move}%)`;
@@ -176,8 +169,8 @@ function handlerLeftMove() {
 
 function handlerRightMove() {
   move -= widthSlid;
-  if (imgs.length * -widthSlid >= move) {
-    move = (imgs.length - 2) * widthSlid;
+  if (backgrounds.value.length * -widthSlid >= move) {
+    move = (backgrounds.value.length - 2) * widthSlid;
   }
   if (sliders.value) {
     sliders.value.style.transform = `translateX(${move}%)`;
@@ -509,7 +502,7 @@ provide("handlerBtnHeaderClick", returnHome);
       position: relative;
       bottom: 0;
       width: 31.5%;
-      height: 36vh;
+      height: 35vh;
       padding-top: 1%;
       padding-bottom: 1%;
       padding-right: 1%;

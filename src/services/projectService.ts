@@ -10,6 +10,14 @@ export default {
       console.error(e);
     }
   },
+  async getBackgrounds() {
+    try {
+      const { data } = await projectApi.getBackgrounds();
+      return data;
+    } catch (e) {
+      console.error(e);
+    }
+  },
   async orderVisualization(payload: any) {
     try {
       const formData = createFormData(payload);

@@ -10,13 +10,17 @@
       <div class="popup-level__arrow popup-level__arrow-pos-left">
         <div @click="handlerLeftMove" class="popup-level__arrow-left"></div>
       </div>
-      <div ref="sliders" class="popup-level__sliders">
+      <div
+        ref="sliders"
+        class="popup-level__sliders"
+        :style="{ transform: `translateX(${move}%)` }"
+      >
         <div
-          v-for="img in imgs"
-          :key="img.id"
+          v-for="(img, index) in backgrounds"
+          :key="index"
           class="popup-level__slider"
           :style="{
-            backgroundImage: `url(${require(`@/assets/lvel/${img.img}`)})`,
+            backgroundImage: `url(${img})`,
           }"
         ></div>
       </div>
@@ -38,37 +42,26 @@
 
 <script setup lang="ts">
 import type { Ref } from "vue";
-import { ref } from "vue";
+import { toRef, ref } from "vue";
 const emit = defineEmits(["close"]);
 
-const imgs = [
-  {
-    id: 1,
-    img: "carousel.jpeg",
-  },
-  {
-    id: 2,
-    img: "carousel.jpeg",
-  },
-  {
-    id: 3,
-    img: "carousel.jpeg",
-  },
-  {
-    id: 4,
-    img: "carousel.jpeg",
-  },
-];
+const props = defineProps<{
+  backgrounds: string[];
+  indexBackgrounds: number;
+}>();
+
+const backgrounds = toRef(props, "backgrounds");
+const indexBackgrounds = toRef(props, "indexBackgrounds");
 
 const widthSlid = 100;
-let move = 0;
+let move = indexBackgrounds.value * -widthSlid;
 
 const sliders: Ref<HTMLDivElement | null> = ref(null);
 
 function handlerLeftMove() {
   move += widthSlid;
   if (0 < move) {
-    move = (imgs.length - 1) * -widthSlid;
+    move = (backgrounds.value.length - 1) * -widthSlid;
   }
   if (sliders.value) {
     sliders.value.style.transform = `translateX(${move}%)`;
@@ -77,7 +70,7 @@ function handlerLeftMove() {
 
 function handlerRightMove() {
   move -= widthSlid;
-  if (imgs.length * -widthSlid >= move) {
+  if (backgrounds.value.length * -widthSlid >= move) {
     move = 0;
   }
   if (sliders.value) {
