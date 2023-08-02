@@ -16,7 +16,7 @@
         :style="{ transform: `translateX(${move}%)` }"
       >
         <div
-          v-for="background in backgrounds"
+          v-for="background in projectStore.backgrounds"
           :key="background.id"
           class="popup-level__slider"
           :style="{
@@ -53,36 +53,35 @@ const projectStore = useProjectStore();
 const emit = defineEmits(["close"]);
 
 const props = defineProps<{
-  backgrounds: string[];
   indexBackgrounds: number;
 }>();
 
-const backgrounds = toRef(props, "backgrounds");
-const indexBackgroundsProp = toRef(props, "indexBackgrounds");
-const indexBackgroundsAdd = ref(indexBackgroundsProp.value - 1);
+const indexBackgrounds = ref(props.indexBackgrounds);
 
 const widthSlid = 100;
-let move = indexBackgroundsAdd.value * -widthSlid;
+let move = indexBackgrounds.value * -widthSlid;
 
 const sliders: Ref<HTMLDivElement | null> = ref(null);
 
 function handlerAddBackground() {
-  projectStore.background = backgrounds.value.find(
-    (background) => background.id === indexBackgroundsAdd.value + 1
-  ).img;
+  projectStore.background =
+    projectStore.backgrounds[indexBackgrounds.value].img;
 }
 
 function handlerDeleteBackground() {
-  projectService.deleteBackgrounds(indexBackgroundsAdd.value + 1);
+  projectService.deleteBackgrounds(
+    projectStore.backgrounds[indexBackgrounds.value].id
+  );
+  projectStore.backgrounds.splice(indexBackgrounds.value, 1);
 }
 
 function handlerLeftMove() {
   move += widthSlid;
   if (0 < move) {
-    move = (backgrounds.value.length - 1) * -widthSlid;
-    indexBackgroundsAdd.value = backgrounds.value.length - 1;
+    move = (projectStore.backgrounds.length - 1) * -widthSlid;
+    indexBackgrounds.value = projectStore.backgrounds.length - 1;
   } else {
-    indexBackgroundsAdd.value -= 1;
+    indexBackgrounds.value -= 1;
   }
   if (sliders.value) {
     sliders.value.style.transform = `translateX(${move}%)`;
@@ -91,11 +90,11 @@ function handlerLeftMove() {
 
 function handlerRightMove() {
   move -= widthSlid;
-  if (backgrounds.value.length * -widthSlid >= move) {
+  if (projectStore.backgrounds.length * -widthSlid >= move) {
     move = 0;
-    indexBackgroundsAdd.value = 0;
+    indexBackgrounds.value = 0;
   } else {
-    indexBackgroundsAdd.value += 1;
+    indexBackgrounds.value += 1;
   }
   if (sliders.value) {
     sliders.value.style.transform = `translateX(${move}%)`;

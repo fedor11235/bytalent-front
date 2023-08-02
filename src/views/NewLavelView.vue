@@ -17,7 +17,6 @@
     <Transition name="fade">
       <PopupLavel
         v-if="isShowPopup"
-        :backgrounds="backgrounds"
         :indexBackgrounds="indexBackgrounds"
         @close="isShowPopup = false"
       />
@@ -43,9 +42,9 @@
           <div class="sliders" ref="sliders">
             <img
               class="carousel__img"
-              v-for="background in backgrounds"
+              v-for="(background, index) in projectStore.backgrounds"
               :key="background.id"
-              @click="handlerShowPopup(background.id)"
+              @click="handlerShowPopup(index)"
               :src="background.img"
               alt="img"
             />
@@ -140,11 +139,6 @@ import projectService from "@/services/projectService";
 import PopupLavel from "@/components/newLavel/PopupLavel.vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 
-type Background = {
-  id: number;
-  img: string;
-};
-
 const router = useRouter();
 const rootStore = useRootStore();
 const projectStore = useProjectStore();
@@ -158,14 +152,12 @@ const menu = [
 
 const widthSlid = 33.75;
 let move = 0;
-let backgrounds: Ref<Background[]> = ref([]);
 projectService.getBackgrounds().then((res) => {
-  backgrounds.value = res.backgrounds;
+  projectStore.backgrounds.push(...res.backgrounds);
 });
 
 const sliders: Ref<HTMLDivElement | null> = ref(null);
 const fileInput: Ref<HTMLInputElement | null> = ref(null);
-const uploadImage: Ref<any> = ref("");
 const indexBackgrounds = ref(0);
 const isShowPopup = ref(false);
 const isMediaAdd = ref(false);
@@ -182,8 +174,8 @@ function returnHome() {
 
 function handlerLeftMove() {
   move += widthSlid;
-  if ((backgrounds.value.length - 1) * widthSlid <= move) {
-    move = (backgrounds.value.length - 1) * -widthSlid;
+  if ((projectStore.backgrounds.length - 1) * widthSlid <= move) {
+    move = (projectStore.backgrounds.length - 1) * -widthSlid;
   }
   if (sliders.value) {
     sliders.value.style.transform = `translateX(${move}%)`;
@@ -192,8 +184,8 @@ function handlerLeftMove() {
 
 function handlerRightMove() {
   move -= widthSlid;
-  if (backgrounds.value.length * -widthSlid >= move) {
-    move = (backgrounds.value.length - 2) * widthSlid;
+  if (projectStore.backgrounds.length * -widthSlid >= move) {
+    move = (projectStore.backgrounds.length - 2) * widthSlid;
   }
   if (sliders.value) {
     sliders.value.style.transform = `translateX(${move}%)`;
@@ -215,23 +207,29 @@ function checkSizeCompatibleOne(file: File) {
   return true;
 }
 
-function readFile(file: File) {
-  return new Promise((resolve) => {
-    const fr = new FileReader();
-    fr.onload = function () {
-      resolve(fr.result);
-    };
-    fr.readAsDataURL(file);
-  });
-}
-
-function fileProcessing(file: File) {
+async function fileProcessing(file: File) {
   if (!checkSizeCompatibleOne(file)) {
     console.error("the file is very large");
     return;
   }
   const filteredFile = getFilteredFile(file);
-  projectService.postBackgrounds({ file: filteredFile });
+  if (!filteredFile) {
+    return;
+  }
+  const fr = new FileReader();
+  fr.onload = async () => {
+    const fbase64 = fr.result;
+    const backgroundNew = await projectService.postBackgrounds({
+      file: filteredFile,
+    });
+    projectStore.backgrounds.push({
+      id: backgroundNew.id,
+      img: String(fbase64),
+    });
+  };
+  fr.readAsDataURL(filteredFile);
+  clearFileInput();
+  isMediaAdd.value = false;
 }
 
 function getFilteredFile(file: File) {

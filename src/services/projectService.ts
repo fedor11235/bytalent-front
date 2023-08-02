@@ -20,7 +20,6 @@ export default {
   },
   async postBackgrounds(payload: any) {
     try {
-      console.log(payload);
       const formData = createFormData(payload);
       const { data } = await projectApi.postBackgrounds(formData);
       return data;
