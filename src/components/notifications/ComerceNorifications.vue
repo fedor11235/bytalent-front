@@ -38,8 +38,8 @@ commerceService.getCommerce().then((res) => (comerce.value = res));
   align-items: center;
 }
 .comerce {
+  padding: 12px 0;
   width: 80%;
-  min-height: 40%;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   flex-direction: row;
   justify-content: center;

@@ -144,6 +144,7 @@ function handlerClick() {
       &__info {
         z-index: 1;
         width: 60%;
+        height: 183px;
         background-color: rgba(0, 0, 0, 0);
         border: 0 solid rgba(255, 255, 255, 0.12);
         border-top: 1px solid rgba(255, 255, 255, 0.47);
@@ -151,10 +152,10 @@ function handlerClick() {
         border-radius: 20px;
         flex-direction: column;
         justify-content: flex-start;
-        align-items: center;
+        align-items: stretch;
         font-size: 2vh;
         display: flex;
-        overflow: scroll;
+        overflow-y: scroll;
         box-shadow: 0 4px rgba(0, 0, 0, 0.6);
       }
       &__menu {

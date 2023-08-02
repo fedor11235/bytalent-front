@@ -23,8 +23,8 @@ notificationsService
 
 <style lang="scss" scoped>
 .notifications {
-  min-height: 40%;
-  height: 100%;
+  padding: 12px 0;
+  width: 80%;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   flex-direction: row;
   justify-content: center;
