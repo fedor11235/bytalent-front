@@ -46,6 +46,7 @@
 import type { Ref } from "vue";
 import { toRef, ref } from "vue";
 import { useProjectStore } from "@/store";
+import projectService from "@/services/projectService";
 
 const projectStore = useProjectStore();
 
@@ -71,8 +72,8 @@ function handlerAddBackground() {
   ).img;
 }
 
-function handlerDeleteBackground(index: number) {
-  console.log("delete: ", backgrounds.value[0]);
+function handlerDeleteBackground() {
+  projectService.deleteBackgrounds(indexBackgroundsAdd.value + 1);
 }
 
 function handlerLeftMove() {

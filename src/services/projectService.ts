@@ -18,6 +18,24 @@ export default {
       console.error(e);
     }
   },
+  async postBackgrounds(payload: any) {
+    try {
+      console.log(payload);
+      const formData = createFormData(payload);
+      const { data } = await projectApi.postBackgrounds(formData);
+      return data;
+    } catch (e) {
+      console.error(e);
+    }
+  },
+  async deleteBackgrounds(id: number) {
+    try {
+      const { data } = await projectApi.deleteBackgrounds(id);
+      return data;
+    } catch (e) {
+      console.error(e);
+    }
+  },
   async orderVisualization(payload: any) {
     try {
       const formData = createFormData(payload);

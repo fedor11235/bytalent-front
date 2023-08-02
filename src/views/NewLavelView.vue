@@ -7,6 +7,13 @@
         : `url(${require('@/assets/backgrounds/lvel.jpeg')})`,
     }"
   >
+    <input
+      class="new-level__input"
+      type="file"
+      @change="fileInsertion"
+      ref="fileInput"
+      accept="image/*"
+    />
     <Transition name="fade">
       <PopupLavel
         v-if="isShowPopup"
@@ -49,7 +56,7 @@
           ></div>
         </div>
         <Transition name="fade">
-          <div v-if="isMediaAdd" class="media__add">
+          <div v-if="isMediaAdd" @click="browseFile" class="media__add">
             <img
               class="media__add_icon"
               src="@/assets/lvel/clip.png"
@@ -157,6 +164,8 @@ projectService.getBackgrounds().then((res) => {
 });
 
 const sliders: Ref<HTMLDivElement | null> = ref(null);
+const fileInput: Ref<HTMLInputElement | null> = ref(null);
+const uploadImage: Ref<any> = ref("");
 const indexBackgrounds = ref(0);
 const isShowPopup = ref(false);
 const isMediaAdd = ref(false);
@@ -191,6 +200,66 @@ function handlerRightMove() {
   }
 }
 
+// работа с загрузкой файла
+function fileInsertion() {
+  if (fileInput.value?.files) {
+    fileProcessing(fileInput.value.files[0]);
+  }
+}
+
+function checkSizeCompatibleOne(file: File) {
+  const sizeInMb = Number((file.size / (1024 * 1024)).toFixed(2));
+  if (sizeInMb > 5) {
+    return false;
+  }
+  return true;
+}
+
+function readFile(file: File) {
+  return new Promise((resolve) => {
+    const fr = new FileReader();
+    fr.onload = function () {
+      resolve(fr.result);
+    };
+    fr.readAsDataURL(file);
+  });
+}
+
+function fileProcessing(file: File) {
+  if (!checkSizeCompatibleOne(file)) {
+    console.error("the file is very large");
+    return;
+  }
+  const filteredFile = getFilteredFile(file);
+  projectService.postBackgrounds({ file: filteredFile });
+}
+
+function getFilteredFile(file: File) {
+  if (/\.(jpg|jpeg|png|webp|JPG|PNG|JPEG|WEBP)$/.test(file.name)) {
+    return file;
+  }
+  return null;
+}
+
+function clearFileInput() {
+  if (!fileInput.value) return;
+  try {
+    fileInput.value.value = "";
+    if (fileInput.value.value) {
+      fileInput.value.type = "text";
+      fileInput.value.type = "file";
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+function browseFile() {
+  if (fileInput.value) {
+    fileInput.value.click();
+  }
+}
+
 provide("handlerBtnHeaderClick", returnHome);
 </script>
 
@@ -205,6 +274,9 @@ provide("handlerBtnHeaderClick", returnHome);
   box-shadow: inset 0 0 5px #000;
   background-repeat: no-repeat;
   background-size: cover;
+  &__input {
+    display: none;
+  }
   &__backdrop {
     position: fixed;
     height: 100vh;
@@ -250,6 +322,7 @@ provide("handlerBtnHeaderClick", returnHome);
         text-align: center;
         color: white;
         font-family: JuraMedium;
+        cursor: pointer;
         &_icon {
           width: 32px;
           height: 28px;
