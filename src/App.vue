@@ -51,5 +51,10 @@ const isFAQ = ref(false);
   line-height: 125%; /* 47.5px */
   letter-spacing: -0.76px;
   cursor: pointer;
+  &:hover {
+    box-shadow: -3px -1px 8px 0px rgba(232, 232, 232, 0.25),
+      4px 6px 12px 0px rgba(232, 232, 232, 0.25),
+      2px 2px 2px 0px rgba(232, 232, 232, 0.5) inset;
+  }
 }
 </style>

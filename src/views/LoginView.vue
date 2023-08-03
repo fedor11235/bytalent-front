@@ -100,15 +100,15 @@
       </div>
 
       <!-- TODO тестовый вход -->
-      <!-- <div class="login__title">Тестовый вход</div>
+      <div class="login__title">Тестовый вход</div>
       <input class="test-input" v-model="login" />
-      <div @click="handlerLogin" class="test-button">Вход</div> -->
+      <div @click="handlerLogin" class="test-button">Вход</div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useDocStore } from "@/store";
 import authService from "@/services/authService";
@@ -184,6 +184,15 @@ async function handlerLogin() {
     letter-spacing: -0.76px;
     box-sizing: border-box;
     cursor: pointer;
+    &:hover {
+      box-shadow: -3px -1px 8px 0px rgba(232, 232, 232, 0.25),
+        4px 6px 12px 0px rgba(232, 232, 232, 0.25),
+        2px 2px 2px 0px rgba(232, 232, 232, 0.5) inset;
+    }
+    &:active {
+      box-shadow: 6px 9px 12px 0px rgba(0, 0, 0, 0.35) inset,
+        -8px -12px 12px 0px rgba(0, 0, 0, 0.35) inset;
+    }
   }
   &__checkbox {
     font-family: JuraMedium, sans-serif;

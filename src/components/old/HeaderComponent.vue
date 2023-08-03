@@ -6,19 +6,50 @@
         backgroundImage: `url(${require(`@/assets/header/${logo}.png`)})`,
       }"
     ></div>
-    <div class="header__controls">
-      <span @click="router.push({ name: 'visualization-first' })" :class="['header__btn', {'header__btn_active' : route.name === 'visualization-first' || route.name === 'visualization-second'}]">Визуализация</span>
-      <span @click="router.push({ name: 'app' })" :class="['header__btn', {'header__btn_active' : route.name === 'app'}]">Приложение</span>
-      <span @click="router.push({ name: 'streaming' })" :class="['header__btn', {'header__btn_active' : route.name === 'streaming'}]">Стриминг</span>
-      <span @click="router.push({ name: 'settings' })" :class="['header__btn', {'header__btn_active' : route.name === 'settings'}]">Профиль</span>
-      <img class="header__search" src="@/assets/icons/search.svg" height="18" width="18" alt="search"/>
+    <div
+      class="header__line-left"
+      :style="{
+        backgroundImage: `url(${require(`@/assets/header/${lineLeft}.png`)})`,
+      }"
+    ></div>
+    <ButtonComponent
+      v-if="isTitleButton"
+      :url="urlButton"
+      :urlHover="urlButtonHover"
+      @click="handlerBtnHeaderClick"
+    />
+    <div v-else class="header__button">
+      <ButtonComponent
+        :url="urlButton"
+        :urlHover="urlButtonHover"
+        @click="isDropDawn = !isDropDawn"
+      />
+      <div v-if="isDropDawn" class="header__dropdawn">
+        <ButtonComponent
+          v-for="button of hiddenButtons"
+          :key="button.path"
+          :url="button.static"
+          :urlHover="button.hover"
+          @click="router.push({ name: button.path })"
+          class="header__dropdawn_button"
+        />
+      </div>
     </div>
+    <div
+      class="header__line-right"
+      :style="{
+        backgroundImage: `url(${require(`@/assets/header/${lineRight}.png`)})`,
+      }"
+    ></div>
+    <BurgerComponent :type="type" @click="emit('switch')" :theme="theme" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, toRef, inject } from "vue";
-import { useRouter, useRoute } from "vue-router";
+import BurgerComponent from "@/components/BurgerComponent.vue";
+import ButtonComponent from "@/components/ButtonComponent.vue";
+import { useRouter } from "vue-router";
 
 type Buttons = {
   static: string;
@@ -27,8 +58,6 @@ type Buttons = {
 };
 
 const router = useRouter();
-const route = useRoute();
-console.log(route.name)
 
 const emit = defineEmits(["switch"]);
 
@@ -89,20 +118,24 @@ const lineRight = computed(() => {
 <style lang="scss" scoped>
 .header {
   display: flex;
-  margin-top: 2%;
-  margin-left: 2%;
-  margin-right: 2%;
-  padding: 0 30px;
+  padding-top: 2%;
+  padding-left: 2%;
+  padding-right: 2%;
   align-items: center;
   justify-content: space-between;
-  border-top: 1px solid white;
-  border-bottom: 1px solid white;
   &__logo {
     width: 95px;
     height: 50px;
     background-position: 50%;
     background-repeat: no-repeat;
     background-size: contain;
+  }
+  &__line-left {
+    height: 4px;
+    width: 8%;
+    background-position: 100%;
+    background-repeat: no-repeat;
+    background-size: 90px;
   }
   &__button {
     position: relative;
@@ -118,35 +151,12 @@ const lineRight = computed(() => {
       }
     }
   }
-  &__controls {
-    display: flex;
-    align-items: center;
-    color: #FFF;
-    font-family: JuraMedium;
-    font-size: 16px;
-    line-height: 100%;
-    letter-spacing: -0.4px;
-    column-gap: 6px;
-  }
-  &__btn {
-    padding: 6px 12px;
-    cursor: pointer;
-    &:hover {
-      border-bottom: 1px solid white;
-    }
-    &_active {
-      border-bottom: 1px solid white;
-    }
-  }
-  &__search {
-    padding: 0 8px;
-    &:hover {
-      border-bottom: 1px solid white;
-    }
-    &_active {
-      border-bottom: 1px solid white;
-    }
-    cursor: pointer;
+  &__line-right {
+    height: 4px;
+    width: 50%;
+    background-position: 0%;
+    background-repeat: no-repeat;
+    background-size: 1048px;
   }
 }
 </style>

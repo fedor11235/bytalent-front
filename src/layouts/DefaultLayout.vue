@@ -75,10 +75,12 @@ defineProps<{
     width: 100vw;
   }
   &__blackout {
+    position: fixed;
     background-color: rgba(0, 0, 0, 0.58);
     backdrop-filter: blur(7px);
   }
   &__whiteout {
+    position: fixed;
     background-color: rgba(255, 255, 255, 0.51);
     backdrop-filter: blur(7px);
   }
