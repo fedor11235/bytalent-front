@@ -7,11 +7,46 @@
       }"
     ></div>
     <div class="header__controls">
-      <span @click="router.push({ name: 'visualization-first' })" :class="['header__btn', {'header__btn_active' : route.name === 'visualization-first' || route.name === 'visualization-second'}]">Визуализация</span>
-      <span @click="router.push({ name: 'app' })" :class="['header__btn', {'header__btn_active' : route.name === 'app'}]">Приложение</span>
-      <span @click="router.push({ name: 'streaming' })" :class="['header__btn', {'header__btn_active' : route.name === 'streaming'}]">Стриминг</span>
-      <span @click="router.push({ name: 'settings' })" :class="['header__btn', {'header__btn_active' : route.name === 'settings'}]">Профиль</span>
-      <img class="header__search" src="@/assets/icons/search.svg" height="18" width="18" alt="search"/>
+      <span
+        @click="router.push({ name: 'visualization-first' })"
+        :class="[
+          'header__btn',
+          {
+            header__btn_active:
+              route.name === 'visualization-first' ||
+              route.name === 'visualization-second',
+          },
+        ]"
+        >Визуализация</span
+      >
+      <span
+        @click="router.push({ name: 'app' })"
+        :class="['header__btn', { header__btn_active: route.name === 'app' }]"
+        >Приложение</span
+      >
+      <span
+        @click="router.push({ name: 'streaming' })"
+        :class="[
+          'header__btn',
+          { header__btn_active: route.name === 'streaming' },
+        ]"
+        >Стриминг</span
+      >
+      <span
+        @click="router.push({ name: 'settings' })"
+        :class="[
+          'header__btn',
+          { header__btn_active: route.name === 'settings' },
+        ]"
+        >Профиль</span
+      >
+      <img
+        class="header__search"
+        src="@/assets/icons/search.svg"
+        height="18"
+        width="18"
+        alt="search"
+      />
     </div>
   </div>
 </template>
@@ -28,7 +63,7 @@ type Buttons = {
 
 const router = useRouter();
 const route = useRoute();
-console.log(route.name)
+console.log(route.name);
 
 const emit = defineEmits(["switch"]);
 
@@ -121,7 +156,7 @@ const lineRight = computed(() => {
   &__controls {
     display: flex;
     align-items: center;
-    color: #FFF;
+    color: #fff;
     font-family: JuraMedium;
     font-size: 16px;
     line-height: 100%;
