@@ -5,6 +5,9 @@ export const useDocStore = defineStore("doc", {
     termsUser: false,
     personalData: false,
   }),
+  getters: {
+    activeForm: (state) => state.termsUser && state.personalData,
+  },
 });
 
 type DocStore = {

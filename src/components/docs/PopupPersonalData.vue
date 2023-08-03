@@ -35,6 +35,7 @@
       обработку персональных данных.<br /><br /><br />
 
       <img
+        @click="handlerAccept"
         class="personal-data__card_accept"
         src="@/assets/components/accept-white.svg"
         alt="accept"
@@ -46,7 +47,15 @@
 </template>
 
 <script setup lang="ts">
+import { useDocStore } from "@/store";
+
+const docStore = useDocStore();
 const emit = defineEmits(["close"]);
+
+function handlerAccept() {
+  docStore.personalData = true;
+  emit("close");
+}
 </script>
 
 <style lang="scss" scoped>

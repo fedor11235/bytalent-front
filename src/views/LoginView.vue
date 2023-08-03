@@ -1,9 +1,6 @@
 <template>
   <div class="login">
     <Transition name="fade">
-      <PopupFAQ v-if="isFAQ" @close="isFAQ = false" />
-    </Transition>
-    <Transition name="fade">
       <PopupPersonalData
         v-if="isPersonalData"
         @close="isPersonalData = false"
@@ -17,19 +14,49 @@
       <div class="login__form">
         <div class="login__enter">
           <img
+            v-if="docStore.activeForm"
+            class="test"
+            src="@/assets/icons/telegram-active.svg"
+            height="24"
+            width="24"
+            alt="telegram"
+          />
+          <img
+            v-else
+            class="test"
             src="@/assets/icons/telegram.svg"
             height="24"
             width="24"
             alt="telegram"
-          /><span class="login__text">Telegram</span>
+          /><span
+            :class="[
+              'login__text',
+              { 'login__text-active': docStore.activeForm },
+            ]"
+            >Telegram</span
+          >
         </div>
         <div class="login__enter">
           <img
+            v-if="docStore.activeForm"
+            src="@/assets/icons/phone-active.svg"
+            height="24"
+            width="24"
+            alt="telegram"
+          />
+          <img
+            v-else
             src="@/assets/icons/phone.svg"
             height="24"
             width="24"
             alt="telegram"
-          /><span class="login__text">Phone</span>
+          /><span
+            :class="[
+              'login__text',
+              { 'login__text-active': docStore.activeForm },
+            ]"
+            >Phone</span
+          >
         </div>
         <div class="login__enter">
           <img
@@ -37,16 +64,21 @@
             height="24"
             width="24"
             alt="telegram"
-          /><span class="login__text">Apple ID</span>
+          /><span
+            :class="[
+              'login__text',
+              { 'login__text-active': docStore.activeForm },
+            ]"
+            >Apple ID</span
+          >
         </div>
       </div>
       <div class="login__form">
         <div class="login__checkbox">
-          <input
-            class="login__checkbox__input"
-            type="checkbox"
-            height="12"
-            width="12"
+          <CheckboxComponent
+            height="21"
+            width="21"
+            v-model="docStore.personalData"
           />
           <div class="login__checkbox__text" @click="isPersonalData = true">
             При начале авторизации пользователь подтверждает, что ознакомился с
@@ -55,11 +87,10 @@
           </div>
         </div>
         <div class="login__checkbox">
-          <input
-            class="login__checkbox__input"
-            type="checkbox"
-            height="12"
-            width="12"
+          <CheckboxComponent
+            height="21"
+            width="21"
+            v-model="docStore.termsUser"
           />
           <div class="login__checkbox__text" @click="isTermsUser = true">
             При начале авторизации пользователь подтверждает, что ознакомился с
@@ -73,23 +104,23 @@
       <input class="test-input" v-model="login" />
       <div @click="handlerLogin" class="test-button">Вход</div> -->
     </div>
-    <div @click="isFAQ = true" class="question">?</div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
+import { useDocStore } from "@/store";
 import authService from "@/services/authService";
-import PopupTermsUser from "@/components/login/PopupTermsUser.vue";
-import PopupPersonalData from "@/components/login/PopupPersonalData.vue";
-import PopupFAQ from "@/components/login/PopupFAQ.vue";
+import PopupTermsUser from "@/components/docs/PopupTermsUser.vue";
+import PopupPersonalData from "@/components/docs/PopupPersonalData.vue";
+import CheckboxComponent from "@/components/common/CheckboxComponent.vue";
 
 const router = useRouter();
+const docStore = useDocStore();
 
 const login = ref("");
 
-const isFAQ = ref(false);
 const isPersonalData = ref(false);
 const isTermsUser = ref(false);
 
@@ -130,6 +161,9 @@ async function handlerLogin() {
   &__text {
     text-align: left;
     display: flex;
+    &-active {
+      color: rgba(255, 255, 255, 0.85);
+    }
   }
   &__enter {
     font-family: JuraMedium, sans-serif;
@@ -195,29 +229,6 @@ async function handlerLogin() {
   color: rgba(255, 255, 255, 0.54);
   border-radius: 16px;
   padding: 8px 16px;
-  cursor: pointer;
-}
-.question {
-  position: fixed;
-  bottom: 42px;
-  right: 42px;
-  border-radius: 50%;
-  background: rgba(62, 62, 62, 0.35);
-  height: 44px;
-  width: 44px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: rgba(255, 255, 255, 0.85);
-  /* Jura/38 Header 4 */
-  font-family: JuraMedium;
-  font-size: 19px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 125%; /* 47.5px */
-  letter-spacing: -0.76px;
   cursor: pointer;
 }
 </style>

@@ -68,6 +68,7 @@
       условиям. Если вы не согласны с условиями соглашения, пожалуйста, не
       используйте данный портал.<br /><br /><br />
       <img
+        @click="handlerAccept"
         class="terms-user__card_accept"
         src="@/assets/components/accept-black.svg"
         alt="accept"
@@ -79,7 +80,15 @@
 </template>
 
 <script setup lang="ts">
+import { useDocStore } from "@/store";
+
+const docStore = useDocStore();
 const emit = defineEmits(["close"]);
+
+function handlerAccept() {
+  docStore.termsUser = true;
+  emit("close");
+}
 </script>
 
 <style lang="scss" scoped>
