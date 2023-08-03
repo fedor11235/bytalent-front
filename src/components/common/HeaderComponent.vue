@@ -1,47 +1,117 @@
 <template>
-  <div class="header">
+  <div
+    class="header"
+    :class="[
+      'header',
+      {
+        'header-light': theme === 'light',
+      },
+    ]"
+  >
     <div
       class="header__logo"
       :style="{
         backgroundImage: `url(${require(`@/assets/header/${logo}.png`)})`,
       }"
     ></div>
-    <div class="header__controls">
+    <div
+      :class="[
+        'header__controls',
+        {
+          'header__controls-light': theme === 'light',
+        },
+      ]"
+    >
       <span
         @click="router.push({ name: 'visualization-first' })"
         :class="[
-          'header__btn',
+          {
+            header__btn: theme !== 'light',
+            'header__btn-light': theme === 'light',
+          },
           {
             header__btn_active:
-              route.name === 'visualization-first' ||
-              route.name === 'visualization-second',
+              (route.name === 'visualization-first' ||
+                route.name === 'visualization-second') &&
+              theme !== 'light',
+            'header__btn-light_active':
+              (route.name === 'visualization-first' ||
+                route.name === 'visualization-second') &&
+              theme === 'light',
           },
         ]"
         >Визуализация</span
       >
       <span
         @click="router.push({ name: 'app' })"
-        :class="['header__btn', { header__btn_active: route.name === 'app' }]"
+        :class="[
+          {
+            header__btn: theme !== 'light',
+            'header__btn-light': theme === 'light',
+          },
+          {
+            header__btn_active: route.name === 'app' && theme !== 'light',
+            'header__btn-light_active':
+              route.name === 'app' && theme === 'light',
+          },
+        ]"
         >Приложение</span
       >
       <span
         @click="router.push({ name: 'streaming' })"
         :class="[
-          'header__btn',
-          { header__btn_active: route.name === 'streaming' },
+          {
+            header__btn: theme !== 'light',
+            'header__btn-light': theme === 'light',
+          },
+          {
+            header__btn_active: route.name === 'streaming' && theme !== 'light',
+            'header__btn-light_active':
+              route.name === 'streaming' && theme === 'light',
+          },
         ]"
         >Стриминг</span
       >
       <span
         @click="router.push({ name: 'settings' })"
         :class="[
-          'header__btn',
-          { header__btn_active: route.name === 'settings' },
+          {
+            header__btn: theme !== 'light',
+            'header__btn-light': theme === 'light',
+          },
+          {
+            header__btn_active: route.name === 'settings' && theme !== 'light',
+            'header__btn-light_active':
+              route.name === 'settings' && theme === 'light',
+          },
         ]"
         >Профиль</span
       >
       <img
-        class="header__search"
+        v-if="theme === 'light'"
+        @click="router.push({ name: 'search' })"
+        :class="[
+          'header__search-light',
+
+          {
+            'header__search-light_active': route.name === 'search',
+          },
+        ]"
+        src="@/assets/icons/search-light.svg"
+        height="18"
+        width="18"
+        alt="search"
+      />
+      <img
+        v-else
+        @click="router.push({ name: 'search' })"
+        :class="[
+          'header__search',
+
+          {
+            header__search_active: route.name === 'search',
+          },
+        ]"
         src="@/assets/icons/search.svg"
         height="18"
         width="18"
@@ -52,72 +122,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, toRef, inject } from "vue";
+import { computed, toRef } from "vue";
 import { useRouter, useRoute } from "vue-router";
-
-type Buttons = {
-  static: string;
-  hover: string;
-  path: string;
-};
 
 const router = useRouter();
 const route = useRoute();
-console.log(route.name);
-
-const emit = defineEmits(["switch"]);
 
 const props = defineProps<{
   theme?: "light";
-  urlButton: string;
-  urlButtonHover: string;
-  type: "burger" | "cross";
-  isTitleButton?: boolean;
 }>();
 
-const handlerBtnHeaderClick = inject("handlerBtnHeaderClick") as (
-  ...args: any[]
-) => void;
-
-const buttons = [
-  {
-    static: "header/visualization.png",
-    hover: "header/visualization-hover.png",
-    path: "visualization-first",
-  },
-  {
-    static: "header/streaming.png",
-    hover: "header/streaming.png",
-    path: "streaming",
-  },
-  { static: "header/app.png", hover: "header/app.png", path: "app" },
-];
-
-const hiddenButtons: Array<Buttons> = [];
-
-for (const button of buttons) {
-  if (button.static != props.urlButton) {
-    hiddenButtons.push(button);
-  }
-}
-
 const theme = toRef(props, "theme");
-
-const isDropDawn = ref(false);
 
 const logo = computed(() => {
   if (theme.value === "light") return "logo-light";
   else return "logo";
-});
-
-const lineLeft = computed(() => {
-  if (theme.value === "light") return "line-left-light";
-  else return "line-left";
-});
-
-const lineRight = computed(() => {
-  if (theme.value === "light") return "line-right-light";
-  else return "line-right";
 });
 </script>
 
@@ -132,26 +151,15 @@ const lineRight = computed(() => {
   justify-content: space-between;
   border-top: 1px solid white;
   border-bottom: 1px solid white;
+  &-light {
+    border-color: rgba(0, 0, 0, 0.33);
+  }
   &__logo {
     width: 95px;
     height: 50px;
     background-position: 50%;
     background-repeat: no-repeat;
     background-size: contain;
-  }
-  &__button {
-    position: relative;
-  }
-  &__dropdawn {
-    position: absolute;
-    scale: 0.9;
-    &_button {
-      margin-top: 8px;
-      transition: transform 0.3s;
-      &:hover {
-        transform: scale(1.1);
-      }
-    }
   }
   &__controls {
     display: flex;
@@ -161,27 +169,58 @@ const lineRight = computed(() => {
     font-size: 16px;
     line-height: 100%;
     letter-spacing: -0.4px;
-    column-gap: 6px;
+    column-gap: 16px;
+    &-light {
+      color: #191919;
+    }
   }
   &__btn {
     padding: 6px 12px;
+    border-bottom: 1px solid transparent;
     cursor: pointer;
+    &-light {
+      padding: 6px 12px;
+      border-bottom: 1px solid transparent;
+      cursor: pointer;
+      &:hover {
+        border-bottom: 1px solid #191919;
+      }
+      &_active {
+        scale: 1.2;
+        border-bottom: 1px solid #191919;
+      }
+    }
     &:hover {
       border-bottom: 1px solid white;
     }
     &_active {
+      scale: 1.2;
       border-bottom: 1px solid white;
     }
   }
   &__search {
-    padding: 0 8px;
+    padding: 8px;
+    border-bottom: 1px solid transparent;
+    cursor: pointer;
+    &-light {
+      padding: 8px;
+      border-bottom: 1px solid transparent;
+      cursor: pointer;
+      &:hover {
+        border-bottom: 1px solid #191919;
+      }
+      &_active {
+        scale: 1.2;
+        border-bottom: 1px solid #191919;
+      }
+    }
     &:hover {
       border-bottom: 1px solid white;
     }
     &_active {
+      scale: 1.2;
       border-bottom: 1px solid white;
     }
-    cursor: pointer;
   }
 }
 </style>

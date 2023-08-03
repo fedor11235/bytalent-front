@@ -11,13 +11,7 @@
         { layout__blackout: blackout, layout__whiteout: whiteout },
       ]"
     >
-      <HeaderComponent
-        :theme="theme"
-        :urlButton="`header/${urlBtnHeader}.png`"
-        :urlButtonHover="`header/${urlBtnHeaderHover}.png`"
-        type="burger"
-        @switch="rootStore.infoPage = !rootStore.infoPage"
-      />
+      <HeaderComponent :theme="theme" />
       <ContentComponent
         :theme="theme"
         :title="titleContent"
@@ -47,13 +41,11 @@ const rootStore = useRootStore();
 defineProps<{
   bg: string;
   theme?: "light";
-  blackout: boolean;
-  whiteout: boolean;
-  urlBtnHeader: string;
-  urlBtnHeaderHover: string;
+  blackout?: boolean;
+  whiteout?: boolean;
   curentPagesFooter: number;
   numberPagesFooter: number;
-  textButtonFooter: string;
+  textButtonFooter?: string;
   colorTwoPagesFooter: string;
   titleContent: string;
   textContent: string;

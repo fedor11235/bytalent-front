@@ -8,6 +8,7 @@ import SettingsView from "@/views/SettingsView.vue";
 import NewLavelView from "@/views/NewLavelView.vue";
 import AppView from "@/views/AppView.vue";
 import StreamingView from "@/views/StreamingView.vue";
+import SearchView from "@/views/SearchView.vue";
 import LoginView from "@/views/LoginView.vue";
 
 const routes: Array<RouteRecordRaw> = [
@@ -62,6 +63,14 @@ const routes: Array<RouteRecordRaw> = [
     path: "/streaming",
     name: "streaming",
     component: StreamingView,
+    meta: {
+      auth: true,
+    },
+  },
+  {
+    path: "/search",
+    name: "search",
+    component: SearchView,
     meta: {
       auth: true,
     },

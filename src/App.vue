@@ -43,13 +43,11 @@ const isFAQ = ref(false);
   justify-content: center;
 
   color: rgba(255, 255, 255, 0.85);
-  /* Jura/38 Header 4 */
   font-family: JuraMedium;
   font-size: 19px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 125%; /* 47.5px */
+  line-height: 125%;
   letter-spacing: -0.76px;
+  z-index: 1;
   cursor: pointer;
   &:hover {
     box-shadow: -3px -1px 8px 0px rgba(232, 232, 232, 0.25),
