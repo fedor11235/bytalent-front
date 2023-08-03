@@ -31,8 +31,8 @@ const isFAQ = ref(false);
 <style lang="scss" scoped>
 .question {
   position: fixed;
-  bottom: 42px;
-  right: 42px;
+  bottom: 62px;
+  right: 62px;
   border-radius: 50%;
   background: rgba(62, 62, 62, 0.35);
   height: 44px;

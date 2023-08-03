@@ -29,5 +29,6 @@ const emit = defineEmits<{
 
 <style lang="scss" scoped>
 .checkbox {
+  cursor: pointer;
 }
 </style>
