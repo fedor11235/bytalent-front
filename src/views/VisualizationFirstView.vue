@@ -14,7 +14,7 @@
     urlBtnHeader="visualization"
     urlBtnHeaderHover="visualization-hover"
     titleContent="Нет активных уровней"
-    textContent="Вы можете заказать проект либо загрузить свой уровень"
+    textContent="Вы можете заказать проект либо загрузить свой моделей"
     urlBtnContent="order"
     urlBtnContentHover="order-hover"
     :curentPagesFooter="1"
