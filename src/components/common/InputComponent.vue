@@ -1,12 +1,12 @@
 <template>
   <div class="input-cmpt">
     <img
-      v-if="modelValue"
+      v-if="(modelValue && !iconDisable) || iconEnablePerm"
       class="input-cmpt_icon"
-      src="@/assets/icons/daw.svg"
+      :src="require(`@/assets/icons/${icon ? icon : 'daw'}.svg`)"
       height="24"
       width="24"
-      alt="daw"
+      alt="icon"
     />
     <input
       @input="emit('update:modelValue', $event.target.value)"
@@ -24,6 +24,9 @@ defineProps<{
   modelValue: string;
   placeholder: string;
   padding: string;
+  icon?: string;
+  iconDisable?: boolean;
+  iconEnablePerm?: boolean;
 }>();
 const emit = defineEmits<{
   (e: "update:modelValue", value: string): void;
@@ -44,17 +47,15 @@ const emit = defineEmits<{
     box-sizing: border-box;
     width: 100%;
     border-radius: 40px;
-    border: 1px solid #191919;
+    border: 3px solid #fff;
     left: 0;
     border-radius: 40px;
-    border: 1px solid #191919;
     background-color: #fff;
     color: #191919;
     font-family: JuraMedium;
     font-size: 19px;
     line-height: 125%;
     letter-spacing: -0.76px;
-    border: none;
     cursor: pointer;
     &::placeholder {
       color: #191919;
@@ -64,7 +65,8 @@ const emit = defineEmits<{
       letter-spacing: -0.76px;
     }
     &:focus-visible {
-      outline: none;
+      border: 3px solid #191919;
+      outline: 0;
     }
   }
 }

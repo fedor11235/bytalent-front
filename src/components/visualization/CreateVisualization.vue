@@ -3,37 +3,31 @@
     <div class="add__visualization__title">Новая визуализация</div>
     <div class="add__visualization__enter">
       <span class="add__visualization__enter__title">Название</span>
-      <input
-        class="add__visualization__enter__input"
+      <InputComponent
+        v-model="name"
         placeholder="Введите название"
+        :iconDisable="true"
+        padding="10px 32px"
       />
     </div>
     <div class="add__visualization__enter">
       <span class="add__visualization__enter__title">Адрес</span>
-      <input
-        class="add__visualization__enter__input"
+      <InputComponent
+        v-model="address"
         placeholder="Введите адрес"
-      />
-      <img
-        class="add__visualization__enter__img"
-        src="@/assets/icons/locate.svg"
-        height="24"
-        width="24"
-        alt="locate"
+        :iconEnablePerm="true"
+        icon="locate"
+        padding="10px 32px"
       />
     </div>
     <div class="add__visualization__enter">
       <span class="add__visualization__enter__title">Тип проекта</span>
-      <input
-        class="add__visualization__enter__input"
+      <InputComponent
+        v-model="projectType"
         placeholder="Выберите тип проекта"
-      />
-      <img
-        class="add__visualization__enter__img"
-        src="@/assets/icons/drop.svg"
-        height="24"
-        width="24"
-        alt="drop"
+        :iconEnablePerm="true"
+        icon="drop"
+        padding="10px 32px"
       />
     </div>
     <img
@@ -48,7 +42,14 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
+import InputComponent from "@/components/common/InputComponent.vue";
+
 const emit = defineEmits(["create"]);
+
+const name = ref("");
+const address = ref("");
+const projectType = ref("");
 </script>
 
 <style lang="scss" scoped>
@@ -68,7 +69,6 @@ const emit = defineEmits(["create"]);
     margin-bottom: 32px;
   }
   &__enter {
-    position: relative;
     display: flex;
     flex-direction: column;
     row-gap: 6px;
@@ -78,32 +78,6 @@ const emit = defineEmits(["create"]);
       font-size: 19px;
       line-height: 100%;
       letter-spacing: -0.56px;
-    }
-    &__input {
-      border: none;
-      border-radius: 40px;
-      background-color: rgba(255, 255, 255, 0.85);
-      padding: 10px 32px;
-      color: #191919;
-      font-family: JuraMedium;
-      font-size: 19px;
-      line-height: 125%;
-      letter-spacing: -0.76px;
-      &::placeholder {
-        color: #191919;
-        font-family: JuraMedium;
-        font-size: 19px;
-        line-height: 125%;
-        letter-spacing: -0.76px;
-      }
-      &:focus-visible {
-        outline: none;
-      }
-    }
-    &__img {
-      position: absolute;
-      right: 28px;
-      bottom: 12px;
     }
   }
   &__btn {

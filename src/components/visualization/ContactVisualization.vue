@@ -1,9 +1,21 @@
 <template>
   <div class="contact__visualization">
     <div class="contact__visualization__title">Зказать визуализацию</div>
-    <InputComponent v-model="name" placeholder="Как вас зовут" padding="10px 32px"/>
-    <InputComponent v-model="phone" placeholder="Ваш телефон" padding="10px 32px"/>
-    <InputComponent v-model="email" placeholder="Ваш email" padding="10px 32px"/>
+    <InputComponent
+      v-model="name"
+      placeholder="Как вас зовут"
+      padding="10px 32px"
+    />
+    <InputComponent
+      v-model="phone"
+      placeholder="Ваш телефон"
+      padding="10px 32px"
+    />
+    <InputComponent
+      v-model="email"
+      placeholder="Ваш email"
+      padding="10px 32px"
+    />
     <div class="contact__visualization__btns">
       <CheckboxComponent height="21" width="21" v-model="accept" />
       <span class="contact__visualization__check-text"

@@ -3,7 +3,11 @@
     <div class="serach-view__backdrop">
       <HeaderComponent class="serach-view__header" @click="test" />
       <div class="serach-view__input">
-        <InputComponent v-model="searchText" placeholder="Введите свой поисковой запрос" padding="20px 32px"/>
+        <InputComponent
+          v-model="searchText"
+          placeholder="Введите свой поисковой запрос"
+          padding="20px 32px"
+        />
       </div>
       <img
         class="serach-view__btn"
