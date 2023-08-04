@@ -1,22 +1,8 @@
 <template>
   <div class="serach-view">
     <div class="serach-view__backdrop">
-      <HeaderComponent class="serach-view__header" />
-      <div class="serach-view__input">
-        <img
-          v-if="searchText"
-          class="serach-view__input_icon"
-          src="@/assets/icons/daw.svg"
-          height="24"
-          width="24"
-          alt="daw"
-        />
-        <input
-          v-model="searchText"
-          class="serach-view__enter"
-          placeholder="Введите свой поисковой запрос"
-        />
-      </div>
+      <HeaderComponent class="serach-view__header" @click="test" />
+      <InputComponent v-model="searchText" />
       <img
         class="serach-view__btn"
         src="@/assets/components/search.svg"
@@ -29,9 +15,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
+import InputComponent from "@/components/common/InputComponent.vue";
 const searchText = ref("");
+function test() {
+  console.log(searchText.value);
+}
 </script>
 
 <style lang="scss" scoped>
@@ -60,45 +50,6 @@ const searchText = ref("");
     top: 0;
     left: 0;
     right: 0;
-  }
-  &__input {
-    position: relative;
-    width: 80%;
-    &_icon {
-      position: absolute;
-      right: 32px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-  }
-  &__enter {
-    box-sizing: border-box;
-    width: 100%;
-    padding: 20px 32px;
-    border-radius: 40px;
-    border: 1px solid #191919;
-    left: 0;
-    padding: 20px 32px;
-    border-radius: 40px;
-    border: 1px solid #191919;
-    background-color: #fff;
-    color: #191919;
-    font-family: JuraMedium;
-    font-size: 19px;
-    line-height: 125%;
-    letter-spacing: -0.76px;
-    border: none;
-    cursor: pointer;
-    &::placeholder {
-      color: #191919;
-      font-family: JuraMedium;
-      font-size: 19px;
-      line-height: 125%;
-      letter-spacing: -0.76px;
-    }
-    &:focus-visible {
-      outline: none;
-    }
   }
   &__btn {
     cursor: pointer;

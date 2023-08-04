@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import api from "@/api";
 import authService from "@/services/authService";
+import StartView from "@/views/StartView.vue";
 import VisualizationFirstView from "@/views/VisualizationFirstView.vue";
 import VisualizationSecondView from "@/views/VisualizationSecondView.vue";
 import ErrorView from "@/views/ErrorView.vue";
@@ -14,7 +15,15 @@ import LoginView from "@/views/LoginView.vue";
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    redirect: { name: "visualization-first" },
+    redirect: { name: "start" },
+    meta: {
+      auth: true,
+    },
+  },
+  {
+    path: "/start",
+    name: "start",
+    component: StartView,
     meta: {
       auth: true,
     },
@@ -119,7 +128,7 @@ router.beforeEach(async (to, from, next) => {
     if (!check) {
       next();
     } else {
-      next({ name: "visualization-first" });
+      next({ name: "start" });
     }
   } else {
     next();

@@ -33,11 +33,7 @@
 <script setup lang="ts">
 import type { Ref } from "vue";
 import { ref } from "vue";
-import {
-  fileInput,
-  filesInsertion,
-  browseFile,
-} from "@/utils/file";
+import { fileInput, filesInsertion, browseFile } from "@/utils/file";
 import { useProjectStore } from "@/store";
 
 const projectStore = useProjectStore();

@@ -42,14 +42,14 @@
             src="@/assets/icons/phone-active.svg"
             height="24"
             width="24"
-            alt="telegram"
+            alt="phone"
           />
           <img
             v-else
             src="@/assets/icons/phone.svg"
             height="24"
             width="24"
-            alt="telegram"
+            alt="phone"
           /><span
             :class="[
               'login__text',
@@ -60,10 +60,18 @@
         </div>
         <div class="login__enter">
           <img
+            v-if="docStore.activeForm"
+            src="@/assets/icons/apple-active.svg"
+            height="24"
+            width="24"
+            alt="apple"
+          />
+          <img
+            v-else
             src="@/assets/icons/apple.svg"
             height="24"
             width="24"
-            alt="telegram"
+            alt="apple"
           /><span
             :class="[
               'login__text',
