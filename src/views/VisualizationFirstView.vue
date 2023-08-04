@@ -13,7 +13,7 @@
     :blackout="true"
     urlBtnHeader="visualization"
     urlBtnHeaderHover="visualization-hover"
-    titleContent="Нет активных уровней"
+    titleContent="Нет активных моделей"
     textContent="Вы можете заказать проект либо загрузить свой моделей"
     urlBtnContent="order"
     urlBtnContentHover="order-hover"

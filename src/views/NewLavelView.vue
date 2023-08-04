@@ -10,8 +10,8 @@
     <input
       class="new-level__input"
       type="file"
-      @change="fileInsertion"
-      ref="fileInput"
+      @change="fileInsertion(saveFaile)"
+      ref="fileInputLevel"
       accept="image/*"
     />
     <Transition name="fade">
@@ -130,10 +130,12 @@
 
 <script setup lang="ts">
 import type { Ref } from "vue";
-import { provide, ref } from "vue";
+import { provide, ref, onMounted } from "vue";
 import { useRootStore } from "@/store";
 import { useProjectStore } from "@/store";
 import { useRouter } from "vue-router";
+
+import { fileInput, fileInsertion, browseFile } from "@/utils/file";
 import projectService from "@/services/projectService";
 
 import PopupLavel from "@/components/newLavel/PopupLavel.vue";
@@ -152,16 +154,33 @@ const menu = [
 
 const widthSlid = 33.75;
 let move = 0;
+
 projectService.getBackgrounds().then((res) => {
   projectStore.backgrounds.push(...res.backgrounds);
 });
 
+const fileInputLevel: Ref<HTMLInputElement | null> = ref(null);
 const sliders: Ref<HTMLDivElement | null> = ref(null);
-const fileInput: Ref<HTMLInputElement | null> = ref(null);
 const indexBackgrounds = ref(0);
 const isShowPopup = ref(false);
 const isMediaAdd = ref(false);
 const isExpand = ref(false);
+
+function saveFaile(filteredFile: File) {
+  const fr = new FileReader();
+  fr.onload = async () => {
+    const fbase64 = fr.result;
+    const backgroundNew = await projectService.postBackgrounds({
+      file: filteredFile,
+    });
+    projectStore.backgrounds.push({
+      id: backgroundNew.id,
+      img: String(fbase64),
+    });
+  };
+  fr.readAsDataURL(filteredFile);
+  isMediaAdd.value = false;
+}
 
 function handlerShowPopup(index: number) {
   indexBackgrounds.value = index;
@@ -192,73 +211,13 @@ function handlerRightMove() {
   }
 }
 
-// работа с загрузкой файла
-function fileInsertion() {
-  if (fileInput.value?.files) {
-    fileProcessing(fileInput.value.files[0]);
-  }
-}
-
-function checkSizeCompatibleOne(file: File) {
-  const sizeInMb = Number((file.size / (1024 * 1024)).toFixed(2));
-  if (sizeInMb > 5) {
-    return false;
-  }
-  return true;
-}
-
-async function fileProcessing(file: File) {
-  if (!checkSizeCompatibleOne(file)) {
-    console.error("the file is very large");
-    return;
-  }
-  const filteredFile = getFilteredFile(file);
-  if (!filteredFile) {
-    return;
-  }
-  const fr = new FileReader();
-  fr.onload = async () => {
-    const fbase64 = fr.result;
-    const backgroundNew = await projectService.postBackgrounds({
-      file: filteredFile,
-    });
-    projectStore.backgrounds.push({
-      id: backgroundNew.id,
-      img: String(fbase64),
-    });
-  };
-  fr.readAsDataURL(filteredFile);
-  clearFileInput();
-  isMediaAdd.value = false;
-}
-
-function getFilteredFile(file: File) {
-  if (/\.(jpg|jpeg|png|webp|JPG|PNG|JPEG|WEBP)$/.test(file.name)) {
-    return file;
-  }
-  return null;
-}
-
-function clearFileInput() {
-  if (!fileInput.value) return;
-  try {
-    fileInput.value.value = "";
-    if (fileInput.value.value) {
-      fileInput.value.type = "text";
-      fileInput.value.type = "file";
-    }
-  } catch (e) {
-    console.error(e);
-  }
-}
-
-function browseFile() {
-  if (fileInput.value) {
-    fileInput.value.click();
-  }
-}
-
 provide("handlerBtnHeaderClick", returnHome);
+
+onMounted(() => {
+  if (fileInputLevel.value) {
+    fileInput.value = fileInputLevel.value;
+  }
+});
 </script>
 
 <style lang="scss" scoped>

@@ -47,7 +47,7 @@
 
 <script setup lang="ts">
 import { ref, computed, toRef, inject } from "vue";
-import BurgerComponent from "@/components/BurgerComponent.vue";
+import BurgerComponent from "./BurgerComponent.vue";
 import ButtonComponent from "@/components/ButtonComponent.vue";
 import { useRouter } from "vue-router";
 
