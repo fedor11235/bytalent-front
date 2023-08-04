@@ -9,10 +9,36 @@ export function fileInsertion(callBack: (file: File) => void) {
   }
 }
 
+export function filesInsertion(callBack: (file: File[]) => void) {
+  if (fileInput.value?.files) {
+    filesProcessing(fileInput.value.files, callBack);
+  }
+}
+
 export function browseFile() {
   if (fileInput.value) {
     fileInput.value.click();
   }
+}
+
+export async function filesProcessing(
+  files: FileList,
+  callBack: (file: File[]) => void
+) {
+  const filteredFiles = [];
+  for (const file of files) {
+    if (!checkSizeCompatibleOne(file)) {
+      console.error("the file is very large");
+      return;
+    }
+    const filteredFile = getFilteredFile(file);
+    if (!filteredFile) {
+      return;
+    }
+    filteredFiles.push(filteredFile);
+  }
+  callBack(filteredFiles);
+  clearFileInput();
 }
 
 export async function fileProcessing(

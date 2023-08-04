@@ -17,7 +17,8 @@
     <input
       class="new-level__input"
       type="file"
-      @change="fileInsertion(saveFaileProject)"
+      multiple
+      @change="filesInsertion(saveFailesProject)"
       ref="fileInputProject"
       accept="image/*"
     />
@@ -149,8 +150,10 @@ import { useRouter } from "vue-router";
 import {
   fileInput,
   fileInsertion,
+  filesInsertion,
   browseFile,
   fileProcessing,
+  filesProcessing,
 } from "@/utils/file";
 import projectService from "@/services/projectService";
 
@@ -208,19 +211,20 @@ function saveFaileBgr(filteredFile: File) {
   isMediaAddBgr.value = false;
 }
 
-function saveFaileProject(filteredFile: File) {
-  const fr = new FileReader();
-  fr.onload = async () => {
-    const fbase64 = fr.result;
-    const backgroundNew = await projectService.postBackgrounds({
-      file: filteredFile,
-    });
-    projectStore.backgrounds.push({
-      id: backgroundNew.id,
-      img: String(fbase64),
-    });
-  };
-  fr.readAsDataURL(filteredFile);
+function saveFailesProject(filteredFiles: File[]) {
+  // const fr = new FileReader();
+  // fr.onload = async () => {
+  //   const fbase64 = fr.result;
+  //   const backgroundNew = await projectService.postBackgrounds({
+  //     file: filteredFile,
+  //   });
+  //   projectStore.backgrounds.push({
+  //     id: backgroundNew.id,
+  //     img: String(fbase64),
+  //   });
+  // };
+  // fr.readAsDataURL(filteredFile);
+  console.log(filteredFiles);
   isMediaAddProgect.value = false;
 }
 
@@ -268,9 +272,9 @@ function handlerDropBackground(event: DragEvent) {
 }
 
 function handlerDropProject(event: DragEvent) {
-  const fileInstance = event?.dataTransfer?.files[0];
-  if (fileInstance) {
-    fileProcessing(fileInstance, saveFaileProject);
+  const filesInstance = event?.dataTransfer?.files;
+  if (filesInstance) {
+    filesProcessing(filesInstance, saveFailesProject);
   }
 }
 

@@ -4,6 +4,9 @@ export default {
   getActiveProjects() {
     return api.get("/project/active");
   },
+  uploadFileProject(id: number, payload: FormData) {
+    return api.post(`/project/upload/${id}`, payload);
+  },
   getBackgrounds() {
     return api.get("/project/backgrounds");
   },

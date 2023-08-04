@@ -27,6 +27,15 @@ export default {
       console.error(e);
     }
   },
+  async uploadFileProject(projectId: number, payload: any) {
+    try {
+      const formData = createFormData(payload);
+      const { data } = await projectApi.uploadFileProject(projectId, formData);
+      return data;
+    } catch (e) {
+      console.error(e);
+    }
+  },
   async deleteBackgrounds(id: number) {
     try {
       const { data } = await projectApi.deleteBackgrounds(id);
