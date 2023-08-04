@@ -15,15 +15,10 @@ export function browseFile() {
   }
 }
 
-function checkSizeCompatibleOne(file: File) {
-  const sizeInMb = Number((file.size / (1024 * 1024)).toFixed(2));
-  if (sizeInMb > 5) {
-    return false;
-  }
-  return true;
-}
-
-async function fileProcessing(file: File, callBack: (file: File) => void) {
+export async function fileProcessing(
+  file: File,
+  callBack: (file: File) => void
+) {
   if (!checkSizeCompatibleOne(file)) {
     console.error("the file is very large");
     return;
@@ -34,6 +29,14 @@ async function fileProcessing(file: File, callBack: (file: File) => void) {
   }
   callBack(filteredFile);
   clearFileInput();
+}
+
+function checkSizeCompatibleOne(file: File) {
+  const sizeInMb = Number((file.size / (1024 * 1024)).toFixed(2));
+  if (sizeInMb > 5) {
+    return false;
+  }
+  return true;
 }
 
 function getFilteredFile(file: File) {

@@ -10,8 +10,15 @@
     <input
       class="new-level__input"
       type="file"
-      @change="fileInsertion(saveFaile)"
-      ref="fileInputLevel"
+      @change="fileInsertion(saveFaileBgr)"
+      ref="fileInputBgr"
+      accept="image/*"
+    />
+    <input
+      class="new-level__input"
+      type="file"
+      @change="fileInsertion(saveFaileProject)"
+      ref="fileInputProject"
       accept="image/*"
     />
     <Transition name="fade">
@@ -32,7 +39,7 @@
       />
       <div class="media">
         <div class="new-level__content__control">
-          <div @click="isMediaAdd = !isMediaAdd" class="media__btn"></div>
+          <div @click="isMediaAddBgr = !isMediaAddBgr" class="media__btn"></div>
         </div>
         <div class="carousel">
           <div
@@ -55,17 +62,20 @@
           ></div>
         </div>
         <Transition name="fade">
-          <div v-if="isMediaAdd" @click="browseFile" class="media__add">
-            <img
-              class="media__add_icon"
-              src="@/assets/lvel/clip.png"
-              alt="add"
-            />
-            Добавление медиа файлов<br />
-            (Нажмите для выбора, либо перетащите файлы в<br />данное поле)
-            <br /><br />
-            jpg/png/gif/mp4/mov
-          </div>
+          <AddFile
+            v-if="isMediaAddBgr"
+            formats="jpg/png/gif/mp4/mov"
+            @click="handlerAddBackground"
+            @drop="handlerDropBackground"
+          />
+        </Transition>
+        <Transition name="fade">
+          <AddFile
+            v-if="isMediaAddProgect"
+            formats="zip"
+            @click="handlerAddProject"
+            @drop="handlerDropProject"
+          />
         </Transition>
       </div>
       <div class="new-level__info">
@@ -82,6 +92,7 @@
       <div class="assistant">
         <div class="new-level__content__control">
           <div
+            @click="isMediaAddProgect = !isMediaAddProgect"
             :class="['assistant__btn', { assistant__btn_big: isExpand }]"
           ></div>
         </div>
@@ -135,11 +146,17 @@ import { useRootStore } from "@/store";
 import { useProjectStore } from "@/store";
 import { useRouter } from "vue-router";
 
-import { fileInput, fileInsertion, browseFile } from "@/utils/file";
+import {
+  fileInput,
+  fileInsertion,
+  browseFile,
+  fileProcessing,
+} from "@/utils/file";
 import projectService from "@/services/projectService";
 
 import PopupLavel from "@/components/newLavel/PopupLavel.vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
+import AddFile from "@/components/newLavel/AddFile.vue";
 
 const router = useRouter();
 const rootStore = useRootStore();
@@ -159,14 +176,23 @@ projectService.getBackgrounds().then((res) => {
   projectStore.backgrounds.push(...res.backgrounds);
 });
 
-const fileInputLevel: Ref<HTMLInputElement | null> = ref(null);
+const fileInputBgr: Ref<HTMLInputElement | null> = ref(null);
+const fileInputProject: Ref<HTMLInputElement | null> = ref(null);
 const sliders: Ref<HTMLDivElement | null> = ref(null);
 const indexBackgrounds = ref(0);
 const isShowPopup = ref(false);
-const isMediaAdd = ref(false);
+const isMediaAddBgr = ref(false);
+const isMediaAddProgect = ref(false);
 const isExpand = ref(false);
 
-function saveFaile(filteredFile: File) {
+["dragover", "drop"].forEach(function (event) {
+  document.addEventListener(event, function (evt) {
+    evt.preventDefault();
+    return false;
+  });
+});
+
+function saveFaileBgr(filteredFile: File) {
   const fr = new FileReader();
   fr.onload = async () => {
     const fbase64 = fr.result;
@@ -179,7 +205,23 @@ function saveFaile(filteredFile: File) {
     });
   };
   fr.readAsDataURL(filteredFile);
-  isMediaAdd.value = false;
+  isMediaAddBgr.value = false;
+}
+
+function saveFaileProject(filteredFile: File) {
+  const fr = new FileReader();
+  fr.onload = async () => {
+    const fbase64 = fr.result;
+    const backgroundNew = await projectService.postBackgrounds({
+      file: filteredFile,
+    });
+    projectStore.backgrounds.push({
+      id: backgroundNew.id,
+      img: String(fbase64),
+    });
+  };
+  fr.readAsDataURL(filteredFile);
+  isMediaAddProgect.value = false;
 }
 
 function handlerShowPopup(index: number) {
@@ -211,13 +253,35 @@ function handlerRightMove() {
   }
 }
 
-provide("handlerBtnHeaderClick", returnHome);
-
-onMounted(() => {
-  if (fileInputLevel.value) {
-    fileInput.value = fileInputLevel.value;
+function handlerAddBackground() {
+  if (fileInputBgr.value) {
+    fileInput.value = fileInputBgr.value;
+    browseFile();
   }
-});
+}
+
+function handlerDropBackground(event: DragEvent) {
+  const fileInstance = event?.dataTransfer?.files[0];
+  if (fileInstance) {
+    fileProcessing(fileInstance, saveFaileBgr);
+  }
+}
+
+function handlerDropProject(event: DragEvent) {
+  const fileInstance = event?.dataTransfer?.files[0];
+  if (fileInstance) {
+    fileProcessing(fileInstance, saveFaileProject);
+  }
+}
+
+function handlerAddProject() {
+  if (fileInputProject.value) {
+    fileInput.value = fileInputProject.value;
+    browseFile();
+  }
+}
+
+provide("handlerBtnHeaderClick", returnHome);
 </script>
 
 <style lang="scss" scoped>
@@ -257,39 +321,6 @@ onMounted(() => {
     .media {
       display: flex;
       margin-top: 21px;
-      &__add {
-        -webkit-backdrop-filter: blur(8px);
-        backdrop-filter: blur(8px);
-        background-color: #1f1f1f;
-        border: 1px solid rgba(70, 70, 70, 0.85);
-        border-radius: 17px;
-        box-shadow: inset 0 0 8px 2px rgba(122, 122, 122, 0.36),
-          0 2px 8px rgba(0, 0, 0, 0.49);
-        position: absolute;
-        width: 66%;
-        left: 50%;
-        transform: translateX(-50%);
-        height: 45vh;
-        top: 10vh;
-        z-index: 2;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        color: white;
-        font-family: JuraMedium;
-        cursor: pointer;
-        &_icon {
-          width: 32px;
-          height: 28px;
-          opacity: 0.9;
-          background-position: 50%;
-          background-repeat: no-repeat;
-          background-size: contain;
-          margin-bottom: 12px;
-        }
-      }
       &__btn {
         width: 32px;
         height: 28px;
