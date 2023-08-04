@@ -1,51 +1,9 @@
 <template>
   <div class="contact__visualization">
     <div class="contact__visualization__title">Зказать визуализацию</div>
-    <div class="contact__visualization__enter">
-      <input
-        class="contact__visualization__enter__input"
-        v-model="name"
-        placeholder="Как вас зовут"
-      />
-      <img
-        class="contact__visualization__enter__img"
-        v-if="name"
-        src="@/assets/icons/daw.svg"
-        height="24"
-        width="24"
-        alt="daw"
-      />
-    </div>
-    <div class="contact__visualization__enter">
-      <input
-        class="contact__visualization__enter__input"
-        v-model="phone"
-        placeholder="Ваш телефон"
-      />
-      <img
-        class="contact__visualization__enter__img"
-        v-if="phone"
-        src="@/assets/icons/daw.svg"
-        height="24"
-        width="24"
-        alt="daw"
-      />
-    </div>
-    <div class="contact__visualization__enter">
-      <input
-        class="contact__visualization__enter__input"
-        v-model="email"
-        placeholder="Ваш email"
-      />
-      <img
-        class="contact__visualization__enter__img"
-        v-if="email"
-        src="@/assets/icons/daw.svg"
-        height="24"
-        width="24"
-        alt="daw"
-      />
-    </div>
+    <InputComponent v-model="name" placeholder="Как вас зовут" padding="10px 32px"/>
+    <InputComponent v-model="phone" placeholder="Ваш телефон" padding="10px 32px"/>
+    <InputComponent v-model="email" placeholder="Ваш email" padding="10px 32px"/>
     <div class="contact__visualization__btns">
       <CheckboxComponent height="21" width="21" v-model="accept" />
       <span class="contact__visualization__check-text"
@@ -75,6 +33,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
+import InputComponent from "@/components/common/InputComponent.vue";
 import CheckboxComponent from "@/components/common/CheckboxComponent.vue";
 
 const emit = defineEmits(["order"]);
@@ -118,7 +77,6 @@ function handlerOrder() {
       border: none;
       border-radius: 40px;
       background-color: rgba(255, 255, 255, 0.85);
-      padding: 10px 32px;
       color: #191919;
       font-family: JuraMedium;
       font-size: 19px;

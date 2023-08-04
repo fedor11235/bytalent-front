@@ -2,7 +2,9 @@
   <div class="serach-view">
     <div class="serach-view__backdrop">
       <HeaderComponent class="serach-view__header" @click="test" />
-      <InputComponent v-model="searchText" />
+      <div class="serach-view__input">
+        <InputComponent v-model="searchText" placeholder="Введите свой поисковой запрос" padding="20px 32px"/>
+      </div>
       <img
         class="serach-view__btn"
         src="@/assets/components/search.svg"
@@ -50,6 +52,9 @@ function test() {
     top: 0;
     left: 0;
     right: 0;
+  }
+  &__input {
+    width: 80vw;
   }
   &__btn {
     cursor: pointer;

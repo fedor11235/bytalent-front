@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import CreateVisualization from "@/components/visualization/ContactVisualization.vue";
+import CreateVisualization from "@/components/visualization/CreateVisualization.vue";
 import AddVisualization from "@/components/visualization/AddVisualization.vue";
 const emit = defineEmits(["close"]);
 

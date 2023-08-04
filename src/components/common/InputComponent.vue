@@ -11,7 +11,8 @@
     <input
       @input="emit('update:modelValue', $event.target.value)"
       class="input-cmpt__enter"
-      placeholder="Введите свой поисковой запрос"
+      :style="{ padding: padding }"
+      :placeholder="placeholder"
     />
   </div>
 </template>
@@ -21,6 +22,8 @@ import { ref } from "vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 defineProps<{
   modelValue: string;
+  placeholder: string;
+  padding: string;
 }>();
 const emit = defineEmits<{
   (e: "update:modelValue", value: string): void;
@@ -30,7 +33,7 @@ const emit = defineEmits<{
 <style lang="scss" scoped>
 .input-cmpt {
   position: relative;
-  width: 80%;
+  width: 100%;
   &_icon {
     position: absolute;
     right: 32px;
@@ -40,11 +43,9 @@ const emit = defineEmits<{
   &__enter {
     box-sizing: border-box;
     width: 100%;
-    padding: 20px 32px;
     border-radius: 40px;
     border: 1px solid #191919;
     left: 0;
-    padding: 20px 32px;
     border-radius: 40px;
     border: 1px solid #191919;
     background-color: #fff;
