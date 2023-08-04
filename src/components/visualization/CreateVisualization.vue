@@ -49,13 +49,6 @@
 
 <script setup lang="ts">
 const emit = defineEmits(["create"]);
-
-function handlerCreate() {
-  emit("create");
-}
-function handlerFile() {
-  console.log("file");
-}
 </script>
 
 <style lang="scss" scoped>

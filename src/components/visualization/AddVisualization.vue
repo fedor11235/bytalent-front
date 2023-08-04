@@ -1,5 +1,13 @@
 <template>
   <div class="add__visualization">
+    <input
+      class="file-input"
+      type="file"
+      multiple
+      @change="filesInsertion(saveFailesProject)"
+      ref="fileInputProject"
+      accept="image/*"
+    />
     <div class="add__visualization__title">Добавление визуализации</div>
     <div class="add__visualization__btns">
       <img
@@ -23,13 +31,34 @@
 </template>
 
 <script setup lang="ts">
-const emit = defineEmits(["create"]);
+import type { Ref } from "vue";
+import { ref } from "vue";
+import {
+  fileInput,
+  filesInsertion,
+  browseFile,
+} from "@/utils/file";
+import { useProjectStore } from "@/store";
+
+const projectStore = useProjectStore();
+
+const emit = defineEmits(["create", "close"]);
+
+const fileInputProject: Ref<HTMLInputElement | null> = ref(null);
+
+function saveFailesProject(filteredFiles: File[]) {
+  projectStore.files = filteredFiles;
+  emit("close");
+}
 
 function handlerCreate() {
   emit("create");
 }
 function handlerFile() {
-  console.log("file");
+  if (fileInputProject.value) {
+    fileInput.value = fileInputProject.value;
+    browseFile();
+  }
 }
 </script>
 

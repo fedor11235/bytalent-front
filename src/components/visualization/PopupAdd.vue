@@ -1,7 +1,7 @@
 <template>
   <div @click.self="emit('close')" class="order">
     <CreateVisualization @create="handleCreate" v-if="isCreate" />
-    <AddVisualization v-else @create="isCreate = true" />
+    <AddVisualization v-else @close="emit('close')" @create="isCreate = true" />
   </div>
 </template>
 

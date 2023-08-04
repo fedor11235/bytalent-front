@@ -8,14 +8,14 @@
     }"
   >
     <input
-      class="new-level__input"
+      class="file-input"
       type="file"
       @change="fileInsertion(saveFaileBgr)"
       ref="fileInputBgr"
       accept="image/*"
     />
     <input
-      class="new-level__input"
+      class="file-input"
       type="file"
       multiple
       @change="filesInsertion(saveFailesProject)"
@@ -142,7 +142,7 @@
 
 <script setup lang="ts">
 import type { Ref } from "vue";
-import { provide, ref, onMounted } from "vue";
+import { provide, ref } from "vue";
 import { useRootStore } from "@/store";
 import { useProjectStore } from "@/store";
 import { useRouter } from "vue-router";
@@ -212,19 +212,7 @@ function saveFaileBgr(filteredFile: File) {
 }
 
 function saveFailesProject(filteredFiles: File[]) {
-  // const fr = new FileReader();
-  // fr.onload = async () => {
-  //   const fbase64 = fr.result;
-  //   const backgroundNew = await projectService.postBackgrounds({
-  //     file: filteredFile,
-  //   });
-  //   projectStore.backgrounds.push({
-  //     id: backgroundNew.id,
-  //     img: String(fbase64),
-  //   });
-  // };
-  // fr.readAsDataURL(filteredFile);
-  console.log(filteredFiles);
+  projectStore.files = filteredFiles;
   isMediaAddProgect.value = false;
 }
 
@@ -299,9 +287,6 @@ provide("handlerBtnHeaderClick", returnHome);
   box-shadow: inset 0 0 5px #000;
   background-repeat: no-repeat;
   background-size: cover;
-  &__input {
-    display: none;
-  }
   &__backdrop {
     position: fixed;
     height: 100vh;
