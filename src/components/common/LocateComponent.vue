@@ -17,14 +17,21 @@
       {{ activElem ? activElem : placeholder }}
     </div>
     <div v-if="isOpen" class="drop-cmpt__items">
-      <div
-        v-for="item in listItem"
-        :key="item"
-        @click="handlerChooseItem(item)"
-        :style="styleItem"
-        class="drop-cmpt__item"
-      >
-        {{ item }}
+      <div class="drop-cmpt__scroll">
+        <input
+          class="drop-cmpt__input"
+          :style="styleItem"
+          v-model="searchLocate"
+        />
+        <div
+          v-for="item in listItemSearch"
+          :key="item"
+          @click="handlerChooseItem(item)"
+          :style="styleItem"
+          class="drop-cmpt__item"
+        >
+          {{ item }}
+        </div>
       </div>
     </div>
   </div>
@@ -48,6 +55,7 @@ const emit = defineEmits<{
   (e: "update:modelValue", value: string): void;
 }>();
 
+const searchLocate = ref("");
 const activElem = ref("");
 const isOpen = ref();
 const drop: Ref<HTMLDivElement | null> = ref(null);
@@ -62,6 +70,15 @@ const styleDropDown = computed(() => {
 });
 const styleItem = computed(() => {
   return { marginLeft: props.paddingX, marginRight: props.paddingX };
+});
+
+const listItemSearch = computed(() => {
+  if (searchLocate.value) {
+    return props.listItem.filter((item) =>
+      item.toLowerCase().includes(searchLocate.value.toLowerCase())
+    );
+  }
+  return props.listItem;
 });
 
 function handlerOpenDrop() {
@@ -95,19 +112,34 @@ function handlerChooseItem(item: string) {
     top: 50%;
     transform: translateY(-50%);
   }
+  &__scroll {
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+    max-height: 300px;
+    margin-right: 16px;
+  }
   &__items {
     position: absolute;
     top: -3px;
     left: -3px;
     right: -3px;
     background-color: white;
-    display: flex;
-    flex-direction: column;
-    row-gap: 12px;
     padding: 12px 0;
     border: 3px solid #191919;
     border-radius: 20px;
     z-index: 1;
+    max-height: 300px;
+  }
+  &__input {
+    border: none;
+    outline: none;
+    color: #191919;
+    font-family: JuraMedium;
+    font-size: 19px;
+    line-height: 125%;
+    letter-spacing: -0.76px;
   }
   &__item {
     &:hover {

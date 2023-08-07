@@ -12,12 +12,13 @@
     </div>
     <div class="add__visualization__enter">
       <span class="add__visualization__enter__title">Адрес</span>
-      <InputComponent
-        v-model="address"
+      <LocateComponent
+        v-model="projectType"
         placeholder="Введите адрес"
-        :iconEnablePerm="true"
+        paddingX="32px"
+        paddingY="10px"
         icon="locate"
-        padding="10px 32px"
+        :listItem="menuLocate"
       />
     </div>
     <div class="add__visualization__enter">
@@ -27,6 +28,8 @@
         placeholder="Выберите тип проекта"
         paddingX="32px"
         paddingY="10px"
+        icon="drop"
+        :listItem="menuDropType"
       />
     </div>
     <img
@@ -44,12 +47,35 @@
 import { ref } from "vue";
 import InputComponent from "@/components/common/InputComponent.vue";
 import DropDownComponent from "@/components/common/DropDownComponent.vue";
+import LocateComponent from "@/components/common/LocateComponent.vue";
 
 const emit = defineEmits(["create"]);
 
 const name = ref("");
 const address = ref("");
 const projectType = ref("");
+
+const menuDropType = [
+  "Частный дом",
+  "Квартира / апартаменты",
+  "Жилой комплекс",
+  "Коттеджный поселок",
+  "Музей / Галерея",
+  "Прочее",
+];
+const menuLocate = [
+  "Аляска",
+  "Астрахань",
+  "Абхазия",
+  "Большово",
+  "Биван",
+  "Бостон",
+  "Вавилон",
+  "Варкута",
+  "Византия",
+  "Валивуд",
+  "Ванила",
+];
 </script>
 
 <style lang="scss" scoped>
