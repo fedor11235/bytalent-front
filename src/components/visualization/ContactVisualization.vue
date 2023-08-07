@@ -1,6 +1,6 @@
 <template>
   <div class="contact__visualization">
-    <div class="contact__visualization__title">Зказать визуализацию</div>
+    <div class="contact__visualization__title">Заказать визуализацию</div>
     <InputComponent
       v-model="name"
       placeholder="Как вас зовут"
@@ -47,6 +47,7 @@
 import { ref, computed } from "vue";
 import InputComponent from "@/components/controls/InputComponent.vue";
 import CheckboxComponent from "@/components/controls/CheckboxComponent.vue";
+import orderService from "@/services/orderService";
 
 const emit = defineEmits(["order"]);
 
@@ -60,6 +61,11 @@ const btnActive = computed(
 );
 
 function handlerOrder() {
+  orderService.makeOrder({
+    name: name.value,
+    phone: name.value,
+    email: name.value,
+  });
   emit("order");
 }
 </script>
