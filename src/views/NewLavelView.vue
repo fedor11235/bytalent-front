@@ -10,7 +10,7 @@
     <input
       class="file-input"
       type="file"
-      @change="fileInsertion(saveFaileBgr, getFilteredFile)"
+      @change="fileInsertion(saveFaileBgr, getFilteredFileBg)"
       ref="fileInputBgr"
       accept="image/*"
     />
@@ -18,7 +18,7 @@
       class="file-input"
       type="file"
       multiple
-      @change="filesInsertion(saveFailesProject, getFilteredFile)"
+      @change="filesInsertion(saveFailesProject, getFilteredFileProject)"
       ref="fileInputProject"
       accept="image/*"
     />
@@ -73,7 +73,7 @@
         <Transition name="fade">
           <AddFile
             v-if="isMediaAddProgect"
-            formats="zip"
+            formats="all"
             @click="handlerAddProject"
             @drop="handlerDropProject"
           />
@@ -195,13 +195,18 @@ const isExpand = ref(false);
   });
 });
 
-function getFilteredFile(file: File) {
+function getFilteredFileBg(file: File) {
   if (/\.(jpg|jpeg|png|webp|JPG|PNG|JPEG|WEBP)$/.test(file.name)) {
     return file;
   }
   rootStore.popupWarning = true;
   rootStore.textWarning = "неверный формат файла";
+  isMediaAddBgr.value = false;
   return null;
+}
+
+function getFilteredFileProject(file: File) {
+  return file;
 }
 
 function saveFaileBgr(filteredFile: File) {
@@ -220,8 +225,9 @@ function saveFaileBgr(filteredFile: File) {
   isMediaAddBgr.value = false;
 }
 
-function saveFailesProject(filteredFiles: File[]) {
+function saveFailesProject(filteredFiles: FileList) {
   projectStore.files = filteredFiles;
+  // projectService.uploadFileProject(3, filteredFiles)
   isMediaAddProgect.value = false;
 }
 
@@ -264,14 +270,14 @@ function handlerAddBackground() {
 function handlerDropBackground(event: DragEvent) {
   const fileInstance = event?.dataTransfer?.files[0];
   if (fileInstance) {
-    fileProcessing(fileInstance, saveFaileBgr, getFilteredFile);
+    fileProcessing(fileInstance, saveFaileBgr, getFilteredFileBg);
   }
 }
 
 function handlerDropProject(event: DragEvent) {
   const filesInstance = event?.dataTransfer?.files;
   if (filesInstance) {
-    filesProcessing(filesInstance, saveFailesProject, getFilteredFile);
+    filesProcessing(filesInstance, saveFailesProject, getFilteredFileProject);
   }
 }
 

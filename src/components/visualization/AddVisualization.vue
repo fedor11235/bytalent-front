@@ -4,7 +4,7 @@
       class="file-input"
       type="file"
       multiple
-      @change="filesInsertion(saveFailesProject)"
+      @change="filesInsertion(saveFailesProject, getFilteredFileProject)"
       ref="fileInputProject"
       accept="image/*"
     />
@@ -35,6 +35,7 @@ import type { Ref } from "vue";
 import { ref } from "vue";
 import { fileInput, filesInsertion, browseFile } from "@/utils/file";
 import { useProjectStore } from "@/store";
+// import projectService from "@/services/projectService";
 
 const projectStore = useProjectStore();
 
@@ -42,8 +43,13 @@ const emit = defineEmits(["create", "close"]);
 
 const fileInputProject: Ref<HTMLInputElement | null> = ref(null);
 
+function getFilteredFileProject(file: File) {
+  return file;
+}
+
 function saveFailesProject(filteredFiles: File[]) {
   projectStore.files = filteredFiles;
+  // projectService.uploadFileProject(3, filteredFiles)
   emit("close");
 }
 

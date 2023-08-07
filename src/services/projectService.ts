@@ -29,7 +29,11 @@ export default {
   },
   async uploadFileProject(projectId: number, payload: any) {
     try {
-      const formData = createFormData(payload);
+      const formData = new FormData();
+      // formData.append('files', payload);
+      for (const index in payload) {
+        formData.append("files", payload[index]);
+      }
       const { data } = await projectApi.uploadFileProject(projectId, formData);
       return data;
     } catch (e) {

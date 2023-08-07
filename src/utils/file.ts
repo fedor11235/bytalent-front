@@ -40,6 +40,7 @@ export async function filesProcessing(
     }
     const filteredFile = getFilteredFile(file);
     if (!filteredFile) {
+      clearFileInput();
       return;
     }
     filteredFiles.push(filteredFile);
@@ -59,6 +60,7 @@ export async function fileProcessing(
   }
   const filteredFile = getFilteredFile(file);
   if (!filteredFile) {
+    clearFileInput();
     return;
   }
   callBack(filteredFile);

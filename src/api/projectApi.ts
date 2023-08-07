@@ -5,6 +5,15 @@ export default {
     return api.get("/project/active");
   },
   uploadFileProject(id: number, payload: FormData) {
+    // api.interceptors.request.use(
+    //   (config) => {
+    //     if (config.headers) {
+    //       config.headers["Content-Type"] = "multipart/form-data"
+    //     }
+    //     return config;
+    //   },
+    //   (error) => error
+    // );
     return api.post(`/project/upload/${id}`, payload);
   },
   getBackgrounds() {
