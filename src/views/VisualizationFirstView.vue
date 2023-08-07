@@ -18,14 +18,14 @@
     urlBtnContent="order"
     urlBtnContentHover="order-hover"
     :curentPagesFooter="1"
-    :numberPagesFooter="2"
+    :numberPagesFooter="pageTwo"
     textButtonFooter="+ Загрузить свой проект"
     colorTwoPagesFooter="#8b8b8b"
   />
 </template>
 
 <script setup lang="ts">
-import { ref, provide } from "vue";
+import { ref, computed, provide } from "vue";
 import { useRootStore } from "@/store";
 import { useRouter } from "vue-router";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
@@ -39,8 +39,10 @@ const rootStore = useRootStore();
 const isAddVisulization = ref(false);
 const isOrderVisulization = ref(false);
 
-let numberProjects
-projectService.getAllNumberProjects().then(res=>{numberProjects = res.projects;})
+let numberProjects = ref(0)
+projectService.getAllNumberProjects().then(res=>{numberProjects.value = res.projects;})
+
+const pageTwo = computed(() => numberProjects.value > 0? 2: 1)
 
 function showUploadProject() {
   // rootStore.uploadProject = true;
@@ -53,7 +55,9 @@ function showOrderProject() {
 }
 
 function nextPage() {
-  router.push({ name: "visualization-second" });
+  if(numberProjects.value > 0) {
+    router.push({ name: "visualization-second" });
+  }
 }
 
 provide("handlerBtnContentClick", showOrderProject);
