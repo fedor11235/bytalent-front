@@ -45,9 +45,9 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import InputComponent from "@/components/common/InputComponent.vue";
-import DropDownComponent from "@/components/common/DropDownComponent.vue";
-import LocateComponent from "@/components/common/LocateComponent.vue";
+import InputComponent from "@/components/controls/InputComponent.vue";
+import DropDownComponent from "@/components/controls/DropDownComponent.vue";
+import LocateComponent from "@/components/controls/LocateComponent.vue";
 
 const emit = defineEmits(["create"]);
 

@@ -122,7 +122,7 @@ import { useDocStore } from "@/store";
 import authService from "@/services/authService";
 import PopupTermsUser from "@/components/docs/PopupTermsUser.vue";
 import PopupPersonalData from "@/components/docs/PopupPersonalData.vue";
-import CheckboxComponent from "@/components/common/CheckboxComponent.vue";
+import CheckboxComponent from "@/components/controls/CheckboxComponent.vue";
 
 const router = useRouter();
 const docStore = useDocStore();

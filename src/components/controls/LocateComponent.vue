@@ -1,8 +1,8 @@
 <template>
-  <div ref="drop" class="drop-cmpt">
+  <div ref="drop" class="locate-cmpt">
     <img
       v-if="!isOpen"
-      class="drop-cmpt_icon"
+      class="locate-cmpt_icon"
       :src="require(`@/assets/icons/${icon}.svg`)"
       height="24"
       width="24"
@@ -10,16 +10,16 @@
     />
     <div
       @click="handlerOpenDrop"
-      class="drop-cmpt__enter"
+      class="locate-cmpt__enter"
       :style="styleDropDown"
       :placeholder="placeholder"
     >
       {{ activElem ? activElem : placeholder }}
     </div>
-    <div v-if="isOpen" class="drop-cmpt__items">
-      <div class="drop-cmpt__scroll">
+    <div v-if="isOpen" class="locate-cmpt__items">
+      <div class="locate-cmpt__scroll">
         <input
-          class="drop-cmpt__input"
+          class="locate-cmpt__input"
           :style="styleItem"
           v-model="searchLocate"
         />
@@ -28,7 +28,7 @@
           :key="item"
           @click="handlerChooseItem(item)"
           :style="styleItem"
-          class="drop-cmpt__item"
+          class="locate-cmpt__item"
         >
           {{ item }}
         </div>
@@ -92,7 +92,7 @@ function handlerChooseItem(item: string) {
 </script>
 
 <style lang="scss" scoped>
-.drop-cmpt {
+.locate-cmpt {
   position: relative;
   width: 100%;
   box-sizing: border-box;

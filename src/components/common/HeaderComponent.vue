@@ -80,17 +80,16 @@
           >Стриминг</span
         >
         <span
-          @click="router.push({ name: 'settings' })"
+          @click="router.push({ name: 'profile' })"
           :class="[
             {
               header__btn: theme !== 'light',
               'header__btn-light': theme === 'light',
             },
             {
-              header__btn_active:
-                route.name === 'settings' && theme !== 'light',
+              header__btn_active: route.name === 'profile' && theme !== 'light',
               'header__btn-light_active':
-                route.name === 'settings' && theme === 'light',
+                route.name === 'profile' && theme === 'light',
             },
           ]"
           >Профиль</span

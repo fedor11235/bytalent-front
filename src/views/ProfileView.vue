@@ -2,20 +2,6 @@
   <div class="serach-view">
     <div class="serach-view__backdrop">
       <HeaderComponent class="serach-view__header" />
-      <div class="serach-view__input">
-        <InputComponent
-          v-model="searchText"
-          placeholder="Введите свой поисковой запрос"
-          padding="20px 32px"
-        />
-      </div>
-      <img
-        class="serach-view__btn"
-        src="@/assets/components/search.svg"
-        width="200"
-        height="42"
-        alt="serach"
-      />
     </div>
   </div>
 </template>
@@ -35,7 +21,7 @@ const searchText = ref("");
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url(@/assets/backgrounds/visualization-first.jpeg);
+  background-image: url(@/assets/backgrounds/lvel.jpeg);
   &__backdrop {
     position: fixed;
     height: 100vh;
@@ -44,9 +30,8 @@ const searchText = ref("");
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.75);
     backdrop-filter: blur(17.5px);
-    row-gap: 32px;
   }
   &__header {
     position: absolute;

@@ -45,8 +45,8 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import InputComponent from "@/components/common/InputComponent.vue";
-import CheckboxComponent from "@/components/common/CheckboxComponent.vue";
+import InputComponent from "@/components/controls/InputComponent.vue";
+import CheckboxComponent from "@/components/controls/CheckboxComponent.vue";
 
 const emit = defineEmits(["order"]);
 
