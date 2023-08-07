@@ -15,3 +15,13 @@
 .trans-leave-to {
   opacity: 0;
 }
+
+.drop-enter-active,
+.drop-leave-active {
+  transition: transform .3s ease;
+  transform: translateY(0);
+}
+.drop-enter-from,
+.drop-leave-to {
+  transform: translateY(-110%);
+}

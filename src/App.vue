@@ -1,4 +1,10 @@
 <template>
+  <Transition name="drop">
+    <PopupWarning
+      v-if="rootStore.popupWarning"
+      :textWarning="rootStore.textWarning"
+    />
+  </Transition>
   <Transition name="fade">
     <PopupFAQ v-if="isFAQ" @close="isFAQ = false" />
   </Transition>
@@ -18,6 +24,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import InfoComponents from "@/components/common/InfoComponents.vue";
+import PopupWarning from "@/components/common/PopupWarning.vue";
 import PopupOrder from "@/components/common/PopupOrder.vue";
 import PopupUpload from "@/components/common/PopupUpload.vue";
 import PopupFAQ from "@/components/docs/PopupFAQ.vue";

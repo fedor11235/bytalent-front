@@ -10,7 +10,7 @@
     <input
       class="file-input"
       type="file"
-      @change="fileInsertion(saveFaileBgr)"
+      @change="fileInsertion(saveFaileBgr, getFilteredFile)"
       ref="fileInputBgr"
       accept="image/*"
     />
@@ -18,7 +18,7 @@
       class="file-input"
       type="file"
       multiple
-      @change="filesInsertion(saveFailesProject)"
+      @change="filesInsertion(saveFailesProject, getFilteredFile)"
       ref="fileInputProject"
       accept="image/*"
     />
@@ -195,6 +195,15 @@ const isExpand = ref(false);
   });
 });
 
+function getFilteredFile(file: File) {
+  if (/\.(jpg|jpeg|png|webp|JPG|PNG|JPEG|WEBP)$/.test(file.name)) {
+    return file;
+  }
+  rootStore.popupWarning = true;
+  rootStore.textWarning = "неверный формат файла";
+  return null;
+}
+
 function saveFaileBgr(filteredFile: File) {
   const fr = new FileReader();
   fr.onload = async () => {
@@ -255,14 +264,14 @@ function handlerAddBackground() {
 function handlerDropBackground(event: DragEvent) {
   const fileInstance = event?.dataTransfer?.files[0];
   if (fileInstance) {
-    fileProcessing(fileInstance, saveFaileBgr);
+    fileProcessing(fileInstance, saveFaileBgr, getFilteredFile);
   }
 }
 
 function handlerDropProject(event: DragEvent) {
   const filesInstance = event?.dataTransfer?.files;
   if (filesInstance) {
-    filesProcessing(filesInstance, saveFailesProject);
+    filesProcessing(filesInstance, saveFailesProject, getFilteredFile);
   }
 }
 

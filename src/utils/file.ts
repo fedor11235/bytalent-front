@@ -3,15 +3,21 @@ import { ref } from "vue";
 
 export const fileInput: Ref<HTMLInputElement | null> = ref(null);
 
-export function fileInsertion(callBack: (file: File) => void) {
+export function fileInsertion(
+  callBack: (file: File) => void,
+  getFilteredFile: (file: File) => null | File
+) {
   if (fileInput.value?.files) {
-    fileProcessing(fileInput.value.files[0], callBack);
+    fileProcessing(fileInput.value.files[0], callBack, getFilteredFile);
   }
 }
 
-export function filesInsertion(callBack: (file: File[]) => void) {
+export function filesInsertion(
+  callBack: (file: File[]) => void,
+  getFilteredFile: (file: File) => null | File
+) {
   if (fileInput.value?.files) {
-    filesProcessing(fileInput.value.files, callBack);
+    filesProcessing(fileInput.value.files, callBack, getFilteredFile);
   }
 }
 
@@ -23,7 +29,8 @@ export function browseFile() {
 
 export async function filesProcessing(
   files: FileList,
-  callBack: (file: File[]) => void
+  callBack: (file: File[]) => void,
+  getFilteredFile: (file: File) => null | File
 ) {
   const filteredFiles = [];
   for (const file of files) {
@@ -43,7 +50,8 @@ export async function filesProcessing(
 
 export async function fileProcessing(
   file: File,
-  callBack: (file: File) => void
+  callBack: (file: File) => void,
+  getFilteredFile: (file: File) => null | File
 ) {
   if (!checkSizeCompatibleOne(file)) {
     console.error("the file is very large");
@@ -63,13 +71,6 @@ function checkSizeCompatibleOne(file: File) {
     return false;
   }
   return true;
-}
-
-function getFilteredFile(file: File) {
-  if (/\.(jpg|jpeg|png|webp|JPG|PNG|JPEG|WEBP)$/.test(file.name)) {
-    return file;
-  }
-  return null;
 }
 
 function clearFileInput() {
