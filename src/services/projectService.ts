@@ -10,6 +10,14 @@ export default {
       console.error(e);
     }
   },
+  async getAllNumberProjects() {
+    try {
+      const { data } = await projectApi.getAllNumberProjects();
+      return data;
+    } catch (e) {
+      console.error(e);
+    }
+  },
   async getBackgrounds() {
     try {
       const { data } = await projectApi.getBackgrounds();
@@ -48,10 +56,10 @@ export default {
       console.error(e);
     }
   },
-  async orderVisualization(payload: any) {
+  async createProject(payload: any) {
     try {
       const formData = createFormData(payload);
-      const { data } = await projectApi.orderVisualization(formData);
+      const { data } = await projectApi.createProject(formData);
       return data;
     } catch (e) {
       console.error(e);

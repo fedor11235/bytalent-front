@@ -4,16 +4,10 @@ export default {
   getActiveProjects() {
     return api.get("/project/active");
   },
+  getAllNumberProjects() {
+    return api.get("/project/number");
+  },
   uploadFileProject(id: number, payload: FormData) {
-    // api.interceptors.request.use(
-    //   (config) => {
-    //     if (config.headers) {
-    //       config.headers["Content-Type"] = "multipart/form-data"
-    //     }
-    //     return config;
-    //   },
-    //   (error) => error
-    // );
     return api.post(`/project/upload/${id}`, payload);
   },
   getBackgrounds() {
@@ -25,7 +19,7 @@ export default {
   deleteBackgrounds(id: number) {
     return api.delete(`/project/backgrounds/${id}`);
   },
-  orderVisualization(payload: FormData) {
-    return api.post("/project/order", payload);
+  createProject(payload: FormData) {
+    return api.post("/project/create", payload);
   },
 };

@@ -31,12 +31,16 @@ import { useRouter } from "vue-router";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import PopupAdd from "@/components/visualization/PopupAdd.vue";
 import PopupOrder from "@/components/visualization/PopupOrder.vue";
+import projectService from "@/services/projectService";
 
 const router = useRouter();
 const rootStore = useRootStore();
 
 const isAddVisulization = ref(false);
 const isOrderVisulization = ref(false);
+
+let numberProjects
+projectService.getAllNumberProjects().then(res=>{numberProjects = res.projects;})
 
 function showUploadProject() {
   // rootStore.uploadProject = true;

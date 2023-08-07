@@ -33,7 +33,7 @@
       />
     </div>
     <img
-      @click="emit('create')"
+      @click="handlerCreate"
       class="add__visualization__btn"
       src="@/assets/components/create-white.svg"
       height="24"
@@ -45,11 +45,12 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import projectService from "@/services/projectService";
 import InputComponent from "@/components/controls/InputComponent.vue";
 import DropDownComponent from "@/components/controls/DropDownComponent.vue";
 import LocateComponent from "@/components/controls/LocateComponent.vue";
 
-const emit = defineEmits(["create"]);
+const emit = defineEmits(["close"]);
 
 const name = ref("");
 const address = ref("");
@@ -76,6 +77,15 @@ const menuLocate = [
   "Валивуд",
   "Ванила",
 ];
+
+function handlerCreate() {
+  projectService.createProject({
+    name: name.value,
+    address: address.value,
+    type: projectType.value
+  })
+  emit('close')
+}
 </script>
 
 <style lang="scss" scoped>

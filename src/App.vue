@@ -8,9 +8,9 @@
   <Transition name="fade">
     <PopupFAQ v-if="isFAQ" @close="isFAQ = false" />
   </Transition>
-  <Transition name="fade">
+  <!-- <Transition name="fade">
     <PopupUpload v-if="rootStore.popupUpload" />
-  </Transition>
+  </Transition> -->
   <Transition name="fade">
     <InfoComponents v-if="rootStore.infoPage" />
   </Transition>
@@ -26,7 +26,7 @@ import { ref } from "vue";
 import InfoComponents from "@/components/common/InfoComponents.vue";
 import PopupWarning from "@/components/common/PopupWarning.vue";
 import PopupOrder from "@/components/common/PopupOrder.vue";
-import PopupUpload from "@/components/common/PopupUpload.vue";
+// import PopupUpload from "@/components/common/PopupUpload.vue";
 import PopupFAQ from "@/components/docs/PopupFAQ.vue";
 import { useRootStore } from "@/store";
 

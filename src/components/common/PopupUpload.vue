@@ -55,11 +55,12 @@ const address = ref("");
 const type = ref(typesProgect[0].value);
 
 function handlerCreate() {
-  projectService.orderVisualization({
-    title: title.value,
-    address: address.value,
-    type: type.value,
-  });
+  console.log('create')
+  // projectService.orderVisualization({
+  //   title: title.value,
+  //   address: address.value,
+  //   type: type.value,
+  // });
 }
 </script>
 
