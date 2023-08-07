@@ -22,12 +22,11 @@
     </div>
     <div class="add__visualization__enter">
       <span class="add__visualization__enter__title">Тип проекта</span>
-      <InputComponent
+      <DropDownComponent
         v-model="projectType"
         placeholder="Выберите тип проекта"
-        :iconEnablePerm="true"
-        icon="drop"
-        padding="10px 32px"
+        paddingX="32px"
+        paddingY="10px"
       />
     </div>
     <img
@@ -44,6 +43,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import InputComponent from "@/components/common/InputComponent.vue";
+import DropDownComponent from "@/components/common/DropDownComponent.vue";
 
 const emit = defineEmits(["create"]);
 
