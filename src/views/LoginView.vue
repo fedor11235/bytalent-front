@@ -83,11 +83,11 @@
       </div>
       <div class="login__form">
         <div class="login__checkbox">
-          <CheckboxComponent
+          <!-- <CheckboxComponent
             height="21"
             width="21"
             v-model="docStore.personalData"
-          />
+          /> -->
           <div class="login__checkbox__text" @click="isPersonalData = true">
             При начале авторизации пользователь подтверждает, что ознакомился с
             политикой конфиденциальности и дает согласие на обработку
@@ -95,11 +95,11 @@
           </div>
         </div>
         <div class="login__checkbox">
-          <CheckboxComponent
+          <!-- <CheckboxComponent
             height="21"
             width="21"
             v-model="docStore.termsUser"
-          />
+          /> -->
           <div class="login__checkbox__text" @click="isTermsUser = true">
             При начале авторизации пользователь подтверждает, что ознакомился с
             правилами платформы и согласен с пользовательским соглашением

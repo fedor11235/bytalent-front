@@ -55,7 +55,7 @@ const address = ref("");
 const type = ref(typesProgect[0].value);
 
 function handlerCreate() {
-  console.log('create')
+  console.log("create");
   // projectService.orderVisualization({
   //   title: title.value,
   //   address: address.value,

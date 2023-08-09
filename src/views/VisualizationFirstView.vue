@@ -39,10 +39,12 @@ const rootStore = useRootStore();
 const isAddVisulization = ref(false);
 const isOrderVisulization = ref(false);
 
-let numberProjects = ref(0)
-projectService.getAllNumberProjects().then(res=>{numberProjects.value = res.projects;})
+let numberProjects = ref(0);
+projectService.getAllNumberProjects().then((res) => {
+  numberProjects.value = res.projects;
+});
 
-const pageTwo = computed(() => numberProjects.value > 0? 2: 1)
+const pageTwo = computed(() => (numberProjects.value > 0 ? 2 : 1));
 
 function showUploadProject() {
   // rootStore.uploadProject = true;
@@ -55,7 +57,7 @@ function showOrderProject() {
 }
 
 function nextPage() {
-  if(numberProjects.value > 0) {
+  if (numberProjects.value > 0) {
     router.push({ name: "visualization-second" });
   }
 }

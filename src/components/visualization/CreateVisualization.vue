@@ -82,9 +82,9 @@ function handlerCreate() {
   projectService.createProject({
     name: name.value,
     address: address.value,
-    type: projectType.value
-  })
-  emit('close')
+    type: projectType.value,
+  });
+  emit("close");
 }
 </script>
 
