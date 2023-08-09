@@ -25,3 +25,13 @@
 .drop-leave-to {
   transform: translateY(-110%);
 }
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: transform .3s ease;
+  transform: translateY(0);
+}
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateX(110%);
+}

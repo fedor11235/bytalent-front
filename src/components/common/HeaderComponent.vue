@@ -1,5 +1,15 @@
 <template>
   <div class="header">
+    <Transition name="slide">
+      <div v-if="isOpenMenu" class="header__mobile-menu">
+        <span
+          v-for="button of buttons"
+          :key="button.name"
+          @click="handlerSwitchPage(button.name)"
+          class="header__mobile-menu_btn"
+        >{{ button.title }}</span>
+      </div>
+    </Transition>
     <div class="header__border header__border-top">
       <div
         v-for="(line, index) of lines"
@@ -23,11 +33,11 @@
       ></div>
     </div>
     <div class="header__logo" :style="logoStyle()"></div>
-    <div :class="controllClass()">
+    <div v-if="isDesctop" :class="controllClass()">
       <span
         v-for="button of buttons"
         :key="button.name"
-        @click="router.push({ name: button.name })"
+        @click="handlerSwitchPage(button.name)"
         :class="btnClass(button.name)"
         @mouseover="handlerMouseOverBtn(button.name)"
         @mouseout="handlerMouseOutBtn(button.name)"
@@ -37,7 +47,7 @@
       >
       <img
         v-if="theme === 'light'"
-        @click="router.push({ name: 'search' })"
+        @click="handlerSwitchPage('search')"
         @mouseover="handlerMouseOverBtn('search')"
         @mouseout="handlerMouseOutBtn('search')"
         :class="btnClass('search')"
@@ -48,7 +58,7 @@
       />
       <img
         v-else
-        @click="router.push({ name: 'search' })"
+        @click="handlerSwitchPage('search')"
         @mouseover="handlerMouseOverBtn('search')"
         @mouseout="handlerMouseOutBtn('search')"
         :class="btnClass('search')"
@@ -58,16 +68,18 @@
         alt="search"
       />
     </div>
-    <!-- <div>[[]]</div> -->
+    <BurgerComponent v-else class="header__burger" @click="isOpenMenu = !isOpenMenu" :type="isOpenMenu? 'cross': 'burger'"/>
   </div>
 </template>
 
 <script setup lang="ts">
-import { toRef } from "vue";
+import { toRef, ref, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useRootStore } from "@/store";
+import BurgerComponent from "@/components/common/BurgerComponent.vue";
 
 type PageName = "visualization" | "app" | "streaming" | "profile" | "search";
+const allPages: PageName[] = ["visualization", "app", "streaming", "profile", "search"]
 
 const rootStore = useRootStore();
 
@@ -88,6 +100,23 @@ const props = defineProps<{
 }>();
 
 const theme = toRef(props, "theme");
+const width = ref(window.innerWidth)
+const isOpenMenu = ref(false)
+
+const isDesctop = computed(() => {
+  if(width.value > 850) {
+    isOpenMenu.value = false
+    return true
+  } else {
+    return false
+  }
+})
+
+window.addEventListener('resize', updateWidth)
+
+function updateWidth() {
+  width.value = window.innerWidth
+}
 
 function handlerMouseOverBtn(name: PageName) {
   rootStore[`${name}Hover`] = true;
@@ -95,6 +124,14 @@ function handlerMouseOverBtn(name: PageName) {
 
 function handlerMouseOutBtn(name: PageName) {
   rootStore[`${name}Hover`] = false;
+}
+
+function handlerSwitchPage(name: PageName) {
+  isOpenMenu.value = false
+  for(const page of allPages) {
+    rootStore[`${page}Hover`] = false;
+  }
+  router.push({ name: name })
 }
 
 function logoStyle() {
@@ -135,6 +172,34 @@ function controllClass() {
   justify-content: space-between;
   column-gap: 16px;
   height: 60px;
+  &__burger {
+    position: relative;
+    z-index: 2;
+  }
+  &__mobile-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 60vw;
+    background-color: rgba(0,0,0,.35);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+    row-gap: 16px;
+    &_btn {
+      font-family: JuraMedium;
+      font-size: 21px;
+      color: white;
+      opacity: .75;
+      cursor: pointer;
+      &:hover {
+        scale: 1.075;
+        opacity: 1;
+      }
+    }
+  }
   &__border {
     position: absolute;
     left: 0;
