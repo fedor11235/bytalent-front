@@ -59,6 +59,7 @@ defineProps<{
 
 <style lang="scss" scoped>
 .layout-default {
+  position: fixed;
   height: 100vh;
   width: 100vw;
   overflow: hidden;

@@ -12,6 +12,9 @@
       </div>
       <div class="hover-layout__content">
         {{ content }}
+        <div v-if="subcontent" class="hover-layout__subcontent">
+          {{ subcontent }}
+        </div>
       </div>
     </div>
   </div>
@@ -23,6 +26,7 @@ import HeaderComponent from "@/components/common/HeaderComponent.vue";
 defineProps<{
   bg: string;
   content: string;
+  subcontent: string;
   load?: boolean;
   theme?: "light";
 }>();
@@ -79,7 +83,7 @@ defineProps<{
     left: 50%;
     width: 35%;
     color: #fff;
-    font-family: JuraMedium;
+    font-family: JuraSemiBold;
     font-size: 50px;
     font-style: normal;
     // font-weight: 600;
@@ -87,6 +91,15 @@ defineProps<{
     letter-spacing: -1.5px;
     transform: translateY(-25%);
     transform-origin: center;
+  }
+  &__subcontent {
+    color: #fff;
+    font-family: JuraRegular;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 125%;
+    letter-spacing: -1.2px;
   }
 }
 </style>

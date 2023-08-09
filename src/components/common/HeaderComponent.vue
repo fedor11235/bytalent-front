@@ -36,6 +36,8 @@
       <img
         v-if="theme === 'light'"
         @click="router.push({ name: 'search' })"
+        @mouseover="handlerMouseOverBtn('search')"
+        @mouseout="handlerMouseOutBtn('search')"
         :class="btnClass('search')"
         src="@/assets/icons/search-light.svg"
         height="18"
@@ -45,6 +47,8 @@
       <img
         v-else
         @click="router.push({ name: 'search' })"
+        @mouseover="handlerMouseOverBtn('search')"
+        @mouseout="handlerMouseOutBtn('search')"
         :class="btnClass('search')"
         src="@/assets/icons/search.svg"
         height="18"
@@ -61,7 +65,7 @@ import { toRef } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useRootStore } from "@/store";
 
-type PageName = "visualization" | "app" | "streaming" | "profile";
+type PageName = "visualization" | "app" | "streaming" | "profile" | "search";
 
 const rootStore = useRootStore();
 

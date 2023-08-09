@@ -63,13 +63,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { useDocStore } from "@/store";
 import authService from "@/services/authService";
 import PopupTermsUser from "@/components/docs/PopupTermsUser.vue";
 import PopupPersonalData from "@/components/docs/PopupPersonalData.vue";
 
 const router = useRouter();
-const docStore = useDocStore();
 
 const login = ref("");
 
@@ -80,7 +78,7 @@ async function handlerLogin() {
   await authService.userLogin({
     login: login.value,
   });
-  router.push({ name: "visualization-first" });
+  router.push({ name: "start" });
 }
 </script>
 

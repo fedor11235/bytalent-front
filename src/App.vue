@@ -1,16 +1,4 @@
 <template>
-  <Transition name="fade">
-    <VisualizationHover v-if="rootStore.visualizationHover" />
-  </Transition>
-  <Transition name="fade">
-    <AppHover v-if="rootStore.appHover" />
-  </Transition>
-  <Transition name="fade">
-    <StreamingHover v-if="rootStore.streamingHover" />
-  </Transition>
-  <Transition name="fade">
-    <ProfileHover v-if="rootStore.profileHover" />
-  </Transition>
   <Transition name="drop">
     <PopupWarning
       v-if="rootStore.popupWarning"
@@ -26,7 +14,24 @@
   <Transition name="fade">
     <PopupOrder v-if="rootStore.uploadProject" />
   </Transition>
+
   <router-view />
+
+  <Transition name="fade">
+    <VisualizationHover v-if="rootStore.visualizationHover" />
+  </Transition>
+  <Transition name="fade">
+    <AppHover v-if="rootStore.appHover" />
+  </Transition>
+  <Transition name="fade">
+    <StreamingHover v-if="rootStore.streamingHover" />
+  </Transition>
+  <Transition name="fade">
+    <ProfileHover v-if="rootStore.profileHover" />
+  </Transition>
+  <Transition name="fade">
+    <SearchHover v-if="rootStore.searchHover" />
+  </Transition>
   <div @click="isFAQ = true" class="question">?</div>
 </template>
 
@@ -36,6 +41,7 @@ import VisualizationHover from "@/components/popup/VisualizationHover.vue";
 import AppHover from "@/components/popup/AppHover.vue";
 import StreamingHover from "@/components/popup/StreamingHover.vue";
 import ProfileHover from "@/components/popup/ProfileHover.vue";
+import SearchHover from "@/components/popup/SearchHover.vue";
 
 import InfoComponents from "@/components/common/InfoComponents.vue";
 import PopupWarning from "@/components/common/PopupWarning.vue";
@@ -67,7 +73,7 @@ const isFAQ = ref(false);
   font-size: 19px;
   line-height: 125%;
   letter-spacing: -0.76px;
-  z-index: 3;
+  z-index: 4;
   cursor: pointer;
   &:hover {
     box-shadow: -3px -1px 8px 0px rgba(232, 232, 232, 0.25),
