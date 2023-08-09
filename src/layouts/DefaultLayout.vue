@@ -1,14 +1,14 @@
 <template>
   <div
-    class="layout"
+    class="layout-default"
     :style="{
       backgroundImage: `url(${require(`@/assets/backgrounds/${bg}`)})`,
     }"
   >
     <div
       :class="[
-        'layout__backdrop',
-        { layout__blackout: blackout, layout__whiteout: whiteout },
+        'layout-default__backdrop',
+        { 'layout-default__blackout': blackout, 'layout-default__whiteout': whiteout },
       ]"
     >
       <HeaderComponent :theme="theme" />
@@ -55,7 +55,7 @@ defineProps<{
 </script>
 
 <style lang="scss" scoped>
-.layout {
+.layout-default {
   height: 100vh;
   width: 100vw;
   overflow: hidden;

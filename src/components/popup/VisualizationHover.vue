@@ -1,7 +1,8 @@
 <template>
   <HoverLayout
     bg="visualization-first.jpeg"
-    content="Unite, Create, Excel: Your new life, Empowered by Talent"
+    content="Каждая деталь важна: Визуализация 3D с Unreal Engine 5"
+    :load="true"
   />
 </template>
 
@@ -9,5 +10,4 @@
 import HoverLayout from "@/layouts/HoverLayout.vue";
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

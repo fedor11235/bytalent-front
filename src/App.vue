@@ -1,4 +1,7 @@
 <template>
+  <Transition name="fade">
+    <VisualizationHover v-if="rootStore.visualizationHover" />
+  </Transition>
   <Transition name="drop">
     <PopupWarning
       v-if="rootStore.popupWarning"
@@ -8,9 +11,6 @@
   <Transition name="fade">
     <PopupFAQ v-if="isFAQ" @close="isFAQ = false" />
   </Transition>
-  <!-- <Transition name="fade">
-    <PopupUpload v-if="rootStore.popupUpload" />
-  </Transition> -->
   <Transition name="fade">
     <InfoComponents v-if="rootStore.infoPage" />
   </Transition>
@@ -23,10 +23,10 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import VisualizationHover from "@/components/popup/VisualizationHover.vue";
 import InfoComponents from "@/components/common/InfoComponents.vue";
 import PopupWarning from "@/components/common/PopupWarning.vue";
 import PopupOrder from "@/components/common/PopupOrder.vue";
-// import PopupUpload from "@/components/common/PopupUpload.vue";
 import PopupFAQ from "@/components/docs/PopupFAQ.vue";
 import { useRootStore } from "@/store";
 
@@ -54,7 +54,7 @@ const isFAQ = ref(false);
   font-size: 19px;
   line-height: 125%;
   letter-spacing: -0.76px;
-  z-index: 1;
+  z-index: 3;
   cursor: pointer;
   &:hover {
     box-shadow: -3px -1px 8px 0px rgba(232, 232, 232, 0.25),
