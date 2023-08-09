@@ -14,96 +14,41 @@
       <div class="login__form">
         <div class="login__enter">
           <img
-            v-if="docStore.activeForm"
-            class="test"
-            src="@/assets/icons/telegram-active.svg"
-            height="24"
-            width="24"
-            alt="telegram"
-          />
-          <img
-            v-else
             class="test"
             src="@/assets/icons/telegram.svg"
-            height="24"
-            width="24"
+            height="32"
+            width="32"
             alt="telegram"
-          /><span
-            :class="[
-              'login__text',
-              { 'login__text-active': docStore.activeForm },
-            ]"
-            >Telegram</span
-          >
+          /><span class="login__text">Telegram</span>
         </div>
         <div class="login__enter">
           <img
-            v-if="docStore.activeForm"
-            src="@/assets/icons/phone-active.svg"
-            height="24"
-            width="24"
-            alt="phone"
-          />
-          <img
-            v-else
             src="@/assets/icons/phone.svg"
-            height="24"
-            width="24"
+            height="32"
+            width="32"
             alt="phone"
-          /><span
-            :class="[
-              'login__text',
-              { 'login__text-active': docStore.activeForm },
-            ]"
-            >Phone</span
-          >
+          />
+          <span class="login__text">Phone</span>
         </div>
         <div class="login__enter">
           <img
-            v-if="docStore.activeForm"
-            src="@/assets/icons/apple-active.svg"
-            height="24"
-            width="24"
+            src="@/assets/icons/public-services.png"
+            height="32"
+            width="32"
             alt="apple"
           />
-          <img
-            v-else
-            src="@/assets/icons/apple.svg"
-            height="24"
-            width="24"
-            alt="apple"
-          /><span
-            :class="[
-              'login__text',
-              { 'login__text-active': docStore.activeForm },
-            ]"
-            >Apple ID</span
-          >
+          <span class="login__text">Apple ID</span>
         </div>
       </div>
       <div class="login__form">
-        <div class="login__checkbox">
-          <!-- <CheckboxComponent
-            height="21"
-            width="21"
-            v-model="docStore.personalData"
-          /> -->
-          <div class="login__checkbox__text" @click="isPersonalData = true">
-            При начале авторизации пользователь подтверждает, что ознакомился с
-            политикой конфиденциальности и дает согласие на обработку
-            персональных данных.
-          </div>
+        <div class="login__agreement" @click="isPersonalData = true">
+          При начале авторизации пользователь подтверждает, что ознакомился с
+          политикой конфиденциальности и дает согласие на обработку персональных
+          данных.
         </div>
-        <div class="login__checkbox">
-          <!-- <CheckboxComponent
-            height="21"
-            width="21"
-            v-model="docStore.termsUser"
-          /> -->
-          <div class="login__checkbox__text" @click="isTermsUser = true">
-            При начале авторизации пользователь подтверждает, что ознакомился с
-            правилами платформы и согласен с пользовательским соглашением
-          </div>
+        <div class="login__agreement" @click="isTermsUser = true">
+          При начале авторизации пользователь подтверждает, что ознакомился с
+          правилами платформы и согласен с пользовательским соглашением
         </div>
       </div>
 
@@ -122,7 +67,6 @@ import { useDocStore } from "@/store";
 import authService from "@/services/authService";
 import PopupTermsUser from "@/components/docs/PopupTermsUser.vue";
 import PopupPersonalData from "@/components/docs/PopupPersonalData.vue";
-import CheckboxComponent from "@/components/controls/CheckboxComponent.vue";
 
 const router = useRouter();
 const docStore = useDocStore();
@@ -161,35 +105,35 @@ async function handlerLogin() {
     align-items: center;
   }
   &__title {
-    font-family: JuraMedium, sans-serif;
-    font-size: 19px;
-    color: white;
+    color: rgba(255, 255, 255, 0.85);
     text-align: center;
+    font-family: JuraMedium;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.56px;
   }
   &__text {
     text-align: left;
     display: flex;
-    &-active {
-      color: rgba(255, 255, 255, 0.85);
-    }
+    color: rgba(0, 0, 0, 0.85);
+    font-family: JuraMedium;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100%; /* 28px */
+    letter-spacing: -0.56px;
   }
   &__enter {
-    font-family: JuraMedium, sans-serif;
-    width: 250px;
-    height: 56px;
-    padding: 10px 38px;
+    width: 100%;
+    padding: 16px 32px;
     border-radius: 20px;
-    background: rgba(62, 62, 62, 0.25);
-
+    background-color: rgba(255, 255, 255, 0.85);
     display: grid;
     grid-template-columns: 1fr 1fr;
-    column-gap: 27px;
+    column-gap: 32px;
     align-items: center;
-
-    color: rgba(255, 255, 255, 0.25);
-    font-size: 19px;
-    line-height: 125%;
-    letter-spacing: -0.76px;
     box-sizing: border-box;
     cursor: pointer;
     &:hover {
@@ -202,31 +146,17 @@ async function handlerLogin() {
         -8px -12px 12px 0px rgba(0, 0, 0, 0.35) inset;
     }
   }
-  &__checkbox {
-    font-family: JuraMedium, sans-serif;
-    width: 400px;
-    height: 56px;
-    padding: 10px 17px;
-
-    display: flex;
-    column-gap: 6px;
-    align-items: center;
-
-    box-sizing: border-box;
+  &__agreement {
+    width: 310px;
+    padding: 0 16px;
+    color: rgba(255, 255, 255, 0.65);
+    font-family: JuraMedium;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 130%;
+    letter-spacing: -0.48px;
     cursor: pointer;
-    &__input {
-      cursor: pointer;
-    }
-    &__text {
-      color: #fff;
-      /* Jura/Body */
-      font-family: JuraMedium;
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 100%; /* 12px */
-      letter-spacing: -0.48px;
-    }
   }
 }
 .test-input {

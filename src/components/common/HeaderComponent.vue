@@ -22,10 +22,7 @@
         ]"
       ></div>
     </div>
-    <div
-      class="header__logo"
-      :style="logoStyle()"
-    ></div>
+    <div class="header__logo" :style="logoStyle()"></div>
     <div :class="controllClass()">
       <span
         v-for="button of buttons"
@@ -80,22 +77,28 @@ const props = defineProps<{
 const theme = toRef(props, "theme");
 
 function logoStyle() {
-  if (theme.value === "light") return {backgroundImage: `url(${require('@/assets/header/logo-light.png')})`};
-  else return {backgroundImage: `url(${require('@/assets/header/logo.png')})`};
-};
+  if (theme.value === "light")
+    return {
+      backgroundImage: `url(${require("@/assets/header/logo-light.png")})`,
+    };
+  else
+    return { backgroundImage: `url(${require("@/assets/header/logo.png")})` };
+}
 
 function btnClass(name: string) {
   return {
-    'header__btn': route.name !== name && theme.value !== 'light',
-    'header__btn-light': route.name !== name && theme.value === 'light',
-    'header__btn_active': route.name === name && theme.value !== 'light',
-    'header__btn-light_active': route.name === name && theme.value === 'light',
-  }
-};
+    header__btn: route.name !== name && theme.value !== "light",
+    "header__btn-light": route.name !== name && theme.value === "light",
+    header__btn_active: route.name === name && theme.value !== "light",
+    "header__btn-light_active": route.name === name && theme.value === "light",
+  };
+}
 
 function controllClass() {
-  return ['header__controls',
-        { 'header__controls-light': theme.value === 'light' }]
+  return [
+    "header__controls",
+    { "header__controls-light": theme.value === "light" },
+  ];
 }
 </script>
 
