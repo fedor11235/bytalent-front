@@ -5,7 +5,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
 import { useRootStore } from "@/store";
 
 const rootStore = useRootStore();
@@ -16,7 +15,7 @@ defineProps<{
 
 setTimeout(() => {
   rootStore.popupWarning = false;
-}, "3000");
+}, 3000);
 </script>
 
 <style lang="scss" scoped>

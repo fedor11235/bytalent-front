@@ -2,6 +2,15 @@
   <Transition name="fade">
     <VisualizationHover v-if="rootStore.visualizationHover" />
   </Transition>
+  <Transition name="fade">
+    <AppHover v-if="rootStore.appHover" />
+  </Transition>
+  <Transition name="fade">
+    <StreamingHover v-if="rootStore.streamingHover" />
+  </Transition>
+  <Transition name="fade">
+    <ProfileHover v-if="rootStore.profileHover" />
+  </Transition>
   <Transition name="drop">
     <PopupWarning
       v-if="rootStore.popupWarning"
@@ -24,6 +33,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import VisualizationHover from "@/components/popup/VisualizationHover.vue";
+import AppHover from "@/components/popup/AppHover.vue";
+import StreamingHover from "@/components/popup/StreamingHover.vue";
+import ProfileHover from "@/components/popup/ProfileHover.vue";
+
 import InfoComponents from "@/components/common/InfoComponents.vue";
 import PopupWarning from "@/components/common/PopupWarning.vue";
 import PopupOrder from "@/components/common/PopupOrder.vue";

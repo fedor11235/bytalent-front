@@ -2,11 +2,15 @@ import { defineStore } from "pinia";
 
 export const useRootStore = defineStore("root", {
   state: (): StreamingStore => ({
-    visualizationHover: true,
+    visualizationHover: false,
+    appHover: false,
+    streamingHover: false,
+    profileHover: false,
 
     popupUpload: false,
     uploadProject: false,
     infoPage: false,
+
     popupWarning: false,
     textWarning: "",
   }),
@@ -14,7 +18,10 @@ export const useRootStore = defineStore("root", {
 
 type StreamingStore = {
   visualizationHover: boolean;
-  
+  appHover: boolean;
+  streamingHover: boolean;
+  profileHover: boolean;
+
   popupUpload: boolean;
   uploadProject: boolean;
   infoPage: boolean;

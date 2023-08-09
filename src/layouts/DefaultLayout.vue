@@ -8,7 +8,10 @@
     <div
       :class="[
         'layout-default__backdrop',
-        { 'layout-default__blackout': blackout, 'layout-default__whiteout': whiteout },
+        {
+          'layout-default__blackout': blackout,
+          'layout-default__whiteout': whiteout,
+        },
       ]"
     >
       <HeaderComponent :theme="theme" />

@@ -30,17 +30,9 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: "/visualization-first",
-    name: "visualization-first",
+    path: "/visualization",
+    name: "visualization",
     component: VisualizationFirstView,
-    meta: {
-      auth: true,
-    },
-  },
-  {
-    path: "/visualization-second",
-    name: "visualization-second",
-    component: VisualizationSecondView,
     meta: {
       auth: true,
     },

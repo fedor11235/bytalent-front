@@ -19,9 +19,6 @@
 
 <script setup lang="ts">
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
-import { useRootStore } from "@/store";
-
-const rootStore = useRootStore();
 
 defineProps<{
   bg: string;
@@ -80,7 +77,7 @@ defineProps<{
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 30%;
+    width: 35%;
     color: #fff;
     font-family: JuraMedium;
     font-size: 50px;

@@ -29,6 +29,8 @@
         :key="button.name"
         @click="router.push({ name: button.name })"
         :class="btnClass(button.name)"
+        @mouseover="handlerMouseOverBtn(button.name)"
+        @mouseout="handlerMouseOutBtn(button.name)"
         >{{ button.title }}</span
       >
       <img
@@ -55,14 +57,19 @@
 </template>
 
 <script setup lang="ts">
-import { computed, toRef } from "vue";
+import { toRef } from "vue";
 import { useRouter, useRoute } from "vue-router";
+import { useRootStore } from "@/store";
+
+type PageName = "visualization" | "app" | "streaming" | "profile";
+
+const rootStore = useRootStore();
 
 const buttons = [
-  { name: "visualization-first", title: "Визуализация" },
-  { name: "app", title: "Приложение" },
-  { name: "streaming", title: "Стриминг" },
-  { name: "profile", title: "Профиль" },
+  { name: "visualization" as PageName, title: "Визуализация" },
+  { name: "app" as PageName, title: "Приложение" },
+  { name: "streaming" as PageName, title: "Стриминг" },
+  { name: "profile" as PageName, title: "Профиль" },
 ];
 
 const lines = ["one", "two", "three", "two", "one"];
@@ -75,6 +82,14 @@ const props = defineProps<{
 }>();
 
 const theme = toRef(props, "theme");
+
+function handlerMouseOverBtn(name: PageName) {
+  rootStore[`${name}Hover`] = true;
+}
+
+function handlerMouseOutBtn(name: PageName) {
+  rootStore[`${name}Hover`] = false;
+}
 
 function logoStyle() {
   if (theme.value === "light")
