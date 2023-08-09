@@ -31,6 +31,8 @@
         :class="btnClass(button.name)"
         @mouseover="handlerMouseOverBtn(button.name)"
         @mouseout="handlerMouseOutBtn(button.name)"
+        @mouseenter="handlerMouseOverBtn(button.name)"
+        @mouseleave="handlerMouseOutBtn(button.name)"
         >{{ button.title }}</span
       >
       <img

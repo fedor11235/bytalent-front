@@ -9,7 +9,7 @@
     />
   </Transition>
   <DefaultLayout
-    bg="visualization-first.jpeg"
+    bg="visualization.jpg"
     :blackout="true"
     urlBtnHeader="visualization"
     urlBtnHeaderHover="visualization-hover"
@@ -17,8 +17,8 @@
     textContent="Вы можете заказать проект либо загрузить свой"
     urlBtnContent="order"
     urlBtnContentHover="order-hover"
-    :curentPagesFooter="1"
-    :numberPagesFooter="1"
+    :curentPagesFooter="0"
+    :numberPagesFooter="0"
     textButtonFooter="+ Загрузить свой проект"
     colorTwoPagesFooter="#8b8b8b"
   />

@@ -1,27 +1,26 @@
 <template>
-  <div class="serach-view">
-    <div class="serach-view__backdrop">
-      <HeaderComponent class="serach-view__header" />
+  <div class="search-view">
+    <div class="search-view__backdrop">
+      <HeaderComponent class="search-view__header" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
-import InputComponent from "@/components/controls/InputComponent.vue";
-const searchText = ref("");
 </script>
 
 <style lang="scss" scoped>
-.serach-view {
+.search-view {
+  position: fixed;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url(@/assets/backgrounds/lvel.jpeg);
+  background-image: url(@/assets/backgrounds/profile.jpg);
   &__backdrop {
     position: fixed;
     height: 100vh;

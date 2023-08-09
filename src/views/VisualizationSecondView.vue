@@ -8,8 +8,8 @@
     textContent="Описание уровня"
     urlBtnContent="control"
     urlBtnContentHover="control-hover"
-    :curentPagesFooter="2"
-    :numberPagesFooter="2"
+    :curentPagesFooter="0"
+    :numberPagesFooter="0"
     textButtonFooter="Новый уровень"
     colorTwoPagesFooter="#8b8b8b"
   />
