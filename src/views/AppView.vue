@@ -1,6 +1,7 @@
 <template>
   <DefaultLayout
     bg="app.png"
+    :blackout="true"
     urlBtnHeader="app"
     urlBtnHeaderHover="app"
     titleContent="Приложение просмотров интерьеров"

@@ -7,7 +7,8 @@
           :key="button.name"
           @click="handlerSwitchPage(button.name)"
           class="header__mobile-menu_btn"
-        >{{ button.title }}</span>
+          >{{ button.title }}</span
+        >
       </div>
     </Transition>
     <div class="header__border header__border-top">
@@ -68,18 +69,29 @@
         alt="search"
       />
     </div>
-    <BurgerComponent v-else class="header__burger" @click="isOpenMenu = !isOpenMenu" :type="isOpenMenu? 'cross': 'burger'"/>
+    <BurgerComponent
+      v-else
+      class="header__burger"
+      @click="isOpenMenu = !isOpenMenu"
+      :type="isOpenMenu ? 'cross' : 'burger'"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { toRef, ref, computed } from "vue";
+import { toRef, ref, computed, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useRootStore } from "@/store";
 import BurgerComponent from "@/components/common/BurgerComponent.vue";
 
 type PageName = "visualization" | "app" | "streaming" | "profile" | "search";
-const allPages: PageName[] = ["visualization", "app", "streaming", "profile", "search"]
+const allPages: PageName[] = [
+  "visualization",
+  "app",
+  "streaming",
+  "profile",
+  "search",
+];
 
 const rootStore = useRootStore();
 
@@ -100,22 +112,30 @@ const props = defineProps<{
 }>();
 
 const theme = toRef(props, "theme");
-const width = ref(window.innerWidth)
-const isOpenMenu = ref(false)
+const width = ref(window.innerWidth);
+const isOpenMenu = ref(false);
 
 const isDesctop = computed(() => {
-  if(width.value > 850) {
-    isOpenMenu.value = false
-    return true
+  if (width.value > 850) {
+    return true;
   } else {
-    return false
+    return false;
   }
-})
+});
 
-window.addEventListener('resize', updateWidth)
+watch(
+  () => isOpenMenu.value,
+  (newVal) => {
+    if (newVal) {
+      isOpenMenu.value = false;
+    }
+  }
+);
+
+window.addEventListener("resize", updateWidth);
 
 function updateWidth() {
-  width.value = window.innerWidth
+  width.value = window.innerWidth;
 }
 
 function handlerMouseOverBtn(name: PageName) {
@@ -127,11 +147,11 @@ function handlerMouseOutBtn(name: PageName) {
 }
 
 function handlerSwitchPage(name: PageName) {
-  isOpenMenu.value = false
-  for(const page of allPages) {
+  isOpenMenu.value = false;
+  for (const page of allPages) {
     rootStore[`${page}Hover`] = false;
   }
-  router.push({ name: name })
+  router.push({ name: name });
 }
 
 function logoStyle() {
@@ -182,7 +202,7 @@ function controllClass() {
     right: 0;
     bottom: 0;
     width: 60vw;
-    background-color: rgba(0,0,0,.35);
+    background-color: rgba(0, 0, 0, 0.35);
     z-index: 1;
     display: flex;
     flex-direction: column;
@@ -190,9 +210,9 @@ function controllClass() {
     row-gap: 16px;
     &_btn {
       font-family: JuraMedium;
-      font-size: 21px;
+      font-size: 1.85vh;
       color: white;
-      opacity: .75;
+      opacity: 0.75;
       cursor: pointer;
       &:hover {
         scale: 1.075;

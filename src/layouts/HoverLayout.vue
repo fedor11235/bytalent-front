@@ -84,7 +84,7 @@ defineProps<{
     width: 35%;
     color: #fff;
     font-family: JuraSemiBold;
-    font-size: 50px;
+    font-size: 4.6vh;
     font-style: normal;
     // font-weight: 600;
     line-height: 125%;
@@ -95,7 +95,7 @@ defineProps<{
   &__subcontent {
     color: #fff;
     font-family: JuraRegular;
-    font-size: 40px;
+    font-size: 3.7vh;
     font-style: normal;
     font-weight: 400;
     line-height: 125%;

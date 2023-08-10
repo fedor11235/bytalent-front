@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted,provide } from "vue";
+import { ref, onMounted, provide } from "vue";
 import { useRouter } from "vue-router";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import PopupAdd from "@/components/visualization/PopupAdd.vue";
@@ -57,7 +57,7 @@ const projects = ref(0);
 const total = ref(0);
 
 function handlerBtnContentClick() {
-  if(total.value > 0) {
+  if (total.value > 0) {
     router.push({ name: "new-lavel" });
   } else {
     isAddVisulization.value = true;
@@ -65,7 +65,7 @@ function handlerBtnContentClick() {
 }
 
 function handlerBtnFooterClick() {
-  if(total.value > 0) {
+  if (total.value > 0) {
     router.push({ name: "new-lavel" });
   } else {
     isAddVisulization.value = true;
@@ -79,7 +79,7 @@ onMounted(() => {
     projects.value = res.projects;
     total.value = res.total;
   });
-})
+});
 </script>
 
 <style lang="scss" scoped></style>

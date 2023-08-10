@@ -14,6 +14,11 @@
     url("@/styles/fonts/JuraSemiBold.ttf") format("truetype")
 }
 @font-face {
+  font-family: "JuraBold";
+  src: local("JuraBold"),
+    url("@/styles/fonts/JuraBold.ttf") format("truetype")
+}
+@font-face {
   font-family: "Jost100Hairline";
   src: local("Jost100Hairline"),
     url("@/styles/fonts/Jost100Hairline.ttf") format("truetype")
