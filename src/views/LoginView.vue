@@ -53,15 +53,15 @@
       </div>
 
       <!-- TODO тестовый вход -->
-      <!-- <div class="login__title">Тестовый вход</div>
+      <div class="login__title">Тестовый вход</div>
       <input class="test-input" v-model="login" />
-      <div @click="handlerLogin" class="test-button">Вход</div> -->
+      <div @click="handlerLogin" class="test-button">Вход</div>
       <!-- Callback mode -->
       <telegram-login-temp
         mode="callback"
         telegram-login="ByTALENTBot"
         @loaded='telegramLoadedCallbackFunc'
-        @callback="yourCallbackFunction"
+        @callback="yourCallbackFunctionTelegram"
       />
     </div>
   </div>
@@ -88,19 +88,18 @@ async function handlerLogin() {
   await authService.userLogin({
     login: login.value,
   });
-  router.push({ name: "start" });
 }
 
-async function yourCallbackFunction (user) {
-  // записывает в email
-  await authService.userLogin({
-    login: user.username,
-  });
-  await profileService.setProfile({
+function telegramLoadedCallbackFunc () {
+  console.log('load')
+}
+
+async function yourCallbackFunctionTelegram (user) {
+  await authService.registrationTelegramUser({
+    username: user.username,
     name: user.first_name,
     surname: user.last_name,
-  })
-  router.push({ name: "start" });
+  });
 }
 
 // {

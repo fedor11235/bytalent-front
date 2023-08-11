@@ -22,6 +22,25 @@ export default {
       console.error(e);
     }
   },
+  async registrationTelegramUser(payload: any) {
+    try {
+      const formData = createFormData(payload);
+      const { data } = await authApi.registrationTelegramUser(formData);
+      window.localStorage.setItem("token", data.access_token);
+      api.interceptors.request.use(
+        (config) => {
+          if (config.headers) {
+            config.headers["Authorization"] = "Bearer " + data.access_token;
+          }
+          return config;
+        },
+        (error) => error
+      );
+      location.reload();
+    } catch (e) {
+      console.error(e);
+    }
+  },
   async checkToken() {
     try {
       await authApi.checkToken();
