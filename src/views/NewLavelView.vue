@@ -225,8 +225,8 @@ function saveFaileBgr(filteredFile: File) {
   isMediaAddBgr.value = false;
 }
 
-function saveFailesProject(filteredFiles: FileList) {
-  projectStore.files = filteredFiles;
+function saveFailesProject(filteredFiles: File[]) {
+  // projectStore.files = filteredFiles;
   // projectService.uploadFileProject(3, filteredFiles)
   isMediaAddProgect.value = false;
 }

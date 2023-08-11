@@ -53,19 +53,29 @@
       </div>
 
       <!-- TODO тестовый вход -->
-      <div class="login__title">Тестовый вход</div>
+      <!-- <div class="login__title">Тестовый вход</div>
       <input class="test-input" v-model="login" />
-      <div @click="handlerLogin" class="test-button">Вход</div>
+      <div @click="handlerLogin" class="test-button">Вход</div> -->
+      <!-- Callback mode -->
+      <telegram-login-temp
+        mode="callback"
+        telegram-login="ByTALENTBot"
+        @loaded='telegramLoadedCallbackFunc'
+        @callback="yourCallbackFunction"
+      />
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import authService from "@/services/authService";
+import profileService from "@/services/profileService";
 import PopupTermsUser from "@/components/docs/PopupTermsUser.vue";
 import PopupPersonalData from "@/components/docs/PopupPersonalData.vue";
+
+import { telegramLoginTemp } from 'vue3-telegram-login'
 
 const router = useRouter();
 
@@ -80,6 +90,28 @@ async function handlerLogin() {
   });
   router.push({ name: "start" });
 }
+
+async function yourCallbackFunction (user) {
+  // записывает в email
+  await authService.userLogin({
+    login: user.username,
+  });
+  await profileService.setProfile({
+    name: user.first_name,
+    surname: user.last_name,
+  })
+  router.push({ name: "start" });
+}
+
+// {
+//     "id": 372099197,
+//     "first_name": "Fedor",
+//     "last_name": "Avdeev",
+//     "username": "fedor11235b",
+//     "photo_url": "https://t.me/i/userpic/320/QlxKLHekt0clUKQBN2i09V6Ab8i6BuPaU4m2_RUcTOA.jpg",
+//     "auth_date": 1691746033,
+//     "hash": "568e84902a01e276c97607844488382658020f3b9fdef08c21e882b7a7b70256"
+// }
 </script>
 
 <style lang="scss" scoped>
