@@ -1,7 +1,36 @@
 <template>
-  <div class="settings">
-    <div class="settings__backdrop"></div>
-    <div class="settings__content">
+  <div
+    class="new-level"
+    :style="{
+      backgroundImage: projectStore.background
+        ? `url(${projectStore.background})`
+        : `url(${require('@/assets/backgrounds/lvel.jpeg')})`,
+    }"
+  >
+    <input
+      class="file-input"
+      type="file"
+      @change="fileInsertion(saveFaileBgr, getFilteredFileBg)"
+      ref="fileInputBgr"
+      accept="image/*"
+    />
+    <input
+      class="file-input"
+      type="file"
+      multiple
+      @change="filesInsertion(saveFailesProject, getFilteredFileProject)"
+      ref="fileInputProject"
+      accept="image/*"
+    />
+    <Transition name="fade">
+      <PopupLavel
+        v-if="isShowPopup"
+        :indexBackgrounds="indexBackgrounds"
+        @close="isShowPopup = false"
+      />
+    </Transition>
+    <div class="new-level__backdrop"></div>
+    <div class="new-level__content">
       <HeaderComponent
         urlButton="header/main.png"
         urlButtonHover="header/main.png"
@@ -10,67 +39,93 @@
         @switch="rootStore.infoPage = !rootStore.infoPage"
       />
       <div class="media">
-        <div class="settings__content__control">
-          <div class="media__btn"></div>
+        <div class="new-level__content__control">
+          <div @click="isMediaAddBgr = !isMediaAddBgr" class="media__btn"></div>
         </div>
         <div class="carousel">
-          <div class="carousel__arrow carousel__arrow-left"></div>
-          <img
-            class="carousel__img"
-            src="@/assets/lvel/carousel.jpeg"
-            alt="img"
-          />
-          <img
-            class="carousel__img"
-            src="@/assets/lvel/carousel.jpeg"
-            alt="img"
-          />
-          <img
-            class="carousel__img"
-            src="@/assets/lvel/carousel.jpeg"
-            alt="img"
-          />
-          <img
-            class="carousel__img"
-            src="@/assets/lvel/carousel.jpeg"
-            alt="img"
-          />
-          <img
-            class="carousel__img"
-            src="@/assets/lvel/carousel.jpeg"
-            alt="img"
-          />
-          <div class="carousel__arrow carousel__arrow-right"></div>
+          <div
+            @click="handlerLeftMove"
+            class="carousel__arrow carousel__arrow-left"
+          ></div>
+          <div class="sliders" ref="sliders">
+            <img
+              class="carousel__img"
+              v-for="(background, index) in projectStore.backgrounds"
+              :key="background.id"
+              @click="handlerShowPopup(index)"
+              :src="background.img"
+              alt="img"
+            />
+          </div>
+          <div
+            @click="handlerRightMove"
+            class="carousel__arrow carousel__arrow-right"
+          ></div>
         </div>
+        <Transition name="fade">
+          <AddFile
+            v-if="isMediaAddBgr"
+            formats="jpg/png/gif/mp4/mov"
+            @click="handlerAddBackground"
+            @drop="handlerDropBackground"
+          />
+        </Transition>
+        <Transition name="fade">
+          <AddFile
+            v-if="isMediaAddProgect"
+            formats="all"
+            @click="handlerAddProject"
+            @drop="handlerDropProject"
+          />
+        </Transition>
       </div>
-      <div class="settings__info">
-        <div class="settings__header">
-          <div class="settings__content__control">
-            <div class="settings__header__btn"></div>
+      <div class="new-level__info">
+        <div class="new-level__header">
+          <div class="new-level__content__control">
+            <div class="new-level__header__btn"></div>
           </div>
           <div>
-            <div class="settings__title">Новый уровень</div>
-            <div class="settings__text">Адрес</div>
+            <div class="new-level__title">Новый уровень</div>
+            <div class="new-level__text">Адрес</div>
           </div>
         </div>
       </div>
       <div class="assistant">
-        <div class="settings__content__control">
-          <div class="assistant__btn"></div>
+        <div class="new-level__content__control">
+          <div
+            @click="isMediaAddProgect = !isMediaAddProgect"
+            :class="['assistant__btn', { assistant__btn_big: isExpand }]"
+          ></div>
         </div>
-        <div class="settings__assistant">
-          <div class="settings__assistant_menu">
+        <div
+          :class="[
+            'new-level__assistant',
+            { 'new-level__assistant_big': isExpand },
+          ]"
+        >
+          <div
+            :class="[
+              'new-level__assistant_menu',
+              { 'new-level__assistant_menu_big': isExpand },
+            ]"
+          >
             <div
-              class="settings__assistant_menu_item"
+              class="new-level__assistant_menu_item"
               v-for="item of menu"
               :key="item"
             >
               {{ item }}
             </div>
           </div>
-          <div class="settings__assistant_chat">
-            <textarea class="settings__assistant_chat_input"></textarea>
-            <div class="settings__assistant_chat_button">Отправить</div>
+          <div class="new-level__assistant_chat">
+            <textarea class="new-level__assistant_chat_input"></textarea>
+            <img
+              @click="isExpand = !isExpand"
+              src="@/assets/icons/expand.png"
+              alt="expand"
+              class="new-level__assistant_expand"
+            />
+            <div class="new-level__assistant_chat_button">Отправить</div>
           </div>
         </div>
         <div class="assistant__btns">
@@ -86,14 +141,29 @@
 </template>
 
 <script setup lang="ts">
-import { provide } from "vue";
+import type { Ref } from "vue";
+import { provide, ref } from "vue";
 import { useRootStore } from "@/store";
+import { useProjectStore } from "@/store";
 import { useRouter } from "vue-router";
 
+import {
+  fileInput,
+  fileInsertion,
+  filesInsertion,
+  browseFile,
+  fileProcessing,
+  filesProcessing,
+} from "@/utils/file";
+import projectService from "@/services/projectService";
+
+import PopupLavel from "@/components/newLavel/PopupLavel.vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
+import AddFile from "@/components/newLavel/AddFile.vue";
 
 const router = useRouter();
 const rootStore = useRootStore();
+const projectStore = useProjectStore();
 
 const menu = [
   "Личный ассистент",
@@ -102,21 +172,132 @@ const menu = [
   "Интеграция",
 ];
 
+const widthSlid = 33.75;
+let move = 0;
+
+projectService.getBackgrounds().then((res) => {
+  projectStore.backgrounds.push(...res.backgrounds);
+});
+
+const fileInputBgr: Ref<HTMLInputElement | null> = ref(null);
+const fileInputProject: Ref<HTMLInputElement | null> = ref(null);
+const sliders: Ref<HTMLDivElement | null> = ref(null);
+const indexBackgrounds = ref(0);
+const isShowPopup = ref(false);
+const isMediaAddBgr = ref(false);
+const isMediaAddProgect = ref(false);
+const isExpand = ref(false);
+
+["dragover", "drop"].forEach(function (event) {
+  document.addEventListener(event, function (evt) {
+    evt.preventDefault();
+    return false;
+  });
+});
+
+function getFilteredFileBg(file: File) {
+  if (/\.(jpg|jpeg|png|webp|JPG|PNG|JPEG|WEBP)$/.test(file.name)) {
+    return file;
+  }
+  rootStore.popupWarning = true;
+  rootStore.textWarning = "неверный формат файла";
+  isMediaAddBgr.value = false;
+  return null;
+}
+
+function getFilteredFileProject(file: File) {
+  return file;
+}
+
+function saveFaileBgr(filteredFile: File) {
+  const fr = new FileReader();
+  fr.onload = async () => {
+    const fbase64 = fr.result;
+    const backgroundNew = await projectService.postBackgrounds({
+      file: filteredFile,
+    });
+    projectStore.backgrounds.push({
+      id: backgroundNew.id,
+      img: String(fbase64),
+    });
+  };
+  fr.readAsDataURL(filteredFile);
+  isMediaAddBgr.value = false;
+}
+
+function saveFailesProject(filteredFiles: File[]) {
+  // projectStore.files = filteredFiles;
+  // projectService.uploadFileProject(3, filteredFiles)
+  isMediaAddProgect.value = false;
+}
+
+function handlerShowPopup(index: number) {
+  indexBackgrounds.value = index;
+  isShowPopup.value = true;
+}
+
 function returnHome() {
   router.push({ name: "visualization-first" });
+}
+
+function handlerLeftMove() {
+  move += widthSlid;
+  if ((projectStore.backgrounds.length - 1) * widthSlid <= move) {
+    move = (projectStore.backgrounds.length - 1) * -widthSlid;
+  }
+  if (sliders.value) {
+    sliders.value.style.transform = `translateX(${move}%)`;
+  }
+}
+
+function handlerRightMove() {
+  move -= widthSlid;
+  if (projectStore.backgrounds.length * -widthSlid >= move) {
+    move = (projectStore.backgrounds.length - 2) * widthSlid;
+  }
+  if (sliders.value) {
+    sliders.value.style.transform = `translateX(${move}%)`;
+  }
+}
+
+function handlerAddBackground() {
+  if (fileInputBgr.value) {
+    fileInput.value = fileInputBgr.value;
+    browseFile();
+  }
+}
+
+function handlerDropBackground(event: DragEvent) {
+  const fileInstance = event?.dataTransfer?.files[0];
+  if (fileInstance) {
+    fileProcessing(fileInstance, saveFaileBgr, getFilteredFileBg);
+  }
+}
+
+function handlerDropProject(event: DragEvent) {
+  const filesInstance = event?.dataTransfer?.files;
+  if (filesInstance) {
+    filesProcessing(filesInstance, saveFailesProject, getFilteredFileProject);
+  }
+}
+
+function handlerAddProject() {
+  if (fileInputProject.value) {
+    fileInput.value = fileInputProject.value;
+    browseFile();
+  }
 }
 
 provide("handlerBtnHeaderClick", returnHome);
 </script>
 
 <style lang="scss" scoped>
-.settings {
+.new-level {
   position: fixed;
   z-index: 1;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background-image: url(@/assets/backgrounds/lvel.jpeg);
   background-position: 0 0;
   box-shadow: inset 0 0 5px #000;
   background-repeat: no-repeat;
@@ -153,14 +334,36 @@ provide("handlerBtnHeaderClick", returnHome);
         background-repeat: no-repeat;
         background-size: contain;
         cursor: pointer;
+        position: relative;
+        &:hover {
+          &::before {
+            opacity: 1;
+          }
+        }
+        &::before {
+          content: "Добавить медиа";
+          font-family: JuraMedium;
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translate(-50%, 100%);
+          color: white;
+          text-wrap: nowrap;
+          opacity: 0;
+          transition: opacity 0.3s;
+        }
       }
       .carousel {
         position: relative;
         width: 66%;
         height: 27vh;
-        display: flex;
-        column-gap: 12px;
         overflow: hidden;
+        .sliders {
+          display: flex;
+          column-gap: 1.25%;
+          transition: transform 0.3s;
+          height: 100%;
+        }
         &__img {
           height: 100%;
           width: 32.5%;
@@ -168,6 +371,7 @@ provide("handlerBtnHeaderClick", returnHome);
           max-width: none;
           border-radius: 10px;
           box-shadow: 0 7px 8px -5px #000;
+          cursor: pointer;
         }
         &__arrow {
           position: absolute;
@@ -178,15 +382,40 @@ provide("handlerBtnHeaderClick", returnHome);
           height: 40px;
           top: 50%;
           transform: translateY(-50%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
           cursor: pointer;
+          user-select: none;
           &:hover {
             opacity: 1;
           }
           &-left {
+            z-index: 1;
             left: 12px;
+            &::before {
+              content: "";
+              position: relative;
+              left: 4px;
+              width: 50%;
+              height: 50%;
+              border-top: 4px solid white;
+              border-right: 4px solid white;
+              transform: rotate(-135deg);
+            }
           }
           &-right {
             right: 12px;
+            &::before {
+              content: "";
+              position: relative;
+              right: 4px;
+              width: 50%;
+              height: 50%;
+              border-top: 4px solid white;
+              border-right: 4px solid white;
+              transform: rotate(45deg);
+            }
           }
         }
       }
@@ -203,6 +432,24 @@ provide("handlerBtnHeaderClick", returnHome);
       background-repeat: no-repeat;
       background-size: contain;
       cursor: pointer;
+      position: relative;
+      &:hover {
+        &::before {
+          opacity: 1;
+        }
+      }
+      &::before {
+        content: "Редактировать информацию";
+        font-family: JuraMedium;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 100%);
+        color: white;
+        opacity: 0;
+        transition: opacity 0.3s;
+        text-align: center;
+      }
     }
   }
   &__title {
@@ -243,9 +490,32 @@ provide("handlerBtnHeaderClick", returnHome);
       background-repeat: no-repeat;
       background-size: contain;
       cursor: pointer;
+      position: relative;
+      &_big {
+        position: relative;
+        bottom: 22vh;
+      }
+      &:hover {
+        &::before {
+          opacity: 1;
+        }
+      }
+      &::before {
+        content: "Загрузка файлов";
+        font-family: JuraMedium;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 100%);
+        color: white;
+        opacity: 0;
+        transition: opacity 0.3s;
+        text-align: center;
+      }
     }
     &__btns {
       width: 17%;
+      height: 36vh;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -275,6 +545,7 @@ provide("handlerBtnHeaderClick", returnHome);
     }
   }
   &__assistant {
+    position: relative;
     display: flex;
     align-items: center;
     width: 66%;
@@ -286,12 +557,36 @@ provide("handlerBtnHeaderClick", returnHome);
     -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
     box-shadow: 0 2px 8px #000, inset 0 0 5px 2px rgba(255, 255, 255, 0.22);
+    &_big {
+      position: relative;
+      bottom: 44vh;
+      height: 80vh;
+    }
+    &_expand {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 27.33px;
+      height: 25.96px;
+      -o-object-fit: contain;
+      object-fit: contain;
+      opacity: 0.5;
+      cursor: pointer;
+      &:hover {
+        opacity: 1;
+      }
+    }
     &_menu {
+      position: relative;
+      bottom: 0;
       width: 31.5%;
-      height: 100%;
+      height: 35vh;
       padding-top: 1%;
       padding-bottom: 1%;
       padding-right: 1%;
+      &_big {
+        top: 22vh;
+      }
       &_item {
         width: 100%;
         height: 20%;

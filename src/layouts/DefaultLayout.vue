@@ -1,23 +1,20 @@
 <template>
   <div
-    class="layout"
+    class="layout-default"
     :style="{
       backgroundImage: `url(${require(`@/assets/backgrounds/${bg}`)})`,
     }"
   >
     <div
       :class="[
-        'layout__backdrop',
-        { layout__blackout: blackout, layout__whiteout: whiteout },
+        'layout-default__backdrop',
+        {
+          'layout-default__blackout': blackout,
+          'layout-default__whiteout': whiteout,
+        },
       ]"
     >
-      <HeaderComponent
-        :theme="theme"
-        :urlButton="`header/${urlBtnHeader}.png`"
-        :urlButtonHover="`header/${urlBtnHeaderHover}.png`"
-        type="burger"
-        @switch="rootStore.infoPage = !rootStore.infoPage"
-      />
+      <HeaderComponent :theme="theme" />
       <ContentComponent
         :theme="theme"
         :title="titleContent"
@@ -47,13 +44,11 @@ const rootStore = useRootStore();
 defineProps<{
   bg: string;
   theme?: "light";
-  blackout: boolean;
-  whiteout: boolean;
-  urlBtnHeader: string;
-  urlBtnHeaderHover: string;
+  blackout?: boolean;
+  whiteout?: boolean;
   curentPagesFooter: number;
   numberPagesFooter: number;
-  textButtonFooter: string;
+  textButtonFooter?: string;
   colorTwoPagesFooter: string;
   titleContent: string;
   textContent: string;
@@ -63,7 +58,8 @@ defineProps<{
 </script>
 
 <style lang="scss" scoped>
-.layout {
+.layout-default {
+  position: fixed;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
@@ -75,10 +71,12 @@ defineProps<{
     width: 100vw;
   }
   &__blackout {
+    position: fixed;
     background-color: rgba(0, 0, 0, 0.58);
     backdrop-filter: blur(7px);
   }
   &__whiteout {
+    position: fixed;
     background-color: rgba(255, 255, 255, 0.51);
     backdrop-filter: blur(7px);
   }

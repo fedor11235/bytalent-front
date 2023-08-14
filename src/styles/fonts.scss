@@ -1,7 +1,22 @@
 @font-face {
+  font-family: "JuraRegular";
+  src: local("JuraRegular"),
+    url("@/styles/fonts/JuraRegular.ttf") format("truetype")
+}
+@font-face {
   font-family: "JuraMedium";
   src: local("JuraMedium"),
     url("@/styles/fonts/JuraMedium.ttf") format("truetype")
+}
+@font-face {
+  font-family: "JuraSemiBold";
+  src: local("JuraSemiBold"),
+    url("@/styles/fonts/JuraSemiBold.ttf") format("truetype")
+}
+@font-face {
+  font-family: "JuraBold";
+  src: local("JuraBold"),
+    url("@/styles/fonts/JuraBold.ttf") format("truetype")
 }
 @font-face {
   font-family: "Jost100Hairline";

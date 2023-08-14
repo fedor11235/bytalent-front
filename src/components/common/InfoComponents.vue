@@ -12,20 +12,14 @@
       <div class="description">
         <div class="description__card">
           <div class="description__info">
-            <div
-              v-for="elem of dropdown"
-              :key="elem.date"
-              class="description__info_elem"
-            >
-              <span class="description__info_elem_text">{{ elem.text }}</span>
-              <span class="description__info_elem_date">{{ elem.date }}</span>
-            </div>
+            <component :is="norifications" />
           </div>
           <div class="description__menu">
             <div
               v-for="elem of menu"
               :key="elem"
               class="description__menu_elem"
+              @click="chooseElemMenu(elem)"
             >
               <div
                 :style="{
@@ -68,34 +62,41 @@
 </template>
 
 <script setup lang="ts">
+import { computed, ref } from "vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
+import ActiveProjectsNorifications from "@/components/notifications/ActiveProjectsNorifications.vue";
+import ComerceNorifications from "@/components/notifications/ComerceNorifications.vue";
+import AllNorifications from "@/components/notifications/AllNorifications.vue";
 import { useRouter } from "vue-router";
 import { useRootStore } from "@/store";
 
 const rootStore = useRootStore();
-
 const router = useRouter();
 
 const menu = ["Активные проекты", "Коммерция", "Уведомления"];
 
-const dropdown = [
-  {
-    text: "Выставлен счёт №0126 на сумму 150 050 рублей",
-    date: "01.04.2024",
-  },
-  {
-    text: "Выставлен счёт №0126 на сумму 150 050 рублей",
-    date: "01.04.2024",
-  },
-  {
-    text: "Выставлен счёт №0126 на сумму 150 050 рублей",
-    date: "01.04.2024",
-  },
-];
+const activeElemMenu = ref("Активные проекты");
+
+const norifications = computed(() => {
+  if (activeElemMenu.value === "Активные проекты") {
+    return ActiveProjectsNorifications;
+  }
+  if (activeElemMenu.value === "Коммерция") {
+    return ComerceNorifications;
+  }
+  if (activeElemMenu.value === "Уведомления") {
+    return AllNorifications;
+  }
+  return "";
+});
 
 function chooseIcon(name: string) {
   if (name === "Активные проекты" || name === "Уведомления") return "personal";
   if (name === "Коммерция") return "cards";
+}
+
+function chooseElemMenu(elem: string) {
+  activeElemMenu.value = elem;
 }
 
 function handlerClick() {
@@ -143,6 +144,7 @@ function handlerClick() {
       &__info {
         z-index: 1;
         width: 60%;
+        height: 183px;
         background-color: rgba(0, 0, 0, 0);
         border: 0 solid rgba(255, 255, 255, 0.12);
         border-top: 1px solid rgba(255, 255, 255, 0.47);
@@ -150,37 +152,11 @@ function handlerClick() {
         border-radius: 20px;
         flex-direction: column;
         justify-content: flex-start;
-        align-items: center;
+        align-items: stretch;
         font-size: 2vh;
         display: flex;
-        overflow: scroll;
+        overflow-y: scroll;
         box-shadow: 0 4px rgba(0, 0, 0, 0.6);
-        &_elem {
-          width: 80%;
-          min-height: 40%;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-          flex-direction: row;
-          justify-content: center;
-          align-items: center;
-          display: flex;
-          margin: auto;
-          &_text {
-            width: 75%;
-            color: #fff;
-            font-weight: 300;
-            display: flex;
-            text-align: left;
-            font-family: JuraMedium, sans-serif;
-          }
-          &_date {
-            width: 25%;
-            color: #757575;
-            text-align: right;
-            font-family: MontserratRegular400, sans-serif;
-            font-size: 1.5vh;
-            line-height: 15px;
-          }
-        }
       }
       &__menu {
         z-index: 1;

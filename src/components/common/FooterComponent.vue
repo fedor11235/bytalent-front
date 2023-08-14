@@ -36,7 +36,6 @@
       ></div>
     </div>
     <div class="footer__download">
-      <div :style="verticalBarStyle">|</div>
       <div
         v-if="textButton"
         class="footer__download_button"
@@ -50,10 +49,6 @@
         @click="handlerBtnFooterClick"
         class="footer__download__cross"
       ></div>
-      <div :style="verticalBarStyle">|</div>
-      <div :style="verticalBarStyle">|</div>
-      <div :style="verticalBarStyle">|</div>
-      <div :style="verticalBarStyle">|</div>
     </div>
   </div>
 </template>

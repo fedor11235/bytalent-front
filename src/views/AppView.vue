@@ -1,14 +1,15 @@
 <template>
   <DefaultLayout
-    bg="app.jpg"
+    bg="app.png"
+    :blackout="true"
     urlBtnHeader="app"
     urlBtnHeaderHover="app"
-    titleContent="Приложение byTALENT"
-    textContent="Персональное приложения для доступа в уровни Unreal Engine 5"
+    titleContent="Приложение просмотров интерьеров"
+    textContent="Персональное приложения для доступа в интерьеры Unreal Engine 5"
     urlBtnContent="more"
     urlBtnContentHover="more-hover"
-    :curentPagesFooter="1"
-    :numberPagesFooter="1"
+    :curentPagesFooter="0"
+    :numberPagesFooter="0"
     textButtonFooter="+ Заказать разработку приложения"
     colorTwoPagesFooter="#c7c7c7"
   />

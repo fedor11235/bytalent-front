@@ -8,7 +8,7 @@
     :whiteout="true"
     urlBtnHeader="streaming"
     urlBtnHeaderHover="streaming"
-    titleContent="Нет активных уровней"
+    titleContent="Нет активных моделей"
     textContent="Сперва вам необходимо добавить визуализацию"
     urlBtnContent="connect"
     urlBtnContentHover="connect-hover"
