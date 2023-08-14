@@ -98,11 +98,11 @@ async function handlerClickApple() {
   }
 }
 
-// async function handlerLogin() {
-//   await authService.userLogin({
-//     login: login.value,
-//   });
-// }
+async function handlerLogin() {
+  await authService.userLogin({
+    login: login.value,
+  });
+}
 
 function telegramLoadedCallbackFunc () {
   console.log('load')
