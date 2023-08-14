@@ -12,7 +12,7 @@
     <div class="login__card">
       <div class="login__title">Добро пожаловать!</div>
       <div class="login__form">
-        <div class="login__enter">
+        <!-- <div class="login__enter"  @click="handlerClickTelegram">
           <img
             class="test"
             src="@/assets/icons/telegram.svg"
@@ -20,8 +20,8 @@
             width="32"
             alt="telegram"
           /><span class="login__text">Telegram</span>
-        </div>
-        <div class="login__enter">
+        </div> -->
+        <!-- <div class="login__enter">
           <img
             src="@/assets/icons/phone.svg"
             height="32"
@@ -29,10 +29,16 @@
             alt="phone"
           />
           <span class="login__text">Phone</span>
-        </div>
-        <div class="login__enter">
+        </div> -->
+        <telegram-login-temp
+          mode="callback"
+          telegram-login="ByTALENTBot"
+          @loaded='telegramLoadedCallbackFunc'
+          @callback="yourCallbackFunctionTelegram"
+        />
+        <div class="login__enter" @click="handlerClickApple">
           <img
-            src="@/assets/icons/public-services.png"
+            src="@/assets/icons/phone.svg"
             height="32"
             width="32"
             alt="apple"
@@ -57,12 +63,9 @@
       <input class="test-input" v-model="login" />
       <div @click="handlerLogin" class="test-button">Вход</div>
       <!-- Callback mode -->
-      <telegram-login-temp
-        mode="callback"
-        telegram-login="ByTALENTBot"
-        @loaded='telegramLoadedCallbackFunc'
-        @callback="yourCallbackFunctionTelegram"
-      />
+      <div  v-show="false" class="test" ref="appleIdBtn">
+        <ApleAuth />
+      </div>
     </div>
   </div>
 </template>
@@ -74,6 +77,7 @@ import authService from "@/services/authService";
 import profileService from "@/services/profileService";
 import PopupTermsUser from "@/components/docs/PopupTermsUser.vue";
 import PopupPersonalData from "@/components/docs/PopupPersonalData.vue";
+import ApleAuth from "@/components/auth/ApleAuth.vue";
 
 import { telegramLoginTemp } from 'vue3-telegram-login'
 
@@ -81,20 +85,31 @@ const router = useRouter();
 
 const login = ref("");
 
+const appleIdBtn = ref();
+const telegramIdBtn = ref();
+
 const isPersonalData = ref(false);
 const isTermsUser = ref(false);
 
-async function handlerLogin() {
-  await authService.userLogin({
-    login: login.value,
-  });
+async function handlerClickApple() {
+  const elem = document.getElementById('sign-in-with-apple-button');
+  if(elem) {
+    elem.click()
+  }
 }
+
+// async function handlerLogin() {
+//   await authService.userLogin({
+//     login: login.value,
+//   });
+// }
 
 function telegramLoadedCallbackFunc () {
   console.log('load')
 }
 
 async function yourCallbackFunctionTelegram (user) {
+  console.log(user)
   await authService.registrationTelegramUser({
     username: user.username,
     name: user.first_name,
@@ -114,6 +129,9 @@ async function yourCallbackFunctionTelegram (user) {
 </script>
 
 <style lang="scss" scoped>
+.test {
+  pointer-events: none;
+}
 .login {
   height: 100vh;
   width: 100vw;
