@@ -69,7 +69,9 @@
             </div>
             <div class="new-level__description">
               <div class="new-level__description_text">Описание объекта</div>
-              <div class="new-level__description_text">Дополнительная информация</div>
+              <div class="new-level__description_text">
+                Дополнительная информация
+              </div>
             </div>
           </div>
         </div>
@@ -98,7 +100,10 @@
               v-for="item of menu"
               :key="item"
             >
-              <img class="new-level__assistant_menu_item_icon" src="@/assets/icons/chat.svg" />
+              <img
+                class="new-level__assistant_menu_item_icon"
+                src="@/assets/icons/chat.svg"
+              />
               {{ item }}
             </div>
           </div>
@@ -109,7 +114,10 @@
               alt="expand"
               class="new-level__assistant_expand"
             />
-            <textarea class="new-level__assistant_chat_input" placeholder="Введите текст"></textarea>
+            <textarea
+              class="new-level__assistant_chat_input"
+              placeholder="Введите текст"
+            ></textarea>
             <div class="new-level__assistant_chat_button">Отправить</div>
           </div>
         </div>
@@ -359,7 +367,7 @@ provide("handlerBtnHeaderClick", returnHome);
         width: 3.125vw;
         height: 4px;
         border-radius: 4px;
-        background-color:rgba(255, 255, 255, 0.25);
+        background-color: rgba(255, 255, 255, 0.25);
       }
       &_right {
         width: 1.04vw;
@@ -464,7 +472,7 @@ provide("handlerBtnHeaderClick", returnHome);
     width: 66%;
     height: 31vh;
     border-radius: 24px;
-    background-color: rgba(0, 0, 0, 0.10);
+    background-color: rgba(0, 0, 0, 0.1);
     &_big {
       position: relative;
       bottom: 49vh;
@@ -499,7 +507,7 @@ provide("handlerBtnHeaderClick", returnHome);
         cursor: pointer;
         border-radius: 12px;
         border-top: 1px solid rgba(255, 255, 255, 0.65);
-        color: #F9F9F9;
+        color: #f9f9f9;
         font-family: JuraSemiBold;
         font-size: 1.6vh;
         line-height: 100%;
@@ -519,14 +527,14 @@ provide("handlerBtnHeaderClick", returnHome);
       width: calc(65% - 0.74vh);
       height: calc(100% - 1.48vh);
       border-radius: 20px;
-      background-color:#191919;
+      background-color: #191919;
       margin: 0.74vh 0.74vh 0.74vh 0;
       box-sizing: border-box;
       &_input {
         height: 25%;
         border: none;
         border-radius: 16px;
-        background:#2A2A2A;
+        background: #2a2a2a;
         padding: 16px;
         position: absolute;
         bottom: 0;
@@ -557,7 +565,7 @@ provide("handlerBtnHeaderClick", returnHome);
         border-top: 1px solid rgba(255, 255, 255, 0.65);
         background-color: rgba(0, 0, 0, 0.35);
         padding: 1.48vh 1.6vh;
-        color: #F9F9F9;
+        color: #f9f9f9;
         font-family: JuraSemiBold;
         font-size: 1.6vh;
         line-height: 100%;

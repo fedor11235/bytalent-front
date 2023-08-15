@@ -1,4 +1,7 @@
 <template>
+  <Transition name="fade">
+    <PopupFAQ v-if="isFAQ" @close="isFAQ = false" />
+  </Transition>
   <div
     class="layout-default"
     :style="{
@@ -35,7 +38,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from "vue";
+import PopupFAQ from "@/components/docs/PopupFAQ.vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import ContentComponent from "@/components/common/ContentComponent.vue";
 import FooterComponent from "@/components/common/FooterComponent.vue";

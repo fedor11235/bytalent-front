@@ -5,9 +5,9 @@
       :textWarning="rootStore.textWarning"
     />
   </Transition>
-  <Transition name="fade">
+  <!-- <Transition name="fade">
     <PopupFAQ v-if="isFAQ" @close="isFAQ = false" />
-  </Transition>
+  </Transition> -->
   <Transition name="fade">
     <InfoComponents v-if="rootStore.infoPage" />
   </Transition>
@@ -45,7 +45,7 @@ import SearchHover from "@/components/popup/SearchHover.vue";
 import InfoComponents from "@/components/common/InfoComponents.vue";
 import PopupWarning from "@/components/common/PopupWarning.vue";
 import PopupOrder from "@/components/common/PopupOrder.vue";
-import PopupFAQ from "@/components/docs/PopupFAQ.vue";
+// import PopupFAQ from "@/components/docs/PopupFAQ.vue";
 import { useRootStore } from "@/store";
 
 const rootStore = useRootStore();
