@@ -4,9 +4,9 @@ export const useProjectStore = defineStore("project", {
   state: (): StreamingStore => ({
     background: "",
     backgrounds: [
-      { id: "0-emty", img: "" },
-      { id: "1-emty", img: "" },
-      { id: "2-emty", img: "" },
+      { id: "0-emty", img: "", empty: true },
+      { id: "1-emty", img: "", empty: true },
+      { id: "2-emty", img: "", empty: true },
     ],
     files: [],
   }),
@@ -26,4 +26,5 @@ type Background = {
 type BackgroundPlug = {
   id: string;
   img: string;
+  empty: boolean
 };

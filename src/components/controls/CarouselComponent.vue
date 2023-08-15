@@ -11,13 +11,12 @@
         :class="[
           'sliders__bacdrop',
           {
-            sliders__bacdrop_last:
-              index === projectStore.backgrounds.length - 1,
+            sliders__bacdrop_last: defineEmptyBg(background.empty),
           },
         ]"
       >
         <img
-          v-if="background.img"
+          v-if="!background.empty"
           class="carousel__img"
           @click="handlerShowPopup(index)"
           :src="background.img"
@@ -41,11 +40,19 @@ const projectStore = useProjectStore();
 
 const widthSlid = 33.75;
 let move = 0;
+let firstEmptyBg = false;
 
-const backgrounds = [{}, {}, {}];
 const indexBackgrounds = ref(0);
 const isShowPopup = ref(false);
 const sliders: Ref<HTMLDivElement | null> = ref(null);
+
+function defineEmptyBg(isEmpty: boolean) {
+  if(!firstEmptyBg && isEmpty) {
+    firstEmptyBg = true;
+    return true
+  }
+  return false
+}
 
 function handlerShowPopup(index: number) {
   indexBackgrounds.value = index;
