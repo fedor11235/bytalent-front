@@ -11,12 +11,12 @@
         :class="[
           'sliders__bacdrop',
           {
-            sliders__bacdrop_last: defineEmptyBg(background.empty),
+            sliders__bacdrop_last: background.plus,
           },
         ]"
       >
         <img
-          v-if="!background.empty"
+          v-if="background.img"
           class="carousel__img"
           @click="handlerShowPopup(index)"
           :src="background.img"
@@ -35,24 +35,16 @@
 import type { Ref } from "vue";
 import { ref, onMounted } from "vue";
 import { useProjectStore } from "@/store";
+import projectService from "@/services/projectService";
 
 const projectStore = useProjectStore();
 
 const widthSlid = 33.75;
 let move = 0;
-let firstEmptyBg = false;
 
 const indexBackgrounds = ref(0);
 const isShowPopup = ref(false);
 const sliders: Ref<HTMLDivElement | null> = ref(null);
-
-function defineEmptyBg(isEmpty: boolean) {
-  if(!firstEmptyBg && isEmpty) {
-    firstEmptyBg = true;
-    return true
-  }
-  return false
-}
 
 function handlerShowPopup(index: number) {
   indexBackgrounds.value = index;
@@ -82,9 +74,15 @@ function handlerRightMove() {
 }
 
 onMounted(() => {
-  // projectService.getBackgrounds().then((res) => {
-  //     projectStore.backgrounds.push(...res.backgrounds);
-  // });
+  projectService.getBackgrounds().then((res) => {
+    console.log(res)
+    const backgrounds = res.backgrounds
+    if(backgrounds.length > 1) {
+      projectStore.backgrounds = [...backgrounds, { id: "0-emty", img: "", plus: true }];
+    } else if(backgrounds.length === 1) {
+      projectStore.backgrounds = [...backgrounds, { id: "0-emty", img: "", plus: true }, { id: "1-emty", img: "" }];
+    }
+  });
 });
 </script>
 
