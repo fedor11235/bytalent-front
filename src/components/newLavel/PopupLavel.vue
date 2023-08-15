@@ -16,7 +16,7 @@
         :style="{ transform: `translateX(${move}%)` }"
       >
         <div
-          v-for="background in projectStore.backgrounds"
+          v-for="background in projectStore.backgroundsFill"
           :key="background.id"
           class="popup-level__slider"
           :style="{
@@ -44,7 +44,7 @@
 
 <script setup lang="ts">
 import type { Ref } from "vue";
-import { toRef, ref } from "vue";
+import { ref } from "vue";
 import { useProjectStore } from "@/store";
 import projectService from "@/services/projectService";
 
@@ -65,21 +65,21 @@ const sliders: Ref<HTMLDivElement | null> = ref(null);
 
 function handlerAddBackground() {
   projectStore.background =
-    projectStore.backgrounds[indexBackgrounds.value].img;
+    projectStore.backgroundsFill[indexBackgrounds.value].img;
 }
 
 function handlerDeleteBackground() {
   projectService.deleteBackgrounds(
-    projectStore.backgrounds[indexBackgrounds.value].id
+    projectStore.backgroundsFill[indexBackgrounds.value].id
   );
-  projectStore.backgrounds.splice(indexBackgrounds.value, 1);
+  projectStore.backgroundsFill.splice(indexBackgrounds.value, 1);
 }
 
 function handlerLeftMove() {
   move += widthSlid;
   if (0 < move) {
-    move = (projectStore.backgrounds.length - 1) * -widthSlid;
-    indexBackgrounds.value = projectStore.backgrounds.length - 1;
+    move = (projectStore.backgroundsFill.length - 1) * -widthSlid;
+    indexBackgrounds.value = projectStore.backgroundsFill.length - 1;
   } else {
     indexBackgrounds.value -= 1;
   }
@@ -90,7 +90,7 @@ function handlerLeftMove() {
 
 function handlerRightMove() {
   move -= widthSlid;
-  if (projectStore.backgrounds.length * -widthSlid >= move) {
+  if (projectStore.backgroundsFill.length * -widthSlid >= move) {
     move = 0;
     indexBackgrounds.value = 0;
   } else {

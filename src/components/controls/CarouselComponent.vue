@@ -7,6 +7,13 @@
     accept="image/*"
   />
   <div class="carousel">
+    <Transition name="fade">
+      <PopupLavel
+        v-if="isShowPopup"
+        :indexBackgrounds="indexBackgrounds"
+        @close="isShowPopup = false"
+      />
+    </Transition>
     <div
       @click="handlerLeftMove"
       class="carousel__arrow carousel__arrow-left"
@@ -40,6 +47,7 @@
 </template>
 
 <script setup lang="ts">
+import PopupLavel from "@/components/newLavel/PopupLavel.vue";
 import type { Ref } from "vue";
 import { ref, onMounted } from "vue";
 import { useRootStore } from "@/store";
@@ -179,7 +187,6 @@ onMounted(() => {
     transform: translateY(-50%);
     cursor: pointer;
     &-left {
-      z-index: 1;
       left: 12px;
       background-image: url(@/assets/icons/slider-arrow-left.svg);
     }

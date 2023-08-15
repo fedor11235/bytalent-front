@@ -22,13 +22,6 @@
       ref="fileInputProject"
       accept="image/*"
     />
-    <Transition name="fade">
-      <PopupLavel
-        v-if="isShowPopup"
-        :indexBackgrounds="indexBackgrounds"
-        @close="isShowPopup = false"
-      />
-    </Transition>
     <div class="new-level__backdrop"></div>
     <div class="new-level__content">
       <HeaderComponent
@@ -38,6 +31,7 @@
         :isTitleButton="true"
         @switch="rootStore.infoPage = !rootStore.infoPage"
       />
+      <div class="new-level__title">Новый уровень</div>
       <div class="media">
         <div class="new-level__content__control">
           <div @click="isMediaAddBgr = !isMediaAddBgr" class="media__btn"></div>
@@ -66,8 +60,17 @@
             <div class="new-level__header__btn"></div>
           </div>
           <div>
-            <div class="new-level__title">Новый уровень</div>
-            <div class="new-level__text">Адрес</div>
+            <div class="new-level__text">
+              <div class="new-level__text_line">
+                <div class="new-level__text_line_left"></div>
+                <div class="new-level__text_line_right"></div>
+              </div>
+              <div class="new-level__text_address">Адрес</div>
+            </div>
+            <div class="new-level__description">
+              <div class="new-level__description_text">Описание объекта</div>
+              <div class="new-level__description_text">Дополнительная информация</div>
+            </div>
           </div>
         </div>
       </div>
@@ -95,17 +98,18 @@
               v-for="item of menu"
               :key="item"
             >
+              <img class="new-level__assistant_menu_item_icon" src="@/assets/icons/chat.svg" />
               {{ item }}
             </div>
           </div>
           <div class="new-level__assistant_chat">
-            <textarea class="new-level__assistant_chat_input"></textarea>
             <img
               @click="isExpand = !isExpand"
-              src="@/assets/icons/expand.png"
+              src="@/assets/icons/expand.svg"
               alt="expand"
               class="new-level__assistant_expand"
             />
+            <textarea class="new-level__assistant_chat_input" placeholder="Введите текст"></textarea>
             <div class="new-level__assistant_chat_button">Отправить</div>
           </div>
         </div>
@@ -138,7 +142,6 @@ import {
 } from "@/utils/file";
 import projectService from "@/services/projectService";
 
-import PopupLavel from "@/components/newLavel/PopupLavel.vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import AddFile from "@/components/newLavel/AddFile.vue";
 import CarouselComponent from "@/components/controls/CarouselComponent.vue";
@@ -154,14 +157,8 @@ const menu = [
   "Интеграция",
 ];
 
-// projectService.getBackgrounds().then((res) => {
-//   projectStore.backgrounds.push(...res.backgrounds);
-// });
-
 const fileInputBgr: Ref<HTMLInputElement | null> = ref(null);
 const fileInputProject: Ref<HTMLInputElement | null> = ref(null);
-const indexBackgrounds = ref(0);
-const isShowPopup = ref(false);
 const isMediaAddBgr = ref(false);
 const isMediaAddProgect = ref(false);
 const isExpand = ref(false);
@@ -280,12 +277,11 @@ provide("handlerBtnHeaderClick", returnHome);
     }
     .media {
       display: flex;
-      margin-top: 21px;
+      margin-top: 16px;
       &__btn {
         width: 32px;
         height: 28px;
-        opacity: 0.9;
-        background-image: url(@/assets/lvel/clip.png);
+        background-image: url(@/assets/icons/image.svg);
         background-position: 50%;
         background-repeat: no-repeat;
         background-size: contain;
@@ -316,8 +312,7 @@ provide("handlerBtnHeaderClick", returnHome);
     &__btn {
       width: 32px;
       height: 28px;
-      opacity: 0.77;
-      background-image: url(@/assets/lvel/pen.png);
+      background-image: url(@/assets/icons/pen.svg);
       background-position: 50%;
       background-repeat: no-repeat;
       background-size: contain;
@@ -343,39 +338,67 @@ provide("handlerBtnHeaderClick", returnHome);
     }
   }
   &__title {
-    direction: ltr;
-    color: #fff;
-    letter-spacing: -2px;
-    text-indent: 0%;
-    text-shadow: 0 6px 7px #000;
-    font-family: JuraMedium, sans-serif;
-    font-size: 8vh;
+    color: white;
+    font-family: JuraSemiBold;
+    font-size: 4.6vh;
     font-style: normal;
-    font-weight: 400;
-    line-height: 70%;
-    text-align: left;
-    margin: auto;
-    padding: 21px 0;
+    line-height: 125%;
+    letter-spacing: -1.5px;
+    width: 66%;
+    margin: 0 auto;
   }
   &__text {
-    text-align: left;
-    margin: auto;
-    color: #b6b6b6;
-    letter-spacing: 1px;
-    text-shadow: 0 6px 7px #000;
-    font-family: OswaldExtraLight, sans-serif;
-    font-size: 26px;
-    font-weight: 200;
-    line-height: 24px;
+    display: flex;
+    align-items: center;
+    margin-top: 3.3vh;
+    &_line {
+      display: flex;
+      column-gap: 0.625vw;
+      margin-right: 0.625vw;
+      &_left {
+        width: 3.125vw;
+        height: 4px;
+        border-radius: 4px;
+        background-color:rgba(255, 255, 255, 0.25);
+      }
+      &_right {
+        width: 1.04vw;
+        height: 4px;
+        border-radius: 4px;
+        background-color: rgba(255, 255, 255, 0.85);
+      }
+    }
+    &_address {
+      color: rgba(255, 255, 255, 0.85);
+      font-family: JuraSemiBold;
+      font-size: 3.5vh;
+      font-style: normal;
+      line-height: 125%;
+      letter-spacing: -0.76px;
+    }
+  }
+  &__description {
+    margin-top: 1.48vh;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.48vh;
+    &_text {
+      color: rgba(255, 255, 255, 0.85);
+      font-family: JuraMedium;
+      font-size: 2.5vh;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 100%;
+      letter-spacing: -0.56px;
+    }
   }
   .assistant {
-    margin-top: 21px;
+    margin-top: 3.3vh;
     display: flex;
     &__btn {
       width: 32px;
       height: 28px;
-      opacity: 0.77;
-      background-image: url(@/assets/lvel/upload.png);
+      background-image: url(@/assets/icons/upload.svg);
       background-position: 50%;
       background-repeat: no-repeat;
       background-size: contain;
@@ -405,7 +428,7 @@ provide("handlerBtnHeaderClick", returnHome);
     }
     &__btns {
       width: 17%;
-      height: 36vh;
+      height: 31vh;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -439,60 +462,52 @@ provide("handlerBtnHeaderClick", returnHome);
     display: flex;
     align-items: center;
     width: 66%;
-    border: 1px solid rgba(0, 0, 0, 0);
-    border-radius: 15px;
-    padding: 0.1vh 0.1vh 0.1vh 1vh;
-    height: 36vh;
-    opacity: 0.72;
-    -webkit-backdrop-filter: blur(16px);
-    backdrop-filter: blur(16px);
-    box-shadow: 0 2px 8px #000, inset 0 0 5px 2px rgba(255, 255, 255, 0.22);
+    height: 31vh;
+    border-radius: 24px;
+    background-color: rgba(0, 0, 0, 0.10);
     &_big {
       position: relative;
-      bottom: 44vh;
+      bottom: 49vh;
       height: 80vh;
     }
     &_expand {
       position: absolute;
       top: 8px;
       right: 8px;
-      width: 27.33px;
-      height: 25.96px;
-      -o-object-fit: contain;
-      object-fit: contain;
-      opacity: 0.5;
+      width: 2.2vh;
+      height: 2.2vh;
       cursor: pointer;
-      &:hover {
-        opacity: 1;
-      }
     }
     &_menu {
       position: relative;
-      bottom: 0;
-      width: 31.5%;
-      height: 35vh;
-      padding-top: 1%;
-      padding-bottom: 1%;
-      padding-right: 1%;
+      width: 35%;
+      height: 100%;
+      padding: 2.5vh 1.04vw 4.07vh;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      row-gap: 1vh;
+
       &_big {
         top: 22vh;
       }
       &_item {
-        width: 100%;
-        height: 20%;
-        color: #fff;
-        text-align: left;
-        cursor: pointer;
-        background-color: rgba(0, 0, 0, 0);
-        border-top: 1px solid rgba(138, 138, 138, 0.87);
-        border-radius: 9px;
-        padding-bottom: 0.2%;
-        font-family: JuraMedium, sans-serif;
-        font-size: 1.7vh;
-        font-weight: 300;
         display: flex;
         align-items: center;
-        justify-content: center;
+        column-gap: 0.8vw;
+        padding: 12px 24px;
+        cursor: pointer;
+        border-radius: 12px;
+        border-top: 1px solid rgba(255, 255, 255, 0.65);
+        color: #F9F9F9;
+        font-family: JuraSemiBold;
+        font-size: 1.6vh;
+        line-height: 100%;
+        letter-spacing: -0.36px;
+        &_icon {
+          width: 2.2vh;
+          height: 2.2vh;
+        }
         &:hover {
           text-shadow: 0 12px 12px rgba(0, 0, 0, 0.48);
           background-color: rgba(255, 255, 255, 0.03);
@@ -501,20 +516,18 @@ provide("handlerBtnHeaderClick", returnHome);
     }
     &_chat {
       position: relative;
-      width: 67%;
-      height: 97%;
-      background-color: #1f1f1f;
-      border-radius: 15px;
-      box-shadow: 0 0 5px rgba(255, 255, 255, 0.52),
-        inset 0 -1px 10px -1px rgba(0, 0, 0, 0.93);
+      width: calc(65% - 0.74vh);
+      height: calc(100% - 1.48vh);
+      border-radius: 20px;
+      background-color:#191919;
+      margin: 0.74vh 0.74vh 0.74vh 0;
+      box-sizing: border-box;
       &_input {
-        height: 30%;
-        min-height: 5vh;
-        color: #f0f0f0;
-        background-color: rgba(104, 104, 104, 0.29);
-        border: 1px solid #000;
-        border-radius: 11px;
-        padding: 16px 25% 16px 25px;
+        height: 25%;
+        border: none;
+        border-radius: 16px;
+        background:#2A2A2A;
+        padding: 16px;
         position: absolute;
         bottom: 0;
         left: 0;
@@ -522,31 +535,39 @@ provide("handlerBtnHeaderClick", returnHome);
         overflow-y: scroll;
         resize: none;
         overflow: hidden;
-        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.35),
-          inset 0 2px 5px rgba(255, 255, 255, 0.2);
+        color: rgba(255, 255, 255, 0.65);
+        font-family: JuraBold;
+        font-size: 1.296vh;
+        line-height: 100%;
         &:focus-visible {
           outline: none;
         }
+        &::placeholder {
+          color: rgba(255, 255, 255, 0.65);
+          font-family: JuraBold;
+          font-size: 1.296vh;
+          line-height: 100%;
+        }
       }
       &_button {
-        padding: 8px 16px;
-        text-align: center;
-        background-color: #292929;
-        border: 1px solid rgba(255, 255, 255, 0.09);
-        border-radius: 11px;
         position: absolute;
-        font-family: Arial, sans-serif;
-        bottom: 16px;
-        right: 32px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.44);
-        display: flex;
-        color: white;
+        right: 16px;
+        bottom: 12.5%;
+        border-radius: 12px;
+        border-top: 1px solid rgba(255, 255, 255, 0.65);
+        background-color: rgba(0, 0, 0, 0.35);
+        padding: 1.48vh 1.6vh;
+        color: #F9F9F9;
+        font-family: JuraSemiBold;
+        font-size: 1.6vh;
+        line-height: 100%;
+        letter-spacing: -0.36px;
         cursor: pointer;
-        &:hover {
-          text-shadow: 0 1px 1px rgba(255, 255, 255, 0.18);
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.59),
-            0 2px 5px rgba(0, 0, 0, 0.44);
-        }
+        // &:hover {
+        //   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.18);
+        //   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.59),
+        //     0 2px 5px rgba(0, 0, 0, 0.44);
+        // }
       }
     }
   }
