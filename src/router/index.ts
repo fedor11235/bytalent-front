@@ -2,8 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import api from "@/api";
 import authService from "@/services/authService";
 import StartView from "@/views/StartView.vue";
-import VisualizationFirstView from "@/views/VisualizationFirstView.vue";
-import VisualizationSecondView from "@/views/VisualizationSecondView.vue";
+import VisualizationView from "@/views/VisualizationView.vue";
 import ErrorView from "@/views/ErrorView.vue";
 import SettingsView from "@/views/SettingsView.vue";
 import NewLavelView from "@/views/NewLavelView.vue";
@@ -17,25 +16,25 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     redirect: { name: "start" },
-    meta: {
-      auth: true,
-    },
+    // meta: {
+    //   auth: true,
+    // },
   },
   {
     path: "/start",
     name: "start",
     component: StartView,
-    meta: {
-      auth: true,
-    },
+    // meta: {
+    //   auth: true,
+    // },
   },
   {
     path: "/visualization",
     name: "visualization",
-    component: VisualizationFirstView,
-    meta: {
-      auth: true,
-    },
+    component: VisualizationView,
+    // meta: {
+    //   auth: true,
+    // },
   },
   {
     path: "/settings",
@@ -57,17 +56,17 @@ const routes: Array<RouteRecordRaw> = [
     path: "/app",
     name: "app",
     component: AppView,
-    meta: {
-      auth: true,
-    },
+    // meta: {
+    //   auth: true,
+    // },
   },
   {
     path: "/streaming",
     name: "streaming",
     component: StreamingView,
-    meta: {
-      auth: true,
-    },
+    // meta: {
+    //   auth: true,
+    // },
   },
   {
     path: "/profile",

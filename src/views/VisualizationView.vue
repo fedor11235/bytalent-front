@@ -75,10 +75,10 @@ function handlerBtnFooterClick() {
 provide("handlerBtnContentClick", handlerBtnContentClick);
 provide("handlerBtnFooterClick", handlerBtnFooterClick);
 onMounted(() => {
-  projectService.getAllNumberProjects().then((res) => {
-    projects.value = res.projects;
-    total.value = res.total;
-  });
+  // projectService.getAllNumberProjects().then((res) => {
+  //   projects.value = res.projects;
+  //   total.value = res.total;
+  // });
 });
 </script>
 

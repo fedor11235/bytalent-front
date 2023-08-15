@@ -26,6 +26,7 @@ function postLoadFunction() {
     try {
       // eslint-disable-next-line
       const response = await window.AppleID.auth.signIn();
+      console.log('data apple! ', response)
       await authService.userLogin({
         login: "@fedor",
       });

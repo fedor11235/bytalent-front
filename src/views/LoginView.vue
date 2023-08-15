@@ -12,25 +12,17 @@
     <div class="login__card">
       <div class="login__title">Добро пожаловать!</div>
       <div class="login__form">
-        <!-- <div class="login__enter"  @click="handlerClickTelegram">
-          <img
-            class="test"
-            src="@/assets/icons/telegram.svg"
-            height="32"
-            width="32"
-            alt="telegram"
-          /><span class="login__text">Telegram</span>
-        </div> -->
-        <!-- <div class="login__enter">
+        <div class="login__enter" @click="handlerClickPhone">
           <img
             src="@/assets/icons/phone.svg"
-            height="32"
-            width="32"
-            alt="phone"
+            height="24"
+            width="24"
+            alt="apple"
           />
-          <span class="login__text">Phone</span>
-        </div> -->
+          <span class="login__text">Войти по номеру</span>
+        </div>
         <telegram-login-temp
+          class="telegram-wgit"
           mode="callback"
           telegram-login="ByTALENTBot"
           @loaded='telegramLoadedCallbackFunc'
@@ -38,12 +30,12 @@
         />
         <div class="login__enter" @click="handlerClickApple">
           <img
-            src="@/assets/icons/phone.svg"
-            height="32"
-            width="32"
+            src="@/assets/icons/apple.svg"
+            height="24"
+            width="24"
             alt="apple"
           />
-          <span class="login__text">Apple ID</span>
+          <span class="login__text">Войти через Apple</span>
         </div>
       </div>
       <div class="login__form">
@@ -58,13 +50,14 @@
         </div>
       </div>
 
-      <!-- TODO тестовый вход -->
-      <div class="login__title">Тестовый вход</div>
-      <input class="test-input" v-model="login" />
-      <div @click="handlerLogin" class="test-button">Вход</div>
-      <!-- Callback mode -->
-      <div  v-show="false" class="test" ref="appleIdBtn">
+      <div  v-show="false" class="login__apple" ref="appleIdBtn">
         <ApleAuth />
+      </div>
+      <!-- TODO тестовый вход -->
+      <div class="login__test" v-if="isDevelopment">
+        <div class="login__title">Тестовый вход</div>
+        <input class="test-input" v-model="login" />
+        <div @click="handlerLogin" class="test-button">Вход</div>
       </div>
     </div>
   </div>
@@ -84,12 +77,17 @@ import { telegramLoginTemp } from 'vue3-telegram-login'
 const router = useRouter();
 
 const login = ref("");
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 const appleIdBtn = ref();
 const telegramIdBtn = ref();
 
 const isPersonalData = ref(false);
 const isTermsUser = ref(false);
+
+async function handlerClickPhone() {
+  alert('В разработке')
+}
 
 async function handlerClickApple() {
   const elem = document.getElementById('sign-in-with-apple-button');
@@ -109,29 +107,16 @@ function telegramLoadedCallbackFunc () {
 }
 
 async function yourCallbackFunctionTelegram (user) {
-  console.log(user)
+  console.log('data telegram! ', user)
   await authService.registrationTelegramUser({
     username: user.username,
     name: user.first_name,
     surname: user.last_name,
   });
 }
-
-// {
-//     "id": 372099197,
-//     "first_name": "Fedor",
-//     "last_name": "Avdeev",
-//     "username": "fedor11235b",
-//     "photo_url": "https://t.me/i/userpic/320/QlxKLHekt0clUKQBN2i09V6Ab8i6BuPaU4m2_RUcTOA.jpg",
-//     "auth_date": 1691746033,
-//     "hash": "568e84902a01e276c97607844488382658020f3b9fdef08c21e882b7a7b70256"
-// }
 </script>
 
 <style lang="scss" scoped>
-.test {
-  pointer-events: none;
-}
 .login {
   height: 100vh;
   width: 100vw;
@@ -146,6 +131,7 @@ async function yourCallbackFunctionTelegram (user) {
     row-gap: 24px;
   }
   &__form {
+    width: 300px;
     display: flex;
     flex-direction: column;
     row-gap: 14px;
@@ -162,25 +148,22 @@ async function yourCallbackFunctionTelegram (user) {
     letter-spacing: -0.56px;
   }
   &__text {
-    text-align: left;
-    display: flex;
-    color: rgba(0, 0, 0, 0.85);
-    font-family: JuraMedium;
-    font-size: 28px;
+    color: #191919;
+    font-family: SF Pro Display;
+    font-size: 19px;
     font-style: normal;
-    font-weight: 500;
-    line-height: 100%; /* 28px */
-    letter-spacing: -0.56px;
+    font-weight: 600;
+    line-height: 100%;
+    letter-spacing: -0.38px;
   }
   &__enter {
     width: 100%;
-    padding: 16px 32px;
-    border-radius: 20px;
-    background-color: rgba(255, 255, 255, 0.85);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 32px;
+    padding: 16px 48px;
+    border-radius: 28px;
+    background-color: white; 
+    display: flex;
     align-items: center;
+    column-gap: 16px;
     box-sizing: border-box;
     cursor: pointer;
     &:hover {
@@ -193,6 +176,9 @@ async function yourCallbackFunctionTelegram (user) {
         -8px -12px 12px 0px rgba(0, 0, 0, 0.35) inset;
     }
   }
+  .telegram-wgit {
+    width: 100%;
+  }
   &__agreement {
     width: 310px;
     padding: 0 16px;
@@ -204,6 +190,15 @@ async function yourCallbackFunctionTelegram (user) {
     line-height: 130%;
     letter-spacing: -0.48px;
     cursor: pointer;
+  }
+  &__apple {
+    pointer-events: none;
+  }
+  &__test {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    row-gap: 12px;
   }
 }
 .test-input {

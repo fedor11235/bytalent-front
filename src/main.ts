@@ -7,4 +7,6 @@ import "./styles/main.scss";
 
 const pinia = createPinia();
 
+console.log(process.env.NODE_ENV === 'development')
+
 createApp(App).use(router).use(pinia).mount("#app");

@@ -7,9 +7,9 @@
   >
     <div class="hover-layout__backdrop">
       <HeaderComponent :theme="theme" />
-      <div v-if="load" class="hover-layout__load">
+      <!-- <div v-if="load" class="hover-layout__load">
         <div class="hover-layout__load_img"></div>
-      </div>
+      </div> -->
       <div class="hover-layout__content">
         {{ content }}
         <div v-if="subcontent" class="hover-layout__subcontent">
