@@ -25,7 +25,7 @@
           class="telegram-wgit"
           mode="callback"
           telegram-login="ByTALENTBot"
-          @loaded='telegramLoadedCallbackFunc'
+          @loaded="telegramLoadedCallbackFunc"
           @callback="yourCallbackFunctionTelegram"
         />
         <div class="login__enter" @click="handlerClickApple">
@@ -50,7 +50,7 @@
         </div>
       </div>
 
-      <div  v-show="false" class="login__apple" ref="appleIdBtn">
+      <div v-show="false" class="login__apple" ref="appleIdBtn">
         <ApleAuth />
       </div>
       <!-- TODO тестовый вход -->
@@ -72,12 +72,12 @@ import PopupTermsUser from "@/components/docs/PopupTermsUser.vue";
 import PopupPersonalData from "@/components/docs/PopupPersonalData.vue";
 import ApleAuth from "@/components/auth/ApleAuth.vue";
 
-import { telegramLoginTemp } from 'vue3-telegram-login'
+import { telegramLoginTemp } from "vue3-telegram-login";
 
 const router = useRouter();
 
 const login = ref("");
-const isDevelopment = process.env.NODE_ENV === 'development';
+const isDevelopment = process.env.NODE_ENV === "development";
 
 const appleIdBtn = ref();
 const telegramIdBtn = ref();
@@ -86,13 +86,13 @@ const isPersonalData = ref(false);
 const isTermsUser = ref(false);
 
 async function handlerClickPhone() {
-  alert('В разработке')
+  alert("В разработке");
 }
 
 async function handlerClickApple() {
-  const elem = document.getElementById('sign-in-with-apple-button');
-  if(elem) {
-    elem.click()
+  const elem = document.getElementById("sign-in-with-apple-button");
+  if (elem) {
+    elem.click();
   }
 }
 
@@ -102,12 +102,12 @@ async function handlerLogin() {
   });
 }
 
-function telegramLoadedCallbackFunc () {
-  console.log('load')
+function telegramLoadedCallbackFunc() {
+  console.log("load");
 }
 
-async function yourCallbackFunctionTelegram (user) {
-  console.log('data telegram! ', user)
+async function yourCallbackFunctionTelegram(user) {
+  console.log("data telegram! ", user);
   await authService.registrationTelegramUser({
     username: user.username,
     name: user.first_name,
@@ -160,7 +160,7 @@ async function yourCallbackFunctionTelegram (user) {
     width: 100%;
     padding: 16px 48px;
     border-radius: 28px;
-    background-color: white; 
+    background-color: white;
     display: flex;
     align-items: center;
     column-gap: 16px;

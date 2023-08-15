@@ -42,26 +42,7 @@
         <div class="new-level__content__control">
           <div @click="isMediaAddBgr = !isMediaAddBgr" class="media__btn"></div>
         </div>
-        <div class="carousel">
-          <div
-            @click="handlerLeftMove"
-            class="carousel__arrow carousel__arrow-left"
-          ></div>
-          <div class="sliders" ref="sliders">
-            <img
-              class="carousel__img"
-              v-for="(background, index) in projectStore.backgrounds"
-              :key="background.id"
-              @click="handlerShowPopup(index)"
-              :src="background.img"
-              alt="img"
-            />
-          </div>
-          <div
-            @click="handlerRightMove"
-            class="carousel__arrow carousel__arrow-right"
-          ></div>
-        </div>
+        <CarouselComponent />
         <Transition name="fade">
           <AddFile
             v-if="isMediaAddBgr"
@@ -160,6 +141,7 @@ import projectService from "@/services/projectService";
 import PopupLavel from "@/components/newLavel/PopupLavel.vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import AddFile from "@/components/newLavel/AddFile.vue";
+import CarouselComponent from "@/components/controls/CarouselComponent.vue";
 
 const router = useRouter();
 const rootStore = useRootStore();
@@ -172,16 +154,12 @@ const menu = [
   "Интеграция",
 ];
 
-const widthSlid = 33.75;
-let move = 0;
-
-projectService.getBackgrounds().then((res) => {
-  projectStore.backgrounds.push(...res.backgrounds);
-});
+// projectService.getBackgrounds().then((res) => {
+//   projectStore.backgrounds.push(...res.backgrounds);
+// });
 
 const fileInputBgr: Ref<HTMLInputElement | null> = ref(null);
 const fileInputProject: Ref<HTMLInputElement | null> = ref(null);
-const sliders: Ref<HTMLDivElement | null> = ref(null);
 const indexBackgrounds = ref(0);
 const isShowPopup = ref(false);
 const isMediaAddBgr = ref(false);
@@ -231,33 +209,8 @@ function saveFailesProject(filteredFiles: File[]) {
   isMediaAddProgect.value = false;
 }
 
-function handlerShowPopup(index: number) {
-  indexBackgrounds.value = index;
-  isShowPopup.value = true;
-}
-
 function returnHome() {
   router.push({ name: "visualization-first" });
-}
-
-function handlerLeftMove() {
-  move += widthSlid;
-  if ((projectStore.backgrounds.length - 1) * widthSlid <= move) {
-    move = (projectStore.backgrounds.length - 1) * -widthSlid;
-  }
-  if (sliders.value) {
-    sliders.value.style.transform = `translateX(${move}%)`;
-  }
-}
-
-function handlerRightMove() {
-  move -= widthSlid;
-  if (projectStore.backgrounds.length * -widthSlid >= move) {
-    move = (projectStore.backgrounds.length - 2) * widthSlid;
-  }
-  if (sliders.value) {
-    sliders.value.style.transform = `translateX(${move}%)`;
-  }
 }
 
 function handlerAddBackground() {
@@ -351,72 +304,6 @@ provide("handlerBtnHeaderClick", returnHome);
           text-wrap: nowrap;
           opacity: 0;
           transition: opacity 0.3s;
-        }
-      }
-      .carousel {
-        position: relative;
-        width: 66%;
-        height: 27vh;
-        overflow: hidden;
-        .sliders {
-          display: flex;
-          column-gap: 1.25%;
-          transition: transform 0.3s;
-          height: 100%;
-        }
-        &__img {
-          height: 100%;
-          width: 32.5%;
-          object-fit: cover;
-          max-width: none;
-          border-radius: 10px;
-          box-shadow: 0 7px 8px -5px #000;
-          cursor: pointer;
-        }
-        &__arrow {
-          position: absolute;
-          opacity: 0.6;
-          border-radius: 12px;
-          box-shadow: 0 2px 5px #000;
-          width: 40px;
-          height: 40px;
-          top: 50%;
-          transform: translateY(-50%);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          user-select: none;
-          &:hover {
-            opacity: 1;
-          }
-          &-left {
-            z-index: 1;
-            left: 12px;
-            &::before {
-              content: "";
-              position: relative;
-              left: 4px;
-              width: 50%;
-              height: 50%;
-              border-top: 4px solid white;
-              border-right: 4px solid white;
-              transform: rotate(-135deg);
-            }
-          }
-          &-right {
-            right: 12px;
-            &::before {
-              content: "";
-              position: relative;
-              right: 4px;
-              width: 50%;
-              height: 50%;
-              border-top: 4px solid white;
-              border-right: 4px solid white;
-              transform: rotate(45deg);
-            }
-          }
         }
       }
     }

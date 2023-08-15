@@ -1,7 +1,7 @@
 <template>
-  <div @click.self="emit('close')" class="order">
-    <CreateVisualization @close="emit('close')" v-if="isCreate" />
-    <AddVisualization v-else @close="emit('close')" @create="isCreate = true" />
+  <div @click.self="handletClose" class="order">
+    <CreateVisualization @close="handletClose" v-if="isCreate" />
+    <AddVisualization v-else @close="handletClose" @create="isCreate = true" />
   </div>
 </template>
 
@@ -12,6 +12,10 @@ import AddVisualization from "@/components/visualization/AddVisualization.vue";
 const emit = defineEmits(["close"]);
 
 const isCreate = ref(false);
+function handletClose() {
+  emit("close");
+  location.reload();
+}
 </script>
 
 <style lang="scss" scoped>

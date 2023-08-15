@@ -9,11 +9,13 @@
 import { ref } from "vue";
 import ThankVisualization from "@/components/visualization/ThankVisualization.vue";
 import ContactVisualization from "@/components/visualization/ContactVisualization.vue";
+import projectService from "@/services/projectService";
 const emit = defineEmits(["close"]);
 
 const thank = ref(false);
 
 function handleClose() {
+  location.reload();
   emit("close");
 }
 </script>

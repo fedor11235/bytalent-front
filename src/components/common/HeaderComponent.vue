@@ -84,13 +84,20 @@ import { useRouter, useRoute } from "vue-router";
 import { useRootStore } from "@/store";
 import BurgerComponent from "@/components/common/BurgerComponent.vue";
 
-type PageName = "visualization" | "app" | "streaming" | "profile" | "search";
+type PageName =
+  | "visualization"
+  | "app"
+  | "streaming"
+  | "profile"
+  | "search"
+  | "login";
 const allPages: PageName[] = [
   "visualization",
   "app",
   "streaming",
   "profile",
   "search",
+  "login",
 ];
 
 const rootStore = useRootStore();
@@ -100,6 +107,7 @@ const buttons = [
   { name: "app" as PageName, title: "Приложение" },
   { name: "streaming" as PageName, title: "Стриминг" },
   { name: "profile" as PageName, title: "Профиль" },
+  { name: "login" as PageName, title: "Вход" },
 ];
 
 const lines = ["one", "two", "three", "two", "one"];
