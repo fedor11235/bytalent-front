@@ -12,7 +12,10 @@ export const useProjectStore = defineStore("project", {
     files: [],
   }),
   getters: {
-    backgrounds: (state) => [...state.backgroundsFill, ...state.backgroundsEmpty],
+    backgrounds: (state) => [
+      ...state.backgroundsFill,
+      ...state.backgroundsEmpty,
+    ],
   },
 });
 
@@ -26,10 +29,11 @@ type StreamingStore = {
 type Background = {
   id: number;
   img: string;
+  plus?: boolean;
 };
 
 type BackgroundPlug = {
   id: string;
   img: string;
-  plus?: boolean
+  plus?: boolean;
 };

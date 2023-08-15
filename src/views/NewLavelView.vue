@@ -198,8 +198,8 @@ function saveFaileBgr(filteredFile: File) {
       id: backgroundNew.id,
       img: String(fbase64),
     });
-    if(projectStore.backgroundsEmpty.length > 1) {
-      projectStore.backgroundsEmpty.pop()
+    if (projectStore.backgroundsEmpty.length > 1) {
+      projectStore.backgroundsEmpty.pop();
     }
   };
   fr.readAsDataURL(filteredFile);

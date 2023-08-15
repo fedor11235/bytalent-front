@@ -1,4 +1,11 @@
 <template>
+  <input
+    class="file-input"
+    type="file"
+    @change="fileInsertion(saveFaileBgr, getFilteredFileBg)"
+    ref="fileInputBgr"
+    accept="image/*"
+  />
   <div class="carousel">
     <div
       @click="handlerLeftMove"
@@ -14,6 +21,7 @@
             sliders__bacdrop_last: background.plus,
           },
         ]"
+        @click="handlerUploadBgr(background.plus)"
       >
         <img
           v-if="background.img"
@@ -32,11 +40,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed, Ref } from "vue";
+import type { Ref } from "vue";
 import { ref, onMounted } from "vue";
+import { useRootStore } from "@/store";
 import { useProjectStore } from "@/store";
 import projectService from "@/services/projectService";
+import { fileInput, fileInsertion, browseFile } from "@/utils/file";
 
+const rootStore = useRootStore();
 const projectStore = useProjectStore();
 
 const widthSlid = 33.75;
@@ -45,10 +56,45 @@ let move = 0;
 const indexBackgrounds = ref(0);
 const isShowPopup = ref(false);
 const sliders: Ref<HTMLDivElement | null> = ref(null);
+const fileInputBgr: Ref<HTMLInputElement | null> = ref(null);
+
+function getFilteredFileBg(file: File) {
+  if (/\.(jpg|jpeg|png|webp|JPG|PNG|JPEG|WEBP)$/.test(file.name)) {
+    return file;
+  }
+  rootStore.popupWarning = true;
+  rootStore.textWarning = "неверный формат файла";
+  return null;
+}
 
 function handlerShowPopup(index: number) {
   indexBackgrounds.value = index;
   isShowPopup.value = true;
+}
+
+function handlerUploadBgr(enabled: boolean | undefined) {
+  if (enabled && fileInputBgr.value) {
+    fileInput.value = fileInputBgr.value;
+    browseFile();
+  }
+}
+
+function saveFaileBgr(filteredFile: File) {
+  const fr = new FileReader();
+  fr.onload = async () => {
+    const fbase64 = fr.result;
+    const backgroundNew = await projectService.postBackgrounds({
+      file: filteredFile,
+    });
+    projectStore.backgroundsFill.push({
+      id: backgroundNew.id,
+      img: String(fbase64),
+    });
+    if (projectStore.backgroundsEmpty.length > 1) {
+      projectStore.backgroundsEmpty.pop();
+    }
+  };
+  fr.readAsDataURL(filteredFile);
 }
 
 function handlerLeftMove() {
@@ -73,12 +119,15 @@ function handlerRightMove() {
 
 onMounted(() => {
   projectService.getBackgrounds().then((res) => {
-    const backgrounds = res.backgrounds
-    projectStore.backgroundsFill.push(...backgrounds)
-    if(backgrounds.length > 1) {
+    const backgrounds = res.backgrounds;
+    projectStore.backgroundsFill.push(...backgrounds);
+    if (backgrounds.length > 1) {
       projectStore.backgroundsEmpty = [{ id: "0-emty", img: "", plus: true }];
-    } else if(backgrounds.length === 1) {
-      projectStore.backgroundsEmpty = [{ id: "0-emty", img: "", plus: true }, { id: "1-emty", img: "" }];
+    } else if (backgrounds.length === 1) {
+      projectStore.backgroundsEmpty = [
+        { id: "0-emty", img: "", plus: true },
+        { id: "1-emty", img: "" },
+      ];
     }
   });
 });
