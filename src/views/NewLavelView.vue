@@ -194,10 +194,13 @@ function saveFaileBgr(filteredFile: File) {
     const backgroundNew = await projectService.postBackgrounds({
       file: filteredFile,
     });
-    projectStore.backgrounds.push({
+    projectStore.backgroundsFill.push({
       id: backgroundNew.id,
       img: String(fbase64),
     });
+    if(projectStore.backgroundsEmpty.length > 1) {
+      projectStore.backgroundsEmpty.pop()
+    }
   };
   fr.readAsDataURL(filteredFile);
   isMediaAddBgr.value = false;

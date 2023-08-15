@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Ref } from "vue";
+import { computed, Ref } from "vue";
 import { ref, onMounted } from "vue";
 import { useProjectStore } from "@/store";
 import projectService from "@/services/projectService";
@@ -52,10 +52,9 @@ function handlerShowPopup(index: number) {
 }
 
 function handlerLeftMove() {
-  if (projectStore.backgrounds.length === 3) return;
   move += widthSlid;
-  if ((projectStore.backgrounds.length - 1) * widthSlid <= move) {
-    move = (projectStore.backgrounds.length - 1) * -widthSlid;
+  if (widthSlid <= move) {
+    move = (projectStore.backgrounds.length - 3) * -widthSlid;
   }
   if (sliders.value) {
     sliders.value.style.transform = `translateX(${move}%)`;
@@ -63,10 +62,9 @@ function handlerLeftMove() {
 }
 
 function handlerRightMove() {
-  if (projectStore.backgrounds.length === 3) return;
   move -= widthSlid;
-  if (projectStore.backgrounds.length * -widthSlid >= move) {
-    move = (projectStore.backgrounds.length - 2) * widthSlid;
+  if ((projectStore.backgrounds.length - 2) * -widthSlid >= move) {
+    move = 0;
   }
   if (sliders.value) {
     sliders.value.style.transform = `translateX(${move}%)`;
@@ -75,12 +73,12 @@ function handlerRightMove() {
 
 onMounted(() => {
   projectService.getBackgrounds().then((res) => {
-    console.log(res)
     const backgrounds = res.backgrounds
+    projectStore.backgroundsFill.push(...backgrounds)
     if(backgrounds.length > 1) {
-      projectStore.backgrounds = [...backgrounds, { id: "0-emty", img: "", plus: true }];
+      projectStore.backgroundsEmpty = [{ id: "0-emty", img: "", plus: true }];
     } else if(backgrounds.length === 1) {
-      projectStore.backgrounds = [...backgrounds, { id: "0-emty", img: "", plus: true }, { id: "1-emty", img: "" }];
+      projectStore.backgroundsEmpty = [{ id: "0-emty", img: "", plus: true }, { id: "1-emty", img: "" }];
     }
   });
 });
@@ -105,6 +103,7 @@ onMounted(() => {
       width: 32.5%;
       border-radius: 20px;
       background-color: rgba(0, 0, 0, 0.25);
+      flex-shrink: 0;
       &_last {
         background-image: url(@/assets/icons/plus.svg);
         background-repeat: no-repeat;
