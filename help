@@ -18,3 +18,5 @@
 12px - 0.625vw
 60px - 3.125vw
 20px - 1.04vw
+
+serve -s dist
