@@ -7,21 +7,6 @@
         : `url(${require('@/assets/backgrounds/lvel.jpeg')})`,
     }"
   >
-    <input
-      class="file-input"
-      type="file"
-      @change="fileInsertion(saveFaileBgr, getFilteredFileBg)"
-      ref="fileInputBgr"
-      accept="image/*"
-    />
-    <input
-      class="file-input"
-      type="file"
-      multiple
-      @change="filesInsertion(saveFailesProject, getFilteredFileProject)"
-      ref="fileInputProject"
-      accept="image/*"
-    />
     <div class="new-level__backdrop"></div>
     <div class="new-level__content">
       <Transition name="fade">
@@ -149,14 +134,6 @@ import { useRootStore } from "@/store";
 import { useProjectStore } from "@/store";
 import { useRouter } from "vue-router";
 
-import {
-  fileInput,
-  fileInsertion,
-  filesInsertion,
-  browseFile,
-  fileProcessing,
-  filesProcessing,
-} from "@/utils/file";
 import projectService from "@/services/projectService";
 
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
@@ -183,52 +160,6 @@ const isMediaAddBgr = ref(false);
 const isMediaAddProgect = ref(false);
 const isExpand = ref(false);
 
-["dragover", "drop"].forEach(function (event) {
-  document.addEventListener(event, function (evt) {
-    evt.preventDefault();
-    return false;
-  });
-});
-
-function getFilteredFileBg(file: File) {
-  if (/\.(jpg|jpeg|png|webp|JPG|PNG|JPEG|WEBP)$/.test(file.name)) {
-    return file;
-  }
-  rootStore.popupWarning = true;
-  rootStore.textWarning = "неверный формат файла";
-  isMediaAddBgr.value = false;
-  return null;
-}
-
-function getFilteredFileProject(file: File) {
-  return file;
-}
-
-function saveFaileBgr(filteredFile: File) {
-  const fr = new FileReader();
-  fr.onload = async () => {
-    const fbase64 = fr.result;
-    const backgroundNew = await projectService.postBackgrounds({
-      file: filteredFile,
-    });
-    projectStore.backgroundsFill.push({
-      id: backgroundNew.id,
-      img: String(fbase64),
-    });
-    if (projectStore.backgroundsEmpty.length > 1) {
-      projectStore.backgroundsEmpty.pop();
-    }
-  };
-  fr.readAsDataURL(filteredFile);
-  isMediaAddBgr.value = false;
-}
-
-function saveFailesProject(filteredFiles: File[]) {
-  // projectStore.files = filteredFiles;
-  // projectService.uploadFileProject(3, filteredFiles)
-  isMediaAddProgect.value = false;
-}
-
 function handlerOpenBgrPopup() {
   if (finishLoadBgr) {
     isMediaAddBgr.value = !isMediaAddBgr.value;
@@ -237,34 +168,6 @@ function handlerOpenBgrPopup() {
 
 function returnHome() {
   router.push({ name: "visualization-first" });
-}
-
-function handlerAddBackground() {
-  if (fileInputBgr.value) {
-    fileInput.value = fileInputBgr.value;
-    browseFile();
-  }
-}
-
-function handlerDropBackground(event: DragEvent) {
-  const fileInstance = event?.dataTransfer?.files[0];
-  if (fileInstance) {
-    fileProcessing(fileInstance, saveFaileBgr, getFilteredFileBg);
-  }
-}
-
-function handlerDropProject(event: DragEvent) {
-  const filesInstance = event?.dataTransfer?.files;
-  if (filesInstance) {
-    filesProcessing(filesInstance, saveFailesProject, getFilteredFileProject);
-  }
-}
-
-function handlerAddProject() {
-  if (fileInputProject.value) {
-    fileInput.value = fileInputProject.value;
-    browseFile();
-  }
 }
 
 function setIconMenu(name: string) {

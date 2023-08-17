@@ -2,65 +2,64 @@
   <input
     class="file-input"
     type="file"
-    @change="fileInsertion(saveFaileBgr, getFilteredFileBg)"
-    ref="fileInputBgr"
+    multiple
+    @change="filesInsertion(saveFailesProject, getFilteredFileProject)"
+    ref="fileInputProject"
     accept="image/*"
   />
   <div class="add-file-prg">
-    <div class="add-file-prg_elem add-file-prg_elem-format">
-      <div class="add-file-prg_elem_title">Поддерживаемые форматы: *3dm, *fbx, *dwg</div>
-      <img src="@/assets/icons/upload-prj.svg" width="48" height="48" alt="upload"/>
+    <div class="add-file-prg_grid">
+      <div class="add-file-prg_elem add-file-prg_elem-format" @click="handlerAddProject" @drop="handlerDropProject">
+        <div class="add-file-prg_elem_title">Поддерживаемые форматы: *3dm, *fbx, *dwg</div>
+        <img src="@/assets/icons/upload-prj.svg" width="48" height="48" alt="upload"/>
+      </div>
+      <div class="add-file-prg_elem add-file-prg_elem-preview"><div class="add-file-prg_elem_title">Предпросмотр</div></div>
+      <div class="add-file-prg_elem add-file-prg_elem-preview"><div class="add-file-prg_elem_title">Информация</div></div>
     </div>
-    <div class="add-file-prg_elem add-file-prg_elem-preview"><div class="add-file-prg_elem_title">Предпросмотр</div></div>
-    <div class="add-file-prg_elem add-file-prg_elem-preview"><div class="add-file-prg_elem_title">Информация</div></div>
+    <div class="add-file-prg_title">Загрузите файлы проекта</div>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { Ref } from "vue";
 import { ref } from "vue";
-import { fileInput, fileInsertion, browseFile } from "@/utils/file";
-import projectService from "@/services/projectService";
+import { fileInput, filesInsertion, browseFile, filesProcessing } from "@/utils/file";
+// import projectService from "@/services/projectService";
 import { useRootStore } from "@/store";
 import { useProjectStore } from "@/store";
 
-const rootStore = useRootStore();
+// const rootStore = useRootStore();
 const projectStore = useProjectStore();
 
-const fileInputBgr: Ref<HTMLInputElement | null> = ref(null);
+const fileInputProject: Ref<HTMLInputElement | null> = ref(null);
 
-function handlerUploadBgr(enabled: boolean | undefined) {
-  if (enabled && fileInputBgr.value) {
-    fileInput.value = fileInputBgr.value;
+  ["dragover", "drop"].forEach(function (event) {
+  document.addEventListener(event, function (evt) {
+    evt.preventDefault();
+    return false;
+  });
+});
+
+function handlerAddProject() {
+  if (fileInputProject.value) {
+    fileInput.value = fileInputProject.value;
     browseFile();
   }
 }
-
-function saveFaileBgr(filteredFile: File) {
-  const fr = new FileReader();
-  fr.onload = async () => {
-    const fbase64 = fr.result;
-    const backgroundNew = await projectService.postBackgrounds({
-      file: filteredFile,
-    });
-    projectStore.backgroundsFill.push({
-      id: backgroundNew.id,
-      img: String(fbase64),
-    });
-    if (projectStore.backgroundsEmpty.length > 1) {
-      projectStore.backgroundsEmpty.pop();
-    }
-  };
-  fr.readAsDataURL(filteredFile);
+function saveFailesProject(filteredFiles: File[]) {
+  projectStore.files = filteredFiles;
+  // projectService.uploadFileProject(3, filteredFiles)
 }
 
-function getFilteredFileBg(file: File) {
-  if (/\.(jpg|jpeg|png|webp|JPG|PNG|JPEG|WEBP)$/.test(file.name)) {
-    return file;
+function getFilteredFileProject(file: File) {
+  return file;
+}
+
+function handlerDropProject(event: DragEvent) {
+  const filesInstance = event?.dataTransfer?.files;
+  if (filesInstance) {
+    filesProcessing(filesInstance, saveFailesProject, getFilteredFileProject);
   }
-  rootStore.popupWarning = true;
-  rootStore.textWarning = "неверный формат файла";
-  return null;
 }
 </script>
 
@@ -79,13 +78,22 @@ function getFilteredFileBg(file: File) {
   box-sizing: border-box;
   padding: 8px;
   overflow: hidden;
-
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 1.25%;
-  flex-shrink: 0;
-
+  &_grid {
+    height: calc(100% - 4.5vh);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 1.25%;
+    flex-shrink: 0;
+  }
+  &_title {
+    color: rgba(255, 255, 255, 0.75);
+    font-family: JuraSemiBold;
+    font-size: 3.5vh;
+    line-height: 125%;
+    letter-spacing: -0.76px;
+    text-align: center;
+  }
   &_elem {
     position: relative;
     border-radius: 20px;
@@ -97,14 +105,11 @@ function getFilteredFileBg(file: File) {
       grid-area: 1 / 1 / span 2 / span 2;
       cursor: pointer;
     }
-    &-preview {
-
-    }
     &_title {
         position: absolute;
         top: 1.48vh;
-        left: 50%;
-        transform: translateX(-50%);
+        width: 100%;
+        text-align: center;
         color:rgba(255, 255, 255, 0.75);
         font-family: JuraMedium;
         font-size: 1.85vh;

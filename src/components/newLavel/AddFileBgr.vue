@@ -191,7 +191,6 @@ watch(
   overflow: hidden;
   &__carousel {
     display: flex;
-    // overflow: hidden;
     column-gap: 1.25%;
     height: calc(100% - 4.5vh);
     width: 100%;
