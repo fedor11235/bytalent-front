@@ -14,10 +14,6 @@
         @close="isShowPopup = false"
       />
     </Transition>
-    <div
-      @click="handlerLeftMove"
-      class="carousel__arrow carousel__arrow-left"
-    ></div>
     <div class="sliders" ref="sliders">
       <div
         v-for="(background, index) in projectStore.backgrounds"
@@ -39,6 +35,10 @@
         />
       </div>
     </div>
+    <div
+      @click="handlerLeftMove"
+      class="carousel__arrow carousel__arrow-left"
+    ></div>
     <div
       @click="handlerRightMove"
       class="carousel__arrow carousel__arrow-right"

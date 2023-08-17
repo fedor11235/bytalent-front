@@ -32,15 +32,15 @@
       <div class="new-level__info">
         <div class="new-level__header">
           <div class="new-level__content__control">
-            <div class="new-level__header__btn"></div>
+            <div class="new-level__header__btn" @click="IsModeAdrsWrt = !IsModeAdrsWrt"></div>
           </div>
-          <div>
-            <div class="new-level__text">
+          <div class="new-level__text_wrap">
+            <div :class="['new-level__text', {'new-level__text-wrt': IsModeAdrsWrt}]">
               <div class="new-level__text_line">
-                <div class="new-level__text_line_left"></div>
-                <div class="new-level__text_line_right"></div>
+                <div :class="['new-level__text_line_left', {'new-level__text_line_left-wrt': IsModeAdrsWrt}]"></div>
+                <div :class="['new-level__text_line_right', {'new-level__text_line_right-wrt': IsModeAdrsWrt}]"></div>
               </div>
-              <div class="new-level__text_address">Адрес</div>
+              <div :class="['new-level__text_address', {'new-level__text_address-wrt': IsModeAdrsWrt}]">Адрес проекта</div>
             </div>
             <div class="new-level__description">
               <div class="new-level__description_text">Описание объекта</div>
@@ -156,6 +156,7 @@ let finishLoadBgr = false;
 
 const fileInputBgr: Ref<HTMLInputElement | null> = ref(null);
 const fileInputProject: Ref<HTMLInputElement | null> = ref(null);
+const IsModeAdrsWrt = ref(false);
 const isMediaAddBgr = ref(false);
 const isMediaAddProgect = ref(false);
 const isExpand = ref(false);
@@ -240,6 +241,7 @@ onMounted(() => {
         cursor: pointer;
         position: relative;
         &:hover {
+          background-image: url(@/assets/icons/image-hover.svg);
           &::before {
             opacity: 1;
           }
@@ -271,6 +273,7 @@ onMounted(() => {
       cursor: pointer;
       position: relative;
       &:hover {
+        background-image: url(@/assets/icons/pen-hover.svg);
         &::before {
           opacity: 1;
         }
@@ -303,6 +306,15 @@ onMounted(() => {
     display: flex;
     align-items: center;
     margin-top: 3.3vh;
+    width: 100%;
+    border-radius: 8px;
+    padding: 0 0.8vw;
+    &_wrap {
+      width: 66%;
+    }
+    &-wrt {
+      background-color: #F9F9F9;
+    }
     &_line {
       display: flex;
       column-gap: 0.625vw;
@@ -312,12 +324,18 @@ onMounted(() => {
         height: 4px;
         border-radius: 4px;
         background-color: rgba(255, 255, 255, 0.25);
+        &-wrt {
+          background-color: rgba(0, 0, 0, 0.25);
+        }
       }
       &_right {
         width: 1.04vw;
         height: 4px;
         border-radius: 4px;
         background-color: rgba(255, 255, 255, 0.85);
+        &-wrt {
+          background-color: rgba(0, 0, 0, 0.85);
+        }
       }
     }
     &_address {
@@ -327,6 +345,9 @@ onMounted(() => {
       font-style: normal;
       line-height: 125%;
       letter-spacing: -0.76px;
+      &-wrt {
+        color: #191919;
+      }
     }
   }
   &__description {
@@ -361,6 +382,7 @@ onMounted(() => {
         bottom: 22vh;
       }
       &:hover {
+        background-image: url(@/assets/icons/upload-hover.svg);
         &::before {
           opacity: 1;
         }
