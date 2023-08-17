@@ -80,19 +80,21 @@
         <div class="new-level__content__control">
           <div
             @click="isMediaAddProgect = !isMediaAddProgect"
-            :class="['assistant__btn', { assistant__btn_big: isExpand }]"
+            :class="['assistant__btn', 
+            // { assistant__btn_big: isExpand }
+            ]"
           ></div>
         </div>
         <div
           :class="[
             'new-level__assistant',
-            { 'new-level__assistant_big': isExpand },
+            // { 'new-level__assistant_big': isExpand },
           ]"
         >
           <div
             :class="[
               'new-level__assistant_menu',
-              { 'new-level__assistant_menu_big': isExpand },
+              // { 'new-level__assistant_menu_big': isExpand },
             ]"
           >
             <div
@@ -102,20 +104,31 @@
             >
               <img
                 class="new-level__assistant_menu_item_icon"
-                src="@/assets/icons/chat.svg"
+                :src="require(`@/assets/icons/${setIconMenu(item)}.svg`)"
               />
               {{ item }}
             </div>
           </div>
-          <div class="new-level__assistant_chat">
+          <div :class="['new-level__assistant_chat', 
+           { 'new-level__assistant_chat_big': isExpand }
+          ]">
             <img
-              @click="isExpand = !isExpand"
-              src="@/assets/icons/expand.svg"
+              v-if="isExpand"
+              @click="isExpand = false"
+              src="@/assets/icons/full-close.svg"
+              alt="expand"
+              class="new-level__assistant_expand"
+            />
+            <img
+              v-else
+              @click="isExpand = true"
+              src="@/assets/icons/full.svg"
               alt="expand"
               class="new-level__assistant_expand"
             />
             <textarea
-              class="new-level__assistant_chat_input"
+              :class="['new-level__assistant_chat_input', 
+              { 'new-level__assistant_chat_input_big': isExpand }]"
               placeholder="Введите текст"
             ></textarea>
             <div class="new-level__assistant_chat_button">Отправить</div>
@@ -247,6 +260,13 @@ function handlerAddProject() {
     fileInput.value = fileInputProject.value;
     browseFile();
   }
+}
+
+function setIconMenu(name: string) {
+  if(name === "Личный ассистент") return "chat"
+  if(name === "Технические требования") return "technical-requirements"
+  if(name === "Правли размещения") return "scales"
+  if(name === "Интеграция") return "integration"
 }
 
 provide("handlerBtnHeaderClick", returnHome);
@@ -527,14 +547,20 @@ provide("handlerBtnHeaderClick", returnHome);
       width: calc(65% - 0.74vh);
       height: calc(100% - 1.48vh);
       border-radius: 20px;
-      background-color: #191919;
+      background-color: rgba(0, 0, 0, 0.25);
       margin: 0.74vh 0.74vh 0.74vh 0;
       box-sizing: border-box;
+      &_big {
+        height: 80vh;
+        bottom: 25vh;
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(22.5px);
+      }
       &_input {
-        height: 25%;
+        height: 5vh;
         border: none;
         border-radius: 16px;
-        background: #2a2a2a;
+        background-color:rgba(0, 0, 0, 0.55);
         padding: 16px;
         position: absolute;
         bottom: 0;
@@ -556,11 +582,18 @@ provide("handlerBtnHeaderClick", returnHome);
           font-size: 1.296vh;
           line-height: 100%;
         }
+        &_big {
+          background:rgba(255, 255, 255, 0.75);
+          color: #2A2A2A;
+          &::placeholder {
+            color: #2A2A2A;
+          }
+        }
       }
       &_button {
         position: absolute;
         right: 16px;
-        bottom: 12.5%;
+        bottom: 2.5vh;
         border-radius: 12px;
         border-top: 1px solid rgba(255, 255, 255, 0.65);
         background-color: rgba(0, 0, 0, 0.35);

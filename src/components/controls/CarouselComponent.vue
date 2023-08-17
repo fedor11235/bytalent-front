@@ -146,6 +146,7 @@ onMounted(() => {
   position: relative;
   width: 66%;
   height: 27vh;
+  max-height: 241px;
   overflow: hidden;
   border-radius: 24px;
   background-color: rgba(0, 0, 0, 0.15);
