@@ -124,28 +124,14 @@ function handlerRightMove() {
     sliders.value.style.transform = `translateX(${move}%)`;
   }
 }
-
-onMounted(() => {
-  projectService.getBackgrounds().then((res) => {
-    const backgrounds = res.backgrounds;
-    projectStore.backgroundsFill.push(...backgrounds);
-    if (backgrounds.length > 1) {
-      projectStore.backgroundsEmpty = [{ id: "0-emty", img: "", plus: true }];
-    } else if (backgrounds.length === 1) {
-      projectStore.backgroundsEmpty = [
-        { id: "0-emty", img: "", plus: true },
-        { id: "1-emty", img: "" },
-      ];
-    }
-  });
-});
 </script>
 
 <style lang="scss" scoped>
 .carousel {
   position: relative;
+  box-sizing: border-box;
   width: 66%;
-  height: 27vh;
+  height: 21vh;
   max-height: 241px;
   overflow: hidden;
   border-radius: 24px;

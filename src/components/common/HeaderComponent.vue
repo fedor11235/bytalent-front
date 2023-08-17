@@ -192,14 +192,13 @@ function controllClass() {
 .header {
   position: relative;
   display: flex;
-  margin-top: 2%;
-  margin-left: 2%;
-  margin-right: 2%;
+  margin: 3.7vh 2%;
   padding-right: 15px;
   align-items: center;
   justify-content: space-between;
   column-gap: 16px;
-  height: 60px;
+  height: 7.4vh;
+  max-height: 80px;
   &__burger {
     position: relative;
     z-index: 2;

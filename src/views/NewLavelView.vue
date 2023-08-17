@@ -24,6 +24,22 @@
     />
     <div class="new-level__backdrop"></div>
     <div class="new-level__content">
+      <Transition name="fade">
+        <AddFileBgr
+          v-if="isMediaAddBgr"
+          formats="jpg/png/gif/mp4/mov"
+          @click="handlerAddBackground"
+          @drop="handlerDropBackground"
+        />
+      </Transition>
+      <!-- <Transition name="fade">
+        <AddFile
+          v-if="isMediaAddProgect"
+          formats="all"
+          @click="handlerAddProject"
+          @drop="handlerDropProject"
+        />
+      </Transition> -->
       <HeaderComponent
         urlButton="header/main.png"
         urlButtonHover="header/main.png"
@@ -34,25 +50,9 @@
       <div class="new-level__title">Новый уровень</div>
       <div class="media">
         <div class="new-level__content__control">
-          <div @click="isMediaAddBgr = !isMediaAddBgr" class="media__btn"></div>
+          <div @click="handlerOpenBgrPopup" class="media__btn"></div>
         </div>
         <CarouselComponent />
-        <Transition name="fade">
-          <AddFile
-            v-if="isMediaAddBgr"
-            formats="jpg/png/gif/mp4/mov"
-            @click="handlerAddBackground"
-            @drop="handlerDropBackground"
-          />
-        </Transition>
-        <Transition name="fade">
-          <AddFile
-            v-if="isMediaAddProgect"
-            formats="all"
-            @click="handlerAddProject"
-            @drop="handlerDropProject"
-          />
-        </Transition>
       </div>
       <div class="new-level__info">
         <div class="new-level__header">
@@ -80,8 +80,9 @@
         <div class="new-level__content__control">
           <div
             @click="isMediaAddProgect = !isMediaAddProgect"
-            :class="['assistant__btn', 
-            // { assistant__btn_big: isExpand }
+            :class="[
+              'assistant__btn',
+              // { assistant__btn_big: isExpand }
             ]"
           ></div>
         </div>
@@ -109,9 +110,12 @@
               {{ item }}
             </div>
           </div>
-          <div :class="['new-level__assistant_chat', 
-           { 'new-level__assistant_chat_big': isExpand }
-          ]">
+          <div
+            :class="[
+              'new-level__assistant_chat',
+              { 'new-level__assistant_chat_big': isExpand },
+            ]"
+          >
             <img
               v-if="isExpand"
               @click="isExpand = false"
@@ -127,8 +131,10 @@
               class="new-level__assistant_expand"
             />
             <textarea
-              :class="['new-level__assistant_chat_input', 
-              { 'new-level__assistant_chat_input_big': isExpand }]"
+              :class="[
+                'new-level__assistant_chat_input',
+                { 'new-level__assistant_chat_input_big': isExpand },
+              ]"
               placeholder="Введите текст"
             ></textarea>
             <div class="new-level__assistant_chat_button">Отправить</div>
@@ -148,7 +154,7 @@
 
 <script setup lang="ts">
 import type { Ref } from "vue";
-import { provide, ref } from "vue";
+import { provide, ref, onMounted } from "vue";
 import { useRootStore } from "@/store";
 import { useProjectStore } from "@/store";
 import { useRouter } from "vue-router";
@@ -164,7 +170,7 @@ import {
 import projectService from "@/services/projectService";
 
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
-import AddFile from "@/components/newLavel/AddFile.vue";
+import AddFileBgr from "@/components/newLavel/AddFileBgr.vue";
 import CarouselComponent from "@/components/controls/CarouselComponent.vue";
 
 const router = useRouter();
@@ -177,6 +183,8 @@ const menu = [
   "Правли размещения",
   "Интеграция",
 ];
+
+let finishLoadBgr = false;
 
 const fileInputBgr: Ref<HTMLInputElement | null> = ref(null);
 const fileInputProject: Ref<HTMLInputElement | null> = ref(null);
@@ -230,6 +238,12 @@ function saveFailesProject(filteredFiles: File[]) {
   isMediaAddProgect.value = false;
 }
 
+function handlerOpenBgrPopup() {
+  if (finishLoadBgr) {
+    isMediaAddBgr.value = !isMediaAddBgr.value;
+  }
+}
+
 function returnHome() {
   router.push({ name: "visualization-first" });
 }
@@ -263,13 +277,29 @@ function handlerAddProject() {
 }
 
 function setIconMenu(name: string) {
-  if(name === "Личный ассистент") return "chat"
-  if(name === "Технические требования") return "technical-requirements"
-  if(name === "Правли размещения") return "scales"
-  if(name === "Интеграция") return "integration"
+  if (name === "Личный ассистент") return "chat";
+  if (name === "Технические требования") return "technical-requirements";
+  if (name === "Правли размещения") return "scales";
+  if (name === "Интеграция") return "integration";
 }
 
 provide("handlerBtnHeaderClick", returnHome);
+
+onMounted(() => {
+  projectService.getBackgrounds().then((res) => {
+    const backgrounds = res.backgrounds;
+    projectStore.backgroundsFill.push(...backgrounds);
+    if (backgrounds.length > 1) {
+      projectStore.backgroundsEmpty = [{ id: "0-emty", img: "", plus: true }];
+    } else if (backgrounds.length === 1) {
+      projectStore.backgroundsEmpty = [
+        { id: "0-emty", img: "", plus: true },
+        { id: "1-emty", img: "" },
+      ];
+    }
+    finishLoadBgr = true;
+  });
+});
 </script>
 
 <style lang="scss" scoped>
@@ -560,7 +590,7 @@ provide("handlerBtnHeaderClick", returnHome);
         height: 5vh;
         border: none;
         border-radius: 16px;
-        background-color:rgba(0, 0, 0, 0.55);
+        background-color: rgba(0, 0, 0, 0.55);
         padding: 16px;
         position: absolute;
         bottom: 0;
@@ -583,10 +613,10 @@ provide("handlerBtnHeaderClick", returnHome);
           line-height: 100%;
         }
         &_big {
-          background:rgba(255, 255, 255, 0.75);
-          color: #2A2A2A;
+          background: rgba(255, 255, 255, 0.75);
+          color: #2a2a2a;
           &::placeholder {
-            color: #2A2A2A;
+            color: #2a2a2a;
           }
         }
       }
