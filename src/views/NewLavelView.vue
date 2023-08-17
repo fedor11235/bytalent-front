@@ -25,21 +25,11 @@
     <div class="new-level__backdrop"></div>
     <div class="new-level__content">
       <Transition name="fade">
-        <AddFileBgr
-          v-if="isMediaAddBgr"
-          formats="jpg/png/gif/mp4/mov"
-          @click="handlerAddBackground"
-          @drop="handlerDropBackground"
-        />
+        <AddFileBgr v-if="isMediaAddBgr" />
       </Transition>
-      <!-- <Transition name="fade">
-        <AddFile
-          v-if="isMediaAddProgect"
-          formats="all"
-          @click="handlerAddProject"
-          @drop="handlerDropProject"
-        />
-      </Transition> -->
+      <Transition name="fade">
+        <AddFileProject v-if="isMediaAddProgect" />
+      </Transition>
       <HeaderComponent
         urlButton="header/main.png"
         urlButtonHover="header/main.png"
@@ -171,6 +161,7 @@ import projectService from "@/services/projectService";
 
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import AddFileBgr from "@/components/newLavel/AddFileBgr.vue";
+import AddFileProject from "@/components/newLavel/AddFileProject.vue";
 import CarouselComponent from "@/components/controls/CarouselComponent.vue";
 
 const router = useRouter();

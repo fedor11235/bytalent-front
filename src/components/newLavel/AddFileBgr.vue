@@ -6,31 +6,31 @@
     ref="fileInputBgr"
     accept="image/*"
   />
-  <div class="add-file">
+  <div class="add-file-bgr">
     <div
       @click="handlerLeftMove"
-      class="add-file__arrow add-file__arrow-left"
+      class="add-file-bgr__arrow add-file-bgr__arrow-left"
     ></div>
-    <div v-if="carouselUpdate" class="add-file__carousel" ref="sliders">
+    <div v-if="carouselUpdate" class="add-file-bgr__carousel" ref="sliders">
       <div
         v-for="(background, index) in backgrounds"
         :key="index"
-        class="add-file_grid"
+        class="add-file-bgr_grid"
       >
         <div
           v-for="bgr in background"
           :key="bgr.id"
           @click="handlerUploadBgr(bgr.plus)"
           :class="[
-            'add-file_elem',
+            'add-file-bgr_elem',
             {
-              'add-file_elem_last': bgr.plus,
+              'add-file-bgr_elem_last': bgr.plus,
             },
           ]"
         >
           <img
             v-if="bgr.img"
-            class="add-file_elem__img"
+            class="add-file-bgr_elem__img"
             :src="bgr.img"
             alt="img"
           />
@@ -39,9 +39,9 @@
     </div>
     <div
       @click="handlerRightMove"
-      class="add-file__arrow add-file__arrow-right"
+      class="add-file-bgr__arrow add-file-bgr__arrow-right"
     ></div>
-    <div class="add-file_title">Добавьте свои фото или видео</div>
+    <div class="add-file-bgr_title">Добавьте свои фото или видео</div>
   </div>
 </template>
 
@@ -141,7 +141,6 @@ function updateBgrCarusel() {
       (index + 1) * 9
     );
   }
-  console.log("длина массива", remainder < 9 && remainder !== 0);
   if (remainder > 0) {
     const endArrayBgr = projectStore.backgroundsFill.slice(
       index * 9,
@@ -175,7 +174,7 @@ watch(
 </script>
 
 <style lang="scss" scoped>
-.add-file {
+.add-file-bgr {
   position: absolute;
   width: 66%;
   left: 50%;
