@@ -5,7 +5,7 @@ export const useRootStore = defineStore("root", {
     visualizationHover: false,
     appHover: false,
     streamingHover: false,
-    profileHover: true,
+    profileHover: false,
     searchHover: false,
 
     popupUpload: false,
@@ -15,7 +15,8 @@ export const useRootStore = defineStore("root", {
     popupWarning: false,
     textWarning: "",
 
-    popupProfile: false
+    popupProfile: false,
+    popupSettings: false
   }),
 });
 
@@ -33,4 +34,5 @@ type StreamingStore = {
   textWarning: string;
 
   popupProfile: boolean;
+  popupSettings: boolean
 };

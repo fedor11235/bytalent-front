@@ -15,13 +15,7 @@
       <Transition name="fade">
         <AddFileProject v-if="isMediaAddProgect" />
       </Transition>
-      <HeaderComponent
-        urlButton="header/main.png"
-        urlButtonHover="header/main.png"
-        type="burger"
-        :isTitleButton="true"
-        @switch="rootStore.infoPage = !rootStore.infoPage"
-      />
+      <HeaderComponentAdditional />
       <div class="new-level__title">Новый уровень</div>
       <div class="media">
         <div class="new-level__content__control">
@@ -136,7 +130,7 @@ import { useRouter } from "vue-router";
 
 import projectService from "@/services/projectService";
 
-import HeaderComponent from "@/components/common/HeaderComponent.vue";
+import HeaderComponentAdditional from "@/components/common/HeaderComponentAdditional.vue";
 import AddFileBgr from "@/components/newLavel/AddFileBgr.vue";
 import AddFileProject from "@/components/newLavel/AddFileProject.vue";
 import CarouselComponent from "@/components/controls/CarouselComponent.vue";

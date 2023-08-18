@@ -6,9 +6,6 @@
     />
   </Transition>
   <Transition name="fade">
-    <ProfilePopup v-if="rootStore.popupProfile" />
-  </Transition>
-  <Transition name="fade">
     <InfoComponents v-if="rootStore.infoPage" />
   </Transition>
   <Transition name="fade">
@@ -31,6 +28,10 @@
   </Transition>
   <Transition name="fade">
     <SearchHover v-if="rootStore.searchHover" />
+  </Transition>
+
+  <Transition name="fade">
+    <ProfilePopup v-if="rootStore.popupProfile" />
   </Transition>
 </template>
 

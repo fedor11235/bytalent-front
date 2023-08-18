@@ -1,102 +1,93 @@
 <template>
   <div class="profile-view">
-    <div class="profile-view__backdrop">
-      <HeaderComponent class="profile-view__header" />
-      <!-- <svg width="1025" height="956" viewBox="0 0 1025 956" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M129 1H1025V956H129L1 828V129L129 1Z" fill="black" fill-opacity="0.55"/>
-        <path d="M129 0.5H128.793L128.646 0.646447L0.646447 128.646L0.5 128.793V129V828V828.207L0.646447 828.354L128.646 956.354L128.793 956.5H129H1025H1025.5V956V1V0.5H1025H129Z" stroke="white" stroke-opacity="0.55"/>
-      </svg> -->
-
-      <div class="profile-view__right-panel">
-        <div class="profile-view__cards">
-          <div class="profile-view__card-profile">
-            <div class="profile-view__card-profile_title">
-              Информация профиля
-              <img class="profile-view__card-profile_title_img" src="@/assets/icons/edit.svg" />
-            </div>
-            <div class="profile-view__card-profile_info">
-              <img class="profile-view__card-profile_img" src="@/assets/icons/person.svg" />
-              Роман Нестеренко
-            </div>
-            <div class="profile-view__card-profile_info">
-              <img class="profile-view__card-profile_img" src="@/assets/icons/company.svg" />
-              Акционерное общество "Талент"
-            </div>
-            <div class="profile-view__card-profile_info">
-              <img class="profile-view__card-profile_img" src="@/assets/icons/role.svg" />
-              Генеральный директор
-            </div>
-            <div class="profile-view__card-profile_info">
-              <img class="profile-view__card-profile_img" src="@/assets/icons/phone-profile.svg" />
-              +7 (933) 666 66 63
-            </div>
-            <div class="profile-view__card-profile_info">
-              <img class="profile-view__card-profile_img" src="@/assets/icons/telegram-profile.svg" />
-              @Roman_Talent
-            </div>
+    <HeaderComponentAdditional class="profile-view__header" />
+    <div class="profile-view__right-panel">
+      <div class="profile-view__cards">
+        <div class="profile-view__card-profile">
+          <div class="profile-view__card-profile_title">
+            Информация профиля
+            <img class="profile-view__card-profile_title_img" src="@/assets/icons/edit.svg" />
           </div>
-          <div class="profile-view__card-not">
-            <div class="profile-view__card-not_tabs">
-              <div
-                v-for="tab of tabs"
-                :key="tab"
-                @click="tabActive = tab"
-                :class="[
-                  'profile-view__card-not_tab',
-                  { 'profile-view__card-not_tab-active': tabActive === tab },
-                ]"
-              >
-                {{ tab }}
-              </div>
-            </div>
-            <div v-if="tabActive == 'Активные проекты'">
-              <div
-                v-for="(item, index) of projectsActive"
-                :key="item.id"
-                :class="[
-                  'profile-view__card-not_item',
-                  { 'profile-view__card-not_item-border': index !== 0 },
-                ]"
-              >
-                <div>{{ item.name }}</div>
-                <div>{{ item.status }}</div>
-              </div>
-            </div>
-            <div v-if="tabActive == 'Коммерция'">
-              <div
-                v-for="(item, index) of nots"
-                :key="item"
-                :class="[
-                  'profile-view__card-not_item',
-                  { 'profile-view__card-not_item-border': index !== 0 },
-                ]"
-              >
-                {{ item }}
-              </div>
-            </div>
-            <div v-if="tabActive == 'Уведомления'">
-              <div
-                v-for="(item, index) of nots"
-                :key="item"
-                :class="[
-                  'profile-view__card-not_item',
-                  { 'profile-view__card-not_item-border': index !== 0 },
-                ]"
-              >
-                {{ item }}
-              </div>
-            </div>
+          <div class="profile-view__card-profile_info">
+            <img class="profile-view__card-profile_img" src="@/assets/icons/person.svg" />
+            Роман Нестеренко
           </div>
-          <div class="profile-view__doc">
-            Пользовательское соглашение АО ТК Талент" в соответствии со статьёй
-            428 гражданского кодекса Российской Федерации Политика обработки
-            персональных данных согласно Федеральному закону “О персональных
-            данных“ от 27.07.2006 №152-ФЗ Договор публичной оферты АО “ГК Талент"
+          <div class="profile-view__card-profile_info">
+            <img class="profile-view__card-profile_img" src="@/assets/icons/company.svg" />
+            Акционерное общество "Талент"
+          </div>
+          <div class="profile-view__card-profile_info">
+            <img class="profile-view__card-profile_img" src="@/assets/icons/role.svg" />
+            Генеральный директор
+          </div>
+          <div class="profile-view__card-profile_info">
+            <img class="profile-view__card-profile_img" src="@/assets/icons/phone-profile.svg" />
+            +7 (933) 666 66 63
+          </div>
+          <div class="profile-view__card-profile_info">
+            <img class="profile-view__card-profile_img" src="@/assets/icons/telegram-profile.svg" />
+            @Roman_Talent
           </div>
         </div>
+        <div class="profile-view__card-not">
+          <div class="profile-view__card-not_tabs">
+            <div
+              v-for="tab of tabs"
+              :key="tab"
+              @click="tabActive = tab"
+              :class="[
+                'profile-view__card-not_tab',
+                { 'profile-view__card-not_tab-active': tabActive === tab },
+              ]"
+            >
+              {{ tab }}
+            </div>
+          </div>
+          <div v-if="tabActive == 'Активные проекты'">
+            <div
+              v-for="(item, index) of projectsActive"
+              :key="item.id"
+              :class="[
+                'profile-view__card-not_item',
+                { 'profile-view__card-not_item-border': index !== 0 },
+              ]"
+            >
+              <div>{{ item.name }}</div>
+              <div>{{ item.status }}</div>
+            </div>
+          </div>
+          <div v-if="tabActive == 'Коммерция'">
+            <div
+              v-for="(item, index) of nots"
+              :key="item"
+              :class="[
+                'profile-view__card-not_item',
+                { 'profile-view__card-not_item-border': index !== 0 },
+              ]"
+            >
+              {{ item }}
+            </div>
+          </div>
+          <div v-if="tabActive == 'Уведомления'">
+            <div
+              v-for="(item, index) of nots"
+              :key="item"
+              :class="[
+                'profile-view__card-not_item',
+                { 'profile-view__card-not_item-border': index !== 0 },
+              ]"
+            >
+              {{ item }}
+            </div>
+          </div>
+        </div>
+        <div class="profile-view__doc">
+          Пользовательское соглашение АО ТК Талент" в соответствии со статьёй
+          428 гражданского кодекса Российской Федерации Политика обработки
+          персональных данных согласно Федеральному закону “О персональных
+          данных“ от 27.07.2006 №152-ФЗ Договор публичной оферты АО “ГК Талент"
+        </div>
       </div>
-
-
     </div>
   </div>
 </template>
@@ -104,7 +95,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import HeaderComponent from "@/components/common/HeaderComponent.vue";
+import HeaderComponentAdditional from "@/components/common/HeaderComponentAdditional.vue";
 
 const router = useRouter();
 
@@ -127,22 +118,9 @@ const tabActive = ref("Активные проекты");
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background-position: 50%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-image: url(@/assets/backgrounds/profile.jpg);
-  z-index: 1;
-  &__backdrop {
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    background-color: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(17.5px);
-  }
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(17.5px);
   &__header {
     position: absolute;
     top: 0;
