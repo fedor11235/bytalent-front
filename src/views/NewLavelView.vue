@@ -15,7 +15,7 @@
       <Transition name="fade">
         <AddFileProject v-if="isMediaAddProgect" />
       </Transition>
-      <HeaderComponentAdditional />
+      <HeaderComponentAdditional :removeBtnPst="true" />
       <div class="new-level__title">Новый уровень</div>
       <div class="media">
         <div class="new-level__content__control">

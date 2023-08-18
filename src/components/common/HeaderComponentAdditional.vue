@@ -1,16 +1,5 @@
 <template>
   <div class="header">
-    <Transition name="slide">
-      <div v-if="isOpenMenu" class="header__mobile-menu">
-        <span
-          v-for="button of buttons"
-          :key="button.name"
-          @click="handlerSwitchPage(button.name)"
-          class="header__mobile-menu_btn"
-          >{{ button.title }}</span
-        >
-      </div>
-    </Transition>
     <div class="header__border header__border-top">
       <div
         v-for="(line, index) of lines"
@@ -36,6 +25,7 @@
     <div class="header__logo" :style="logoStyle()"></div>
     <div :class="controllClass()">
       <span
+        v-if="!removeBtnPst"
         @click="handlerSwitchPage('create-project')"
         :class="btnClass('new-lavel', rootStore.popupSettings || rootStore.popupProfile)"
         >Создать проект</span
@@ -77,36 +67,17 @@ import { toRef, ref, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useRootStore } from "@/store";
 
-type PageName =
-  "new-lavel"
-  | "settings"
-  | "profile"
-  | "search";
-
-const allPages: PageName[] = [
-  "new-lavel",
-  "settings",
-  "profile",
-  "search"
-];
+const props = defineProps({
+  removeBtnPst: { type: Boolean, required: false, default: false },
+  theme: { type: String, required: false, default: "" },
+});
 
 const rootStore = useRootStore();
-
-const buttons = [
-  { name: "new-lavel" as PageName, title: "Создать проект" },
-  { name: "settings" as PageName, title: "Настройки" },
-  { name: "profile" as PageName, title: "Профиль" },
-
-];
 
 const lines = ["one", "two", "three", "two", "one"];
 
 const router = useRouter();
 const route = useRoute();
-
-const props = defineProps<{
-  theme?: "light";
-}>();
 
 const theme = toRef(props, "theme");
 const width = ref(window.innerWidth);
