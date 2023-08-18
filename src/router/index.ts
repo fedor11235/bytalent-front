@@ -9,7 +9,7 @@ import NewLavelView from "@/views/NewLavelView.vue";
 import AppView from "@/views/AppView.vue";
 import StreamingView from "@/views/StreamingView.vue";
 import SearchView from "@/views/SearchView.vue";
-import ProfileView from "@/views/ProfileView.vue";
+// import ProfileView from "@/views/ProfileView.vue";
 import LoginView from "@/views/LoginView.vue";
 
 const routes: Array<RouteRecordRaw> = [
@@ -68,14 +68,14 @@ const routes: Array<RouteRecordRaw> = [
     //   auth: true,
     // },
   },
-  {
-    path: "/profile",
-    name: "profile",
-    component: ProfileView,
-    meta: {
-      auth: true,
-    },
-  },
+  // {
+  //   path: "/profile",
+  //   name: "profile",
+  //   component: ProfileView,
+  //   meta: {
+  //     auth: true,
+  //   },
+  // },
   {
     path: "/search",
     name: "search",

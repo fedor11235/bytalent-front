@@ -159,7 +159,12 @@ function handlerSwitchPage(name: PageName) {
   for (const page of allPages) {
     rootStore[`${page}Hover`] = false;
   }
-  router.push({ name: name });
+  if(name === 'profile') {
+    rootStore.popupProfile = true
+  } else {
+    rootStore.popupProfile = false
+    router.push({ name: name });
+  }
 }
 
 function logoStyle() {

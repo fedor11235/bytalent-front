@@ -26,7 +26,7 @@ import HeaderComponent from "@/components/common/HeaderComponent.vue";
 defineProps<{
   bg: string;
   content: string;
-  subcontent: string;
+  subcontent?: string;
   load?: boolean;
   theme?: "light";
 }>();
