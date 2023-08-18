@@ -53,7 +53,7 @@
       <img
         v-if="theme === 'light'"
         @click="handlerSwitchPage('search')"
-        :class="btnClass('search')"
+        :class="btnClass('search', rootStore.popupSettings || rootStore.popupProfile)"
         src="@/assets/icons/search-light.svg"
         height="18"
         width="18"
@@ -62,7 +62,7 @@
       <img
         v-else
         @click="handlerSwitchPage('search')"
-        :class="btnClass('search')"
+        :class="btnClass('search', rootStore.popupSettings || rootStore.popupProfile)"
         src="@/assets/icons/search.svg"
         height="18"
         width="18"
@@ -161,8 +161,8 @@ function btnClassPopup(isPopupActive: boolean) {
 
 function btnClass(name: string, isPopupActive: boolean) {
   return {
-    header__btn: route.name !== name && theme.value !== "light" && !isPopupActive,
-    "header__btn-light": route.name !== name && theme.value === "light" && !isPopupActive,
+    header__btn: isPopupActive && theme.value !== "light",
+    "header__btn-light": isPopupActive && theme.value === "light",
     header__btn_active: route.name === name && theme.value !== "light" && !isPopupActive,
     "header__btn-light_active": route.name === name && theme.value === "light" && !isPopupActive,
   };

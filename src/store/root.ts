@@ -8,6 +8,7 @@ export const useRootStore = defineStore("root", {
     profileHover: false,
     searchHover: false,
 
+    FAQPopup: false,
     popupUpload: false,
     uploadProject: false,
     infoPage: false,
@@ -27,6 +28,7 @@ type StreamingStore = {
   profileHover: boolean;
   searchHover: boolean;
 
+  FAQPopup: boolean;
   popupUpload: boolean;
   uploadProject: boolean;
   infoPage: boolean;

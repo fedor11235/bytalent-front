@@ -18,8 +18,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import HeaderComponent from "@/components/common/HeaderComponent.vue";
 defineProps<{
   modelValue: string;
   placeholder: string;

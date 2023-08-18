@@ -89,15 +89,14 @@
         </div>
       </div>
     </div>
+    <FAQControl />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { useRouter } from "vue-router";
 import HeaderComponentAdditional from "@/components/common/HeaderComponentAdditional.vue";
-
-const router = useRouter();
+import FAQControl from "@/components/controls/FAQControl.vue";
 
 const tabs = ["Активные проекты", "Коммерция", "Уведомления"];
 
@@ -177,7 +176,6 @@ const tabActive = ref("Активные проекты");
       &_img {
         height: 1.6vw;
         width: 1.6vw;
-
         margin-right: 1.25vw;
       }
     }

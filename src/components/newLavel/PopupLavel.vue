@@ -1,12 +1,10 @@
 <template>
   <div class="popup-level">
     <div class="popup-level__carousel">
-      <img
+      <div
         @click="emit('close')"
         class="popup-level__close"
-        src="@/assets/icons/close.png"
-        alt="close"
-      />
+      ></div>
       <div class="popup-level__arrow popup-level__arrow-pos-left">
         <div @click="handlerLeftMove" class="popup-level__arrow-left"></div>
       </div>
@@ -126,8 +124,14 @@ function handlerRightMove() {
     position: absolute;
     top: 0;
     right: 0;
-    height: 22px;
-    width: 22px;
+    height: 4vw;
+    width: 4vw;
+    background-image: url(@/assets/icons/close.svg);
+    background-size: 40%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    background-color: rgba(62, 62, 62, 0.35);
     z-index: 1;
     cursor: pointer;
   }
@@ -140,6 +144,7 @@ function handlerRightMove() {
   &__slider {
     height: 100%;
     min-width: 100%;
+    border-radius: 20px;
     flex-wrap: nowrap;
     flex-direction: row;
     justify-content: center;
@@ -203,6 +208,7 @@ function handlerRightMove() {
       background-repeat: no-repeat;
       cursor: pointer;
       position: relative;
+      opacity: .55;
       &::before {
         content: "";
         font-family: JuraMedium;
@@ -216,8 +222,9 @@ function handlerRightMove() {
         transition: opacity 0.3s;
       }
       &_screen {
-        background-image: url(@/assets/icons/screen.png);
+        background-image: url(@/assets/icons/window.svg);
         &:hover {
+          opacity: 1;
           &::before {
             opacity: 1;
             content: "Сделать фоновым";
@@ -225,8 +232,9 @@ function handlerRightMove() {
         }
       }
       &_trash {
-        background-image: url(@/assets/icons/trash.png);
+        background-image: url(@/assets/icons/trash.svg);
         &:hover {
+          opacity: 1;
           &::before {
             opacity: 1;
             content: "Удалить";

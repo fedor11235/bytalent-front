@@ -33,6 +33,13 @@
   <Transition name="fade">
     <ProfilePopup v-if="rootStore.popupProfile" />
   </Transition>
+  <Transition name="fade">
+    <SettingsPopup v-if="rootStore.popupSettings" />
+  </Transition>
+
+  <Transition name="fade">
+    <PopupFAQ v-if="rootStore.FAQPopup" @close="rootStore.FAQPopup = false" />
+  </Transition>
 </template>
 
 <script setup lang="ts">
@@ -45,7 +52,11 @@ import SearchHover from "@/components/popup/SearchHover.vue";
 import InfoComponents from "@/components/common/InfoComponents.vue";
 import PopupWarning from "@/components/common/PopupWarning.vue";
 import PopupOrder from "@/components/common/PopupOrder.vue";
+
 import ProfilePopup from "@/components/popup/ProfilePopup.vue";
+import SettingsPopup from "@/components/popup/SettingsPopup.vue";
+import PopupFAQ from "@/components/docs/PopupFAQ.vue";
+
 import { useRootStore } from "@/store";
 
 const rootStore = useRootStore();
