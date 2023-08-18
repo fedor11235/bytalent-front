@@ -5,7 +5,7 @@ export const useRootStore = defineStore("root", {
     visualizationHover: false,
     appHover: false,
     streamingHover: false,
-    profileHover: false,
+    profileHover: true,
     searchHover: false,
 
     popupUpload: false,

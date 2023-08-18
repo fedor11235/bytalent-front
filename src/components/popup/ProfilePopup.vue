@@ -2,23 +2,38 @@
   <div class="profile-view">
     <div class="profile-view__backdrop">
       <HeaderComponent class="profile-view__header" />
-      <div class="profile-view__wrap-cards">
+      <!-- <svg width="1025" height="956" viewBox="0 0 1025 956" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M129 1H1025V956H129L1 828V129L129 1Z" fill="black" fill-opacity="0.55"/>
+        <path d="M129 0.5H128.793L128.646 0.646447L0.646447 128.646L0.5 128.793V129V828V828.207L0.646447 828.354L128.646 956.354L128.793 956.5H129H1025H1025.5V956V1V0.5H1025H129Z" stroke="white" stroke-opacity="0.55"/>
+      </svg> -->
+
+      <div class="profile-view__right-panel">
         <div class="profile-view__cards">
           <div class="profile-view__card-profile">
             <div class="profile-view__card-profile_title">
               Информация профиля
+              <img class="profile-view__card-profile_title_img" src="@/assets/icons/edit.svg" />
             </div>
-            <div class="profile-view__card-profile_info">Роман Нестеренко</div>
             <div class="profile-view__card-profile_info">
+              <img class="profile-view__card-profile_img" src="@/assets/icons/person.svg" />
+              Роман Нестеренко
+            </div>
+            <div class="profile-view__card-profile_info">
+              <img class="profile-view__card-profile_img" src="@/assets/icons/company.svg" />
               Акционерное общество "Талент"
             </div>
             <div class="profile-view__card-profile_info">
+              <img class="profile-view__card-profile_img" src="@/assets/icons/role.svg" />
               Генеральный директор
             </div>
             <div class="profile-view__card-profile_info">
+              <img class="profile-view__card-profile_img" src="@/assets/icons/phone-profile.svg" />
               +7 (933) 666 66 63
             </div>
-            <div class="profile-view__card-profile_info">@Roman_Talent</div>
+            <div class="profile-view__card-profile_info">
+              <img class="profile-view__card-profile_img" src="@/assets/icons/telegram-profile.svg" />
+              @Roman_Talent
+            </div>
           </div>
           <div class="profile-view__card-not">
             <div class="profile-view__card-not_tabs">
@@ -72,22 +87,16 @@
               </div>
             </div>
           </div>
+          <div class="profile-view__doc">
+            Пользовательское соглашение АО ТК Талент" в соответствии со статьёй
+            428 гражданского кодекса Российской Федерации Политика обработки
+            персональных данных согласно Федеральному закону “О персональных
+            данных“ от 27.07.2006 №152-ФЗ Договор публичной оферты АО “ГК Талент"
+          </div>
         </div>
       </div>
-      <div class="profile-view__wrap-info">
-        <div
-          @click="router.push({ name: 'settings' })"
-          class="profile-view__btn"
-        >
-          Настройки
-        </div>
-        <div class="profile-view__doc">
-          Пользовательское соглашение АО ТК Талент" в соответствии со статьёй
-          428 гражданского кодекса Российской Федерации Политика обработки
-          персональных данных согласно Федеральному закону “О персональных
-          данных“ от 27.07.2006 №152-ФЗ Договор публичной оферты АО “ГК Талент"
-        </div>
-      </div>
+
+
     </div>
   </div>
 </template>
@@ -140,24 +149,38 @@ const tabActive = ref("Активные проекты");
     left: 0;
     right: 0;
   }
-  &__wrap-cards {
-    width: 80vw;
+  &__right-panel {
+    position: absolute;
+    height: calc(100% - 3.7vh - min(80px, 7.4vh));
+    right: 0;
+    bottom: 0;
+    max-width: 720px;
+    width: max(100%, 53.3vw);
+    background-image: url(@/assets/components/profile-right-panel.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 2.5vh 5.8vw 7.2vh 8.6vw;
+    box-sizing: border-box;
   }
   &__cards {
     display: flex;
-    column-gap: 1.5vw;
+    flex-direction: column;
+    align-items: center;
   }
   &__card-profile {
     width: 100%;
+    height: 32.5vh;
+    box-sizing: border-box;
     border-radius: 24px;
     border-top: 2px solid rgba(255, 255, 255, 0.25);
     border-bottom: 2px solid rgba(255, 255, 255, 0.25);
     background-color: rgba(0, 0, 0, 0.25);
 
     display: flex;
-    padding: 1.4vh 2.5vw;
+    padding: 1.1vh 1.25vw;
     flex-direction: column;
     align-items: flex-start;
+    margin-bottom: 2.2vh;
     &_title {
       width: calc(100% - 48px);
       padding-bottom: 1.6vh;
@@ -168,6 +191,17 @@ const tabActive = ref("Активные проекты");
       font-size: 2.5vh;
       line-height: 100%;
       letter-spacing: -0.56px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &_img {
+        height: 1.6vw;
+        width: 1.6vw;
+
+        margin-right: 1.25vw;
+      }
     }
     &_info {
       width: calc(100% - 48px);
@@ -178,14 +212,24 @@ const tabActive = ref("Активные проекты");
       font-size: 2.5vh;
       line-height: 100%;
       letter-spacing: -0.56px;
+      display: flex;
+      align-items: center;
+    }
+    &_img {
+      height: 2.2vh;
+      width: 2.2vh;
+      margin-right: 1.25vw
     }
   }
   &__card-not {
     width: 100%;
+    height: 32.5vh;
+    box-sizing: border-box;
     border-radius: 24px;
     border: 2px solid rgba(0, 0, 0, 0.85);
     background-color: rgba(0, 0, 0, 0.35);
     padding: 1.4vh 2.5vw;
+    margin-bottom: 3.3vh;
     &_tabs {
       display: flex;
       column-gap: 0.4vw;
@@ -250,15 +294,15 @@ const tabActive = ref("Активные проекты");
     letter-spacing: -0.36px;
   }
   &__doc {
-    margin-top: 7.5vh;
-    margin-bottom: 9vh;
-    width: 60%;
+    width: 100%;
     color: var(--element-white, #fff);
     font-family: JuraBold;
     font-size: 1.2vh;
     font-style: normal;
     font-weight: 700;
     line-height: 200%;
+    padding-right: 20%;
+    box-sizing: border-box;
   }
 }
 </style>

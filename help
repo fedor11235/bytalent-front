@@ -1,11 +1,14 @@
 высота
 336px - 31vh
 241px - 22.3vh
+78px - 7.2vh
 50px - 4.6vh
 44px - 4.07vh
 36px - 3.3vh
 38px - 3.5vh
-28px - 2.5vh
+32px - 2.96vh
+28px - 2.59vh
+27px - 2.5vh
 24px - 2.2vh
 18px - 1.6vh
 16px - 1.48vh
@@ -14,10 +17,13 @@
 8px - 0.74vh
 
 ширина
-32px - 1.6vh
+166px - 8.6vw
+112px - 5.8vw
+60px - 3.125vw
+56px - 2.9vw
+32px - 1.6vw
+20px - 1.04vw
 16px - 0.8vw
 12px - 0.625vw
-60px - 3.125vw
-20px - 1.04vw
 
 serve -s dist
