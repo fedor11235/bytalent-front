@@ -64,7 +64,7 @@ function chooseIconMenu(item: string) {
   }
   &__left-panel {
     height: 100%;
-    width: 720px;
+    width: 53.3vw;
     background-image: url(@/assets/components/profile-left-panel.svg);
     background-size: cover;
     background-repeat: no-repeat;
@@ -114,7 +114,7 @@ function chooseIconMenu(item: string) {
 
     position: absolute;
     bottom: 62px;
-    left: calc(720px + 3.3vw);
+    left: 56.3vw;
   }
 }
 </style>
