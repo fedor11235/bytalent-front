@@ -1,43 +1,12 @@
 <template>
-  <Transition name="fade">
-    <PopupConnect v-if="streamingStore.popupConnect" />
-  </Transition>
-  <DefaultLayout
-    bg="streaming.jpeg"
-    theme="light"
-    :whiteout="true"
-    urlBtnHeader="streaming"
-    urlBtnHeaderHover="streaming"
-    titleContent="Нет активных моделей"
-    textContent="Сперва вам необходимо добавить визуализацию"
-    urlBtnContent="connect"
-    urlBtnContentHover="connect-hover"
-    :curentPagesFooter="0"
-    :numberPagesFooter="0"
-    colorTwoPagesFooter="#353535"
-  />
+  <StreamingComponent />
 </template>
 
 <script setup lang="ts">
-import { provide } from "vue";
-import { useRootStore } from "@/store";
-import { useStreamingStore } from "@/store";
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
-import PopupConnect from "@/components/streaming/PopupConnect.vue";
+import StreamingComponent from "@/components/test/StreamingComponent.vue";
+// import { useRootStore } from "@/store";
 
-const rootStore = useRootStore();
-const streamingStore = useStreamingStore();
-
-function showUploadProject() {
-  rootStore.uploadProject = true;
-}
-
-function openNewLvl() {
-  streamingStore.popupConnect = true;
-}
-
-provide("handlerBtnContentClick", openNewLvl);
-provide("handlerBtnFooterClick", showUploadProject);
+// const rootStore = useRootStore();
 </script>
 
 <style lang="scss" scoped></style>

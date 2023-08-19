@@ -18,6 +18,9 @@ export const useRootStore = defineStore("root", {
 
     popupProfile: false,
     popupSettings: false,
+
+    // for test
+    auth: false,
   }),
 });
 
@@ -37,4 +40,6 @@ type StreamingStore = {
 
   popupProfile: boolean;
   popupSettings: boolean;
+
+  auth: boolean;
 };

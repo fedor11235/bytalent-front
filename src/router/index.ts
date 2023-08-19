@@ -36,14 +36,14 @@ const routes: Array<RouteRecordRaw> = [
     //   auth: true,
     // },
   },
-  {
-    path: "/settings",
-    name: "settings",
-    component: SettingsView,
-    meta: {
-      auth: true,
-    },
-  },
+  // {
+  //   path: "/settings",
+  //   name: "settings",
+  //   component: SettingsView,
+  //   meta: {
+  //     auth: true,
+  //   },
+  // },
   {
     path: "/new-lavel",
     name: "new-lavel",

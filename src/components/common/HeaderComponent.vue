@@ -35,6 +35,15 @@
     </div>
     <div class="header__logo" :style="logoStyle()"></div>
     <div v-if="isDesctop" :class="controllClass()">
+      <div
+        @click="rootStore.auth = !rootStore.auth"
+        :class="{
+          header__btn: theme !== 'light',
+          'header__btn-light': theme === 'light',
+        }"
+      >
+        Авторизация
+      </div>
       <span
         v-for="button of buttons"
         :key="button.name"
@@ -103,8 +112,8 @@ const allPages: PageName[] = [
 const rootStore = useRootStore();
 
 const buttons = [
-  { name: "visualization" as PageName, title: "Визуализация" },
   { name: "app" as PageName, title: "Приложение" },
+  { name: "visualization" as PageName, title: "Проекты" },
   { name: "streaming" as PageName, title: "Стриминг" },
   { name: "profile" as PageName, title: "Профиль" },
   { name: "login" as PageName, title: "Вход" },
