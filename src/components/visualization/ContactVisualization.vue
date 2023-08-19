@@ -48,7 +48,9 @@ import { ref, computed } from "vue";
 import InputComponent from "@/components/controls/InputComponent.vue";
 import CheckboxComponent from "@/components/controls/CheckboxComponent.vue";
 import orderService from "@/services/orderService";
+import { useRouter } from "vue-router";
 
+const router = useRouter()
 const emit = defineEmits(["order"]);
 
 const accept = ref(false);
@@ -60,13 +62,14 @@ const btnActive = computed(
   () => accept.value && name.value && phone.value && email.value
 );
 
-function handlerOrder() {
-  orderService.makeOrder({
+async function handlerOrder() {
+  await orderService.makeOrder({
     name: name.value,
     phone: name.value,
     email: name.value,
   });
-  emit("order");
+  router.push({ name: "new-lavel" });
+  // emit("order");
 }
 </script>
 
