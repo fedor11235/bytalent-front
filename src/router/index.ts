@@ -4,7 +4,7 @@ import authService from "@/services/authService";
 import StartView from "@/views/StartView.vue";
 import VisualizationView from "@/views/VisualizationView.vue";
 import ErrorView from "@/views/ErrorView.vue";
-import SettingsView from "@/views/SettingsView.vue";
+// import SettingsView from "@/views/SettingsView.vue";
 import NewLavelView from "@/views/NewLavelView.vue";
 import AppView from "@/views/AppView.vue";
 import StreamingView from "@/views/StreamingView.vue";
@@ -16,34 +16,17 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     redirect: { name: "start" },
-    // meta: {
-    //   auth: true,
-    // },
   },
   {
     path: "/start",
     name: "start",
     component: StartView,
-    // meta: {
-    //   auth: true,
-    // },
   },
   {
     path: "/visualization",
     name: "visualization",
     component: VisualizationView,
-    // meta: {
-    //   auth: true,
-    // },
   },
-  // {
-  //   path: "/settings",
-  //   name: "settings",
-  //   component: SettingsView,
-  //   meta: {
-  //     auth: true,
-  //   },
-  // },
   {
     path: "/new-lavel",
     name: "new-lavel",
@@ -56,26 +39,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/app",
     name: "app",
     component: AppView,
-    // meta: {
-    //   auth: true,
-    // },
   },
   {
     path: "/streaming",
     name: "streaming",
     component: StreamingView,
-    // meta: {
-    //   auth: true,
-    // },
   },
-  // {
-  //   path: "/profile",
-  //   name: "profile",
-  //   component: ProfileView,
-  //   meta: {
-  //     auth: true,
-  //   },
-  // },
   {
     path: "/search",
     name: "search",
@@ -88,6 +57,15 @@ const routes: Array<RouteRecordRaw> = [
     path: "/login",
     name: "login",
     component: LoginView,
+    meta: {
+      login: true,
+    },
+  },
+  {
+    path: "/login/:nextPage",
+    name: "login-redirect",
+    component: LoginView,
+    props: true,
     meta: {
       login: true,
     },

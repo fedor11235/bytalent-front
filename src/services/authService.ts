@@ -1,9 +1,12 @@
 import api from "@/api";
 import authApi from "@/api/authApi";
 import { createFormData } from "@/utils/formData";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 export default {
-  async userLogin(payload: any) {
+  async userLogin(payload: any, nextPage: () => void) {
     try {
       const formData = createFormData(payload);
       const { data } = await authApi.userLogin(formData);
@@ -17,12 +20,13 @@ export default {
         },
         (error) => error
       );
-      location.reload();
+      nextPage();
+      // location.reload();
     } catch (e) {
       console.error(e);
     }
   },
-  async registrationTelegramUser(payload: any) {
+  async registrationTelegramUser(payload: any, nextPage: () => void) {
     try {
       const formData = createFormData(payload);
       const { data } = await authApi.registrationTelegramUser(formData);
@@ -36,7 +40,8 @@ export default {
         },
         (error) => error
       );
-      location.reload();
+      nextPage();
+      // location.reload();
     } catch (e) {
       console.error(e);
     }
@@ -46,7 +51,7 @@ export default {
       await authApi.checkToken();
       return true;
     } catch (e) {
-      console.error(e);
+      // console.error(e);
       return false;
     }
   },

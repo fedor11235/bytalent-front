@@ -63,7 +63,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import authService from "@/services/authService";
@@ -71,8 +71,14 @@ import profileService from "@/services/profileService";
 import PopupTermsUser from "@/components/docs/PopupTermsUser.vue";
 import PopupPersonalData from "@/components/docs/PopupPersonalData.vue";
 import ApleAuth from "@/components/auth/ApleAuth.vue";
-
+//nextPage
 import { telegramLoginTemp } from "vue3-telegram-login";
+
+const props = defineProps<{
+  nextPage?: string;
+}>();
+
+console.log("nextPage", props.nextPage);
 
 const router = useRouter();
 
@@ -84,6 +90,14 @@ const telegramIdBtn = ref();
 
 const isPersonalData = ref(false);
 const isTermsUser = ref(false);
+
+function callBackRedirect() {
+  if (props.nextPage) {
+    window.location.href = props.nextPage;
+  } else {
+    router.push({ name: "start" });
+  }
+}
 
 async function handlerClickPhone() {
   alert("В разработке");
@@ -97,22 +111,28 @@ async function handlerClickApple() {
 }
 
 async function handlerLogin() {
-  await authService.userLogin({
-    login: login.value,
-  });
+  await authService.userLogin(
+    {
+      login: login.value,
+    },
+    callBackRedirect
+  );
 }
 
 function telegramLoadedCallbackFunc() {
-  console.log("load");
+  console.log("load wgt telegram");
 }
 
-async function yourCallbackFunctionTelegram(user) {
+async function yourCallbackFunctionTelegram(user: any) {
   console.log("data telegram! ", user);
-  await authService.registrationTelegramUser({
-    username: user.username,
-    name: user.first_name,
-    surname: user.last_name,
-  });
+  await authService.registrationTelegramUser(
+    {
+      username: user.username,
+      name: user.first_name,
+      surname: user.last_name,
+    },
+    callBackRedirect
+  );
 }
 </script>
 

@@ -22,10 +22,16 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from "vue-router";
 import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
 
+const router = useRouter();
+
 function HandkerClickUpload() {
-  alert("В разработке");
+  router.push({
+    name: "login-redirect",
+    params: { nextPage: "/visualization" },
+  });
 }
 </script>
 

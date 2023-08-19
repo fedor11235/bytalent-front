@@ -37,7 +37,7 @@
       <FooterComponent
         :curentPages="0"
         :numberPages="0"
-        textButton="+ Загрузить свой проект"
+        textButton="+ Подключить стриминг"
         colorTwoPages="#c7c7c7"
       />
     </template>
@@ -45,26 +45,39 @@
 </template>
 
 <script setup lang="ts">
-import { ref, provide } from "vue";
+import { ref, provide, onBeforeMount } from "vue";
+import { useRouter } from "vue-router";
 import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import FooterComponent from "@/components/common/FooterComponent.vue";
+import authService from "@/services/authService";
 
+const router = useRouter();
 const notes = ref(false);
+const check = ref(false);
 
 function HandkerClickLaunch() {
   notes.value = true;
 }
 
 function HandkerClickConfirmLaunch() {
+  notes.value = false;
   alert("В разработке");
 }
 
 function handlerBtnFooterClick() {
-  alert("В разработке");
+  if (check.value) {
+    alert("В разработке");
+  } else {
+    router.push({ name: "login-redirect", params: { nextPage: "/streaming" } });
+  }
 }
 
 provide("handlerBtnFooterClick", handlerBtnFooterClick);
+
+onBeforeMount(async () => {
+  check.value = await authService.checkToken();
+});
 </script>
 
 <style lang="scss" scoped>

@@ -35,7 +35,7 @@
     </div>
     <div class="header__logo" :style="logoStyle()"></div>
     <div v-if="isDesctop" :class="controllClass()">
-      <div
+      <!-- <div
         @click="rootStore.auth = !rootStore.auth"
         :class="{
           header__btn: theme !== 'light',
@@ -43,7 +43,7 @@
         }"
       >
         Авторизация
-      </div>
+      </div> -->
       <span
         v-for="button of buttons"
         :key="button.name"
@@ -91,22 +91,16 @@
 import { toRef, ref, computed, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useRootStore } from "@/store";
+import authService from "@/services/authService";
 import BurgerComponent from "@/components/common/BurgerComponent.vue";
 
-type PageName =
-  | "visualization"
-  | "app"
-  | "streaming"
-  | "profile"
-  | "search"
-  | "login";
+type PageName = "visualization" | "app" | "streaming" | "profile" | "search";
 const allPages: PageName[] = [
   "visualization",
   "app",
   "streaming",
   "profile",
   "search",
-  "login",
 ];
 
 const rootStore = useRootStore();
@@ -116,7 +110,6 @@ const buttons = [
   { name: "visualization" as PageName, title: "Проекты" },
   { name: "streaming" as PageName, title: "Стриминг" },
   { name: "profile" as PageName, title: "Профиль" },
-  { name: "login" as PageName, title: "Вход" },
 ];
 
 const lines = ["one", "two", "three", "two", "one"];
@@ -163,13 +156,21 @@ function handlerMouseOutBtn(name: PageName) {
   rootStore[`${name}Hover`] = false;
 }
 
-function handlerSwitchPage(name: PageName) {
+async function handlerSwitchPage(name: PageName) {
   isOpenMenu.value = false;
   for (const page of allPages) {
     rootStore[`${page}Hover`] = false;
   }
   if (name === "profile") {
-    rootStore.popupProfile = true;
+    const check = await authService.checkToken();
+    if (check) {
+      rootStore.popupProfile = true;
+    } else {
+      router.push({
+        name: "login-redirect",
+        params: { nextPage: String(route.fullPath) },
+      });
+    }
   } else {
     rootStore.popupProfile = false;
     router.push({ name: name });
