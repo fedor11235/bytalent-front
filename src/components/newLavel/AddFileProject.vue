@@ -9,12 +9,27 @@
   />
   <div class="add-file-prg">
     <div class="add-file-prg_grid">
-      <div class="add-file-prg_elem add-file-prg_elem-format" @click="handlerAddProject" @drop="handlerDropProject">
-        <div class="add-file-prg_elem_title">Поддерживаемые форматы: *3dm, *fbx, *dwg</div>
-        <img src="@/assets/icons/upload-prj.svg" width="48" height="48" alt="upload"/>
+      <div
+        class="add-file-prg_elem add-file-prg_elem-format"
+        @click="handlerAddProject"
+        @drop="handlerDropProject"
+      >
+        <div class="add-file-prg_elem_title">
+          Поддерживаемые форматы: *3dm, *fbx, *dwg
+        </div>
+        <img
+          src="@/assets/icons/upload-prj.svg"
+          width="48"
+          height="48"
+          alt="upload"
+        />
       </div>
-      <div class="add-file-prg_elem add-file-prg_elem-preview"><div class="add-file-prg_elem_title">Предпросмотр</div></div>
-      <div class="add-file-prg_elem add-file-prg_elem-preview"><div class="add-file-prg_elem_title">Информация</div></div>
+      <div class="add-file-prg_elem add-file-prg_elem-preview">
+        <div class="add-file-prg_elem_title">Предпросмотр</div>
+      </div>
+      <div class="add-file-prg_elem add-file-prg_elem-preview">
+        <div class="add-file-prg_elem_title">Информация</div>
+      </div>
     </div>
     <div class="add-file-prg_title">Загрузите файлы проекта</div>
   </div>
@@ -23,7 +38,12 @@
 <script setup lang="ts">
 import type { Ref } from "vue";
 import { ref } from "vue";
-import { fileInput, filesInsertion, browseFile, filesProcessing } from "@/utils/file";
+import {
+  fileInput,
+  filesInsertion,
+  browseFile,
+  filesProcessing,
+} from "@/utils/file";
 // import projectService from "@/services/projectService";
 import { useRootStore } from "@/store";
 import { useProjectStore } from "@/store";
@@ -33,7 +53,7 @@ const projectStore = useProjectStore();
 
 const fileInputProject: Ref<HTMLInputElement | null> = ref(null);
 
-  ["dragover", "drop"].forEach(function (event) {
+["dragover", "drop"].forEach(function (event) {
   document.addEventListener(event, function (evt) {
     evt.preventDefault();
     return false;
@@ -97,7 +117,7 @@ function handlerDropProject(event: DragEvent) {
   &_elem {
     position: relative;
     border-radius: 20px;
-    background-color: #2A2A2A;
+    background-color: #2a2a2a;
     &-format {
       display: flex;
       align-items: center;
@@ -106,16 +126,16 @@ function handlerDropProject(event: DragEvent) {
       cursor: pointer;
     }
     &_title {
-        position: absolute;
-        top: 1.48vh;
-        width: 100%;
-        text-align: center;
-        color:rgba(255, 255, 255, 0.75);
-        font-family: JuraMedium;
-        font-size: 1.85vh;
-        line-height: 140%;
-        letter-spacing: -0.4px;
-      }
+      position: absolute;
+      top: 1.48vh;
+      width: 100%;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.75);
+      font-family: JuraMedium;
+      font-size: 1.85vh;
+      line-height: 140%;
+      letter-spacing: -0.4px;
+    }
   }
 }
 </style>

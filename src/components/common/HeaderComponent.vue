@@ -159,10 +159,10 @@ function handlerSwitchPage(name: PageName) {
   for (const page of allPages) {
     rootStore[`${page}Hover`] = false;
   }
-  if(name === 'profile') {
-    rootStore.popupProfile = true
+  if (name === "profile") {
+    rootStore.popupProfile = true;
   } else {
-    rootStore.popupProfile = false
+    rootStore.popupProfile = false;
     router.push({ name: name });
   }
 }

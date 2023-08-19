@@ -6,26 +6,44 @@
         <div class="profile-view__card-profile">
           <div class="profile-view__card-profile_title">
             Информация профиля
-            <img class="profile-view__card-profile_title_img" src="@/assets/icons/edit.svg" />
+            <img
+              class="profile-view__card-profile_title_img"
+              src="@/assets/icons/edit.svg"
+            />
           </div>
           <div class="profile-view__card-profile_info">
-            <img class="profile-view__card-profile_img" src="@/assets/icons/person.svg" />
+            <img
+              class="profile-view__card-profile_img"
+              src="@/assets/icons/person.svg"
+            />
             Роман Нестеренко
           </div>
           <div class="profile-view__card-profile_info">
-            <img class="profile-view__card-profile_img" src="@/assets/icons/company.svg" />
+            <img
+              class="profile-view__card-profile_img"
+              src="@/assets/icons/company.svg"
+            />
             Акционерное общество "Талент"
           </div>
           <div class="profile-view__card-profile_info">
-            <img class="profile-view__card-profile_img" src="@/assets/icons/role.svg" />
+            <img
+              class="profile-view__card-profile_img"
+              src="@/assets/icons/role.svg"
+            />
             Генеральный директор
           </div>
           <div class="profile-view__card-profile_info">
-            <img class="profile-view__card-profile_img" src="@/assets/icons/phone-profile.svg" />
+            <img
+              class="profile-view__card-profile_img"
+              src="@/assets/icons/phone-profile.svg"
+            />
             +7 (933) 666 66 63
           </div>
           <div class="profile-view__card-profile_info">
-            <img class="profile-view__card-profile_img" src="@/assets/icons/telegram-profile.svg" />
+            <img
+              class="profile-view__card-profile_img"
+              src="@/assets/icons/telegram-profile.svg"
+            />
             @Roman_Talent
           </div>
         </div>
@@ -194,7 +212,7 @@ const tabActive = ref("Активные проекты");
     &_img {
       height: 2.2vh;
       width: 2.2vh;
-      margin-right: 1.25vw
+      margin-right: 1.25vw;
     }
   }
   &__card-not {

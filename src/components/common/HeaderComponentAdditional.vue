@@ -25,9 +25,22 @@
     <div class="header__logo" :style="logoStyle()"></div>
     <div :class="controllClass()">
       <span
+        @click="handlerSwitchPage('start')"
+        :class="{
+          header__btn: theme !== 'light',
+          'header__btn-light': theme === 'light',
+        }"
+        >На главную</span
+      >
+      <span
         v-if="!removeBtnPst"
         @click="handlerSwitchPage('create-project')"
-        :class="btnClass('new-lavel', rootStore.popupSettings || rootStore.popupProfile)"
+        :class="
+          btnClass(
+            'new-lavel',
+            rootStore.popupSettings || rootStore.popupProfile
+          )
+        "
         >Создать проект</span
       >
       <span
@@ -43,7 +56,9 @@
       <img
         v-if="theme === 'light'"
         @click="handlerSwitchPage('search')"
-        :class="btnClass('search', rootStore.popupSettings || rootStore.popupProfile)"
+        :class="
+          btnClass('search', rootStore.popupSettings || rootStore.popupProfile)
+        "
         src="@/assets/icons/search-light.svg"
         height="18"
         width="18"
@@ -52,7 +67,9 @@
       <img
         v-else
         @click="handlerSwitchPage('search')"
-        :class="btnClass('search', rootStore.popupSettings || rootStore.popupProfile)"
+        :class="
+          btnClass('search', rootStore.popupSettings || rootStore.popupProfile)
+        "
         src="@/assets/icons/search.svg"
         height="18"
         width="18"
@@ -99,17 +116,22 @@ function updateWidth() {
 }
 
 function handlerSwitchPage(name: any) {
-  if (name === 'create-project') {
+  if (name === "start") {
     rootStore.popupProfile = false;
     rootStore.popupSettings = false;
-    router.push({ name: 'new-lavel' });
-  } else if(name === 'settings') {
+    router.push({ name: "start" });
+  }
+  if (name === "create-project") {
+    rootStore.popupProfile = false;
+    rootStore.popupSettings = false;
+    router.push({ name: "new-lavel" });
+  } else if (name === "settings") {
     rootStore.popupProfile = false;
     rootStore.popupSettings = true;
-  } else if(name === 'profile') {
+  } else if (name === "profile") {
     rootStore.popupProfile = true;
     rootStore.popupSettings = false;
-}
+  }
 }
 
 function logoStyle() {
@@ -134,8 +156,10 @@ function btnClass(name: string, isPopupActive: boolean) {
   return {
     header__btn: isPopupActive && theme.value !== "light",
     "header__btn-light": isPopupActive && theme.value === "light",
-    header__btn_active: route.name === name && theme.value !== "light" && !isPopupActive,
-    "header__btn-light_active": route.name === name && theme.value === "light" && !isPopupActive,
+    header__btn_active:
+      route.name === name && theme.value !== "light" && !isPopupActive,
+    "header__btn-light_active":
+      route.name === name && theme.value === "light" && !isPopupActive,
   };
 }
 

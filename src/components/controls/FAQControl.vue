@@ -11,8 +11,8 @@ const rootStore = useRootStore();
 <style lang="scss" scoped>
 .question {
   position: fixed;
-  bottom: 62px;
-  right: 62px;
+  bottom: 9.25vh;
+  right: 5.2vw;
   border-radius: 50%;
   background: rgba(62, 62, 62, 0.35);
   height: 44px;

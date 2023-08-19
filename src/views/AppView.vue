@@ -1,5 +1,5 @@
 <template>
-  <DefaultLayout
+  <!-- <DefaultLayout
     bg="app.png"
     :blackout="true"
     urlBtnHeader="app"
@@ -12,11 +12,13 @@
     :numberPagesFooter="0"
     textButtonFooter="+ Заказать разработку приложения"
     colorTwoPagesFooter="#c7c7c7"
-  />
+  /> -->
+  <AppComponent />
 </template>
 
 <script setup lang="ts">
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
+import AppComponent from "@/components/test/AppComponent.vue";
 </script>
 
 <style lang="scss" scoped></style>

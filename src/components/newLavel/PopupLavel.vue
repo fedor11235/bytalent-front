@@ -1,10 +1,7 @@
 <template>
   <div class="popup-level">
     <div class="popup-level__carousel">
-      <div
-        @click="emit('close')"
-        class="popup-level__close"
-      ></div>
+      <div @click="emit('close')" class="popup-level__close"></div>
       <div class="popup-level__arrow popup-level__arrow-pos-left">
         <div @click="handlerLeftMove" class="popup-level__arrow-left"></div>
       </div>
@@ -208,7 +205,7 @@ function handlerRightMove() {
       background-repeat: no-repeat;
       cursor: pointer;
       position: relative;
-      opacity: .55;
+      opacity: 0.55;
       &::before {
         content: "";
         font-family: JuraMedium;

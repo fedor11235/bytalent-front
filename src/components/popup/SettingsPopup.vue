@@ -2,16 +2,25 @@
   <div class="settings-view">
     <HeaderComponentAdditional class="settings-view__header" />
     <div class="settings-view__content">
-      <div class="settings-view__left-panel">
-      </div>
+      <div class="settings-view__left-panel"></div>
       <div class="settings-view__menu">
         <div v-for="item in menu" :key="item" class="settings-view__menu_item">
-          <img class="settings-view__menu_img" :src="require(`@/assets/icons/${chooseIconMenu(item)}.svg`)" />
+          <img
+            class="settings-view__menu_img"
+            :src="require(`@/assets/icons/${chooseIconMenu(item)}.svg`)"
+          />
           {{ item }}
         </div>
       </div>
       <div class="settings-view__doc">
-        © 2023 Все права защищены. Пользователь уведомлен, что любые материалы, размещенные на сайте, являются объектами интеллектуальной собственности АО «ГК Талент» (правообладателя). Пользователь не вправе без предварительного письменного разрешения правообладателя осуществлять какие-либо действия с объектами интеллектуальной собственности, в противном случае, правообладатель оставляет за собой право на взыскание штрафов, предусмотренных законодательством РФ, а также на обращение в компетентные органы за защитой своих прав и законных интересов.
+        © 2023 Все права защищены. Пользователь уведомлен, что любые материалы,
+        размещенные на сайте, являются объектами интеллектуальной собственности
+        АО «ГК Талент» (правообладателя). Пользователь не вправе без
+        предварительного письменного разрешения правообладателя осуществлять
+        какие-либо действия с объектами интеллектуальной собственности, в
+        противном случае, правообладатель оставляет за собой право на взыскание
+        штрафов, предусмотренных законодательством РФ, а также на обращение в
+        компетентные органы за защитой своих прав и законных интересов.
       </div>
     </div>
     <FAQControl />
@@ -23,19 +32,19 @@ import HeaderComponentAdditional from "@/components/common/HeaderComponentAdditi
 import FAQControl from "@/components/controls/FAQControl.vue";
 
 const menu = [
-  'Коммерция',
-  'Личные дела',
-  'Юридические данные',
-  'Официальные ссылки',
-  'Безопасность'
-]
+  "Коммерция",
+  "Личные дела",
+  "Юридические данные",
+  "Официальные ссылки",
+  "Безопасность",
+];
 
 function chooseIconMenu(item: string) {
-  if(item === 'Коммерция') return 'chat'
-  if(item === 'Личные дела') return 'technical-requirements'
-  if(item === 'Юридические данные') return 'scales'
-  if(item === 'Официальные ссылки') return 'integration'
-  if(item === 'Безопасность') return 'integration'
+  if (item === "Коммерция") return "chat";
+  if (item === "Личные дела") return "technical-requirements";
+  if (item === "Юридические данные") return "scales";
+  if (item === "Официальные ссылки") return "integration";
+  if (item === "Безопасность") return "integration";
 }
 </script>
 
@@ -70,8 +79,9 @@ function chooseIconMenu(item: string) {
     background-repeat: no-repeat;
     padding: 2.5vh 3.125vw 7.2vh 6.66vw;
     box-sizing: border-box;
+    background-position: right;
   }
-  
+
   &__menu {
     display: flex;
     width: 400px;
@@ -95,7 +105,7 @@ function chooseIconMenu(item: string) {
       border-radius: 12px;
       border-top: 1px solid rgba(255, 255, 255, 0.65);
 
-      color: #F9F9F9;
+      color: #f9f9f9;
       font-family: JuraSemiBold;
       font-size: 1.6vh;
       line-height: 100%;
@@ -105,7 +115,7 @@ function chooseIconMenu(item: string) {
     }
   }
   &__doc {
-    color: #FFF;
+    color: #fff;
     font-family: JuraSemiBold;
     font-size: 1.296vh;
     line-height: 100%;

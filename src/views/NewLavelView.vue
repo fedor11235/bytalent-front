@@ -26,15 +26,27 @@
       <div class="new-level__info">
         <div class="new-level__header">
           <div class="new-level__content__control">
-            <div class="new-level__header__btn" @click="IsModeAdrsWrt = !IsModeAdrsWrt"></div>
+            <div
+              class="new-level__header__btn"
+              @click="IsModeAdrsWrt = !IsModeAdrsWrt"
+            ></div>
           </div>
           <div class="new-level__text_wrap">
-            <div :class="['new-level__text', {'new-level__text-wrt': IsModeAdrsWrt}]">
-              <div class="new-level__text_line">
-                <div :class="['new-level__text_line_left', {'new-level__text_line_left-wrt': IsModeAdrsWrt}]"></div>
-                <div :class="['new-level__text_line_right', {'new-level__text_line_right-wrt': IsModeAdrsWrt}]"></div>
+            <div
+              :class="[
+                'new-level__text',
+                { 'new-level__text-wrt': IsModeAdrsWrt },
+              ]"
+            >
+              <LineComponent :themeLight="IsModeAdrsWrt" />
+              <div
+                :class="[
+                  'new-level__text_address',
+                  { 'new-level__text_address-wrt': IsModeAdrsWrt },
+                ]"
+              >
+                Адрес проекта
               </div>
-              <div :class="['new-level__text_address', {'new-level__text_address-wrt': IsModeAdrsWrt}]">Адрес проекта</div>
             </div>
             <div class="new-level__description">
               <div class="new-level__description_text">Описание объекта</div>
@@ -131,6 +143,7 @@ import { useRouter } from "vue-router";
 import projectService from "@/services/projectService";
 
 import HeaderComponentAdditional from "@/components/common/HeaderComponentAdditional.vue";
+import LineComponent from "@/components/common/LineComponent.vue";
 import AddFileBgr from "@/components/newLavel/AddFileBgr.vue";
 import AddFileProject from "@/components/newLavel/AddFileProject.vue";
 import CarouselComponent from "@/components/controls/CarouselComponent.vue";
@@ -307,30 +320,7 @@ onMounted(() => {
       width: 66%;
     }
     &-wrt {
-      background-color: #F9F9F9;
-    }
-    &_line {
-      display: flex;
-      column-gap: 0.625vw;
-      margin-right: 0.625vw;
-      &_left {
-        width: 3.125vw;
-        height: 4px;
-        border-radius: 4px;
-        background-color: rgba(255, 255, 255, 0.25);
-        &-wrt {
-          background-color: rgba(0, 0, 0, 0.25);
-        }
-      }
-      &_right {
-        width: 1.04vw;
-        height: 4px;
-        border-radius: 4px;
-        background-color: rgba(255, 255, 255, 0.85);
-        &-wrt {
-          background-color: rgba(0, 0, 0, 0.85);
-        }
-      }
+      background-color: #f9f9f9;
     }
     &_address {
       color: rgba(255, 255, 255, 0.85);
