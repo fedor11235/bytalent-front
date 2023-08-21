@@ -2,22 +2,27 @@
   <Transition name="fade">
     <PopupAdd v-if="isPopupAdd" @close="isPopupAdd = false" />
   </Transition>
-  <DefaultLayout
+  <WelcomeLayout
     v-if="total > 0"
+    bg="project-new"
     noHover
-    bg="visualization-second.jpeg"
-    :blackout="true"
-    urlBtnHeader="visualization"
-    urlBtnHeaderHover="visualization-hover"
-    :titleContent="(projects as any)[0].name ? (projects as any)[0].name: 'Новый уровень'"
-    :textContent="(projects as any)[0].info ? (projects as any)[0].info: 'Описание уровня'"
-    urlBtnContent="control"
-    urlBtnContentHover="control-hover"
-    :curentPagesFooter="0"
-    :numberPagesFooter="0"
-    textButtonFooter="Новый уровень"
-    colorTwoPagesFooter="#8b8b8b"
-  />
+    :title="(projects as any)[0].name ? (projects as any)[0].name: 'Новый уровень'"
+    bgrDropColor="rgba(0, 0, 0, 0.55)"
+    bgrDropBlur="blur(17.5px)"
+    :description="(projects as any)[0].info ? (projects as any)[0].info: 'Описание уровня'"
+    imgBtn="control"
+    :btnClick="HandkerClickControl"
+  >
+    <template v-slot:content-bottom>
+      <FooterComponent
+        :handlerBtnFooterClick="handlerBtnFooterClick"
+        :curentPages="0"
+        :numberPages="0"
+        textButton="+ Новый уровень"
+        colorTwoPages="#c7c7c7"
+      />
+    </template>
+  </WelcomeLayout>
   <WelcomeLayout
     v-else
     bg="projects-auth"
@@ -26,7 +31,7 @@
     bgrDropColor="rgba(0, 0, 0, 0.50)"
     description="Вы можете заказть новый проет либо загрузить свой"
     imgBtn="create-light"
-    :btnClick="HandkerClickUpload"
+    :btnClick="HandkerClickCreate"
   >
     <template v-slot:content-bottom>
       <FooterComponent
@@ -43,26 +48,37 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
-import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import FooterComponent from "@/components/common/FooterComponent.vue";
 import projectService from "@/services/projectService";
 import PopupAdd from "@/components/visualization/PopupAdd.vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const projects = ref(0);
 const total = ref(0);
 
 const isPopupAdd = ref(false);
 
-function HandkerClickUpload() {
-  alert("В разработке");
+async function HandkerClickCreate() {
+  await projectService.createProject({
+    name: 'Новый проект',
+    address: 'Адрес проекта',
+    type: 'Тип проекта',
+  });
+  location.reload();
 }
 
 function handlerBtnFooterClick() {
   isPopupAdd.value = true;
 }
 
-onMounted(() => {
-  projectService.getAllNumberProjects().then((res) => {
+function HandkerClickControl() {
+  router.push({ name: "new-lavel" });
+}
+
+onMounted(async() => {
+  await projectService.getAllNumberProjects().then((res) => {
     if (res) {
       projects.value = res.projects;
       total.value = res.total;

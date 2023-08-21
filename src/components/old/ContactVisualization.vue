@@ -51,7 +51,6 @@ import orderService from "@/services/orderService";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-const emit = defineEmits(["order"]);
 
 const accept = ref(false);
 const name = ref("");
@@ -69,7 +68,6 @@ async function handlerOrder() {
     email: name.value,
   });
   router.push({ name: "new-lavel" });
-  // emit("order");
 }
 </script>
 
