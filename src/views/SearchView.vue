@@ -1,7 +1,7 @@
 <template>
   <div class="search-view">
     <div class="search-view__backdrop">
-      <HeaderComponent class="search-view__header" />
+      <HeaderComponent class="search-view__header" :noHover="check" />
       <div class="search-view__input">
         <InputComponent
           v-model="searchText"
@@ -21,10 +21,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onBeforeMount } from "vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import InputComponent from "@/components/controls/InputComponent.vue";
+import authService from "@/services/authService";
+
 const searchText = ref("");
+const check = ref(false);
+
+onBeforeMount(async () => {
+  check.value = await authService.checkToken();
+});
 </script>
 
 <style lang="scss" scoped>

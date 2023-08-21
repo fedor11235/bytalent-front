@@ -1,12 +1,10 @@
 <template>
   <Transition name="fade">
-    <PopupOrder
-      v-if="isOrderVisulization"
-      @close="isOrderVisulization = false"
-    />
+    <PopupAdd v-if="isPopupAdd" @close="isPopupAdd = false" />
   </Transition>
   <DefaultLayout
     v-if="total > 0"
+    noHover
     bg="visualization-second.jpeg"
     :blackout="true"
     urlBtnHeader="visualization"
@@ -23,6 +21,7 @@
   <WelcomeLayout
     v-else
     bg="projects-auth"
+    noHover
     title="Нет активных проектов"
     bgrDropColor="rgba(0, 0, 0, 0.50)"
     description="Вы можете заказть новый проет либо загрузить свой"
@@ -31,6 +30,7 @@
   >
     <template v-slot:content-bottom>
       <FooterComponent
+        :handlerBtnFooterClick="handlerBtnFooterClick"
         :curentPages="0"
         :numberPages="0"
         textButton="+ Загрузить свой проект"
@@ -41,26 +41,26 @@
 </template>
 
 <script setup lang="ts">
-import { ref, provide, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
 import DefaultLayout from "@/layouts/DefaultLayout.vue";
 import FooterComponent from "@/components/common/FooterComponent.vue";
 import projectService from "@/services/projectService";
-import PopupOrder from "@/components/visualization/PopupOrder.vue";
+import PopupAdd from "@/components/visualization/PopupAdd.vue";
 
 const projects = ref(0);
 const total = ref(0);
-const isOrderVisulization = ref(false);
+
+const isPopupAdd = ref(false);
 
 function HandkerClickUpload() {
-  isOrderVisulization.value = true;
-}
-
-function handlerBtnFooterClick() {
   alert("В разработке");
 }
 
-provide("handlerBtnFooterClick", handlerBtnFooterClick);
+function handlerBtnFooterClick() {
+  isPopupAdd.value = true;
+}
+
 onMounted(() => {
   projectService.getAllNumberProjects().then((res) => {
     if (res) {

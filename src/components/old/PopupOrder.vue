@@ -1,14 +1,14 @@
 <template>
   <div @click.self="emit('close')" class="add">
     <ThankVisualization @close="handleClose" v-if="thank" />
-    <ContactVisualization v-else @order="thank = true" />
+    <!-- <ContactVisualization v-else @order="thank = true" /> -->
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 import ThankVisualization from "@/components/visualization/ThankVisualization.vue";
-import ContactVisualization from "@/components/visualization/ContactVisualization.vue";
+// import ContactVisualization from "@/components/visualization/ContactVisualization.vue";
 import projectService from "@/services/projectService";
 const emit = defineEmits(["close"]);
 

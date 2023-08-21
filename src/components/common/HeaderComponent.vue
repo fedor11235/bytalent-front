@@ -35,15 +35,6 @@
     </div>
     <div class="header__logo" :style="logoStyle()"></div>
     <div v-if="isDesctop" :class="controllClass()">
-      <!-- <div
-        @click="rootStore.auth = !rootStore.auth"
-        :class="{
-          header__btn: theme !== 'light',
-          'header__btn-light': theme === 'light',
-        }"
-      >
-        Авторизация
-      </div> -->
       <span
         v-for="button of buttons"
         :key="button.name"
@@ -55,6 +46,16 @@
         @mouseleave="handlerMouseOutBtn(button.name)"
         >{{ button.title }}</span
       >
+      <div
+        v-if="!noHover"
+        @click="router.push({ name: 'login' })"
+        :class="{
+          header__btn: theme !== 'light',
+          'header__btn-light': theme === 'light',
+        }"
+      >
+        Войти
+      </div>
       <img
         v-if="theme === 'light'"
         @click="handlerSwitchPage('search')"
@@ -94,14 +95,8 @@ import { useRootStore } from "@/store";
 import authService from "@/services/authService";
 import BurgerComponent from "@/components/common/BurgerComponent.vue";
 
-type PageName = "visualization" | "app" | "streaming" | "profile" | "search";
-const allPages: PageName[] = [
-  "visualization",
-  "app",
-  "streaming",
-  "profile",
-  "search",
-];
+type PageName = "visualization" | "app" | "streaming" | "login" | "search";
+const allPages: PageName[] = ["visualization", "app", "streaming", "search"];
 
 const rootStore = useRootStore();
 
@@ -109,7 +104,6 @@ const buttons = [
   { name: "app" as PageName, title: "Приложение" },
   { name: "visualization" as PageName, title: "Проекты" },
   { name: "streaming" as PageName, title: "Стриминг" },
-  { name: "profile" as PageName, title: "Профиль" },
 ];
 
 const lines = ["one", "two", "three", "two", "one"];
@@ -119,6 +113,7 @@ const route = useRoute();
 
 const props = defineProps<{
   theme?: "light";
+  noHover?: boolean;
 }>();
 
 const theme = toRef(props, "theme");
@@ -149,7 +144,9 @@ function updateWidth() {
 }
 
 function handlerMouseOverBtn(name: PageName) {
-  rootStore[`${name}Hover`] = true;
+  if (!props.noHover) {
+    rootStore[`${name}Hover`] = true;
+  }
 }
 
 function handlerMouseOutBtn(name: PageName) {

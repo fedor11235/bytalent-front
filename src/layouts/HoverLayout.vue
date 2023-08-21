@@ -6,10 +6,7 @@
     }"
   >
     <div class="hover-layout__backdrop">
-      <HeaderComponent :theme="theme" />
-      <!-- <div v-if="load" class="hover-layout__load">
-        <div class="hover-layout__load_img"></div>
-      </div> -->
+      <HeaderComponent :theme="theme" :noHover="noHover" />
       <div class="hover-layout__content">
         {{ content }}
         <div v-if="subcontent" class="hover-layout__subcontent">
@@ -27,8 +24,8 @@ defineProps<{
   bg: string;
   content: string;
   subcontent?: string;
-  load?: boolean;
   theme?: "light";
+  noHover?: boolean;
 }>();
 </script>
 
@@ -48,34 +45,6 @@ defineProps<{
     width: 100vw;
     background-color: rgba(0, 0, 0, 0.58);
     backdrop-filter: blur(7px);
-  }
-  &__load {
-    position: absolute;
-    top: 50%;
-    left: 10%;
-    transform: translateY(-25%);
-    width: 20vw;
-    height: 20vw;
-    &_img {
-      height: 100%;
-      width: 100%;
-      background-image: url(@/assets/loading/hover.png);
-      background-repeat: no-repeat;
-      background-size: contain;
-      background-position: center;
-      animation-timing-function: linear;
-      animation-duration: 3s;
-      animation-name: turn;
-      animation-iteration-count: infinite;
-      @keyframes turn {
-        from {
-          rotate: 0deg;
-        }
-        to {
-          rotate: 360deg;
-        }
-      }
-    }
   }
   &__content {
     position: absolute;

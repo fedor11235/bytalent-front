@@ -32,9 +32,11 @@
     description="Доступ через бразуер к любому проекту"
     imgBtn="launch"
     :btnClick="HandkerClickLaunch"
+    :noHover="check"
   >
     <template v-slot:content-bottom>
       <FooterComponent
+        :handlerBtnFooterClick="handlerBtnFooterClick"
         :curentPages="0"
         :numberPages="0"
         textButton="+ Подключить стриминг"
@@ -45,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, provide, onBeforeMount } from "vue";
+import { ref, onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
 import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
@@ -72,8 +74,6 @@ function handlerBtnFooterClick() {
     router.push({ name: "login-redirect", params: { nextPage: "/streaming" } });
   }
 }
-
-provide("handlerBtnFooterClick", handlerBtnFooterClick);
 
 onBeforeMount(async () => {
   check.value = await authService.checkToken();

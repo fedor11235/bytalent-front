@@ -6,7 +6,7 @@
     bgrDropBlur="blur(7.5px)"
     description="Персональное приложение для доступа в проекты Unreal Engine 5"
     isLine
-    imgBtn="upload"
+    imgBtn="upload-w"
     :btnClick="HandkerClickUpload"
   >
     <template v-slot:content-bottom>

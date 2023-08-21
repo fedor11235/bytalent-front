@@ -14,7 +14,7 @@
         },
       ]"
     >
-      <HeaderComponent :theme="theme" />
+      <HeaderComponent :theme="theme" noHover />
       <ContentComponent
         :theme="theme"
         :title="titleContent"
@@ -53,6 +53,7 @@ defineProps<{
   textContent: string;
   urlBtnContent: string;
   urlBtnContentHover: string;
+  noHover?: boolean;
 }>();
 </script>
 

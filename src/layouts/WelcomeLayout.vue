@@ -12,7 +12,7 @@
         backdropFilter: bgrDropBlur,
       }"
     >
-      <HeaderComponent :theme="theme" />
+      <HeaderComponent :theme="theme" :noHover="noHover" />
       <div class="layout-welcome__content">
         <div class="layout-welcome__content_top">
           <slot name="content-top"></slot>
@@ -50,6 +50,7 @@ defineProps<{
   title: string;
   description: string;
   theme?: "light";
+  noHover?: boolean;
 }>();
 </script>
 

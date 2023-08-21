@@ -4,10 +4,12 @@
     imgBtn="download-darck"
     title="Приложение просмотра интерьеров"
     description="Персональное приложение для доступа в проекты Unreal Engine 5"
+    noHover
     :btnClick="HandkerClickDomnload"
   >
     <template v-slot:content-bottom>
       <FooterComponent
+        :handlerBtnFooterClick="handlerBtnFooterClick"
         :curentPages="0"
         :numberPages="0"
         textButton="Заказать разработку приложения"
@@ -18,7 +20,6 @@
 </template>
 
 <script setup lang="ts">
-import { provide } from "vue";
 import FooterComponent from "@/components/common/FooterComponent.vue";
 import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
 
@@ -29,8 +30,6 @@ function HandkerClickDomnload() {
 function handlerBtnFooterClick() {
   alert("В разработке");
 }
-
-provide("handlerBtnFooterClick", handlerBtnFooterClick);
 </script>
 
 <style lang="scss" scoped></style>

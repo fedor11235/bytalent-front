@@ -5,8 +5,11 @@
 96px - 8.8vh
 78px - 7.2vh
 66px - 6.1vh
+63.636px - 5.89vh
 60px - 5.5vh
+56px - 5.185vh
 50px - 4.6vh
+48px - 4.44vh
 44px - 4.07vh
 36px - 3.3vh
 38px - 3.5vh
@@ -14,20 +17,22 @@
 28px - 2.59vh
 27px - 2.5vh
 24px - 2.2vh
+20px - 1.85vh
 18px - 1.6vh
 16px - 1.48vh
 14px - 1.296vh
-20px - 1.85vh
+12px - 1.11vh
 8px - 0.74vh
 
 ширина
+800px - 41.66vw
 400px - 20.83vw
 300px - 15.625vw
 250px - 13vw
 166px - 8.6vw
 112px - 5.8vw
 88px - 4.58vw
-64px - 3.3vw
+64px - 3.33vw
 60px - 3.125vw
 56px - 2.9vw
 32px - 1.6vw

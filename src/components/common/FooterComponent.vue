@@ -62,6 +62,7 @@ const props = defineProps<{
   curentPages?: number;
   colorTwoPages?: string;
   textButton?: string;
+  handlerBtnFooterClick?: () => void;
 }>();
 
 const theme = toRef(props, "theme");
@@ -70,9 +71,9 @@ const curentPages = toRef(props, "curentPages");
 const leftArrowHover = ref(false);
 const rightArrowHover = ref(false);
 
-const handlerBtnFooterClick = inject("handlerBtnFooterClick") as (
-  ...args: any[]
-) => void;
+// const handlerBtnFooterClick = inject("handlerBtnFooterClick") as (
+//   ...args: any[]
+// ) => void;
 const handlerBtnNavigationClick = inject("handlerBtnNavigationClick") as (
   ...args: any[]
 ) => void;

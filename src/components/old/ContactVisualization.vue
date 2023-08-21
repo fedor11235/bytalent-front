@@ -50,7 +50,7 @@ import CheckboxComponent from "@/components/controls/CheckboxComponent.vue";
 import orderService from "@/services/orderService";
 import { useRouter } from "vue-router";
 
-const router = useRouter()
+const router = useRouter();
 const emit = defineEmits(["order"]);
 
 const accept = ref(false);
