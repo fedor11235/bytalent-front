@@ -2,7 +2,7 @@
   <!-- <div class="tgme_widget_login medium nouserpic" id="widget_login"><button class="btn tgme_widget_login_button"
       onclick="return TWidgetLogin.auth();"><i class="tgme_widget_login_button_icon"></i>Log in with Telegram</button>
   </div> -->
-  <div ref="buttonTelegram" @click="test" class="telegram-auth">
+  <div ref="buttonTelegram" id="widget_login" @click="test" class="telegram-auth">
     <div v-if="isLoadTelegram" class="telegram-auth__loader"></div>
     <div v-else>Войти Телеграм</div>
   </div>
@@ -27,34 +27,26 @@ function test() {
   window.Telegram.Login.auth(
     { bot_id: 6574863532, request_access: true },
     (data: any) => {
-      if (!data) {
-        console.log('ошибка авторизации')
+      if (data) {
+        console.log('вы авторизированны')
       }
-      console.log('авторизированны')
-      alert(data)
-      console.log(data)
     }
   );
 }
 
-function postLoadFunction(e: any) {
-  // isLoadTelegram.value = false
-  // eslint-disable-next-line
-  window.Telegram.Login.init('widget_login', 6574863532, {"origin":"https:\/\/core.telegram.org"}, false, "ru", (data: any) => {
-    console.log('data init: ', data)
-  });
-}
+// function postLoadFunction() {
+//   // isLoadTelegram.value = false
+//   // eslint-disable-next-line
+//   window.Telegram.Login.init('widget_login', 6574863532, {"origin":"https:\/\/core.telegram.org"}, false, "ru", (data: any) => {
+//     console.log('data init: ', data)
+//   });
+// }
 
 onMounted(() => {
-  const script = document.createElement("script");
-  script.setAttribute("type", "text/javascript");
-  script.setAttribute(
-    "src",
-    "https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"
-  );
-  script.addEventListener("load", postLoadFunction);
-
-  buttonTelegram.value.appendChild(script);
+  // eslint-disable-next-line
+  window.Telegram.Login.init({target_login_btn_id: 'widget_login', bot_id: 6574863532, params: {"origin":"https:\/\/core.telegram.org"}, init_auth: false, lang: "ru"}, (data: any) => {
+    console.log('data init: ', data)
+  });
 });
 </script>
 
