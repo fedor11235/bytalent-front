@@ -21,14 +21,14 @@
           />
           <span class="login__text">Войти по номеру</span>
         </div>
-        <telegram-login-temp
+        <!-- <telegram-login-temp
           class="telegram-wgit"
           mode="callback"
           telegram-login="ByTALENTBot"
           @loaded="telegramLoadedCallbackFunc"
           @callback="yourCallbackFunctionTelegram"
-        />
-        <TelegramAuth />
+        /> -->
+        <TelegramAuth :onTelegramAuth="onTelegramAuth"/>
         <div class="login__enter" @click="handlerClickApple">
           <img
             src="@/assets/icons/apple.svg"
@@ -73,7 +73,7 @@ import PopupPersonalData from "@/components/docs/PopupPersonalData.vue";
 import ApleAuth from "@/components/auth/ApleAuth.vue";
 import TelegramAuth from "@/components/auth/TelegramAuth.vue";
 
-import { telegramLoginTemp } from "vue3-telegram-login";
+// import { telegramLoginTemp } from "vue3-telegram-login";
 
 const props = defineProps<{
   nextPage?: string;
@@ -89,6 +89,18 @@ const telegramIdBtn = ref();
 
 const isPersonalData = ref(false);
 const isTermsUser = ref(false);
+
+async function onTelegramAuth(user: any) {
+  console.log("data telegram! ", user);
+  await authService.registrationTelegramUser(
+    {
+      username: user.username,
+      name: user.first_name,
+      surname: user.last_name,
+    },
+    callBackRedirect
+  );
+}
 
 function callBackRedirect() {
   if (props.nextPage) {
@@ -118,30 +130,30 @@ async function handlerLogin() {
   );
 }
 
-function telegramLoadedCallbackFunc() {
-  const iFrame = document.getElementById("telegram-login-ByTALENTBot");
-  if (iFrame?.style) {
-    iFrame.style.width = "100%";
-  }
-  const btnsClasses = iFrame?.getElementsByClassName("tgme_widget_login_button");
-  if((btnsClasses as HTMLCollection)[0]) {
-    const btnTelegram = (btnsClasses as HTMLCollection)[0];
-    (btnTelegram as HTMLElement).style.width = '100%';
-    (btnTelegram as HTMLElement).style.padding = '16px 48px;';
-    (btnTelegram as HTMLElement).style.borderRadius = '28px';
-    (btnTelegram as HTMLElement).style.display = 'flex';
-    (btnTelegram as HTMLElement).style.columnGap = '16px';
+// function telegramLoadedCallbackFunc() {
+//   const iFrame = document.getElementById("telegram-login-ByTALENTBot");
+//   if (iFrame?.style) {
+//     iFrame.style.width = "100%";
+//   }
+//   const btnsClasses = iFrame?.getElementsByClassName("tgme_widget_login_button");
+//   if((btnsClasses as HTMLCollection)[0]) {
+//     const btnTelegram = (btnsClasses as HTMLCollection)[0];
+//     (btnTelegram as HTMLElement).style.width = '100%';
+//     (btnTelegram as HTMLElement).style.padding = '16px 48px;';
+//     (btnTelegram as HTMLElement).style.borderRadius = '28px';
+//     (btnTelegram as HTMLElement).style.display = 'flex';
+//     (btnTelegram as HTMLElement).style.columnGap = '16px';
 
-    // width: 100%;
-    // padding: 16px 48px;
-    // border-radius: 28px;
-    // display: flex;
-    // column-gap: 16px;
-  }
-  console.log('btnsClasses', btnsClasses)
-  console.log("iFrame", iFrame);
-  console.log("load wgt telegram");
-}
+//     // width: 100%;
+//     // padding: 16px 48px;
+//     // border-radius: 28px;
+//     // display: flex;
+//     // column-gap: 16px;
+//   }
+//   console.log('btnsClasses', btnsClasses)
+//   console.log("iFrame", iFrame);
+//   console.log("load wgt telegram");
+// }
 
 async function yourCallbackFunctionTelegram(user: any) {
   console.log("data telegram! ", user);

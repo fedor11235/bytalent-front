@@ -5,13 +5,12 @@
 
 <script setup lang="ts">
 import { ref, onMounted, provide } from "vue";
-import authService from "@/services/authService";
+
+const props = defineProps<{
+  onTelegramAuth: (user: any) => void;
+}>();
 
 const buttonTelegram = ref();
-
-function onTelegramAuth(user: any) {
-  alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
-}
 
 onMounted(() => {
   const script = document.createElement("script");
@@ -46,7 +45,7 @@ onMounted(() => {
   );
 
   buttonTelegram.value.appendChild(script);
-  (window as any).onTelegramAuth = onTelegramAuth
+  (window as any).onTelegramAuth = props.onTelegramAuth
 });
 </script>
 
