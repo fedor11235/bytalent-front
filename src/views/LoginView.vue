@@ -67,18 +67,15 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import authService from "@/services/authService";
-import profileService from "@/services/profileService";
 import PopupTermsUser from "@/components/docs/PopupTermsUser.vue";
 import PopupPersonalData from "@/components/docs/PopupPersonalData.vue";
 import ApleAuth from "@/components/auth/ApleAuth.vue";
-//nextPage
+
 import { telegramLoginTemp } from "vue3-telegram-login";
 
 const props = defineProps<{
   nextPage?: string;
 }>();
-
-console.log("nextPage", props.nextPage);
 
 const router = useRouter();
 
@@ -120,6 +117,11 @@ async function handlerLogin() {
 }
 
 function telegramLoadedCallbackFunc() {
+  const iFrame = document.getElementById('telegram-login-ByTALENTBot')
+  if(iFrame?.style) {
+    iFrame.style.width = '100%'
+  }
+  console.log('iFrame', iFrame)
   console.log("load wgt telegram");
 }
 
@@ -134,6 +136,14 @@ async function yourCallbackFunctionTelegram(user: any) {
     callBackRedirect
   );
 }
+// #telegram-login-ByTALENTBot
+// onMounted(() => {
+//   const iFrame = document.getElementById('telegram-login-ByTALENTBot')
+//   if(iFrame?.style) {
+//     iFrame.style.width = '100%'
+//   }
+//   console.log('iFrame', iFrame)
+// })
 </script>
 
 <style lang="scss" scoped>
@@ -198,6 +208,20 @@ async function yourCallbackFunctionTelegram(user: any) {
   }
   .telegram-wgit {
     width: 100%;
+    &:deep(.tgme_widget_login_user_photo) {
+      display: none;
+    }
+    &:deep(body) {
+      width: 100%;
+    }
+    &:deep(.tgme_widget_login_button) {
+      width: 100%;
+      padding: 16px 48px;
+      border-radius: 28px;
+      display: flex;
+      -moz-column-gap: 16px;
+      column-gap: 16px;
+    }
   }
   &__agreement {
     width: 310px;
