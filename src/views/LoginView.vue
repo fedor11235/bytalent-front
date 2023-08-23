@@ -21,13 +21,13 @@
           />
           <span class="login__text">Войти по номеру</span>
         </div>
-        <!-- <telegram-login-temp
+        <telegram-login-temp
           class="telegram-wgit"
           mode="callback"
           telegram-login="ByTALENTBot"
           @loaded="telegramLoadedCallbackFunc"
           @callback="yourCallbackFunctionTelegram"
-        /> -->
+        />
         <TelegramAuth />
         <div class="login__enter" @click="handlerClickApple">
           <img

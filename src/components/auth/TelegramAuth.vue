@@ -38,7 +38,7 @@ onMounted(() => {
   );
   script.setAttribute(
     "data-onauth",
-    "onTelegramAuth(user)"
+    "window.onTelegramAuth(user)"
   );
   script.setAttribute(
     "data-request-access",
@@ -46,10 +46,25 @@ onMounted(() => {
   );
 
   buttonTelegram.value.appendChild(script);
+  (window as any).onTelegramAuth = onTelegramAuth
 });
 </script>
 
 <style lang="scss" scoped>
-// .aple-auth {
-// }
+.telegram-auth {
+  width: 100%;
+  &:deep(.tgme_widget_login_user_photo) {
+    display: none;
+  }
+  &:deep(body) {
+    width: 100%;
+  }
+  &:deep(.tgme_widget_login_button) {
+    width: 100%;
+    padding: 16px 48px;
+    border-radius: 28px;
+    display: flex;
+    column-gap: 16px;
+  }
+}
 </style>
