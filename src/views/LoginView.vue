@@ -73,7 +73,7 @@ import PopupPersonalData from "@/components/docs/PopupPersonalData.vue";
 import ApleAuth from "@/components/auth/ApleAuth.vue";
 import TelegramAuth from "@/components/auth/TelegramAuthTest.vue";
 
-// import { telegramLoginTemp } from "vue3-telegram-login";
+import { telegramLoginTemp } from "vue3-telegram-login";
 
 const props = defineProps<{
   nextPage?: string;

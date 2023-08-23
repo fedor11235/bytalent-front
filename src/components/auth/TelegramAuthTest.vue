@@ -44,9 +44,11 @@ function test() {
 
 onMounted(() => {
   // eslint-disable-next-line
-  window.Telegram.Login.init({target_login_btn_id: 'widget_login', bot_id: 6574863532, params: {"origin":"https:\/\/core.telegram.org"}, init_auth: (data: any) => {
-    console.log('data init: ', data)
-  }, lang: "ru"});
+  //   window.Telegram.Login.open({ bot_id: 6574863532, request_access: true }, (data: any) => {
+  //       console.log(data)
+  //     });
+  // eslint-disable-next-line
+  window.Telegram.Login.init('widget_login', 6574863532, {"origin":"https:\/\/core.telegram.org"}, false, "ru");
 });
 </script>
 
