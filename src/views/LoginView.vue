@@ -121,7 +121,7 @@ function telegramLoadedCallbackFunc() {
   if (iFrame?.style) {
     iFrame.style.width = "100%";
   }
-  const btnsClasses = iFrame?.getElementsByClassName("tgme_widget_login_user_photo");
+  const btnsClasses = iFrame?.getElementsByClassName("tgme_widget_login_button");
   if((btnsClasses as HTMLCollection)[0]) {
     const btnTelegram = (btnsClasses as HTMLCollection)[0];
     (btnTelegram as HTMLElement).style.width = '100%';
