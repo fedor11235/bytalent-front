@@ -44,9 +44,9 @@ function test() {
 
 onMounted(() => {
   // eslint-disable-next-line
-  window.Telegram.Login.init({target_login_btn_id: 'widget_login', bot_id: 6574863532, params: {"origin":"https:\/\/core.telegram.org"}, init_auth: false, lang: "ru"}, (data: any) => {
+  window.Telegram.Login.init({target_login_btn_id: 'widget_login', bot_id: 6574863532, params: {"origin":"https:\/\/core.telegram.org"}, init_auth: (data: any) => {
     console.log('data init: ', data)
-  });
+  }, lang: "ru"});
 });
 </script>
 
