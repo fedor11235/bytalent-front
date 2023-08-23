@@ -121,6 +121,22 @@ function telegramLoadedCallbackFunc() {
   if (iFrame?.style) {
     iFrame.style.width = "100%";
   }
+  const btnsClasses = iFrame?.getElementsByClassName("tgme_widget_login_user_photo");
+  if((btnsClasses as HTMLCollection)[0]) {
+    const btnTelegram = (btnsClasses as HTMLCollection)[0];
+    (btnTelegram as HTMLElement).style.width = '100%';
+    (btnTelegram as HTMLElement).style.padding = '16px 48px;';
+    (btnTelegram as HTMLElement).style.borderRadius = '28px';
+    (btnTelegram as HTMLElement).style.display = 'flex';
+    (btnTelegram as HTMLElement).style.columnGap = '16px';
+
+    // width: 100%;
+    // padding: 16px 48px;
+    // border-radius: 28px;
+    // display: flex;
+    // column-gap: 16px;
+  }
+  console.log('btnsClasses', btnsClasses)
   console.log("iFrame", iFrame);
   console.log("load wgt telegram");
 }
@@ -219,7 +235,6 @@ async function yourCallbackFunctionTelegram(user: any) {
       padding: 16px 48px;
       border-radius: 28px;
       display: flex;
-      -moz-column-gap: 16px;
       column-gap: 16px;
     }
   }
