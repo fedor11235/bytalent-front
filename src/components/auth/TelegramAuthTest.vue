@@ -31,6 +31,7 @@ function test() {
         console.log('ошибка авторизации')
       }
       console.log('авторизированны')
+      alert(data)
       console.log(data)
     }
   );
@@ -39,7 +40,9 @@ function test() {
 function postLoadFunction(e: any) {
   // isLoadTelegram.value = false
   // eslint-disable-next-line
-  // window.Telegram.Login.init('widget_login', 6574863532, {"origin":"https:\/\/core.telegram.org"}, false, "en");
+  window.Telegram.Login.init('widget_login', 6574863532, {"origin":"https:\/\/core.telegram.org"}, false, "ru", (data: any) => {
+    console.log('data init: ', data)
+  });
 }
 
 onMounted(() => {
