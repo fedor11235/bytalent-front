@@ -25,7 +25,7 @@ function test() {
   console.log(window.Telegram)
   // eslint-disable-next-line
   window.Telegram.Login.auth(
-    { bot_id: '6574863532', request_access: true },
+    { bot_id: 6574863532, request_access: true },
     (data: any) => {
       if (!data) {
         console.log('ошибка авторизации')
@@ -36,10 +36,11 @@ function test() {
   );
 }
 
-// function postLoadFunction(e: any) {
-//   isLoadTelegram.value = false
-//   console.log('ss', e)
-// }
+function postLoadFunction(e: any) {
+  // isLoadTelegram.value = false
+  // eslint-disable-next-line
+  // window.Telegram.Login.init('widget_login', 6574863532, {"origin":"https:\/\/core.telegram.org"}, false, "en");
+}
 
 onMounted(() => {
   const script = document.createElement("script");
@@ -48,7 +49,7 @@ onMounted(() => {
     "src",
     "https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"
   );
-  // script.addEventListener("load", postLoadFunction);
+  script.addEventListener("load", postLoadFunction);
 
   buttonTelegram.value.appendChild(script);
 });

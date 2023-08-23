@@ -21,13 +21,13 @@
           />
           <span class="login__text">Войти по номеру</span>
         </div>
-        <!-- <telegram-login-temp
+        <telegram-login-temp
           class="telegram-wgit"
           mode="callback"
           telegram-login="ByTALENTBot"
           @loaded="telegramLoadedCallbackFunc"
           @callback="yourCallbackFunctionTelegram"
-        /> -->
+        />
         <TelegramAuth :onTelegramAuth="onTelegramAuth"/>
         <div class="login__enter" @click="handlerClickApple">
           <img
@@ -73,7 +73,7 @@ import PopupPersonalData from "@/components/docs/PopupPersonalData.vue";
 import ApleAuth from "@/components/auth/ApleAuth.vue";
 import TelegramAuth from "@/components/auth/TelegramAuthTest.vue";
 
-// import { telegramLoginTemp } from "vue3-telegram-login";
+import { telegramLoginTemp } from "vue3-telegram-login";
 
 const props = defineProps<{
   nextPage?: string;
