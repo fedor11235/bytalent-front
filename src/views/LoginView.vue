@@ -117,11 +117,11 @@ async function handlerLogin() {
 }
 
 function telegramLoadedCallbackFunc() {
-  const iFrame = document.getElementById('telegram-login-ByTALENTBot')
-  if(iFrame?.style) {
-    iFrame.style.width = '100%'
+  const iFrame = document.getElementById("telegram-login-ByTALENTBot");
+  if (iFrame?.style) {
+    iFrame.style.width = "100%";
   }
-  console.log('iFrame', iFrame)
+  console.log("iFrame", iFrame);
   console.log("load wgt telegram");
 }
 

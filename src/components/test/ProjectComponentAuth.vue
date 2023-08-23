@@ -62,9 +62,9 @@ const isPopupAdd = ref(false);
 
 async function HandkerClickCreate() {
   await projectService.createProject({
-    name: 'Новый проект',
-    address: 'Адрес проекта',
-    type: 'Тип проекта',
+    name: "Новый проект",
+    address: "Адрес проекта",
+    type: "Тип проекта",
   });
   location.reload();
 }
@@ -77,7 +77,7 @@ function HandkerClickControl() {
   router.push({ name: "new-lavel" });
 }
 
-onMounted(async() => {
+onMounted(async () => {
   await projectService.getAllNumberProjects().then((res) => {
     if (res) {
       projects.value = res.projects;
