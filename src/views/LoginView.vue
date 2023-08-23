@@ -71,7 +71,7 @@ import authService from "@/services/authService";
 import PopupTermsUser from "@/components/docs/PopupTermsUser.vue";
 import PopupPersonalData from "@/components/docs/PopupPersonalData.vue";
 import ApleAuth from "@/components/auth/ApleAuth.vue";
-import TelegramAuth from "@/components/auth/TelegramAuth.vue";
+import TelegramAuth from "@/components/auth/TelegramAuthTest.vue";
 
 // import { telegramLoginTemp } from "vue3-telegram-login";
 

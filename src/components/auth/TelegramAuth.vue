@@ -30,10 +30,10 @@ onMounted(() => {
     "data-size",
     "large"
   );
-  script.setAttribute(
-    "data-userpic",
-    "false"
-  );
+  // script.setAttribute(
+  //   "data-userpic",
+  //   "false"
+  // );
   script.setAttribute(
     "data-onauth",
     "window.onTelegramAuth(user)"
