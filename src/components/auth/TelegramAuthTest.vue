@@ -1,26 +1,38 @@
 <template>
-  <!-- <div class="tgme_widget_login medium nouserpic" id="widget_login"><button class="btn tgme_widget_login_button"
-      onclick="return TWidgetLogin.auth();"><i class="tgme_widget_login_button_icon"></i>Log in with Telegram</button>
-  </div> -->
-  <div ref="buttonTelegram" id="widget_login" @click="test" class="telegram-auth">
-    <div v-if="isLoadTelegram" class="telegram-auth__loader"></div>
-    <div v-else>Войти Телеграм</div>
+  <div
+    ref="buttonTelegram"
+    @click="test"
+    class="telegram-auth"
+    :style="{
+      justifyContent: finishLoad? 'flex-start': '',
+    }"
+  >
+    <div v-if="!finishLoad" class="telegram-auth__loader"></div>
+    <img
+      v-if="finishLoad"
+      src="@/assets/icons/telegram-w.svg"
+      height="24"
+      width="24"
+      alt="apple"
+    />
+    <div v-if="finishLoad" class="telegram-auth__text">Войти через Telegram</div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import './test.js';
 
+const emit = defineEmits(["enter"]);
+
 const props = defineProps<{
-  onTelegramAuth: (user: any) => void;
+  finishLoad: boolean;
 }>();
 
 const buttonTelegram = ref();
-const isLoadTelegram = ref(false);
 
 function test() {
-  if(isLoadTelegram.value) return
+  if(!props.finishLoad) return
   // eslint-disable-next-line
   console.log(window.Telegram)
   // eslint-disable-next-line
@@ -28,28 +40,15 @@ function test() {
     { bot_id: 6574863532, request_access: true },
     (data: any) => {
       if (data) {
-        console.log('вы авторизированны')
+        emit('enter', data)
       }
     }
   );
 }
 
-// function postLoadFunction() {
-//   // isLoadTelegram.value = false
-//   // eslint-disable-next-line
-//   window.Telegram.Login.init('widget_login', 6574863532, {"origin":"https:\/\/core.telegram.org"}, false, "ru", (data: any) => {
-//     console.log('data init: ', data)
-//   });
-// }
-
-onMounted(() => {
-  // eslint-disable-next-line
-  //   window.Telegram.Login.open({ bot_id: 6574863532, request_access: true }, (data: any) => {
-  //       console.log(data)
-  //     });
-  // eslint-disable-next-line
-  window.Telegram.Login.init('widget_login', 6574863532, {"origin":"https:\/\/core.telegram.org"}, false, "ru");
-});
+// onMounted(() => {
+//   window.Telegram.Login.init('widget_login', 6574863532, {"origin":"https:\/\/core.telegram.org"}, false, "ru");
+// });
 </script>
 
 <style lang="scss" scoped>
@@ -57,7 +56,7 @@ onMounted(() => {
   width: 100%;
   padding: 16px 48px;
   border-radius: 28px;
-  background-color: white;
+  background-color: #6AA7E5;;
   display: flex;
   align-items: center;
   column-gap: 16px;
@@ -68,6 +67,13 @@ onMounted(() => {
     box-shadow: -3px -1px 8px 0px rgba(232, 232, 232, 0.25),
       4px 6px 12px 0px rgba(232, 232, 232, 0.25),
       2px 2px 2px 0px rgba(232, 232, 232, 0.5) inset;
+  }
+  &__text {
+    color: white;
+    font-family: SFProDisplaySemibold;
+    font-size: 1.759vh;
+    line-height: 100%;
+    letter-spacing: -0.38px;
   }
   &__loader {
     display: inline-block;
@@ -80,8 +86,8 @@ onMounted(() => {
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    border: 3px solid black;
-    border-color: black transparent black transparent;
+    border: 3px solid white;
+    border-color: white transparent white transparent;
     animation: lds-dual-ring 1.2s linear infinite;
   }
   @keyframes lds-dual-ring {

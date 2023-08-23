@@ -21,14 +21,17 @@
           />
           <span class="login__text">Войти по номеру</span>
         </div>
-        <!-- <telegram-login-temp
-          class="telegram-wgit"
+        <telegram-login-temp
+          class="crutch-telegram"
           mode="callback"
           telegram-login="ByTALENTBot"
           @loaded="telegramLoadedCallbackFunc"
           @callback="yourCallbackFunctionTelegram"
-        /> -->
-        <TelegramAuth :onTelegramAuth="onTelegramAuth"/>
+        />
+        <TelegramAuth
+          :finishLoad="telegramWgtFinishLoad"
+          @enter="onTelegramAuth"
+        />
         <div class="login__enter" @click="handlerClickApple">
           <img
             src="@/assets/icons/apple.svg"
@@ -86,6 +89,7 @@ const isDevelopment = process.env.NODE_ENV === "development";
 
 const appleIdBtn = ref();
 const telegramIdBtn = ref();
+const telegramWgtFinishLoad = ref(false);
 
 const isPersonalData = ref(false);
 const isTermsUser = ref(false);
@@ -130,30 +134,9 @@ async function handlerLogin() {
   );
 }
 
-// function telegramLoadedCallbackFunc() {
-//   const iFrame = document.getElementById("telegram-login-ByTALENTBot");
-//   if (iFrame?.style) {
-//     iFrame.style.width = "100%";
-//   }
-//   const btnsClasses = iFrame?.getElementsByClassName("tgme_widget_login_button");
-//   if((btnsClasses as HTMLCollection)[0]) {
-//     const btnTelegram = (btnsClasses as HTMLCollection)[0];
-//     (btnTelegram as HTMLElement).style.width = '100%';
-//     (btnTelegram as HTMLElement).style.padding = '16px 48px;';
-//     (btnTelegram as HTMLElement).style.borderRadius = '28px';
-//     (btnTelegram as HTMLElement).style.display = 'flex';
-//     (btnTelegram as HTMLElement).style.columnGap = '16px';
-
-//     // width: 100%;
-//     // padding: 16px 48px;
-//     // border-radius: 28px;
-//     // display: flex;
-//     // column-gap: 16px;
-//   }
-//   console.log('btnsClasses', btnsClasses)
-//   console.log("iFrame", iFrame);
-//   console.log("load wgt telegram");
-// }
+function telegramLoadedCallbackFunc() {
+  telegramWgtFinishLoad.value = true
+}
 
 async function yourCallbackFunctionTelegram(user: any) {
   console.log("data telegram! ", user);
@@ -177,6 +160,9 @@ async function yourCallbackFunctionTelegram(user: any) {
 </script>
 
 <style lang="scss" scoped>
+.crutch-telegram {
+  display: none;
+}
 .login {
   height: 100vh;
   width: 100vw;
@@ -191,7 +177,8 @@ async function yourCallbackFunctionTelegram(user: any) {
     row-gap: 24px;
   }
   &__form {
-    width: 300px;
+    min-width: 300px;
+    width: 15.625vw;
     display: flex;
     flex-direction: column;
     row-gap: 14px;
@@ -201,7 +188,7 @@ async function yourCallbackFunctionTelegram(user: any) {
     color: rgba(255, 255, 255, 0.85);
     text-align: center;
     font-family: JuraMedium;
-    font-size: 28px;
+    font-size: 2.592vh;
     font-style: normal;
     font-weight: 500;
     line-height: 100%;
@@ -209,8 +196,8 @@ async function yourCallbackFunctionTelegram(user: any) {
   }
   &__text {
     color: #191919;
-    font-family: SF Pro Display;
-    font-size: 19px;
+    font-family: SFProDisplaySemibold;
+    font-size: 1.759vh;
     font-style: normal;
     font-weight: 600;
     line-height: 100%;
