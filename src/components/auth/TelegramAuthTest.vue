@@ -20,8 +20,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import './test.js';
+
+const urlInitAuth = 'https://oauth.telegram.org/embed/ByTALENTBot?origin=https%3A%2F%2Fbytalent.ru&return_to=https%3A%2F%2Fbytalent.ru%2Flogin&size=large&userpic=true&request_access=read'
 
 const emit = defineEmits(["enter"]);
 
@@ -46,9 +48,16 @@ function test() {
   );
 }
 
-// onMounted(() => {
-//   window.Telegram.Login.init('widget_login', 6574863532, {"origin":"https:\/\/core.telegram.org"}, false, "ru");
-// });
+// https://oauth.telegram.org/embed/ByTALENTBot?origin=https%3A%2F%2Fbytalent.ru&return_to=https%3A%2F%2Fbytalent.ru%2Flogin&size=large&userpic=true&request_access=read
+
+
+onMounted(async () => {
+  // eslint-disable-next-line
+  // window.Telegram.Login.init('widget_login', 6574863532, {"origin":"https:\/\/core.telegram.org"}, false, "ru");
+  const response = await fetch(urlInitAuth)
+  const data = response.json()
+  console.log('data init: ', data)
+});
 </script>
 
 <style lang="scss" scoped>
