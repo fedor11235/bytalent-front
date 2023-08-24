@@ -1,155 +1,152 @@
 <template>
-  <div
-    class="new-level"
-    :style="{
-      backgroundImage: projectStore.background
-        ? `url(${projectStore.background})`
-        : `url(${require('@/assets/backgrounds/lvel.jpeg')})`,
-    }"
-  >
-    <div class="new-level__backdrop"></div>
-    <div class="new-level__content">
-      <Transition name="fade">
-        <AddFileBgr v-if="isMediaAddBgr" />
-      </Transition>
-      <Transition name="fade">
-        <AddFileProject v-if="isMediaAddProgect" />
-      </Transition>
-      <HeaderComponentAdditional :removeBtnPst="true" />
-      <div class="new-level__title">Новый уровень</div>
-      <div class="media">
-        <div class="new-level__content__control">
-          <div @click="handlerOpenBgrPopup" class="media__btn"></div>
+  <div v-if="finishLoad">
+    <div
+      v-if="project"
+      class="new-level"
+      :style="{
+        backgroundImage: projectStore.background
+          ? `url(${projectStore.background})`
+          : `url(${require('@/assets/backgrounds/lvel.jpeg')})`,
+      }"
+    >
+      <div class="new-level__backdrop"></div>
+      <div class="new-level__content">
+        <Transition name="fade">
+          <AddFileBgr v-if="isMediaAddBgr" />
+        </Transition>
+        <Transition name="fade">
+          <AddFileProject v-if="isMediaAddProgect" />
+        </Transition>
+        <HeaderComponentAdditional :removeBtnPst="true" />
+        <div class="new-level__title">
+          {{ project?.name ?? "Новый уровень" }}
         </div>
-        <CarouselComponent />
-      </div>
-      <div class="new-level__info">
-        <div class="new-level__header">
+        <div class="media">
           <div class="new-level__content__control">
-            <div
-              class="new-level__header__btn"
-              @click="IsModeAdrsWrt = !IsModeAdrsWrt"
-            ></div>
+            <div @click="handlerOpenBgrPopup" class="media__btn"></div>
           </div>
-          <div class="new-level__text_wrap">
-            <div
-              :class="[
-                'new-level__text',
-                { 'new-level__text-wrt': IsModeAdrsWrt },
-              ]"
-            >
-              <LineComponent :themeLight="IsModeAdrsWrt" />
+          <CarouselComponent />
+        </div>
+        <div class="new-level__info">
+          <div class="new-level__header">
+            <div class="new-level__content__control">
+              <div
+                class="new-level__header__btn"
+                @click="IsModeAdrsWrt = !IsModeAdrsWrt"
+              ></div>
+            </div>
+            <div class="new-level__text_wrap">
               <div
                 :class="[
-                  'new-level__text_address',
-                  { 'new-level__text_address-wrt': IsModeAdrsWrt },
+                  'new-level__text',
+                  { 'new-level__text-wrt': IsModeAdrsWrt },
                 ]"
               >
-                Адрес проекта
+                <LineComponent :themeLight="IsModeAdrsWrt" />
+                <div
+                  :class="[
+                    'new-level__text_address',
+                    { 'new-level__text_address-wrt': IsModeAdrsWrt },
+                  ]"
+                >
+                  {{ project?.address ?? "Адрес проекта" }}
+                </div>
               </div>
-            </div>
-            <div class="new-level__description">
-              <div class="new-level__description_text">Описание объекта</div>
-              <div class="new-level__description_text">
-                Дополнительная информация
+              <div class="new-level__description">
+                <div class="new-level__description_text">Описание объекта</div>
+                <div class="new-level__description_text">
+                  Дополнительная информация
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="assistant">
-        <div class="new-level__content__control">
-          <div
-            @click="isMediaAddProgect = !isMediaAddProgect"
-            :class="[
-              'assistant__btn',
-              // { assistant__btn_big: isExpand }
-            ]"
-          ></div>
-        </div>
-        <div
-          :class="[
-            'new-level__assistant',
-            // { 'new-level__assistant_big': isExpand },
-          ]"
-        >
-          <div
-            :class="[
-              'new-level__assistant_menu',
-              // { 'new-level__assistant_menu_big': isExpand },
-            ]"
-          >
+        <div class="assistant">
+          <div class="new-level__content__control">
             <div
-              class="new-level__assistant_menu_item"
-              v-for="item of menu"
-              :key="item"
+              @click="isMediaAddProgect = !isMediaAddProgect"
+              class="assistant__btn"
+            ></div>
+          </div>
+          <div class="new-level__assistant">
+            <div class="new-level__assistant_menu">
+              <div
+                class="new-level__assistant_menu_item"
+                v-for="item of menu"
+                :key="item"
+              >
+                <img
+                  class="new-level__assistant_menu_item_icon"
+                  :src="require(`@/assets/icons/${setIconMenu(item)}.svg`)"
+                />
+                {{ item }}
+              </div>
+            </div>
+            <div
+              :class="[
+                'new-level__assistant_chat',
+                { 'new-level__assistant_chat_big': isExpand },
+              ]"
             >
               <img
-                class="new-level__assistant_menu_item_icon"
-                :src="require(`@/assets/icons/${setIconMenu(item)}.svg`)"
+                v-if="isExpand"
+                @click="isExpand = false"
+                src="@/assets/icons/full-close.svg"
+                alt="expand"
+                class="new-level__assistant_expand"
               />
-              {{ item }}
+              <img
+                v-else
+                @click="isExpand = true"
+                src="@/assets/icons/full.svg"
+                alt="expand"
+                class="new-level__assistant_expand"
+              />
+              <textarea
+                :class="[
+                  'new-level__assistant_chat_input',
+                  { 'new-level__assistant_chat_input_big': isExpand },
+                ]"
+                placeholder="Введите текст"
+              ></textarea>
+              <div class="new-level__assistant_chat_button">Отправить</div>
             </div>
           </div>
-          <div
-            :class="[
-              'new-level__assistant_chat',
-              { 'new-level__assistant_chat_big': isExpand },
-            ]"
-          >
-            <img
-              v-if="isExpand"
-              @click="isExpand = false"
-              src="@/assets/icons/full-close.svg"
-              alt="expand"
-              class="new-level__assistant_expand"
-            />
-            <img
-              v-else
-              @click="isExpand = true"
-              src="@/assets/icons/full.svg"
-              alt="expand"
-              class="new-level__assistant_expand"
-            />
-            <textarea
-              :class="[
-                'new-level__assistant_chat_input',
-                { 'new-level__assistant_chat_input_big': isExpand },
-              ]"
-              placeholder="Введите текст"
-            ></textarea>
-            <div class="new-level__assistant_chat_button">Отправить</div>
+          <div class="assistant__btns">
+            <div class="assistant__btns_btn assistant__btns_check"></div>
+            <div class="assistant__btns_btn assistant__btns_import"></div>
+            <div class="assistant__btns_btn assistant__btns_share"></div>
+            <div class="assistant__btns_btn assistant__btns_faq"></div>
+            <div class="assistant__btns_btn assistant__btns_delete"></div>
           </div>
-        </div>
-        <div class="assistant__btns">
-          <div class="assistant__btns_btn assistant__btns_check"></div>
-          <div class="assistant__btns_btn assistant__btns_import"></div>
-          <div class="assistant__btns_btn assistant__btns_share"></div>
-          <div class="assistant__btns_btn assistant__btns_faq"></div>
-          <div class="assistant__btns_btn assistant__btns_delete"></div>
         </div>
       </div>
     </div>
+    <ErrorComponent v-else />
   </div>
+  <LoadComponent v-else />
 </template>
 
 <script setup lang="ts">
 import { provide, ref, onMounted } from "vue";
-import { useRootStore } from "@/store";
 import { useProjectStore } from "@/store";
 import { useRouter } from "vue-router";
-
 import projectService from "@/services/projectService";
-
 import HeaderComponentAdditional from "@/components/common/HeaderComponentAdditional.vue";
 import LineComponent from "@/components/common/LineComponent.vue";
 import AddFileBgr from "@/components/newLavel/AddFileBgr.vue";
 import AddFileProject from "@/components/newLavel/AddFileProject.vue";
 import CarouselComponent from "@/components/controls/CarouselComponent.vue";
+import ErrorComponent from "@/components/test/ErrorComponent.vue";
+import LoadComponent from "@/components/test/LoadComponent.vue";
+
+const props = defineProps<{
+  idProject: string;
+}>();
 
 const router = useRouter();
-const rootStore = useRootStore();
 const projectStore = useProjectStore();
+const finishLoad = ref(false);
 
 const menu = [
   "Личный ассистент",
@@ -164,6 +161,10 @@ const IsModeAdrsWrt = ref(false);
 const isMediaAddBgr = ref(false);
 const isMediaAddProgect = ref(false);
 const isExpand = ref(false);
+
+const projects = ref([]);
+const project = ref();
+const total = ref(0);
 
 function handlerOpenBgrPopup() {
   if (finishLoadBgr) {
@@ -184,8 +185,18 @@ function setIconMenu(name: string) {
 
 provide("handlerBtnHeaderClick", returnHome);
 
-onMounted(() => {
-  projectService.getBackgrounds().then((res) => {
+onMounted(async () => {
+  await projectService.getAllNumberProjects().then(async (res) => {
+    if (res) {
+      projects.value = res.projects;
+      total.value = res.total;
+      project.value = projects.value.find(
+        (item: any) => item.id === Number(props.idProject)
+      );
+      console.log(project.value);
+    }
+  });
+  await projectService.getBackgrounds().then((res) => {
     const backgrounds = res.backgrounds;
     projectStore.backgroundsFill.push(...backgrounds);
     if (backgrounds.length > 1) {
@@ -198,6 +209,7 @@ onMounted(() => {
     }
     finishLoadBgr = true;
   });
+  finishLoad.value = true;
 });
 </script>
 

@@ -6,10 +6,10 @@
     v-if="total > 0"
     bg="project-new"
     noHover
-    :title="(projects as any).name ? (projects as any).name: 'Новый уровень'"
+    :title="(project as any).name ? (project as any).name: 'Новый уровень'"
     bgrDropColor="rgba(0, 0, 0, 0.55)"
     bgrDropBlur="blur(17.5px)"
-    :description="(projects as any).info ? (projects as any).info: 'Описание уровня'"
+    :description="(project as any).info ? (project as any).info: 'Описание уровня'"
     imgBtn="control"
     :btnClick="HandkerClickControl"
   >
@@ -58,6 +58,7 @@ import { useRouter } from "vue-router";
 const props = defineProps<{
   idProject: string | undefined;
   indexProject: number;
+  project: any;
   projects: any[];
   total: number;
 }>();
@@ -77,16 +78,18 @@ async function HandkerClickCreate() {
 
 function switchPreviousProject() {
   if (props.total === 1) {
-    console.log("это первый проект!");
+    return;
   }
-  console.log("click arrow left!");
+  const previousProjectId = props.projects[props.indexProject - 2].id;
+  router.push({ name: "project-id", params: { idProject: previousProjectId } });
 }
 
 function switchNextProject() {
   if (props.total === props.indexProject) {
-    console.log("это последний проект!");
+    return;
   }
-  console.log("click arrow right!");
+  const nextProjectId = props.projects[props.indexProject].id;
+  router.push({ name: "project-id", params: { idProject: nextProjectId } });
 }
 
 function handlerBtnFooterClick() {
@@ -94,7 +97,7 @@ function handlerBtnFooterClick() {
 }
 
 function HandkerClickControl() {
-  router.push({ name: "new-lavel" });
+  router.push({ name: "new-lavel", params: { idProject: props.idProject } });
 }
 </script>
 

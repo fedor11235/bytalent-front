@@ -4,7 +4,8 @@
       <ProjectComponentAuth
         v-if="project"
         :total="total"
-        :projects="project"
+        :project="project"
+        :projects="projects"
         :idProject="idProject"
         :indexProject="indexProject + 1"
       />

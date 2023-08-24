@@ -52,12 +52,15 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
 import projectService from "@/services/projectService";
 import InputComponent from "@/components/controls/InputComponent.vue";
 import DropDownComponent from "@/components/controls/DropDownComponent.vue";
 import LocateComponent from "@/components/controls/LocateComponent.vue";
 
 const emit = defineEmits(["close"]);
+
+const router = useRouter();
 
 const name = ref("");
 const address = ref("");
@@ -90,12 +93,13 @@ const menuLocate = [
 ];
 
 async function handlerCreate() {
-  await projectService.createProject({
+  const project = await projectService.createProject({
     name: name.value,
     address: address.value,
     type: projectType.value,
   });
-  location.reload();
+  router.push({ name: "project-id", params: { idProject: project.id } });
+  emit("close");
 }
 </script>
 

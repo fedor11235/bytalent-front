@@ -37,9 +37,10 @@ const routes: Array<RouteRecordRaw> = [
     component: VisualizationView,
   },
   {
-    path: "/new-lavel",
+    path: "/new-lavel/:idProject",
     name: "new-lavel",
     component: NewLavelView,
+    props: true,
     meta: {
       auth: true,
     },
