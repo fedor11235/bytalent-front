@@ -1,5 +1,5 @@
 <template>
-  <div class="search-view">
+  <div class="search-view" v-if="finishLoad">
     <div class="search-view__backdrop">
       <HeaderComponent class="search-view__header" :noHover="check" />
       <div class="search-view__input">
@@ -18,20 +18,32 @@
       />
     </div>
   </div>
+  <LoadComponent v-else />
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeMount } from "vue";
+import { ref, watch } from "vue";
+import { useRoute } from "vue-router";
+import LoadComponent from "@/components/test/LoadComponent.vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import InputComponent from "@/components/controls/InputComponent.vue";
 import authService from "@/services/authService";
 
-const searchText = ref("");
-const check = ref(false);
+const route = useRoute();
 
-onBeforeMount(async () => {
-  check.value = await authService.checkToken();
-});
+const searchText = ref("");
+
+const check = ref(false);
+const finishLoad = ref(false);
+
+watch(
+  () => route.params,
+  async () => {
+    check.value = await authService.checkToken();
+    finishLoad.value = true;
+  },
+  { immediate: true }
+);
 </script>
 
 <style lang="scss" scoped>

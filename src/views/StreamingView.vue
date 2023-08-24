@@ -1,19 +1,32 @@
 <template>
-  <StreamingComponent />
+  <div v-if="finishLoad">
+    <StreamingComponentAuth v-if="check" />
+    <StreamingComponent v-else />
+  </div>
+  <LoadComponent v-else />
 </template>
 
 <script setup lang="ts">
-// import { ref, onBeforeMount } from "vue";
-// import authService from "@/services/authService";
+import { ref, watch } from "vue";
+import { useRoute } from "vue-router";
+import authService from "@/services/authService";
+import LoadComponent from "@/components/test/LoadComponent.vue";
 import StreamingComponent from "@/components/test/StreamingComponent.vue";
-// import { useRootStore } from "@/store";
+import StreamingComponentAuth from "@/components/test/StreamingComponentAuth.vue";
 
-// const rootStore = useRootStore();
-// const check = ref(false);
+const route = useRoute();
 
-// onBeforeMount(async () => {
-//   check.value = await authService.checkToken();
-// });
+const check = ref(false);
+const finishLoad = ref(false);
+
+watch(
+  () => route.params,
+  async () => {
+    check.value = await authService.checkToken();
+    finishLoad.value = true;
+  },
+  { immediate: true }
+);
 </script>
 
 <style lang="scss" scoped></style>

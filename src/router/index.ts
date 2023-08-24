@@ -49,9 +49,6 @@ const routes: Array<RouteRecordRaw> = [
     path: "/search",
     name: "search",
     component: SearchView,
-    meta: {
-      auth: true,
-    },
   },
   {
     path: "/login",

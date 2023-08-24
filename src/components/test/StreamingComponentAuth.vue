@@ -32,6 +32,7 @@
     description="Доступ через бразуер к любому проекту"
     imgBtn="launch"
     :btnClick="HandkerClickLaunch"
+    noHover
   >
     <template v-slot:content-bottom>
       <FooterComponent
@@ -52,7 +53,6 @@ import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import FooterComponent from "@/components/common/FooterComponent.vue";
 
-const router = useRouter();
 const notes = ref(false);
 
 function HandkerClickLaunch() {
@@ -65,7 +65,7 @@ function HandkerClickConfirmLaunch() {
 }
 
 function handlerBtnFooterClick() {
-  router.push({ name: "login-redirect", params: { nextPage: "/streaming" } });
+  alert("В разработке");
 }
 </script>
 
