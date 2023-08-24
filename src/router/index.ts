@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import api from "@/api";
+import { setToken } from "@/utils/token";
 import authService from "@/services/authService";
 import StartView from "@/views/StartView.vue";
 import VisualizationView from "@/views/VisualizationView.vue";
@@ -80,17 +80,7 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  const token = window.localStorage.getItem("token");
-  api.interceptors.request.use(
-    (config) => {
-      if (config.headers) {
-        config.headers["Authorization"] = "Bearer " + token;
-      }
-      return config;
-    },
-    (error) => error
-  );
-
+  setToken();
   const check = await authService.checkToken();
 
   if (to.meta?.auth) {
