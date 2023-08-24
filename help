@@ -42,3 +42,4 @@
 12px - 0.625vw
 
 serve -s dist
+beforeRouteUpdate навигационная защита

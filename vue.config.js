@@ -15,7 +15,4 @@ module.exports = defineConfig({
       cert: fs.readFileSync("./certificate.crt"),
     },
   },
-  // publicPath: process.env.NODE_ENV === 'production'
-  // ? '/bytalent-front/'
-  // : '/'
 });

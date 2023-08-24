@@ -135,7 +135,7 @@ async function handlerLogin() {
 }
 
 function telegramLoadedCallbackFunc() {
-  telegramWgtFinishLoad.value = true
+  telegramWgtFinishLoad.value = true;
 }
 
 async function yourCallbackFunctionTelegram(user: any) {

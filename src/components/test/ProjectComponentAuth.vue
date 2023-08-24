@@ -46,17 +46,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
 import FooterComponent from "@/components/common/FooterComponent.vue";
 import projectService from "@/services/projectService";
 import PopupAdd from "@/components/visualization/PopupAdd.vue";
 import { useRouter } from "vue-router";
 
+defineProps<{
+  projects: any[];
+  total: number;
+}>();
+
 const router = useRouter();
 
-const projects = ref(0);
-const total = ref(0);
+// const projects = ref(0);
+// const total = ref(0);
 
 const isPopupAdd = ref(false);
 
@@ -77,14 +82,14 @@ function HandkerClickControl() {
   router.push({ name: "new-lavel" });
 }
 
-onMounted(async () => {
-  await projectService.getAllNumberProjects().then((res) => {
-    if (res) {
-      projects.value = res.projects;
-      total.value = res.total;
-    }
-  });
-});
+// onMounted(async () => {
+//   await projectService.getAllNumberProjects().then((res) => {
+//     if (res) {
+//       projects.value = res.projects;
+//       total.value = res.total;
+//     }
+//   });
+// });
 </script>
 
 <style lang="scss" scoped></style>

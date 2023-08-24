@@ -134,7 +134,6 @@
 </template>
 
 <script setup lang="ts">
-import type { Ref } from "vue";
 import { provide, ref, onMounted } from "vue";
 import { useRootStore } from "@/store";
 import { useProjectStore } from "@/store";
@@ -161,8 +160,6 @@ const menu = [
 
 let finishLoadBgr = false;
 
-const fileInputBgr: Ref<HTMLInputElement | null> = ref(null);
-const fileInputProject: Ref<HTMLInputElement | null> = ref(null);
 const IsModeAdrsWrt = ref(false);
 const isMediaAddBgr = ref(false);
 const isMediaAddProgect = ref(false);

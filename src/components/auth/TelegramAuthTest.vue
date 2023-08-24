@@ -4,7 +4,7 @@
     @click="test"
     class="telegram-auth"
     :style="{
-      justifyContent: finishLoad? 'flex-start': '',
+      justifyContent: finishLoad ? 'flex-start' : '',
     }"
   >
     <div v-if="!finishLoad" class="telegram-auth__loader"></div>
@@ -15,13 +15,15 @@
       width="24"
       alt="apple"
     />
-    <div v-if="finishLoad" class="telegram-auth__text">Войти через Telegram</div>
+    <div v-if="finishLoad" class="telegram-auth__text">
+      Войти через Telegram
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
-import './wgtTelegram.js';
+import "./wgtTelegram.js";
 
 const emit = defineEmits(["enter"]);
 
@@ -32,7 +34,7 @@ const props = defineProps<{
 const buttonTelegram = ref();
 
 function test() {
-  if(!props.finishLoad) return
+  if (!props.finishLoad) return;
   // eslint-disable-next-line
   console.log(window.Telegram)
   // eslint-disable-next-line
@@ -40,7 +42,7 @@ function test() {
     { bot_id: 6574863532, request_access: true },
     (data: any) => {
       if (data) {
-        emit('enter', data)
+        emit("enter", data);
       }
     }
   );
@@ -52,7 +54,7 @@ function test() {
   width: 100%;
   padding: 16px 48px;
   border-radius: 28px;
-  background-color: #6AA7E5;;
+  background-color: #6aa7e5;
   display: flex;
   align-items: center;
   column-gap: 16px;

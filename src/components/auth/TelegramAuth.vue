@@ -2,8 +2,7 @@
   <!-- <div class="tgme_widget_login medium nouserpic" id="widget_login"><button class="btn tgme_widget_login_button"
       onclick="return TWidgetLogin.auth();"><i class="tgme_widget_login_button_icon"></i>Log in with Telegram</button>
   </div> -->
-  <div ref="buttonTelegram" class="telegram-auth">
-  </div>
+  <div ref="buttonTelegram" class="telegram-auth"></div>
 </template>
 
 <script setup lang="ts">
@@ -18,37 +17,19 @@ const buttonTelegram = ref();
 onMounted(() => {
   const script = document.createElement("script");
   script.setAttribute("type", "text/javascript");
-  script.setAttribute(
-    "src",
-    "https://telegram.org/js/telegram-widget.js?22"
-  );
-  script.setAttribute(
-    "data-telegram-login",
-    "ByTALENTBot"
-  );
-  script.setAttribute(
-    "data-size",
-    "large"
-  );
+  script.setAttribute("src", "https://telegram.org/js/telegram-widget.js?22");
+  script.setAttribute("data-telegram-login", "ByTALENTBot");
+  script.setAttribute("data-size", "large");
   // script.setAttribute(
   //   "data-userpic",
   //   "false"
   // );
-  script.setAttribute(
-    "data-onauth",
-    "window.onTelegramAuth(user)"
-  );
-  script.setAttribute(
-    "data-width",
-    "100%"
-  );
-  script.setAttribute(
-    "data-request-access",
-    "write"
-  );
+  script.setAttribute("data-onauth", "window.onTelegramAuth(user)");
+  script.setAttribute("data-width", "100%");
+  script.setAttribute("data-request-access", "write");
 
   buttonTelegram.value.appendChild(script);
-  (window as any).onTelegramAuth = props.onTelegramAuth
+  (window as any).onTelegramAuth = props.onTelegramAuth;
 });
 </script>
 
@@ -71,4 +52,5 @@ onMounted(() => {
     display: flex;
     column-gap: 16px;
   }
-}</style>
+}
+</style>
