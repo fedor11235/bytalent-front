@@ -26,8 +26,14 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: "/visualization",
-    name: "visualization",
+    path: "/project/:idProject",
+    name: "project-id",
+    component: VisualizationView,
+    props: true,
+  },
+  {
+    path: "/project",
+    name: "project",
     component: VisualizationView,
   },
   {
@@ -98,7 +104,7 @@ router.beforeEach(async (to, from, next) => {
     } else {
       next({ name: "app" });
     }
-  } else if(to.meta?.start) {
+  } else if (to.meta?.start) {
     if (!check) {
       next();
     } else {

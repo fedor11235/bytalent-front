@@ -8,7 +8,7 @@
         }"
         @mouseover="leftArrowHover = true"
         @mouseleave="leftArrowHover = false"
-        @click="handlerBtnNavigationClick"
+        @click="handlerBtnNavigationLeftClick"
         alt="left arrow"
       ></div>
       <div class="footer__page-one" :style="{ color: textPageOne }">
@@ -31,7 +31,7 @@
         }"
         @mouseover="rightArrowHover = true"
         @mouseleave="rightArrowHover = false"
-        @click="handlerBtnNavigationClick"
+        @click="handlerBtnNavigationRightClick"
         alt="left arrow"
       ></div>
     </div>
@@ -63,6 +63,8 @@ const props = defineProps<{
   colorTwoPages?: string;
   textButton?: string;
   handlerBtnFooterClick?: () => void;
+  handlerBtnNavigationLeftClick?: () => void;
+  handlerBtnNavigationRightClick?: () => void;
 }>();
 
 const theme = toRef(props, "theme");
@@ -70,13 +72,6 @@ const curentPages = toRef(props, "curentPages");
 
 const leftArrowHover = ref(false);
 const rightArrowHover = ref(false);
-
-// const handlerBtnFooterClick = inject("handlerBtnFooterClick") as (
-//   ...args: any[]
-// ) => void;
-const handlerBtnNavigationClick = inject("handlerBtnNavigationClick") as (
-  ...args: any[]
-) => void;
 
 const textColor = computed(() => {
   if (theme.value === "light") {

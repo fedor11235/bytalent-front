@@ -104,14 +104,20 @@ import { useRootStore } from "@/store";
 import authService from "@/services/authService";
 import BurgerComponent from "@/components/common/BurgerComponent.vue";
 
-type PageName = "visualization" | "app" | "streaming" | "login" | "search" | "profile";
-const allPages: PageName[] = ["visualization", "app", "streaming", "search"];
+type PageName =
+  | "project"
+  | "app"
+  | "streaming"
+  | "login"
+  | "search"
+  | "profile";
+const allPages: PageName[] = ["project", "app", "streaming", "search"];
 
 const rootStore = useRootStore();
 
 const buttons = [
   { name: "app" as PageName, title: "Приложение" },
-  { name: "visualization" as PageName, title: "Проекты" },
+  { name: "project" as PageName, title: "Проекты" },
   { name: "streaming" as PageName, title: "Стриминг" },
 ];
 

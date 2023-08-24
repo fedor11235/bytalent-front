@@ -88,7 +88,6 @@ const login = ref("");
 const isDevelopment = process.env.NODE_ENV === "development";
 
 const appleIdBtn = ref();
-const telegramIdBtn = ref();
 const telegramWgtFinishLoad = ref(false);
 
 const isPersonalData = ref(false);

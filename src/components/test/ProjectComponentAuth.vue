@@ -6,18 +6,20 @@
     v-if="total > 0"
     bg="project-new"
     noHover
-    :title="(projects as any)[0].name ? (projects as any)[0].name: 'Новый уровень'"
+    :title="(projects as any).name ? (projects as any).name: 'Новый уровень'"
     bgrDropColor="rgba(0, 0, 0, 0.55)"
     bgrDropBlur="blur(17.5px)"
-    :description="(projects as any)[0].info ? (projects as any)[0].info: 'Описание уровня'"
+    :description="(projects as any).info ? (projects as any).info: 'Описание уровня'"
     imgBtn="control"
     :btnClick="HandkerClickControl"
   >
     <template v-slot:content-bottom>
       <FooterComponent
         :handlerBtnFooterClick="handlerBtnFooterClick"
-        :curentPages="0"
-        :numberPages="0"
+        :handlerBtnNavigationLeftClick="switchPreviousProject"
+        :handlerBtnNavigationRightClick="switchNextProject"
+        :curentPages="Number(indexProject)"
+        :numberPages="total"
         textButton="+ Новый уровень"
         colorTwoPages="#c7c7c7"
       />
@@ -53,15 +55,14 @@ import projectService from "@/services/projectService";
 import PopupAdd from "@/components/visualization/PopupAdd.vue";
 import { useRouter } from "vue-router";
 
-defineProps<{
+const props = defineProps<{
+  idProject: string | undefined;
+  indexProject: number;
   projects: any[];
   total: number;
 }>();
 
 const router = useRouter();
-
-// const projects = ref(0);
-// const total = ref(0);
 
 const isPopupAdd = ref(false);
 
@@ -74,6 +75,20 @@ async function HandkerClickCreate() {
   location.reload();
 }
 
+function switchPreviousProject() {
+  if (props.total === 1) {
+    console.log("это первый проект!");
+  }
+  console.log("click arrow left!");
+}
+
+function switchNextProject() {
+  if (props.total === props.indexProject) {
+    console.log("это последний проект!");
+  }
+  console.log("click arrow right!");
+}
+
 function handlerBtnFooterClick() {
   isPopupAdd.value = true;
 }
@@ -81,15 +96,6 @@ function handlerBtnFooterClick() {
 function HandkerClickControl() {
   router.push({ name: "new-lavel" });
 }
-
-// onMounted(async () => {
-//   await projectService.getAllNumberProjects().then((res) => {
-//     if (res) {
-//       projects.value = res.projects;
-//       total.value = res.total;
-//     }
-//   });
-// });
 </script>
 
 <style lang="scss" scoped></style>

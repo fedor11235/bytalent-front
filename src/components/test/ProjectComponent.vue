@@ -30,7 +30,7 @@ const router = useRouter();
 function HandkerClickUpload() {
   router.push({
     name: "login-redirect",
-    params: { nextPage: "/visualization" },
+    params: { nextPage: "/project" },
   });
 }
 </script>

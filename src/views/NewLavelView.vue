@@ -172,7 +172,7 @@ function handlerOpenBgrPopup() {
 }
 
 function returnHome() {
-  router.push({ name: "visualization-first" });
+  router.push({ name: "project" });
 }
 
 function setIconMenu(name: string) {
