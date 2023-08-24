@@ -119,7 +119,7 @@ function handlerSwitchPage(name: any) {
   if (name === "start") {
     rootStore.popupProfile = false;
     rootStore.popupSettings = false;
-    router.push({ name: "start" });
+    router.push({ name: "app" });
   }
   if (name === "create-project") {
     rootStore.popupProfile = false;
@@ -127,9 +127,9 @@ function handlerSwitchPage(name: any) {
     router.push({ name: "new-lavel" });
   } else if (name === "settings") {
     rootStore.popupProfile = false;
-    rootStore.popupSettings = true;
+    rootStore.popupSettings = !rootStore.popupSettings;
   } else if (name === "profile") {
-    rootStore.popupProfile = true;
+    rootStore.popupProfile = !rootStore.popupProfile;
     rootStore.popupSettings = false;
   }
 }
@@ -284,7 +284,8 @@ function controllClass() {
         scale: 1.2;
         padding: 6px 12px;
         border-bottom: 1px solid #191919;
-        pointer-events: none;
+        cursor: pointer;
+        // pointer-events: none;
       }
     }
     &:hover {
@@ -296,7 +297,8 @@ function controllClass() {
       padding: 6px 12px;
       scale: 1.2;
       border-bottom: 1px solid white;
-      pointer-events: none;
+      cursor: pointer;
+      // pointer-events: none;
     }
   }
   &__search {

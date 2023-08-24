@@ -4,6 +4,7 @@
     <AppComponent v-else />
   </div>
   <LoadComponent v-else />
+  <!-- <mapbox-map :accessToken="myAccessToken" /> -->
 </template>
 
 <script setup lang="ts">
@@ -13,6 +14,7 @@ import LoadComponent from "@/components/test/LoadComponent.vue";
 import AppComponentAuth from "@/components/test/AppComponentAuth.vue";
 import AppComponent from "@/components/test/AppComponent.vue";
 import authService from "@/services/authService";
+import { MapboxMap } from "vue-mapbox-ts";
 
 const route = useRoute();
 

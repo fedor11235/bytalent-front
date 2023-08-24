@@ -110,7 +110,7 @@ function callBackRedirect() {
   if (props.nextPage) {
     window.location.href = props.nextPage;
   } else {
-    router.push({ name: "start" });
+    router.push({ name: "app" });
   }
 }
 

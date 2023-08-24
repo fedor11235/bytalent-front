@@ -2,9 +2,10 @@ import { createApp } from "vue";
 import { createPinia } from "pinia";
 import App from "./App.vue";
 import router from "./router";
+import VueMapboxTs from "vue-mapbox-ts";
 
 import "./styles/main.scss";
 
 const pinia = createPinia();
 
-createApp(App).use(router).use(pinia).mount("#app");
+createApp(App).use(router).use(pinia).use(VueMapboxTs).mount("#app");

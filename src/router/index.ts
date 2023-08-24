@@ -21,6 +21,9 @@ const routes: Array<RouteRecordRaw> = [
     path: "/start",
     name: "start",
     component: StartView,
+    meta: {
+      start: true,
+    },
   },
   {
     path: "/visualization",
@@ -93,7 +96,13 @@ router.beforeEach(async (to, from, next) => {
     if (!check) {
       next();
     } else {
-      next({ name: "start" });
+      next({ name: "app" });
+    }
+  } else if(to.meta?.start) {
+    if (!check) {
+      next();
+    } else {
+      next({ name: "app" });
     }
   } else {
     next();

@@ -46,6 +46,15 @@
         @mouseleave="handlerMouseOutBtn(button.name)"
         >{{ button.title }}</span
       >
+      <span
+        @click="handlerSwitchPage('profile')"
+        :class="btnClassPopup(rootStore.popupProfile)"
+        @mouseover="handlerMouseOverBtn('profile')"
+        @mouseout="handlerMouseOutBtn('profile')"
+        @mouseenter="handlerMouseOverBtn('profile')"
+        @mouseleave="handlerMouseOutBtn('profile')"
+        >Профиль</span
+      >
       <div
         v-if="!noHover"
         @click="router.push({ name: 'login' })"
@@ -95,7 +104,7 @@ import { useRootStore } from "@/store";
 import authService from "@/services/authService";
 import BurgerComponent from "@/components/common/BurgerComponent.vue";
 
-type PageName = "visualization" | "app" | "streaming" | "login" | "search";
+type PageName = "visualization" | "app" | "streaming" | "login" | "search" | "profile";
 const allPages: PageName[] = ["visualization", "app", "streaming", "search"];
 
 const rootStore = useRootStore();
@@ -189,6 +198,15 @@ function btnClass(name: string) {
     "header__btn-light": route.name !== name && theme.value === "light",
     header__btn_active: route.name === name && theme.value !== "light",
     "header__btn-light_active": route.name === name && theme.value === "light",
+  };
+}
+
+function btnClassPopup(isPopupActive: boolean) {
+  return {
+    header__btn: !isPopupActive && theme.value !== "light",
+    "header__btn-light": !isPopupActive && theme.value === "light",
+    header__btn_active: isPopupActive && theme.value !== "light",
+    "header__btn-light_active": isPopupActive && theme.value === "light",
   };
 }
 
