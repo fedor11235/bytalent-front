@@ -19,7 +19,7 @@
 
 .move-left-enter-active,
 .move-left-leave-active {
-  transition: transform .3s ease;
+  transition: transform .6s ease;
   transform: translateX(0);
 }
 .move-left-enter-from,

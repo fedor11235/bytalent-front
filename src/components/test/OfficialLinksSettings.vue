@@ -1,36 +1,78 @@
 <template>
   <div class="settings-view__card_grid">
     <div class="settings-view__card_title">Website</div>
-    <div class="settings-view__card_text">https://bytalent.io</div>
+    <div>
+      <input
+        v-if="isProfileEdit"
+        v-model="website"
+        class="settings-view__card_input"
+      />
+      <div v-else class="settings-view__card_text">{{ website }}</div>
+    </div>
   </div>
   <div class="settings-view__card_delimiter"></div>
   <div class="settings-view__card_grid">
     <div class="settings-view__card_title">Telegram</div>
-    <div class="settings-view__card_text">https://t.me/roman_talent</div>
+    <div>
+      <input
+        v-if="isProfileEdit"
+        v-model="telegram"
+        class="settings-view__card_input"
+      />
+      <div v-else class="settings-view__card_text">{{ telegram }}</div>
+    </div>
   </div>
   <div class="settings-view__card_delimiter"></div>
   <div class="settings-view__card_grid">
     <div class="settings-view__card_title">instagram</div>
-    <div class="settings-view__card_text">-</div>
+    <div>
+      <input
+        v-if="isProfileEdit"
+        v-model="instagram"
+        class="settings-view__card_input"
+      />
+      <div v-else class="settings-view__card_text">{{ instagram }}</div>
+    </div>
   </div>
   <div class="settings-view__card_delimiter"></div>
   <div class="settings-view__card_grid">
     <div class="settings-view__card_title">Twitter</div>
-    <div class="settings-view__card_text">-</div>
+    <div>
+      <input
+        v-if="isProfileEdit"
+        v-model="twitter"
+        class="settings-view__card_input"
+      />
+      <div v-else class="settings-view__card_text">{{ twitter }}</div>
+    </div>
   </div>
   <div class="settings-view__card_delimiter"></div>
   <div class="settings-view__card_grid">
     <div class="settings-view__card_title">Behance</div>
-    <div class="settings-view__card_text">-</div>
+    <div>
+      <input
+        v-if="isProfileEdit"
+        v-model="behance"
+        class="settings-view__card_input"
+      />
+      <div v-else class="settings-view__card_text">{{ behance }}</div>
+    </div>
   </div>
   <div class="settings-view__card_delimiter"></div>
   <div class="settings-view__card_grid">
     <div class="settings-view__card_title">Artstation</div>
-    <div class="settings-view__card_text">-</div>
+    <div>
+      <input
+        v-if="isProfileEdit"
+        v-model="artstation"
+        class="settings-view__card_input"
+      />
+      <div v-else class="settings-view__card_text">{{ artstation }}</div>
+    </div>
   </div>
   <div
     v-if="isProfileEdit"
-    @click="isProfileEdit = false"
+    @click="handlerSave"
     class="settings-view__card_edit_cntnr"
   >
     <div class="settings-view__card_edit">
@@ -59,9 +101,39 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import linksService from "@/services/linksService";
+
+const website = ref();
+const telegram = ref();
+const instagram = ref();
+const twitter = ref();
+const behance = ref();
+const artstation = ref();
 
 const isProfileEdit = ref(false);
+
+function handlerSave() {
+  isProfileEdit.value = false;
+  linksService.setLinks({
+    website: website.value,
+    telegram: telegram.value,
+    instagram: instagram.value,
+    twitter: twitter.value,
+    behance: behance.value,
+    artstation: artstation.value,
+  });
+}
+
+onMounted(async () => {
+  const links = await linksService.getLinks();
+  website.value = links.website ?? "-";
+  telegram.value = links.telegram ?? "-";
+  instagram.value = links.instagram ?? "-";
+  twitter.value = links.twitter ?? "-";
+  behance.value = links.behance ?? "-";
+  artstation.value = links.artstation ?? "-";
+});
 </script>
 
 <style lang="scss" scoped>
@@ -87,6 +159,17 @@ const isProfileEdit = ref(false);
       font-size: 1.85vh;
       line-height: 120%;
       letter-spacing: -0.4px;
+    }
+    &_input {
+      border: none;
+      outline: none;
+      color: #191919;
+      font-family: JuraMedium;
+      font-size: 1.85vh;
+      line-height: 120%;
+      letter-spacing: -0.4px;
+      padding: 0px 0.8vw;
+      border-radius: 8px;
     }
     &_fill-btn {
       display: flex;
@@ -142,8 +225,10 @@ const isProfileEdit = ref(false);
       font-size: 1.85vh;
       line-height: 120%;
       letter-spacing: -0.4px;
+      padding: 0px 0.8vw;
     }
     &_grid {
+      height: 1.85vh;
       display: grid;
       grid-template-columns: 1fr 2fr;
     }

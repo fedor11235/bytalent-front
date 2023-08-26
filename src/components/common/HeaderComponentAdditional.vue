@@ -43,11 +43,11 @@
         "
         >Проект</span
       >
-      <span
+      <!-- <span
         @click="handlerSwitchPage('settings')"
         :class="btnClassPopup(rootStore.popupSettings)"
         >Настройки</span
-      >
+      > -->
       <span
         @click="handlerSwitchPage('profile')"
         :class="btnClassPopup(rootStore.popupProfile)"

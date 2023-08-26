@@ -353,6 +353,7 @@ onMounted(async () => {
     padding: 0 0.8vw;
     &_wrap {
       width: 66%;
+      padding-bottom: 3.3vh;
     }
     &-wrt {
       background-color: #f9f9f9;
@@ -527,13 +528,13 @@ onMounted(async () => {
       margin: 0.74vh 0.74vh 0.74vh 0;
       box-sizing: border-box;
       &_big {
-        height: 80vh;
-        bottom: 25vh;
+        height: 70vh;
+        bottom: 20.5vh;
         background: rgba(0, 0, 0, 0.35);
         backdrop-filter: blur(22.5px);
       }
       &_input {
-        height: 5vh;
+        height: 10vh;
         border: none;
         border-radius: 16px;
         background-color: rgba(0, 0, 0, 0.55);

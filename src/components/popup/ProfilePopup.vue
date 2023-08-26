@@ -1,112 +1,40 @@
 <template>
   <div class="profile-view">
     <HeaderComponentAdditional class="profile-view__header" />
-    <div class="profile-view__right-panel">
-      <div class="profile-view__cards">
-        <div class="profile-view__card-profile">
-          <div class="profile-view__card-profile_title">
-            Информация профиля
-            <img
-              class="profile-view__card-profile_title_img"
-              src="@/assets/icons/edit.svg"
-            />
-          </div>
-          <div class="profile-view__card-profile_info">
-            <img
-              class="profile-view__card-profile_img"
-              src="@/assets/icons/person.svg"
-            />
-            Роман Нестеренко
-          </div>
-          <div class="profile-view__card-profile_info">
-            <img
-              class="profile-view__card-profile_img"
-              src="@/assets/icons/company.svg"
-            />
-            Акционерное общество "Талент"
-          </div>
-          <div class="profile-view__card-profile_info">
-            <img
-              class="profile-view__card-profile_img"
-              src="@/assets/icons/role.svg"
-            />
-            Генеральный директор
-          </div>
-          <div class="profile-view__card-profile_info">
-            <img
-              class="profile-view__card-profile_img"
-              src="@/assets/icons/phone-profile.svg"
-            />
-            +7 (933) 666 66 63
-          </div>
-          <div class="profile-view__card-profile_info">
-            <img
-              class="profile-view__card-profile_img"
-              src="@/assets/icons/telegram-profile.svg"
-            />
-            @Roman_Talent
-          </div>
-        </div>
-        <div class="profile-view__card-not">
-          <div class="profile-view__card-not_tabs">
-            <div
-              v-for="tab of tabs"
-              :key="tab"
-              @click="tabActive = tab"
-              :class="[
-                'profile-view__card-not_tab',
-                { 'profile-view__card-not_tab-active': tabActive === tab },
-              ]"
-            >
-              {{ tab }}
-            </div>
-          </div>
-          <div v-if="tabActive == 'Активные проекты'">
-            <div
-              v-for="(item, index) of projectsActive"
-              :key="item.id"
-              :class="[
-                'profile-view__card-not_item',
-                { 'profile-view__card-not_item-border': index !== 0 },
-              ]"
-            >
-              <div>{{ item.name }}</div>
-              <div>{{ item.status }}</div>
-            </div>
-          </div>
-          <div v-if="tabActive == 'Коммерция'">
-            <div
-              v-for="(item, index) of nots"
-              :key="item"
-              :class="[
-                'profile-view__card-not_item',
-                { 'profile-view__card-not_item-border': index !== 0 },
-              ]"
-            >
-              {{ item }}
-            </div>
-          </div>
-          <div v-if="tabActive == 'Уведомления'">
-            <div
-              v-for="(item, index) of nots"
-              :key="item"
-              :class="[
-                'profile-view__card-not_item',
-                { 'profile-view__card-not_item-border': index !== 0 },
-              ]"
-            >
-              {{ item }}
-            </div>
-          </div>
-        </div>
-        <div class="profile-view__doc">
-          Пользовательское соглашение АО ТК Талент" в соответствии со статьёй
-          428 гражданского кодекса Российской Федерации Политика обработки
-          персональных данных согласно Федеральному закону “О персональных
-          данных“ от 27.07.2006 №152-ФЗ Договор публичной оферты АО “ГК Талент"
-        </div>
-      </div>
+    <div class="switch-profile-settings">
+      <img
+        v-if="activePanel === 'settings'"
+        class="switch-profile-settings_img"
+        src="@/assets/icons/settings-active.svg"
+        alt="settings"
+      />
+      <img
+        v-else
+        @click="activePanel = 'settings'"
+        class="switch-profile-settings_img"
+        src="@/assets/icons/settings.svg"
+        alt="settings"
+      />
+      <img
+        v-if="activePanel === 'profile'"
+        class="switch-profile-settings_img"
+        src="@/assets/icons/profile-active.svg"
+        alt="profile"
+      />
+      <img
+        v-else
+        @click="activePanel = 'profile'"
+        class="switch-profile-settings_img"
+        src="@/assets/icons/profile.svg"
+        alt="profile"
+      />
     </div>
+    <Transition name="move-right">
+      <ProfilePanel v-if="activePanel === 'profile'" />
+    </Transition>
+    <Transition name="move-left">
+      <SettingsPanel v-if="activePanel === 'settings'" />
+    </Transition>
     <FAQControl />
   </div>
 </template>
@@ -115,21 +43,30 @@
 import { ref } from "vue";
 import HeaderComponentAdditional from "@/components/common/HeaderComponentAdditional.vue";
 import FAQControl from "@/components/controls/FAQControl.vue";
+import ProfilePanel from "@/components/test/ProfilePanel.vue";
+import SettingsPanel from "@/components/test/SettingsPanel.vue";
 
-const tabs = ["Активные проекты", "Коммерция", "Уведомления"];
-
-const nots = [
-  "Выставлен счет №0126 на сумму 150050 рублей",
-  "Выставлен счет №0126 на сумму 150050 рублей",
-  "Выставлен счет №0126 на сумму 150050 рублей",
-];
-
-const projectsActive = [{ id: 1, name: "Дома", status: "добавить информацию" }];
-
-const tabActive = ref("Активные проекты");
+const activePanel = ref("profile");
 </script>
 
 <style lang="scss" scoped>
+.switch-profile-settings {
+  position: absolute;
+  display: flex;
+  column-gap: 1.6vw;
+  top: calc(80px + 3.7vh);
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 16px;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 1.48vh 0.8vw;
+  z-index: 1;
+  &_img {
+    height: 2.96vh;
+    width: 2.96vh;
+    cursor: pointer;
+  }
+}
 .profile-view {
   position: fixed;
   height: 100vh;
@@ -149,7 +86,7 @@ const tabActive = ref("Активные проекты");
     height: calc(100% - 3.7vh - min(80px, 7.4vh));
     right: 0;
     bottom: 0;
-    max-width: 53.3vw;
+    max-width: 45vw;
     width: 100%;
     background-image: url(@/assets/components/profile-right-panel.svg);
     background-size: cover;
