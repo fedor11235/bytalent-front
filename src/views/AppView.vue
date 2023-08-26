@@ -10,9 +10,9 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
-import LoadComponent from "@/components/test/LoadComponent.vue";
-import AppComponentAuth from "@/components/test/AppComponentAuth.vue";
-import AppComponent from "@/components/test/AppComponent.vue";
+import LoadComponent from "@/pages/LoadComponent.vue";
+import AppComponentAuth from "@/pages/AppComponentAuth.vue";
+import AppComponent from "@/pages/AppComponent.vue";
 import authService from "@/services/authService";
 import { MapboxMap } from "vue-mapbox-ts";
 

@@ -73,7 +73,7 @@ async function HandkerClickCreate() {
     address: "Адрес проекта",
     type: "Тип проекта",
   });
-  location.reload();
+  await router.push({ name: "project" });
 }
 
 function switchPreviousProject() {

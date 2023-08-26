@@ -25,4 +25,7 @@ export default {
   createProject(payload: FormData) {
     return api.post("/project/create", payload);
   },
+  updateProject(projectId: any, payload: FormData) {
+    return api.post(`/project/update/${projectId}`, payload);
+  },
 };

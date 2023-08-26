@@ -15,7 +15,7 @@
   <router-view />
 
   <Transition name="fade">
-    <VisualizationHover v-if="rootStore.visualizationHover" />
+    <VisualizationHover v-if="rootStore.projectHover" />
   </Transition>
   <Transition name="fade">
     <AppHover v-if="rootStore.appHover" />

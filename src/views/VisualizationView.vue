@@ -2,7 +2,7 @@
   <div v-if="finishLoad">
     <div v-if="check">
       <ProjectComponentAuth
-        v-if="project"
+        v-if="project || idProject === '0'"
         :total="total"
         :project="project"
         :projects="projects"
@@ -20,10 +20,10 @@
 import { useRouter, useRoute } from "vue-router";
 import type { Ref } from "vue";
 import { ref, watch } from "vue";
-import LoadComponent from "@/components/test/LoadComponent.vue";
-import ErrorComponent from "@/components/test/ErrorComponent.vue";
-import ProjectComponentAuth from "@/components/test/ProjectComponentAuth.vue";
-import ProjectComponent from "@/components/test/ProjectComponent.vue";
+import LoadComponent from "@/pages/LoadComponent.vue";
+import ErrorComponent from "@/pages/ErrorComponent.vue";
+import ProjectComponentAuth from "@/pages/ProjectComponentAuth.vue";
+import ProjectComponent from "@/pages/ProjectComponent.vue";
 import authService from "@/services/authService";
 import projectService from "@/services/projectService";
 
@@ -46,7 +46,7 @@ watch(
   () => route.params,
   async () => {
     check.value = await authService.checkToken();
-    if (check.value) {
+    if (check.value && props.idProject !== "0") {
       await projectService.getAllNumberProjects().then(async (res) => {
         if (res) {
           projects.value = res.projects;
@@ -58,13 +58,19 @@ watch(
             indexProject.value = projects.value.findIndex(
               (item: any) => item.id === Number(props.idProject)
             );
-            console.log("indexProject.value", indexProject.value);
             finishLoad.value = true;
           } else {
-            await router.push({
-              name: "project-id",
-              params: { idProject: (projects.value[0] as any).id },
-            });
+            if (projects.value.length === 0) {
+              await router.push({
+                name: "project-id",
+                params: { idProject: 0 },
+              });
+            } else {
+              await router.push({
+                name: "project-id",
+                params: { idProject: (projects.value[0] as any).id },
+              });
+            }
           }
         }
       });

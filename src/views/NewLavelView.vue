@@ -30,10 +30,7 @@
         <div class="new-level__info">
           <div class="new-level__header">
             <div class="new-level__content__control">
-              <div
-                class="new-level__header__btn"
-                @click="IsModeAdrsWrt = !IsModeAdrsWrt"
-              ></div>
+              <div class="new-level__header__btn" @click="handlerEdit"></div>
             </div>
             <div class="new-level__text_wrap">
               <div
@@ -49,7 +46,12 @@
                     { 'new-level__text_address-wrt': IsModeAdrsWrt },
                   ]"
                 >
-                  {{ project?.address ?? "Адрес проекта" }}
+                  <input
+                    v-if="IsModeAdrsWrt"
+                    class="new-level__text_address-input"
+                    v-model="address"
+                  />
+                  <div v-else>{{ address }}</div>
                 </div>
               </div>
               <div class="new-level__description">
@@ -109,7 +111,12 @@
                 ]"
                 placeholder="Введите текст"
               ></textarea>
-              <div class="new-level__assistant_chat_button">Отправить</div>
+              <div
+                @click="handlerSendCahnge"
+                class="new-level__assistant_chat_button"
+              >
+                Отправить
+              </div>
             </div>
           </div>
           <div class="assistant__btns">
@@ -137,8 +144,8 @@ import LineComponent from "@/components/common/LineComponent.vue";
 import AddFileBgr from "@/components/newLavel/AddFileBgr.vue";
 import AddFileProject from "@/components/newLavel/AddFileProject.vue";
 import CarouselComponent from "@/components/controls/CarouselComponent.vue";
-import ErrorComponent from "@/components/test/ErrorComponent.vue";
-import LoadComponent from "@/components/test/LoadComponent.vue";
+import ErrorComponent from "@/pages/ErrorComponent.vue";
+import LoadComponent from "@/pages/LoadComponent.vue";
 
 const props = defineProps<{
   idProject: string;
@@ -157,6 +164,8 @@ const menu = [
 
 let finishLoadBgr = false;
 
+const address = ref("Адрес проекта");
+
 const IsModeAdrsWrt = ref(false);
 const isMediaAddBgr = ref(false);
 const isMediaAddProgect = ref(false);
@@ -165,6 +174,19 @@ const isExpand = ref(false);
 const projects = ref([]);
 const project = ref();
 const total = ref(0);
+
+function handlerEdit() {
+  IsModeAdrsWrt.value = !IsModeAdrsWrt.value;
+  if (!IsModeAdrsWrt.value) {
+    projectService.updateProject(props.idProject, {
+      address: address.value,
+    });
+  }
+}
+
+function handlerSendCahnge() {
+  console.log("отправить");
+}
 
 function handlerOpenBgrPopup() {
   if (finishLoadBgr) {
@@ -193,7 +215,11 @@ onMounted(async () => {
       project.value = projects.value.find(
         (item: any) => item.id === Number(props.idProject)
       );
-      console.log(project.value);
+      if (project.value) {
+        address.value = project.value.address;
+      } else {
+        address.value = "Адрес проекта";
+      }
     }
   });
   await projectService.getBackgrounds().then((res) => {
@@ -338,6 +364,17 @@ onMounted(async () => {
       font-style: normal;
       line-height: 125%;
       letter-spacing: -0.76px;
+      &-input {
+        font-family: JuraSemiBold;
+        font-size: 3.5vh;
+        font-style: normal;
+        line-height: 125%;
+        letter-spacing: -0.76px;
+        padding: 0;
+        color: #191919;
+        border: none;
+        outline: none;
+      }
       &-wrt {
         color: #191919;
       }

@@ -10,9 +10,9 @@
 import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import authService from "@/services/authService";
-import LoadComponent from "@/components/test/LoadComponent.vue";
-import StreamingComponent from "@/components/test/StreamingComponent.vue";
-import StreamingComponentAuth from "@/components/test/StreamingComponentAuth.vue";
+import LoadComponent from "@/pages/LoadComponent.vue";
+import StreamingComponent from "@/pages/StreamingComponent.vue";
+import StreamingComponentAuth from "@/pages/StreamingComponentAuth.vue";
 
 const route = useRoute();
 

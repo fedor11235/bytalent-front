@@ -38,7 +38,6 @@ export default {
   async uploadFileProject(projectId: number, payload: any) {
     try {
       const formData = new FormData();
-      // formData.append('files', payload);
       for (const index in payload) {
         formData.append("files", payload[index]);
       }
@@ -68,6 +67,15 @@ export default {
   async getAllProjects() {
     try {
       const { data } = await projectApi.getAllProjects();
+      return data;
+    } catch (e) {
+      console.error(e);
+    }
+  },
+  async updateProject(projectId: any, payload: any) {
+    try {
+      const formData = createFormData(payload);
+      const { data } = await projectApi.updateProject(projectId, formData);
       return data;
     } catch (e) {
       console.error(e);
