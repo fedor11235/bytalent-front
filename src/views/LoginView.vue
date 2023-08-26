@@ -109,7 +109,7 @@ function callBackRedirect() {
   if (props.nextPage) {
     window.location.href = props.nextPage;
   } else {
-    router.push({ name: "app" });
+    router.push({ name: "project" });
   }
 }
 

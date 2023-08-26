@@ -11,6 +11,8 @@ import StreamingView from "@/views/StreamingView.vue";
 import SearchView from "@/views/SearchView.vue";
 // import ProfileView from "@/views/ProfileView.vue";
 import LoginView from "@/views/LoginView.vue";
+import AdminHomeView from "@/views/AdminHomeView.vue";
+import AdminLoginView from "@/views/AdminLoginView.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -78,6 +80,26 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
+    path: "/admin",
+    redirect: { name: "admin-home" },
+  },
+  {
+    path: "/admin/home",
+    name: "admin-home",
+    component: AdminHomeView,
+    meta: {
+      adminAuth: true,
+    },
+  },
+  {
+    path: "/admin/login",
+    name: "admin-login",
+    component: AdminLoginView,
+    meta: {
+      adminLogin: true,
+    },
+  },
+  {
     path: "/:pathMatch(.*)*",
     name: "error",
     component: ErrorView,
@@ -92,6 +114,7 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   setToken();
   const check = await authService.checkToken();
+  const enter = window.localStorage.getItem("enter");
 
   if (to.meta?.auth) {
     if (check) {
@@ -110,6 +133,18 @@ router.beforeEach(async (to, from, next) => {
       next();
     } else {
       next({ name: "app" });
+    }
+  } else if (to.meta?.adminAuth) {
+    if (enter === "enabled") {
+      next();
+    } else {
+      next({ name: "admin-login" });
+    }
+  } else if (to.meta?.adminLogin) {
+    if (enter !== "enabled") {
+      next();
+    } else {
+      next({ name: "admin-home" });
     }
   } else {
     next();

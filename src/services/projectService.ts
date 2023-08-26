@@ -65,4 +65,12 @@ export default {
       console.error(e);
     }
   },
+  async getAllProjects() {
+    try {
+      const { data } = await projectApi.getAllProjects();
+      return data;
+    } catch (e) {
+      console.error(e);
+    }
+  },
 };

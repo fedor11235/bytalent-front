@@ -17,7 +17,7 @@
         <Transition name="fade">
           <AddFileProject v-if="isMediaAddProgect" />
         </Transition>
-        <HeaderComponentAdditional :removeBtnPst="true" />
+        <HeaderComponent :removeBtnPst="true" noHover />
         <div class="new-level__title">
           {{ project?.name ?? "Новый уровень" }}
         </div>
@@ -114,7 +114,7 @@
           </div>
           <div class="assistant__btns">
             <div class="assistant__btns_btn assistant__btns_check"></div>
-            <div class="assistant__btns_btn assistant__btns_import"></div>
+            <!-- <div class="assistant__btns_btn assistant__btns_import"></div> -->
             <div class="assistant__btns_btn assistant__btns_share"></div>
             <div class="assistant__btns_btn assistant__btns_faq"></div>
             <div class="assistant__btns_btn assistant__btns_delete"></div>
@@ -132,7 +132,7 @@ import { provide, ref, onMounted } from "vue";
 import { useProjectStore } from "@/store";
 import { useRouter } from "vue-router";
 import projectService from "@/services/projectService";
-import HeaderComponentAdditional from "@/components/common/HeaderComponentAdditional.vue";
+import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import LineComponent from "@/components/common/LineComponent.vue";
 import AddFileBgr from "@/components/newLavel/AddFileBgr.vue";
 import AddFileProject from "@/components/newLavel/AddFileProject.vue";

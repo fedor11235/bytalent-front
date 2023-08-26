@@ -111,6 +111,8 @@ defineProps<{
   &__btn {
     width: 15.625vw;
     height: 5.89vh;
+    object-position: left;
+    object-fit: contain;
     cursor: pointer;
   }
 }

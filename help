@@ -3,6 +3,9 @@
 196px - 18.14vh
 241px - 22.3vh
 96px - 8.8vh
+94px - 8.7vh
+84px - 7.77vh
+83px - 7.68
 78px - 7.2vh
 66px - 6.1vh
 63.636px - 5.89vh
@@ -21,6 +24,7 @@
 19px - 1.759vh
 18px - 1.6vh
 16px - 1.48vh
+15px - 1.38vh
 14px - 1.296vh
 12px - 1.11vh
 8px - 0.74vh
@@ -31,12 +35,14 @@
 300px - 15.625vw
 250px - 13vw
 166px - 8.6vw
+128px - 6.66vw
 112px - 5.8vw
 88px - 4.58vw
 64px - 3.33vw
 60px - 3.125vw
 56px - 2.9vw
 32px - 1.6vw
+24px - 1.25vw
 20px - 1.04vw
 16px - 0.8vw
 12px - 0.625vw

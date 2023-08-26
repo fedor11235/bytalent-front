@@ -11,4 +11,12 @@ export default {
       console.error(e);
     }
   },
+  async getAllOrders() {
+    try {
+      const { data } = await orderApi.getAllOrders();
+      return data;
+    } catch (e) {
+      console.error(e);
+    }
+  },
 };

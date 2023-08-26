@@ -198,7 +198,21 @@ function logoStyle() {
     return { backgroundImage: `url(${require("@/assets/header/logo.png")})` };
 }
 
+console.log(route.name, "route.name");
+console.log(route, "route");
+
 function btnClass(name: string) {
+  if (name === "project") {
+    return {
+      header__btn: route.name !== "project-id" && theme.value !== "light",
+      "header__btn-light":
+        route.name !== "project-id" && theme.value === "light",
+      header__btn_active:
+        route.name === "project-id" && theme.value !== "light",
+      "header__btn-light_active":
+        route.name === "project-id" && theme.value === "light",
+    };
+  }
   return {
     header__btn: route.name !== name && theme.value !== "light",
     "header__btn-light": route.name !== name && theme.value === "light",

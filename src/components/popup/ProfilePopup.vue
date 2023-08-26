@@ -137,7 +137,7 @@ const tabActive = ref("Активные проекты");
   overflow: hidden;
   z-index: 2;
   background-color: rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(17.5px);
+  backdrop-filter: blur(7.5px);
   &__header {
     position: absolute;
     top: 0;
@@ -169,7 +169,7 @@ const tabActive = ref("Активные проекты");
     border-radius: 24px;
     border-top: 2px solid rgba(255, 255, 255, 0.25);
     border-bottom: 2px solid rgba(255, 255, 255, 0.25);
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color: rgba(255, 255, 255, 0.1);
 
     display: flex;
     padding: 1.1vh 1.25vw;
@@ -220,8 +220,9 @@ const tabActive = ref("Активные проекты");
     height: 32.5vh;
     box-sizing: border-box;
     border-radius: 24px;
-    border: 2px solid rgba(0, 0, 0, 0.85);
-    background-color: rgba(0, 0, 0, 0.35);
+    border-top: 2px solid rgba(255, 255, 255, 0.25);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.25);
+    background-color: rgba(255, 255, 255, 0.1);
     padding: 1.4vh 2.5vw;
     margin-bottom: 3.3vh;
     &_tabs {
@@ -232,8 +233,8 @@ const tabActive = ref("Активные проекты");
     &_tab {
       width: 100%;
       border-radius: 12px;
-      border-top: 2px solid rgba(255, 255, 255, 0.65);
-      background-color: rgba(0, 0, 0, 0.35);
+      border-top: 1px solid rgba(255, 255, 255, 0.65);
+      background-color: rgba(0, 0, 0, 0.1);
       padding: 1.4vh 1.25vw;
 
       color: #f9f9f9;

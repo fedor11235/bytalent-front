@@ -34,14 +34,14 @@
       >
       <span
         v-if="!removeBtnPst"
-        @click="handlerSwitchPage('create-project')"
+        @click="handlerSwitchPage('project')"
         :class="
           btnClass(
             'new-lavel',
             rootStore.popupSettings || rootStore.popupProfile
           )
         "
-        >Создать проект</span
+        >Проект</span
       >
       <span
         @click="handlerSwitchPage('settings')"
@@ -121,10 +121,10 @@ function handlerSwitchPage(name: any) {
     rootStore.popupSettings = false;
     router.push({ name: "app" });
   }
-  if (name === "create-project") {
+  if (name === "project") {
     rootStore.popupProfile = false;
     rootStore.popupSettings = false;
-    router.push({ name: "new-lavel" });
+    router.push({ name: "project" });
   } else if (name === "settings") {
     rootStore.popupProfile = false;
     rootStore.popupSettings = !rootStore.popupSettings;

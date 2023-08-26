@@ -2,9 +2,223 @@
   <div class="settings-view">
     <HeaderComponentAdditional class="settings-view__header" />
     <div class="settings-view__content">
-      <div class="settings-view__left-panel"></div>
+      <div class="settings-view__left-panel">
+        <div class="settings-view__card">
+          <div v-if="aciveItem === 'Коммерция'">
+            <div class="settings-view__card_grid">
+              <div class="settings-view__card_title">Баланс</div>
+              <div class="settings-view__card_text">0 рублей</div>
+            </div>
+            <div class="settings-view__card_fill-btn">Пополнить</div>
+            <div class="settings-view__card_delimiter"></div>
+            <div class="settings-view__card_grid">
+              <div class="settings-view__card_title">Счета к оплате</div>
+              <div class="settings-view__card_text">
+                Счет №1342445 на оплату первого этапа визуализации от 01.09.2023
+              </div>
+            </div>
+            <div class="settings-view__card_delimiter"></div>
+            <div class="settings-view__card_grid">
+              <div class="settings-view__card_title">История операций</div>
+              <div class="settings-view__card_text">
+                Оплата счета №1342445 на оплату первого этапа визуализации от
+                01.09.2023
+              </div>
+            </div>
+            <div class="settings-view__card_delimiter"></div>
+          </div>
+          <div v-else-if="aciveItem === 'Личные дела'">
+            <div class="settings-view__card_grid">
+              <div class="settings-view__card_title">Имя</div>
+              <div class="settings-view__card_text">Роман</div>
+            </div>
+            <div class="settings-view__card_delimiter"></div>
+            <div class="settings-view__card_grid">
+              <div class="settings-view__card_title">Фамилия</div>
+              <div class="settings-view__card_text">Нестеренко</div>
+            </div>
+            <div class="settings-view__card_delimiter"></div>
+            <div class="settings-view__card_grid">
+              <div class="settings-view__card_title">Ограницзация</div>
+              <div class="settings-view__card_text">АО «ГК Талент»</div>
+            </div>
+            <div class="settings-view__card_delimiter"></div>
+            <div class="settings-view__card_grid">
+              <div class="settings-view__card_title">Должность</div>
+              <div class="settings-view__card_text">Генеральный директор</div>
+            </div>
+            <div class="settings-view__card_delimiter"></div>
+            <div class="settings-view__card_grid">
+              <div class="settings-view__card_title">Номер телефона</div>
+              <div class="settings-view__card_text">+7 (933) 666 66 63</div>
+            </div>
+            <div class="settings-view__card_delimiter"></div>
+            <div class="settings-view__card_grid">
+              <div class="settings-view__card_title">Эл. почта</div>
+              <div class="settings-view__card_text">bytalentru@gmail.com</div>
+            </div>
+            <div
+              v-if="isProfileEdit"
+              @click="isProfileEdit = false"
+              class="settings-view__card_edit_cntnr"
+            >
+              <div class="settings-view__card_edit">
+                <img
+                  class="settings-view__card_edit_icon"
+                  src="@/assets/icons/save.svg"
+                  alt="edit"
+                />
+                Сохранить
+              </div>
+            </div>
+            <div
+              v-else
+              @click="isProfileEdit = true"
+              class="settings-view__card_edit_cntnr"
+            >
+              <div class="settings-view__card_edit">
+                <img
+                  class="settings-view__card_edit_icon"
+                  src="@/assets/icons/pen.svg"
+                  alt="edit"
+                />
+                Редактировать
+              </div>
+            </div>
+          </div>
+          <div v-else-if="aciveItem === 'Юридические данные'">
+            <div class="settings-view__card_grid">
+              <div class="settings-view__card_title">Наименование</div>
+              <div class="settings-view__card_text">-</div>
+            </div>
+            <div class="settings-view__card_delimiter"></div>
+            <div class="settings-view__card_grid">
+              <div class="settings-view__card_title">Орг. форма</div>
+              <div class="settings-view__card_text">-</div>
+            </div>
+            <div class="settings-view__card_delimiter"></div>
+            <div class="settings-view__card_grid">
+              <div class="settings-view__card_title">ОГРН</div>
+              <div class="settings-view__card_text">-</div>
+            </div>
+            <div class="settings-view__card_delimiter"></div>
+            <div class="settings-view__card_grid">
+              <div class="settings-view__card_title">ИНН</div>
+              <div class="settings-view__card_text">-</div>
+            </div>
+            <div class="settings-view__card_delimiter"></div>
+            <div class="settings-view__card_grid">
+              <div class="settings-view__card_title">Бик банка</div>
+              <div class="settings-view__card_text">-</div>
+            </div>
+            <div class="settings-view__card_delimiter"></div>
+            <div class="settings-view__card_grid">
+              <div class="settings-view__card_title">Расчётный счёт</div>
+              <div class="settings-view__card_text">-</div>
+            </div>
+            <div
+              v-if="isProfileEdit"
+              @click="isProfileEdit = false"
+              class="settings-view__card_edit_cntnr"
+            >
+              <div class="settings-view__card_edit">
+                <img
+                  class="settings-view__card_edit_icon"
+                  src="@/assets/icons/save.svg"
+                  alt="edit"
+                />
+                Сохранить
+              </div>
+            </div>
+            <div
+              v-else
+              @click="isProfileEdit = true"
+              class="settings-view__card_edit_cntnr"
+            >
+              <div class="settings-view__card_edit">
+                <img
+                  class="settings-view__card_edit_icon"
+                  src="@/assets/icons/pen.svg"
+                  alt="edit"
+                />
+                Редактировать
+              </div>
+            </div>
+          </div>
+          <div v-else-if="aciveItem === 'Официальные ссылки'">
+            <div class="settings-view__card_grid">
+              <div class="settings-view__card_title">Website</div>
+              <div class="settings-view__card_text">https://bytalent.io</div>
+            </div>
+            <div class="settings-view__card_delimiter"></div>
+            <div class="settings-view__card_grid">
+              <div class="settings-view__card_title">Telegram</div>
+              <div class="settings-view__card_text">
+                https://t.me/roman_talent
+              </div>
+            </div>
+            <div class="settings-view__card_delimiter"></div>
+            <div class="settings-view__card_grid">
+              <div class="settings-view__card_title">instagram</div>
+              <div class="settings-view__card_text">-</div>
+            </div>
+            <div class="settings-view__card_delimiter"></div>
+            <div class="settings-view__card_grid">
+              <div class="settings-view__card_title">Twitter</div>
+              <div class="settings-view__card_text">-</div>
+            </div>
+            <div class="settings-view__card_delimiter"></div>
+            <div class="settings-view__card_grid">
+              <div class="settings-view__card_title">Behance</div>
+              <div class="settings-view__card_text">-</div>
+            </div>
+            <div class="settings-view__card_delimiter"></div>
+            <div class="settings-view__card_grid">
+              <div class="settings-view__card_title">Artstation</div>
+              <div class="settings-view__card_text">-</div>
+            </div>
+            <div
+              v-if="isProfileEdit"
+              @click="isProfileEdit = false"
+              class="settings-view__card_edit_cntnr"
+            >
+              <div class="settings-view__card_edit">
+                <img
+                  class="settings-view__card_edit_icon"
+                  src="@/assets/icons/save.svg"
+                  alt="edit"
+                />
+                Сохранить
+              </div>
+            </div>
+            <div
+              v-else
+              @click="isProfileEdit = true"
+              class="settings-view__card_edit_cntnr"
+            >
+              <div class="settings-view__card_edit">
+                <img
+                  class="settings-view__card_edit_icon"
+                  src="@/assets/icons/pen.svg"
+                  alt="edit"
+                />
+                Редактировать
+              </div>
+            </div>
+          </div>
+          <div v-else-if="aciveItem === 'Безопасность'"></div>
+        </div>
+      </div>
       <div class="settings-view__menu">
-        <div v-for="item in menu" :key="item" class="settings-view__menu_item">
+        <div
+          v-for="item in menu"
+          :key="item"
+          @click="aciveItem = item"
+          :class="[
+            'settings-view__menu_item',
+            { 'settings-view__menu_item_active': aciveItem === item },
+          ]"
+        >
           <img
             class="settings-view__menu_img"
             :src="require(`@/assets/icons/${chooseIconMenu(item)}.svg`)"
@@ -28,6 +242,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import HeaderComponentAdditional from "@/components/common/HeaderComponentAdditional.vue";
 import FAQControl from "@/components/controls/FAQControl.vue";
 
@@ -38,6 +253,9 @@ const menu = [
   "Официальные ссылки",
   "Безопасность",
 ];
+
+const aciveItem = ref("Коммерция");
+const isProfileEdit = ref(false);
 
 function chooseIconMenu(item: string) {
   if (item === "Коммерция") return "chat";
@@ -56,7 +274,82 @@ function chooseIconMenu(item: string) {
   overflow: hidden;
   z-index: 2;
   background-color: rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(17.5px);
+  backdrop-filter: blur(7.5px);
+  &__card {
+    height: 100%;
+    border-radius: 24px;
+    border-top: 2px solid rgba(255, 255, 255, 0.25);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.25);
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 4.44vh 1.6vw;
+    box-sizing: border-box;
+    &_title {
+      color: rgba(255, 255, 255, 0.55);
+      font-family: JuraMedium;
+      font-size: 1.85vh;
+      line-height: 120%;
+      letter-spacing: -0.4px;
+    }
+    &_fill-btn {
+      display: flex;
+      width: 8.33vw;
+      padding: 1.38vh 1.6vw;
+      justify-content: center;
+      align-items: center;
+      border-radius: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.65);
+      background-color: rgba(0, 0, 0, 0.1);
+      color: #f9f9f9;
+      font-family: JuraMedium;
+      font-size: 1.6vh;
+      line-height: 100%;
+      letter-spacing: -0.36px;
+      cursor: pointer;
+      margin-top: 2.2vh;
+      box-sizing: border-box;
+      margin-left: calc(100% - 8.33vw);
+    }
+    &_edit {
+      border-radius: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.65);
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 1.11vh 1.25vw;
+      color: #f9f9f9;
+      font-family: JuraMedium;
+      font-size: 1.6vh;
+      line-height: 100%;
+      letter-spacing: -0.36px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      &_cntnr {
+        margin-top: 7.77vh;
+        display: flex;
+        justify-content: center;
+      }
+      &_icon {
+        width: 1.25vw;
+        height: 1.25vw;
+        margin-right: 0.8vw;
+      }
+    }
+    &_delimiter {
+      height: 1px;
+      margin: 2.96vh 0;
+      background-color: rgba(255, 255, 255, 0.25);
+    }
+    &_text {
+      color: rgba(255, 255, 255, 0.85);
+      font-family: JuraMedium;
+      font-size: 1.85vh;
+      line-height: 120%;
+      letter-spacing: -0.4px;
+    }
+    &_grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+    }
+  }
   &__header {
     position: absolute;
     top: 0;
@@ -77,19 +370,16 @@ function chooseIconMenu(item: string) {
     background-image: url(@/assets/components/profile-left-panel.svg);
     background-size: cover;
     background-repeat: no-repeat;
-    padding: 2.5vh 3.125vw 7.2vh 6.66vw;
+    padding: 8.7vh 6.66vw 7.68vh 3.125vw;
     box-sizing: border-box;
     background-position: right;
   }
-
   &__menu {
     display: flex;
     width: 400px;
     flex-direction: column;
     align-items: flex-start;
-    row-gap: 2.2vh;
     width: 20.83vw;
-
     margin-left: 3.3vw;
     &_img {
       height: 1.6vw;
@@ -98,20 +388,24 @@ function chooseIconMenu(item: string) {
     }
     &_item {
       display: flex;
-      padding: 0.625vw 2.2vh;
+      padding: 1.11vh 1.25vw;
       align-items: center;
       column-gap: 0.8vw;
       align-self: stretch;
       border-radius: 12px;
       border-top: 1px solid rgba(255, 255, 255, 0.65);
-
       color: #f9f9f9;
       font-family: JuraSemiBold;
       font-size: 1.6vh;
       line-height: 100%;
       letter-spacing: -0.36px;
-
       cursor: pointer;
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+      &_active {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
     }
   }
   &__doc {

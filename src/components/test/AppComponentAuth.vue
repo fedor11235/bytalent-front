@@ -24,7 +24,10 @@ import FooterComponent from "@/components/common/FooterComponent.vue";
 import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
 
 function HandkerClickDomnload() {
-  alert("В разработке");
+  let a = document.createElement("a");
+  a.href = "https://apptest.hb.ru-msk.vkcs.cloud/Talent.zip";
+  a.download = "Talent.zip";
+  a.click();
 }
 
 function handlerBtnFooterClick() {

@@ -1,6 +1,9 @@
 import api from ".";
 
 export default {
+  getAllProjects() {
+    return api.get("/project/all");
+  },
   getActiveProjects() {
     return api.get("/project/active");
   },

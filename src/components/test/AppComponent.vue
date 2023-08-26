@@ -41,7 +41,10 @@ import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
 const sliders = ["architecture", "interiors", "art"];
 
 function HandkerClickDomnload() {
-  alert("В разработке");
+  let a = document.createElement("a");
+  a.href = "https://apptest.hb.ru-msk.vkcs.cloud/Talent.zip";
+  a.download = "Talent.zip";
+  a.click();
 }
 </script>
 
