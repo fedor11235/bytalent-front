@@ -5,208 +5,20 @@
       <div class="settings-view__left-panel">
         <div class="settings-view__card">
           <div v-if="aciveItem === 'Коммерция'">
-            <div class="settings-view__card_grid">
-              <div class="settings-view__card_title">Баланс</div>
-              <div class="settings-view__card_text">0 рублей</div>
-            </div>
-            <div class="settings-view__card_fill-btn">Пополнить</div>
-            <div class="settings-view__card_delimiter"></div>
-            <div class="settings-view__card_grid">
-              <div class="settings-view__card_title">Счета к оплате</div>
-              <div class="settings-view__card_text">
-                Счет №1342445 на оплату первого этапа визуализации от 01.09.2023
-              </div>
-            </div>
-            <div class="settings-view__card_delimiter"></div>
-            <div class="settings-view__card_grid">
-              <div class="settings-view__card_title">История операций</div>
-              <div class="settings-view__card_text">
-                Оплата счета №1342445 на оплату первого этапа визуализации от
-                01.09.2023
-              </div>
-            </div>
-            <div class="settings-view__card_delimiter"></div>
+            <CommerceSettings />
           </div>
           <div v-else-if="aciveItem === 'Личные дела'">
-            <div class="settings-view__card_grid">
-              <div class="settings-view__card_title">Имя</div>
-              <div class="settings-view__card_text">Роман</div>
-            </div>
-            <div class="settings-view__card_delimiter"></div>
-            <div class="settings-view__card_grid">
-              <div class="settings-view__card_title">Фамилия</div>
-              <div class="settings-view__card_text">Нестеренко</div>
-            </div>
-            <div class="settings-view__card_delimiter"></div>
-            <div class="settings-view__card_grid">
-              <div class="settings-view__card_title">Ограницзация</div>
-              <div class="settings-view__card_text">АО «ГК Талент»</div>
-            </div>
-            <div class="settings-view__card_delimiter"></div>
-            <div class="settings-view__card_grid">
-              <div class="settings-view__card_title">Должность</div>
-              <div class="settings-view__card_text">Генеральный директор</div>
-            </div>
-            <div class="settings-view__card_delimiter"></div>
-            <div class="settings-view__card_grid">
-              <div class="settings-view__card_title">Номер телефона</div>
-              <div class="settings-view__card_text">+7 (933) 666 66 63</div>
-            </div>
-            <div class="settings-view__card_delimiter"></div>
-            <div class="settings-view__card_grid">
-              <div class="settings-view__card_title">Эл. почта</div>
-              <div class="settings-view__card_text">bytalentru@gmail.com</div>
-            </div>
-            <div
-              v-if="isProfileEdit"
-              @click="isProfileEdit = false"
-              class="settings-view__card_edit_cntnr"
-            >
-              <div class="settings-view__card_edit">
-                <img
-                  class="settings-view__card_edit_icon"
-                  src="@/assets/icons/save.svg"
-                  alt="edit"
-                />
-                Сохранить
-              </div>
-            </div>
-            <div
-              v-else
-              @click="isProfileEdit = true"
-              class="settings-view__card_edit_cntnr"
-            >
-              <div class="settings-view__card_edit">
-                <img
-                  class="settings-view__card_edit_icon"
-                  src="@/assets/icons/pen.svg"
-                  alt="edit"
-                />
-                Редактировать
-              </div>
-            </div>
+            <ProfileSettings />
           </div>
           <div v-else-if="aciveItem === 'Юридические данные'">
-            <div class="settings-view__card_grid">
-              <div class="settings-view__card_title">Наименование</div>
-              <div class="settings-view__card_text">-</div>
-            </div>
-            <div class="settings-view__card_delimiter"></div>
-            <div class="settings-view__card_grid">
-              <div class="settings-view__card_title">Орг. форма</div>
-              <div class="settings-view__card_text">-</div>
-            </div>
-            <div class="settings-view__card_delimiter"></div>
-            <div class="settings-view__card_grid">
-              <div class="settings-view__card_title">ОГРН</div>
-              <div class="settings-view__card_text">-</div>
-            </div>
-            <div class="settings-view__card_delimiter"></div>
-            <div class="settings-view__card_grid">
-              <div class="settings-view__card_title">ИНН</div>
-              <div class="settings-view__card_text">-</div>
-            </div>
-            <div class="settings-view__card_delimiter"></div>
-            <div class="settings-view__card_grid">
-              <div class="settings-view__card_title">Бик банка</div>
-              <div class="settings-view__card_text">-</div>
-            </div>
-            <div class="settings-view__card_delimiter"></div>
-            <div class="settings-view__card_grid">
-              <div class="settings-view__card_title">Расчётный счёт</div>
-              <div class="settings-view__card_text">-</div>
-            </div>
-            <div
-              v-if="isProfileEdit"
-              @click="isProfileEdit = false"
-              class="settings-view__card_edit_cntnr"
-            >
-              <div class="settings-view__card_edit">
-                <img
-                  class="settings-view__card_edit_icon"
-                  src="@/assets/icons/save.svg"
-                  alt="edit"
-                />
-                Сохранить
-              </div>
-            </div>
-            <div
-              v-else
-              @click="isProfileEdit = true"
-              class="settings-view__card_edit_cntnr"
-            >
-              <div class="settings-view__card_edit">
-                <img
-                  class="settings-view__card_edit_icon"
-                  src="@/assets/icons/pen.svg"
-                  alt="edit"
-                />
-                Редактировать
-              </div>
-            </div>
+            <LegalDataSettings />
           </div>
           <div v-else-if="aciveItem === 'Официальные ссылки'">
-            <div class="settings-view__card_grid">
-              <div class="settings-view__card_title">Website</div>
-              <div class="settings-view__card_text">https://bytalent.io</div>
-            </div>
-            <div class="settings-view__card_delimiter"></div>
-            <div class="settings-view__card_grid">
-              <div class="settings-view__card_title">Telegram</div>
-              <div class="settings-view__card_text">
-                https://t.me/roman_talent
-              </div>
-            </div>
-            <div class="settings-view__card_delimiter"></div>
-            <div class="settings-view__card_grid">
-              <div class="settings-view__card_title">instagram</div>
-              <div class="settings-view__card_text">-</div>
-            </div>
-            <div class="settings-view__card_delimiter"></div>
-            <div class="settings-view__card_grid">
-              <div class="settings-view__card_title">Twitter</div>
-              <div class="settings-view__card_text">-</div>
-            </div>
-            <div class="settings-view__card_delimiter"></div>
-            <div class="settings-view__card_grid">
-              <div class="settings-view__card_title">Behance</div>
-              <div class="settings-view__card_text">-</div>
-            </div>
-            <div class="settings-view__card_delimiter"></div>
-            <div class="settings-view__card_grid">
-              <div class="settings-view__card_title">Artstation</div>
-              <div class="settings-view__card_text">-</div>
-            </div>
-            <div
-              v-if="isProfileEdit"
-              @click="isProfileEdit = false"
-              class="settings-view__card_edit_cntnr"
-            >
-              <div class="settings-view__card_edit">
-                <img
-                  class="settings-view__card_edit_icon"
-                  src="@/assets/icons/save.svg"
-                  alt="edit"
-                />
-                Сохранить
-              </div>
-            </div>
-            <div
-              v-else
-              @click="isProfileEdit = true"
-              class="settings-view__card_edit_cntnr"
-            >
-              <div class="settings-view__card_edit">
-                <img
-                  class="settings-view__card_edit_icon"
-                  src="@/assets/icons/pen.svg"
-                  alt="edit"
-                />
-                Редактировать
-              </div>
-            </div>
+            <OfficialLinksSettings />
           </div>
-          <div v-else-if="aciveItem === 'Безопасность'"></div>
+          <div v-else-if="aciveItem === 'Безопасность'">
+            <SafetySettings />
+          </div>
         </div>
       </div>
       <div class="settings-view__menu">
@@ -245,6 +57,11 @@
 import { ref } from "vue";
 import HeaderComponentAdditional from "@/components/common/HeaderComponentAdditional.vue";
 import FAQControl from "@/components/controls/FAQControl.vue";
+import CommerceSettings from "@/components/test/CommerceSettings.vue";
+import ProfileSettings from "@/components/test/ProfileSettings.vue";
+import LegalDataSettings from "@/components/test/LegalDataSettings.vue";
+import OfficialLinksSettings from "@/components/test/OfficialLinksSettings.vue";
+import SafetySettings from "@/components/test/SafetySettings.vue";
 
 const menu = [
   "Коммерция",
