@@ -1,5 +1,5 @@
 <template>
-  <div class="profile-view">
+  <div class="profile-view" @click.self="rootStore.popupProfile = false">
     <EmptyComponent />
     <div class="switch-profile-settings">
       <img
@@ -45,7 +45,9 @@ import EmptyComponent from "@/components/common/EmptyComponent.vue";
 import FAQControl from "@/components/controls/FAQControl.vue";
 import ProfilePanel from "@/components/test/ProfilePanel.vue";
 import SettingsPanel from "@/components/test/SettingsPanel.vue";
+import { useRootStore } from "@/store";
 
+const rootStore = useRootStore();
 const activePanel = ref("profile");
 </script>
 

@@ -24,7 +24,6 @@ const twoFactor = ref();
 
 onMounted(async () => {
   const security = await securityService.getSecurity();
-  console.log(security);
   auth.value = security.authorization ?? "-";
   twoFactor.value = security["2FA"] ?? "-";
 });

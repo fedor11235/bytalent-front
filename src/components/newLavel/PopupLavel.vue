@@ -60,13 +60,14 @@ let move = indexBackgrounds.value * -widthSlid;
 const sliders: Ref<HTMLDivElement | null> = ref(null);
 
 function handlerAddBackground() {
-  const backgroundId =  projectStore.backgroundsFill[indexBackgrounds.value].id
-  const backgroundImg =  projectStore.backgroundsFill[indexBackgrounds.value].img
+  const backgroundId = projectStore.backgroundsFill[indexBackgrounds.value].id;
+  const backgroundImg =
+    projectStore.backgroundsFill[indexBackgrounds.value].img;
   projectStore.background = {
     projectId: props.projectId,
     img: backgroundImg,
-  }
-  projectService.selectBackground(projectStore.project.id, backgroundId)
+  };
+  projectService.selectBackground(projectStore.project.id, backgroundId);
 }
 
 function handlerDeleteBackground() {

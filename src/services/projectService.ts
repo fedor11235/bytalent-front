@@ -37,7 +37,7 @@ export default {
   },
   async selectBackground(projectId: number, backgroundId: number) {
     try {
-      await projectApi.selectBackground(projectId, backgroundId)
+      await projectApi.selectBackground(projectId, backgroundId);
     } catch (e) {
       console.error(e);
     }

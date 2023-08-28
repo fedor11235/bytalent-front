@@ -73,8 +73,6 @@ const router = useRouter();
 
 const isPopupAdd = ref(false);
 
-console.log('props.project', props.project.background);
-
 async function HandkerClickCreate() {
   await projectService.createProject({
     name: "Новый проект",

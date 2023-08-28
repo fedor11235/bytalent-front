@@ -6,42 +6,44 @@
     ref="fileInputBgr"
     accept="image/*"
   />
-  <div class="add-file-bgr">
-    <div
-      @click="handlerLeftMove"
-      class="add-file-bgr__arrow add-file-bgr__arrow-left"
-    ></div>
-    <div v-if="carouselUpdate" class="add-file-bgr__carousel" ref="sliders">
+  <div @click.self="emit('close')" class="add-file-bgr_bgdrop">
+    <div class="add-file-bgr">
       <div
-        v-for="(background, index) in backgrounds"
-        :key="index"
-        class="add-file-bgr_grid"
-      >
+        @click="handlerLeftMove"
+        class="add-file-bgr__arrow add-file-bgr__arrow-left"
+      ></div>
+      <div v-if="carouselUpdate" class="add-file-bgr__carousel" ref="sliders">
         <div
-          v-for="bgr in background"
-          :key="bgr.id"
-          @click="handlerUploadBgr(bgr.plus)"
-          :class="[
-            'add-file-bgr_elem',
-            {
-              'add-file-bgr_elem_last': bgr.plus,
-            },
-          ]"
+          v-for="(background, index) in backgrounds"
+          :key="index"
+          class="add-file-bgr_grid"
         >
-          <img
-            v-if="bgr.img"
-            class="add-file-bgr_elem__img"
-            :src="bgr.img"
-            alt="img"
-          />
+          <div
+            v-for="bgr in background"
+            :key="bgr.id"
+            @click="handlerUploadBgr(bgr.plus)"
+            :class="[
+              'add-file-bgr_elem',
+              {
+                'add-file-bgr_elem_last': bgr.plus,
+              },
+            ]"
+          >
+            <img
+              v-if="bgr.img"
+              class="add-file-bgr_elem__img"
+              :src="bgr.img"
+              alt="img"
+            />
+          </div>
         </div>
       </div>
+      <div
+        @click="handlerRightMove"
+        class="add-file-bgr__arrow add-file-bgr__arrow-right"
+      ></div>
+      <div class="add-file-bgr_title">Добавьте свои фото или видео</div>
     </div>
-    <div
-      @click="handlerRightMove"
-      class="add-file-bgr__arrow add-file-bgr__arrow-right"
-    ></div>
-    <div class="add-file-bgr_title">Добавьте свои фото или видео</div>
   </div>
 </template>
 
@@ -52,6 +54,8 @@ import { fileInput, fileInsertion, browseFile } from "@/utils/file";
 import projectService from "@/services/projectService";
 import { useRootStore } from "@/store";
 import { useProjectStore } from "@/store";
+
+const emit = defineEmits(["close"]);
 
 const rootStore = useRootStore();
 const projectStore = useProjectStore();
@@ -154,7 +158,6 @@ function updateBgrCarusel() {
       endArrayBgrIndex += 1;
     }
   } else {
-    console.log("index: ", index);
     backgrounds.value[index] = backgroundsEmpty;
   }
 }
@@ -189,6 +192,14 @@ watch(
   padding: 8px;
   padding-bottom: 0;
   overflow: hidden;
+  &_bgdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+  }
   &__carousel {
     display: flex;
     column-gap: 1.25%;

@@ -7,31 +7,33 @@
     ref="fileInputProject"
     accept="image/*"
   />
-  <div class="add-file-prg">
-    <div class="add-file-prg_grid">
-      <div
-        class="add-file-prg_elem add-file-prg_elem-format"
-        @click="handlerAddProject"
-        @drop="handlerDropProject"
-      >
-        <div class="add-file-prg_elem_title">
-          Поддерживаемые форматы: *3dm, *fbx, *dwg
+  <div @click.self="emit('close')" class="add-file-prg_bgdrop">
+    <div class="add-file-prg">
+      <div class="add-file-prg_grid">
+        <div
+          class="add-file-prg_elem add-file-prg_elem-format"
+          @click="handlerAddProject"
+          @drop="handlerDropProject"
+        >
+          <div class="add-file-prg_elem_title">
+            Поддерживаемые форматы: *3dm, *fbx, *dwg
+          </div>
+          <img
+            src="@/assets/icons/upload-prj.svg"
+            width="48"
+            height="48"
+            alt="upload"
+          />
         </div>
-        <img
-          src="@/assets/icons/upload-prj.svg"
-          width="48"
-          height="48"
-          alt="upload"
-        />
+        <div class="add-file-prg_elem add-file-prg_elem-preview">
+          <div class="add-file-prg_elem_title">Предпросмотр</div>
+        </div>
+        <div class="add-file-prg_elem add-file-prg_elem-preview">
+          <div class="add-file-prg_elem_title">Информация</div>
+        </div>
       </div>
-      <div class="add-file-prg_elem add-file-prg_elem-preview">
-        <div class="add-file-prg_elem_title">Предпросмотр</div>
-      </div>
-      <div class="add-file-prg_elem add-file-prg_elem-preview">
-        <div class="add-file-prg_elem_title">Информация</div>
-      </div>
+      <div class="add-file-prg_title">Загрузите файлы проекта</div>
     </div>
-    <div class="add-file-prg_title">Загрузите файлы проекта</div>
   </div>
 </template>
 
@@ -48,6 +50,7 @@ import {
 import { useRootStore } from "@/store";
 import { useProjectStore } from "@/store";
 
+const emit = defineEmits(["close"]);
 // const rootStore = useRootStore();
 const projectStore = useProjectStore();
 
@@ -91,13 +94,20 @@ function handlerDropProject(event: DragEvent) {
   transform: translateX(-50%);
   height: 80vh;
   bottom: 5vh;
-  z-index: 2;
   border-radius: 24px;
   background-color: rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(17.5px);
   box-sizing: border-box;
   padding: 8px;
   overflow: hidden;
+  &_bgdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+  }
   &_grid {
     height: calc(100% - 4.5vh);
     display: grid;

@@ -164,14 +164,13 @@ function updateWidth() {
 
 function handlerLogin() {
   router.push({ name: "login" }).then(() => {
-      for (const page of allPages) {
+    for (const page of allPages) {
       rootStore[`${page}Hover`] = false;
     }
-  })
+  });
 }
 
 function handlerMouseOverBtn(name: PageName) {
-  console.log(name);
   if (!props.noHover) {
     rootStore[`${name}Hover`] = true;
   }
@@ -188,10 +187,10 @@ function handlerSwitchPage(name: PageName) {
   } else {
     router.push({ name: name }).then(() => {
       rootStore.popupProfile = false;
-        for (const page of allPages) {
+      for (const page of allPages) {
         rootStore[`${page}Hover`] = false;
       }
-    })
+    });
   }
 }
 
@@ -208,25 +207,17 @@ function btnClass(name: string) {
   if (name === "project") {
     return {
       header__btn:
-        (route.name !== "project-id" ||
-          route.name !== "project" ||
-          route.name !== "new-lavel") &&
+        (route.name !== "project-id" || route.name !== "project") &&
         theme.value !== "light",
       "header__btn-light":
-        (route.name !== "project-id" ||
-          route.name !== "project" ||
-          route.name !== "new-lavel") &&
+        (route.name !== "project-id" || route.name !== "project") &&
         theme.value === "light",
       header__btn_active:
-        (route.name === "project-id" ||
-          route.name === "project" ||
-          route.name === "new-lavel") &&
+        (route.name === "project-id" || route.name === "project") &&
         theme.value !== "light" &&
         !rootStore.popupProfile,
       "header__btn-light_active":
-        (route.name === "project-id" ||
-          route.name === "project" ||
-          route.name === "new-lavel") &&
+        (route.name === "project-id" || route.name === "project") &&
         theme.value === "light" &&
         !rootStore.popupProfile,
     };

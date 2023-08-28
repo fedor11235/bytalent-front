@@ -36,8 +36,6 @@ const buttonTelegram = ref();
 function test() {
   if (!props.finishLoad) return;
   // eslint-disable-next-line
-  console.log(window.Telegram)
-  // eslint-disable-next-line
   window.Telegram.Login.auth(
     { bot_id: 6574863532, request_access: true },
     (data: any) => {

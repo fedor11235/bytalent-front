@@ -44,8 +44,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { useRoute } from "vue-router";
 import VisualizationHover from "@/components/popup/VisualizationHover.vue";
 import AppHover from "@/components/popup/AppHover.vue";
 import StreamingHover from "@/components/popup/StreamingHover.vue";
@@ -62,12 +60,7 @@ import HeaderComponent from "@/components/common/HeaderComponent.vue";
 
 import { useRootStore } from "@/store";
 
-const route = useRoute();
 const rootStore = useRootStore();
-
-const HeaderHidden = ref();
-
-console.log(route.name);
 </script>
 
 <style lang="scss" scoped></style>

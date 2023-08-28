@@ -60,7 +60,6 @@ defineProps<{
   projectId: number;
 }>();
 
-
 const rootStore = useRootStore();
 const projectStore = useProjectStore();
 

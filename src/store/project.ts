@@ -25,7 +25,7 @@ type StreamingStore = {
   backgroundsFill: Background[];
   backgroundsEmpty: BackgroundPlug[];
   files: File[];
-  project: any
+  project: any;
 };
 
 type Background = {

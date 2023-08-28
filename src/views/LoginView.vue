@@ -96,6 +96,7 @@ const isPersonalData = ref(false);
 const isTermsUser = ref(false);
 
 rootStore.hiddenHeader = true;
+
 async function onTelegramAuth(user: any) {
   console.log("data telegram! ", user);
   await authService.registrationTelegramUser(

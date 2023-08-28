@@ -4,16 +4,19 @@
       v-if="project"
       class="new-level"
       :style="{
-        backgroundImage: bgr
+        backgroundImage: bgr,
       }"
     >
       <div class="new-level__backdrop"></div>
       <div class="new-level__content">
         <Transition name="fade">
-          <AddFileBgr v-if="isMediaAddBgr" />
+          <AddFileBgr v-if="isMediaAddBgr" @close="isMediaAddBgr = false" />
         </Transition>
         <Transition name="fade">
-          <AddFileProject v-if="isMediaAddProgect" />
+          <AddFileProject
+            v-if="isMediaAddProgect"
+            @close="isMediaAddProgect = false"
+          />
         </Transition>
         <EmptyComponent />
         <div v-if="IsModeAdrsWrt" class="new-level__title_input">
@@ -88,9 +91,16 @@
           <div class="new-level__assistant">
             <div class="new-level__assistant_menu">
               <div
-                class="new-level__assistant_menu_item"
+                :class="[
+                  'new-level__assistant_menu_item',
+                  {
+                    'new-level__assistant_menu_item-active':
+                      selectedMenu === item,
+                  },
+                ]"
                 v-for="item of menu"
                 :key="item"
+                @click="selectedMenu = item"
               >
                 <img
                   class="new-level__assistant_menu_item_icon"
@@ -119,24 +129,44 @@
                 alt="expand"
                 class="new-level__assistant_expand"
               />
-              <textarea
-                :class="[
-                  'new-level__assistant_chat_input',
-                  { 'new-level__assistant_chat_input_big': isExpand },
-                ]"
-                placeholder="Введите текст"
-              ></textarea>
+              <div v-if="selectedMenu === 'Личный ассистент'">
+                <textarea
+                  :class="[
+                    'new-level__assistant_chat_input',
+                    { 'new-level__assistant_chat_input_big': isExpand },
+                  ]"
+                  placeholder="Введите текст"
+                ></textarea>
+                <div
+                  @click="handlerSendCahnge"
+                  class="new-level__assistant_chat_button"
+                >
+                  Отправить
+                </div>
+              </div>
               <div
-                @click="handlerSendCahnge"
-                class="new-level__assistant_chat_button"
+                class="test"
+                v-else-if="selectedMenu === 'Технические требования'"
               >
-                Отправить
+                Технические требования<br /><br />
+                • Формат уровня Unreal Engine 5<br />
+                • Максимальный размер уровня - 3 Гб<br />
+                • Количество актеров в сцене &lt; 1000<br />
+                • Максимальный пул текстур - 3Гб
+              </div>
+              <div
+                class="test"
+                v-else-if="selectedMenu === 'Правли размещения'"
+              >
+                Правли размещения<br /><br />
+              </div>
+              <div class="test" v-else-if="selectedMenu === 'Интеграция'">
+                Интеграция<br /><br />
               </div>
             </div>
           </div>
           <div class="assistant__btns">
             <div class="assistant__btns_btn assistant__btns_check"></div>
-            <!-- <div class="assistant__btns_btn assistant__btns_import"></div> -->
             <div class="assistant__btns_btn assistant__btns_share"></div>
             <div class="assistant__btns_btn assistant__btns_faq"></div>
             <div class="assistant__btns_btn assistant__btns_delete"></div>
@@ -174,7 +204,9 @@ const props = defineProps<{
 
 const router = useRouter();
 const projectStore = useProjectStore();
+
 const finishLoad = ref(false);
+const selectedMenu = ref("Личный ассистент");
 
 const menu = [
   "Личный ассистент",
@@ -199,13 +231,19 @@ const projects = ref([]);
 const project = ref();
 const total = ref(0);
 
+document.addEventListener("keydown", (event) => {
+  if (event.code === "Enter" && IsModeAdrsWrt.value) {
+    handlerEdit();
+  }
+});
+
 const bgr = computed(() => {
-  if(projectStore.background.projectId === Number(props.idProject)) {
-    return `url(${projectStore.background.img})`
-  } else if(projectStore.project.background) {
-    return `url(${projectStore.project.background})`
+  if (projectStore.background.projectId === Number(props.idProject)) {
+    return `url(${projectStore.background.img})`;
+  } else if (projectStore.project.background) {
+    return `url(${projectStore.project.background})`;
   } else {
-    return `url(${require('@/assets/backgrounds/lvel.jpeg')})`
+    return `url(${require("@/assets/backgrounds/lvel.jpeg")})`;
   }
 });
 
@@ -279,6 +317,14 @@ onMounted(async () => {
 </script>
 
 <style lang="scss" scoped>
+.test {
+  padding: 0.74vh 1.6vw;
+  color: #f9f9f9;
+  font-family: JuraMedium;
+  font-size: 1.85vh;
+  line-height: 140%;
+  letter-spacing: -0.4px;
+}
 .new-level {
   position: fixed;
   z-index: 1;
@@ -311,7 +357,7 @@ onMounted(async () => {
     }
     .media {
       display: flex;
-      margin-top: 16px;
+      margin-top: 1.48vh;
       &__btn {
         width: 32px;
         height: 28px;
@@ -516,9 +562,11 @@ onMounted(async () => {
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: flex-end;
+      row-gap: 2.2vh;
       &_btn {
         width: 70%;
-        height: 100%;
+        height: 4.44vh;
         background-position: 50%;
         background-repeat: no-repeat;
         background-size: contain;
@@ -579,7 +627,7 @@ onMounted(async () => {
         display: flex;
         align-items: center;
         column-gap: 0.8vw;
-        padding: 12px 24px;
+        padding: 1.11vh 1.25vw;
         cursor: pointer;
         border-radius: 12px;
         border-top: 1px solid rgba(255, 255, 255, 0.65);
@@ -588,6 +636,10 @@ onMounted(async () => {
         font-size: 1.6vh;
         line-height: 100%;
         letter-spacing: -0.36px;
+        &-active {
+          text-shadow: 0 12px 12px rgba(0, 0, 0, 0.48);
+          background-color: rgba(255, 255, 255, 0.03);
+        }
         &_icon {
           width: 2.2vh;
           height: 2.2vh;
@@ -607,8 +659,11 @@ onMounted(async () => {
       margin: 0.74vh 0.74vh 0.74vh 0;
       box-sizing: border-box;
       &_big {
-        height: 70vh;
-        bottom: 20.5vh;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transform: translateY(calc(-75vh + 31vh - 1.48vh));
+        height: 75vh;
         background: rgba(0, 0, 0, 0.35);
         backdrop-filter: blur(22.5px);
       }
@@ -617,7 +672,7 @@ onMounted(async () => {
         border: none;
         border-radius: 16px;
         background-color: rgba(0, 0, 0, 0.55);
-        padding: 16px;
+        padding: 1.48vh 0.8vw;
         position: absolute;
         bottom: 0;
         left: 0;

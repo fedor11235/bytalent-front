@@ -2,7 +2,9 @@
   <div
     class="layout-welcome"
     :style="{
-      backgroundImage: bgBase? `url(${bgBase})`: `url(${require(`@/assets/backgrounds/${bg}.png`)})`,
+      backgroundImage: bgBase
+        ? `url(${bgBase})`
+        : `url(${require(`@/assets/backgrounds/${bg}.png`)})`,
     }"
   >
     <div
