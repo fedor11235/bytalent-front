@@ -1,10 +1,10 @@
 <template>
   <WelcomeLayout
     bg="projects"
-    title="Приложение «by Talent»"
+    title="Разместите свой проект"
     bgrDropColor="rgba(0, 0, 0, 0.50)"
     bgrDropBlur="blur(7.5px)"
-    description="Персональное приложение для доступа в проекты Unreal Engine 5"
+    description="Откройте свои проекты UE5 для клиентов со всего мира"
     isLine
     imgBtn="upload-w"
     :btnClick="HandkerClickUpload"
@@ -19,11 +19,13 @@
       </div>
     </template>
   </WelcomeLayout>
+  <FAQControl />
 </template>
 
 <script setup lang="ts">
 import { useRouter } from "vue-router";
 import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
+import FAQControl from "@/components/controls/FAQControl.vue";
 
 const router = useRouter();
 

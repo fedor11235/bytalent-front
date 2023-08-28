@@ -243,7 +243,7 @@ function controllClass() {
     }
   }
   &__logo {
-    width: 95px;
+    width: 130px;
     height: 100%;
     padding: 0 30px;
     background-position: 50%;

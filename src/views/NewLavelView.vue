@@ -18,8 +18,11 @@
           <AddFileProject v-if="isMediaAddProgect" />
         </Transition>
         <HeaderComponent :removeBtnPst="true" noHover />
-        <div class="new-level__title">
-          {{ project?.name ?? "Новый уровень" }}
+        <div v-if="IsModeAdrsWrt" class="new-level__title_input">
+          <input v-model="name" />
+        </div>
+        <div v-else class="new-level__title">
+          {{ name }}
         </div>
         <div class="media">
           <div class="new-level__content__control">
@@ -55,9 +58,23 @@
                 </div>
               </div>
               <div class="new-level__description">
-                <div class="new-level__description_text">Описание объекта</div>
-                <div class="new-level__description_text">
-                  Дополнительная информация
+                <div
+                  v-if="IsModeAdrsWrt"
+                  class="new-level__description_text_input"
+                >
+                  <input v-model="info" />
+                </div>
+                <div v-else class="new-level__description_text">
+                  {{ info }}
+                </div>
+                <div
+                  v-if="IsModeAdrsWrt"
+                  class="new-level__description_text_input"
+                >
+                  <input v-model="comments" />
+                </div>
+                <div v-else class="new-level__description_text">
+                  {{ comments }}
                 </div>
               </div>
             </div>
@@ -165,6 +182,9 @@ const menu = [
 let finishLoadBgr = false;
 
 const address = ref("Адрес проекта");
+const name = ref("Новый уровень");
+const info = ref("Описание объекта");
+const comments = ref("Дополнительная информация");
 
 const IsModeAdrsWrt = ref(false);
 const isMediaAddBgr = ref(false);
@@ -179,7 +199,10 @@ function handlerEdit() {
   IsModeAdrsWrt.value = !IsModeAdrsWrt.value;
   if (!IsModeAdrsWrt.value) {
     projectService.updateProject(props.idProject, {
+      name: name.value,
       address: address.value,
+      info: info.value,
+      comments: comments.value,
     });
   }
 }
@@ -216,9 +239,15 @@ onMounted(async () => {
         (item: any) => item.id === Number(props.idProject)
       );
       if (project.value) {
-        address.value = project.value.address;
+        address.value = project.value.address ?? "Адрес проекта";
+        name.value = project.value.name ?? "Новый уровень";
+        info.value = project.value.info ?? "Описание объекта";
+        comments.value = project.value.comments ?? "Дополнительная информация";
       } else {
         address.value = "Адрес проекта";
+        name.value = "Новый уровень";
+        info.value = "Описание объекта";
+        comments.value = "Дополнительная информация";
       }
     }
   });
@@ -338,11 +367,29 @@ onMounted(async () => {
     color: white;
     font-family: JuraSemiBold;
     font-size: 4.6vh;
-    font-style: normal;
     line-height: 125%;
     letter-spacing: -1.5px;
     width: 66%;
     margin: 0 auto;
+    border-radius: 8px;
+    &_input {
+      width: 66%;
+      margin: 0 auto;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      input {
+        border: none;
+        outline: none;
+        padding: 0;
+        border-radius: 8px;
+        font-family: JuraSemiBold;
+        font-size: 4.6vh;
+        line-height: 125%;
+        letter-spacing: -1.5px;
+        color: #191919;
+        width: 100%;
+      }
+    }
   }
   &__text {
     display: flex;
@@ -375,9 +422,12 @@ onMounted(async () => {
         color: #191919;
         border: none;
         outline: none;
+        height: 3.5vh;
+        width: 100%;
       }
       &-wrt {
         color: #191919;
+        width: 100%;
       }
     }
   }
@@ -394,6 +444,25 @@ onMounted(async () => {
       font-weight: 500;
       line-height: 100%;
       letter-spacing: -0.56px;
+      height: 2.5vh;
+      &_input {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        height: 2.5vh;
+        input {
+          width: 100%;
+          border: none;
+          outline: none;
+          padding: 0;
+          border-radius: 8px;
+          font-family: JuraSemiBold;
+          font-size: 2.5vh;
+          line-height: 125%;
+          letter-spacing: -1.5px;
+          color: #191919;
+          height: 2.5vh;
+        }
+      }
     }
   }
   .assistant {

@@ -47,6 +47,7 @@
         >{{ button.title }}</span
       >
       <span
+        v-if="noHover"
         @click="handlerSwitchPage('profile')"
         :class="btnClassPopup(rootStore.popupProfile)"
         @mouseover="handlerMouseOverBtn('profile')"
@@ -198,19 +199,23 @@ function logoStyle() {
     return { backgroundImage: `url(${require("@/assets/header/logo.png")})` };
 }
 
-console.log(route.name, "route.name");
-console.log(route, "route");
-
 function btnClass(name: string) {
+  console.log(name);
+  console.log(route.name);
   if (name === "project") {
     return {
-      header__btn: route.name !== "project-id" && theme.value !== "light",
+      header__btn:
+        (route.name !== "project-id" || route.name !== "project") &&
+        theme.value !== "light",
       "header__btn-light":
-        route.name !== "project-id" && theme.value === "light",
+        (route.name !== "project-id" || route.name !== "project") &&
+        theme.value === "light",
       header__btn_active:
-        route.name === "project-id" && theme.value !== "light",
+        (route.name === "project-id" || route.name === "project") &&
+        theme.value !== "light",
       "header__btn-light_active":
-        route.name === "project-id" && theme.value === "light",
+        (route.name === "project-id" || route.name === "project") &&
+        theme.value === "light",
     };
   }
   return {
@@ -310,7 +315,7 @@ function controllClass() {
     }
   }
   &__logo {
-    width: 95px;
+    width: 130px;
     height: 100%;
     padding: 0 30px;
     background-position: 50%;
