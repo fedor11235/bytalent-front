@@ -49,6 +49,7 @@ const emit = defineEmits(["close"]);
 
 const props = defineProps<{
   indexBackgrounds: number;
+  projectId: number;
 }>();
 
 const indexBackgrounds = ref(props.indexBackgrounds);
@@ -59,8 +60,13 @@ let move = indexBackgrounds.value * -widthSlid;
 const sliders: Ref<HTMLDivElement | null> = ref(null);
 
 function handlerAddBackground() {
-  projectStore.background =
-    projectStore.backgroundsFill[indexBackgrounds.value].img;
+  const backgroundId =  projectStore.backgroundsFill[indexBackgrounds.value].id
+  const backgroundImg =  projectStore.backgroundsFill[indexBackgrounds.value].img
+  projectStore.background = {
+    projectId: props.projectId,
+    img: backgroundImg,
+  }
+  projectService.selectBackground(projectStore.project.id, backgroundId)
 }
 
 function handlerDeleteBackground() {

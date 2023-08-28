@@ -11,6 +11,7 @@
       <PopupLavel
         v-if="isShowPopup"
         :indexBackgrounds="indexBackgrounds"
+        :projectId="projectId"
         @close="isShowPopup = false"
       />
     </Transition>
@@ -54,6 +55,11 @@ import { useRootStore } from "@/store";
 import { useProjectStore } from "@/store";
 import projectService from "@/services/projectService";
 import { fileInput, fileInsertion, browseFile } from "@/utils/file";
+
+defineProps<{
+  projectId: number;
+}>();
+
 
 const rootStore = useRootStore();
 const projectStore = useProjectStore();

@@ -2,13 +2,14 @@ import { defineStore } from "pinia";
 
 export const useProjectStore = defineStore("project", {
   state: (): StreamingStore => ({
-    background: "",
+    background: {},
     backgroundsFill: [],
     backgroundsEmpty: [
       { id: "0-emty", img: "", plus: true },
       { id: "1-emty", img: "" },
       { id: "2-emty", img: "" },
     ],
+    project: null,
     files: [],
   }),
   getters: {
@@ -20,10 +21,11 @@ export const useProjectStore = defineStore("project", {
 });
 
 type StreamingStore = {
-  background: string;
+  background: any;
   backgroundsFill: Background[];
   backgroundsEmpty: BackgroundPlug[];
   files: File[];
+  project: any
 };
 
 type Background = {

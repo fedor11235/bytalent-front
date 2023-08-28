@@ -35,6 +35,13 @@ export default {
       console.error(e);
     }
   },
+  async selectBackground(projectId: number, backgroundId: number) {
+    try {
+      await projectApi.selectBackground(projectId, backgroundId)
+    } catch (e) {
+      console.error(e);
+    }
+  },
   async uploadFileProject(projectId: number, payload: any) {
     try {
       const formData = new FormData();

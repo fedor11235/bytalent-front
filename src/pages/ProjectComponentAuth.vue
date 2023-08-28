@@ -5,6 +5,7 @@
   <WelcomeLayout
     v-if="total > 0"
     bg="project-new"
+    :bgBase="project.background"
     noHover
     :title="(project as any).name ? (project as any).name: 'Новый уровень'"
     bgrDropColor="rgba(0, 0, 0, 0.55)"
@@ -72,6 +73,8 @@ const router = useRouter();
 
 const isPopupAdd = ref(false);
 
+console.log('props.project', props.project.background);
+
 async function HandkerClickCreate() {
   await projectService.createProject({
     name: "Новый проект",
@@ -82,7 +85,7 @@ async function HandkerClickCreate() {
 }
 
 function switchPreviousProject() {
-  if (props.total === 1) {
+  if (props.indexProject <= 1) {
     return;
   }
   const previousProjectId = props.projects[props.indexProject - 2].id;

@@ -2,7 +2,7 @@
   <div
     class="layout-welcome"
     :style="{
-      backgroundImage: `url(${require(`@/assets/backgrounds/${bg}.png`)})`,
+      backgroundImage: bgBase? `url(${bgBase})`: `url(${require(`@/assets/backgrounds/${bg}.png`)})`,
     }"
   >
     <div
@@ -46,6 +46,7 @@ defineProps<{
   isLine?: boolean;
   bgrDropColor?: string;
   bgrDropBlur?: string;
+  bgBase?: string;
   btnClick: () => void;
   title: string;
   description: string;

@@ -4,9 +4,7 @@
       v-if="project"
       class="new-level"
       :style="{
-        backgroundImage: projectStore.background
-          ? `url(${projectStore.background})`
-          : `url(${require('@/assets/backgrounds/lvel.jpeg')})`,
+        backgroundImage: bgr
       }"
     >
       <div class="new-level__backdrop"></div>
@@ -28,7 +26,7 @@
           <div class="new-level__content__control">
             <div @click="handlerOpenBgrPopup" class="media__btn"></div>
           </div>
-          <CarouselComponent />
+          <CarouselComponent :projectId="Number(idProject)" />
         </div>
         <div class="new-level__info">
           <div class="new-level__header">
@@ -152,7 +150,7 @@
 </template>
 
 <script setup lang="ts">
-import { provide, ref, onMounted } from "vue";
+import { provide, ref, computed, onMounted } from "vue";
 import { useProjectStore } from "@/store";
 import { useRouter } from "vue-router";
 import projectService from "@/services/projectService";
@@ -201,6 +199,16 @@ const projects = ref([]);
 const project = ref();
 const total = ref(0);
 
+const bgr = computed(() => {
+  if(projectStore.background.projectId === Number(props.idProject)) {
+    return `url(${projectStore.background.img})`
+  } else if(projectStore.project.background) {
+    return `url(${projectStore.project.background})`
+  } else {
+    return `url(${require('@/assets/backgrounds/lvel.jpeg')})`
+  }
+});
+
 function handlerEdit() {
   IsModeAdrsWrt.value = !IsModeAdrsWrt.value;
   if (!IsModeAdrsWrt.value) {
@@ -244,16 +252,12 @@ onMounted(async () => {
       project.value = projects.value.find(
         (item: any) => item.id === Number(props.idProject)
       );
+      projectStore.project = project.value;
       if (project.value) {
         address.value = project.value.address ?? "Адрес проекта";
         name.value = project.value.name ?? "Новый уровень";
         info.value = project.value.info ?? "Описание объекта";
         comments.value = project.value.comments ?? "Дополнительная информация";
-      } else {
-        address.value = "Адрес проекта";
-        name.value = "Новый уровень";
-        info.value = "Описание объекта";
-        comments.value = "Дополнительная информация";
       }
     }
   });

@@ -19,6 +19,9 @@ export default {
   postBackgrounds(payload: FormData) {
     return api.post("/project/backgrounds", payload);
   },
+  selectBackground(projectId: number, backgroundId: number) {
+    return api.get(`/project/background/${projectId}/${backgroundId}`);
+  },
   deleteBackgrounds(id: number) {
     return api.delete(`/project/backgrounds/${id}`);
   },
