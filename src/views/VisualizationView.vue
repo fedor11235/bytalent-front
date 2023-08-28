@@ -50,6 +50,7 @@ const indexProject = ref(0);
 watch(
   () => route.params,
   async () => {
+    finishLoad.value = false;
     check.value = await authService.checkToken();
     if (check.value && props.idProject !== "0") {
       await projectService.getAllNumberProjects().then(async (res) => {
@@ -79,7 +80,7 @@ watch(
           }
         }
       });
-    } else {
+    } else if (check.value && props.idProject === "0") {
       finishLoad.value = true;
     }
   },
