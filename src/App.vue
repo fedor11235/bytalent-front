@@ -17,6 +17,13 @@
   <Transition name="fade">
     <AddFileProject v-if="rootStore.popupAddProject" />
   </Transition>
+  <Transition name="fade">
+    <PopupLavel
+      v-if="rootStore.showPopupBgr"
+      :indexBackgrounds="rootStore.indexBackgrounds"
+      :projectId="rootStore.projectId"
+    />
+  </Transition>
 
   <HeaderComponent
     v-if="!rootStore.hiddenHeader"
@@ -62,6 +69,7 @@ import AddFileProject from "@/components/newLavel/AddFileProject.vue";
 import InfoComponents from "@/components/common/InfoComponents.vue";
 import PopupWarning from "@/components/common/PopupWarning.vue";
 import PopupOrder from "@/components/common/PopupOrder.vue";
+import PopupLavel from "@/components/newLavel/PopupLavel.vue";
 
 import ProfilePopup from "@/components/popup/ProfilePopup.vue";
 import PopupFAQ from "@/components/docs/PopupFAQ.vue";

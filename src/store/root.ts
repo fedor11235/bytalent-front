@@ -18,6 +18,7 @@ export const useRootStore = defineStore("root", {
 
     popupAddBgr: false,
     popupAddProject: false,
+    showPopupBgr: false,
 
     popupProfile: false,
     // popupSettings: false,
@@ -26,6 +27,8 @@ export const useRootStore = defineStore("root", {
     auth: false,
     hiddenHeader: false,
     noHover: false,
+    indexBackgrounds: 0,
+    projectId: 0,
   }),
   // getters: {
   //   haddenHeader: (state) => state.projectHover || state.appHover || state.streamingHover || state.profileHover || state.searchHover || state.popupProfile
@@ -48,9 +51,13 @@ type StreamingStore = {
   popupAddBgr: boolean;
   popupAddProject: boolean;
   popupProfile: boolean;
+  showPopupBgr: boolean;
   // popupSettings: boolean;
 
   auth: boolean;
   hiddenHeader: boolean;
   noHover: boolean;
+
+  indexBackgrounds: number;
+  projectId: number;
 };

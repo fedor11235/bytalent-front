@@ -329,7 +329,7 @@ function controllClass() {
     }
   }
   &__logo {
-    width: 130px;
+    width: 150px;
     height: 100%;
     padding: 0 30px;
     background-position: 50%;

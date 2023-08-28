@@ -17,11 +17,13 @@
       />
     </template>
   </WelcomeLayout>
+  <FAQControl />
 </template>
 
 <script setup lang="ts">
 import FooterComponent from "@/components/common/FooterComponent.vue";
 import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
+import FAQControl from "@/components/controls/FAQControl.vue";
 import { useRootStore } from "@/store";
 
 const rootStore = useRootStore();

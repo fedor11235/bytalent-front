@@ -20,7 +20,7 @@ const rootStore = useRootStore();
   position: fixed;
   height: 100vh;
   width: 100vw;
-  z-index: 1;
+  z-index: 4;
   background-color: rgba(0, 0, 0, 0.78);
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);

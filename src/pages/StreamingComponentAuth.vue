@@ -1,7 +1,7 @@
 <template>
   <div v-if="notes" class="notes">
     <div class="notes__backdrop">
-      <HeaderComponent />
+      <EmptyComponent />
       <div class="notes__contents">
         <div class="notes__info">
           <div class="notes__info_elem">
@@ -33,6 +33,7 @@
     imgBtn="launch"
     :btnClick="HandkerClickLaunch"
     noHover
+    isLine
   >
     <template v-slot:content-bottom>
       <FooterComponent
@@ -44,14 +45,16 @@
       />
     </template>
   </WelcomeLayout>
+  <FAQControl />
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
-import HeaderComponent from "@/components/common/HeaderComponent.vue";
+import EmptyComponent from "@/components/common/EmptyComponent.vue";
 import FooterComponent from "@/components/common/FooterComponent.vue";
+import FAQControl from "@/components/controls/FAQControl.vue";
 import { useRootStore } from "@/store";
 
 const rootStore = useRootStore();

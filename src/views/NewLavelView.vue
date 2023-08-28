@@ -156,7 +156,10 @@
           <div class="assistant__btns">
             <div class="assistant__btns_btn assistant__btns_check"></div>
             <div class="assistant__btns_btn assistant__btns_share"></div>
-            <div class="assistant__btns_btn assistant__btns_faq"></div>
+            <div
+              @click="rootStore.FAQPopup = true"
+              class="assistant__btns_btn assistant__btns_faq"
+            ></div>
             <div class="assistant__btns_btn assistant__btns_delete"></div>
           </div>
         </div>

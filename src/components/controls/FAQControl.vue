@@ -27,7 +27,7 @@ const rootStore = useRootStore();
   font-size: 19px;
   line-height: 125%;
   letter-spacing: -0.76px;
-  z-index: 4;
+  z-index: 2;
   cursor: pointer;
   &:hover {
     box-shadow: -3px -1px 8px 0px rgba(232, 232, 232, 0.25),

@@ -7,14 +7,14 @@
     accept="image/*"
   />
   <div class="carousel">
-    <Transition name="fade">
+    <!-- <Transition name="fade">
       <PopupLavel
         v-if="isShowPopup"
         :indexBackgrounds="indexBackgrounds"
         :projectId="projectId"
         @close="isShowPopup = false"
       />
-    </Transition>
+    </Transition> -->
     <div class="sliders" ref="sliders">
       <div
         v-for="(background, index) in projectStore.backgrounds"
@@ -48,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import PopupLavel from "@/components/newLavel/PopupLavel.vue";
+// import PopupLavel from "@/components/newLavel/PopupLavel.vue";
 import type { Ref } from "vue";
 import { ref, onMounted } from "vue";
 import { useRootStore } from "@/store";
@@ -56,7 +56,7 @@ import { useProjectStore } from "@/store";
 import projectService from "@/services/projectService";
 import { fileInput, fileInsertion, browseFile } from "@/utils/file";
 
-defineProps<{
+const props = defineProps<{
   projectId: number;
 }>();
 
@@ -66,8 +66,8 @@ const projectStore = useProjectStore();
 const widthSlid = 33.75;
 let move = 0;
 
-const indexBackgrounds = ref(0);
-const isShowPopup = ref(false);
+// const indexBackgrounds = ref(0);
+// const isShowPopup = ref(false);
 const sliders: Ref<HTMLDivElement | null> = ref(null);
 const fileInputBgr: Ref<HTMLInputElement | null> = ref(null);
 
@@ -81,8 +81,11 @@ function getFilteredFileBg(file: File) {
 }
 
 function handlerShowPopup(index: number) {
-  indexBackgrounds.value = index;
-  isShowPopup.value = true;
+  rootStore.projectId = props.projectId;
+  rootStore.indexBackgrounds = index;
+  rootStore.showPopupBgr = true;
+  // indexBackgrounds.value = index;
+  // isShowPopup.value = true;
 }
 
 function handlerUploadBgr(enabled: boolean | undefined) {

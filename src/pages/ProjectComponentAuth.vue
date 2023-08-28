@@ -13,6 +13,7 @@
     :description="(project as any).info ? (project as any).info: 'Описание уровня'"
     imgBtn="control"
     :btnClick="HandkerClickControl"
+    isLine
   >
     <template v-slot:content-bottom>
       <FooterComponent
@@ -46,6 +47,7 @@
       />
     </template>
   </WelcomeLayout>
+  <FAQControl />
 </template>
 
 <script setup lang="ts">
@@ -54,6 +56,7 @@ import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
 import FooterComponent from "@/components/common/FooterComponent.vue";
 import projectService from "@/services/projectService";
 import PopupAdd from "@/components/visualization/PopupAdd.vue";
+import FAQControl from "@/components/controls/FAQControl.vue";
 import { useRouter } from "vue-router";
 import { useRootStore } from "@/store";
 

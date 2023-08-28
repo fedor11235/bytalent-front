@@ -1,7 +1,10 @@
 <template>
-  <div class="popup-level">
+  <div @click.self="rootStore.showPopupBgr = false" class="popup-level">
     <div class="popup-level__carousel">
-      <div @click="emit('close')" class="popup-level__close"></div>
+      <div
+        @click="rootStore.showPopupBgr = false"
+        class="popup-level__close"
+      ></div>
       <div class="popup-level__arrow popup-level__arrow-pos-left">
         <div @click="handlerLeftMove" class="popup-level__arrow-left"></div>
       </div>
@@ -14,10 +17,10 @@
           v-for="background in projectStore.backgroundsFill"
           :key="background.id"
           class="popup-level__slider"
-          :style="{
-            backgroundImage: `url(${background.img})`,
-          }"
-        ></div>
+          @click.self="rootStore.showPopupBgr = false"
+        >
+          <img :src="background.img" alt="img" />
+        </div>
       </div>
       <div class="popup-level__sliders"></div>
       <div class="popup-level__arrow popup-level__arrow-pos-right">
@@ -42,10 +45,11 @@ import type { Ref } from "vue";
 import { ref } from "vue";
 import { useProjectStore } from "@/store";
 import projectService from "@/services/projectService";
+import { useRootStore } from "@/store";
+
+const rootStore = useRootStore();
 
 const projectStore = useProjectStore();
-
-const emit = defineEmits(["close"]);
 
 const props = defineProps<{
   indexBackgrounds: number;
@@ -117,7 +121,7 @@ function handlerRightMove() {
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
   background-color: rgba(19, 19, 19, 0.84);
-  z-index: 1;
+  z-index: 4;
   &__carousel {
     position: relative;
     overflow: hidden;
@@ -149,12 +153,13 @@ function handlerRightMove() {
     height: 100%;
     min-width: 100%;
     border-radius: 20px;
+    display: flex;
     flex-wrap: nowrap;
-    flex-direction: row;
+    // flex-direction: row;
     justify-content: center;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
+    // background-repeat: no-repeat;
+    // background-position: center;
+    // background-size: contain;
   }
   &__arrow {
     position: absolute;

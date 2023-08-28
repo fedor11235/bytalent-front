@@ -36,6 +36,7 @@
       ></div>
     </div>
     <div class="footer__download">
+      <div>|</div>
       <div
         v-if="textButton"
         class="footer__download_button"
@@ -49,6 +50,10 @@
         @click="handlerBtnFooterClick"
         class="footer__download__cross"
       ></div>
+      <div>|</div>
+      <div>|</div>
+      <div>|</div>
+      <div>|</div>
     </div>
   </div>
 </template>
@@ -130,19 +135,19 @@ const rightArrowImg = computed(() => {
   display: flex;
   align-items: center;
   position: fixed;
-  width: 70%;
-  height: 11%;
-  left: 15%;
-  bottom: 6vh;
-  justify-content: space-between;
+  width: 100%;
+  height: 5.83vh;
+  bottom: 9.8vh;
+  justify-content: flex-start;
+  column-gap: 7.343vw;
   &__navigation {
     display: flex;
     align-items: center;
-    width: 35%;
     height: 7vh;
-    justify-content: space-between;
+    justify-content: flex-start;
+    column-gap: 0.9375vw;
     &_img {
-      width: 20%;
+      width: 2.2135vw;
       height: 100%;
       background-position: 100%;
       background-repeat: no-repeat;
@@ -153,7 +158,7 @@ const rightArrowImg = computed(() => {
   &__download {
     display: flex;
     justify-content: space-between;
-    width: 55%;
+    column-gap: 2.187vw;
     &__cross {
       background-image: url(http://localhost:8080/img/cross.2af0edda.svg);
       height: 35px;
@@ -163,38 +168,40 @@ const rightArrowImg = computed(() => {
       transform: rotate(45deg);
     }
     div {
-      text-align: center;
+      color: #f9f9f9;
+      font-family: JuraRegular;
+      font-size: 2.59vh;
+      font-style: normal;
+      line-height: 100%;
+      letter-spacing: -0.56px;
       cursor: pointer;
-      margin-top: -1%;
-      font-family: Jost100Hairline, sans-serif;
-      font-size: 24px;
     }
     &_button:hover {
       scale: 1.01;
     }
   }
   &__page-one {
-    letter-spacing: -8px;
-    font-family: JuraMedium, sans-serif;
-    font-size: 8.5vh;
-    font-style: normal;
-    line-height: 44%;
+    color: #fff;
+    font-family: JuraSemiBold;
+    font-size: 4.6vh;
+    line-height: 125%;
+    letter-spacing: -1.5px;
   }
   &__page-up {
     display: flex;
-    width: 20%;
+    column-gap: 0.9375vw;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 3vh;
   }
   &__page-slash {
-    margin-bottom: 1vh;
+    height: 4.6vh;
   }
   &__page-two {
-    letter-spacing: -4px;
-    font-family: JuraMedium, sans-serif;
-    font-size: 5vh;
-    line-height: 42px;
+    color: rgba(255, 255, 255, 0.55);
+    font-family: JuraSemiBold;
+    font-size: 3.5vh;
+    line-height: 125%;
+    letter-spacing: -0.76px;
   }
 }
 </style>
