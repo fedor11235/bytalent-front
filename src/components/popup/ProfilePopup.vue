@@ -1,6 +1,6 @@
 <template>
   <div class="profile-view">
-    <HeaderComponentAdditional class="profile-view__header" />
+    <EmptyComponent />
     <div class="switch-profile-settings">
       <img
         v-if="activePanel === 'settings'"
@@ -41,7 +41,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import HeaderComponentAdditional from "@/components/common/HeaderComponentAdditional.vue";
+import EmptyComponent from "@/components/common/EmptyComponent.vue";
 import FAQControl from "@/components/controls/FAQControl.vue";
 import ProfilePanel from "@/components/test/ProfilePanel.vue";
 import SettingsPanel from "@/components/test/SettingsPanel.vue";

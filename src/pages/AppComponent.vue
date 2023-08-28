@@ -37,9 +37,12 @@
 
 <script setup lang="ts">
 import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
+import { useRootStore } from "@/store";
 
+const rootStore = useRootStore();
 const sliders = ["architecture", "interiors", "art"];
 
+rootStore.noHover = false;
 function HandkerClickDomnload() {
   let a = document.createElement("a");
   a.href = "https://apptest.hb.ru-msk.vkcs.cloud/Talent.zip";

@@ -22,6 +22,11 @@
 <script setup lang="ts">
 import FooterComponent from "@/components/common/FooterComponent.vue";
 import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
+import { useRootStore } from "@/store";
+
+const rootStore = useRootStore();
+
+rootStore.noHover = true;
 
 function HandkerClickDomnload() {
   let a = document.createElement("a");

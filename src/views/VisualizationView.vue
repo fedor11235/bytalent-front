@@ -26,6 +26,11 @@ import ProjectComponentAuth from "@/pages/ProjectComponentAuth.vue";
 import ProjectComponent from "@/pages/ProjectComponent.vue";
 import authService from "@/services/authService";
 import projectService from "@/services/projectService";
+import { useRootStore } from "@/store";
+
+const rootStore = useRootStore();
+
+rootStore.hiddenHeader = false;
 
 const props = defineProps<{
   idProject?: string;

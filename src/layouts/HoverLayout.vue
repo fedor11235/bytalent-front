@@ -6,7 +6,6 @@
     }"
   >
     <div class="hover-layout__backdrop">
-      <HeaderComponent :theme="theme" :noHover="noHover" />
       <div class="hover-layout__content">
         {{ content }}
         <div v-if="subcontent" class="hover-layout__subcontent">
@@ -18,8 +17,6 @@
 </template>
 
 <script setup lang="ts">
-import HeaderComponent from "@/components/common/HeaderComponent.vue";
-
 defineProps<{
   bg: string;
   content: string;

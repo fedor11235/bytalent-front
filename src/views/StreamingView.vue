@@ -13,6 +13,11 @@ import authService from "@/services/authService";
 import LoadComponent from "@/pages/LoadComponent.vue";
 import StreamingComponent from "@/pages/StreamingComponent.vue";
 import StreamingComponentAuth from "@/pages/StreamingComponentAuth.vue";
+import { useRootStore } from "@/store";
+
+const rootStore = useRootStore();
+
+rootStore.hiddenHeader = false;
 
 const route = useRoute();
 

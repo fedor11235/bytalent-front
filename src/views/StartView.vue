@@ -10,6 +10,11 @@
 import { ref, onBeforeMount } from "vue";
 import HoverLayout from "@/layouts/HoverLayout.vue";
 import authService from "@/services/authService";
+import { useRootStore } from "@/store";
+
+const rootStore = useRootStore();
+
+rootStore.hiddenHeader = false;
 
 const check = ref(false);
 

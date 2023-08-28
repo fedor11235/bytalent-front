@@ -47,11 +47,16 @@ import Column from "primevue/column";
 import Button from "primevue/button";
 import orderService from "@/services/orderService";
 import projectService from "@/services/projectService";
+import { useRootStore } from "@/store";
 
 const router = useRouter();
 
 const orders = ref([]);
 const projects = ref([]);
+
+const rootStore = useRootStore();
+
+rootStore.hiddenHeader = true;
 
 function handlerLogout() {
   localStorage.setItem("enter", "");

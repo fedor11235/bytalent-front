@@ -54,6 +54,11 @@ import FooterComponent from "@/components/common/FooterComponent.vue";
 import projectService from "@/services/projectService";
 import PopupAdd from "@/components/visualization/PopupAdd.vue";
 import { useRouter } from "vue-router";
+import { useRootStore } from "@/store";
+
+const rootStore = useRootStore();
+
+rootStore.noHover = true;
 
 const props = defineProps<{
   idProject: string | undefined;

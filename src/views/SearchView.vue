@@ -28,6 +28,11 @@ import LoadComponent from "@/pages/LoadComponent.vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import InputComponent from "@/components/controls/InputComponent.vue";
 import authService from "@/services/authService";
+import { useRootStore } from "@/store";
+
+const rootStore = useRootStore();
+
+rootStore.hiddenHeader = false;
 
 const route = useRoute();
 

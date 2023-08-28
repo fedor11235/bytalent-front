@@ -49,7 +49,7 @@
       <span
         v-if="noHover"
         @click="handlerSwitchPage('profile')"
-        :class="btnClassPopup(rootStore.popupProfile)"
+        :class="btnClass('profile')"
         @mouseover="handlerMouseOverBtn('profile')"
         @mouseout="handlerMouseOutBtn('profile')"
         @mouseenter="handlerMouseOverBtn('profile')"
@@ -58,7 +58,11 @@
       >
       <div
         v-if="!noHover"
-        @click="router.push({ name: 'login' })"
+        @click="handlerLogin"
+        @mouseover="handlerMouseOverBtn('login')"
+        @mouseout="handlerMouseOutBtn('login')"
+        @mouseenter="handlerMouseOverBtn('login')"
+        @mouseleave="handlerMouseOutBtn('login')"
         :class="{
           header__btn: theme !== 'light',
           'header__btn-light': theme === 'light',
@@ -102,7 +106,6 @@
 import { toRef, ref, computed, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useRootStore } from "@/store";
-import authService from "@/services/authService";
 import BurgerComponent from "@/components/common/BurgerComponent.vue";
 
 type PageName =
@@ -112,7 +115,7 @@ type PageName =
   | "login"
   | "search"
   | "profile";
-const allPages: PageName[] = ["project", "app", "streaming", "search"];
+const allPages: PageName[] = ["project", "app", "streaming", "login", "search"];
 
 const rootStore = useRootStore();
 
@@ -159,7 +162,15 @@ function updateWidth() {
   width.value = window.innerWidth;
 }
 
+async function handlerLogin() {
+  for (const page of allPages) {
+    rootStore[`${page}Hover`] = false;
+  }
+  await router.push({ name: "login" });
+}
+
 function handlerMouseOverBtn(name: PageName) {
+  console.log(name);
   if (!props.noHover) {
     rootStore[`${name}Hover`] = true;
   }
@@ -175,18 +186,10 @@ async function handlerSwitchPage(name: PageName) {
     rootStore[`${page}Hover`] = false;
   }
   if (name === "profile") {
-    const check = await authService.checkToken();
-    if (check) {
-      rootStore.popupProfile = true;
-    } else {
-      router.push({
-        name: "login-redirect",
-        params: { nextPage: String(route.fullPath) },
-      });
-    }
+    rootStore.popupProfile = !rootStore.popupProfile;
   } else {
+    await router.push({ name: name });
     rootStore.popupProfile = false;
-    router.push({ name: name });
   }
 }
 
@@ -200,38 +203,52 @@ function logoStyle() {
 }
 
 function btnClass(name: string) {
-  console.log(name);
-  console.log(route.name);
   if (name === "project") {
     return {
       header__btn:
-        (route.name !== "project-id" || route.name !== "project") &&
+        (route.name !== "project-id" ||
+          route.name !== "project" ||
+          route.name !== "new-lavel") &&
         theme.value !== "light",
       "header__btn-light":
-        (route.name !== "project-id" || route.name !== "project") &&
+        (route.name !== "project-id" ||
+          route.name !== "project" ||
+          route.name !== "new-lavel") &&
         theme.value === "light",
       header__btn_active:
-        (route.name === "project-id" || route.name === "project") &&
-        theme.value !== "light",
+        (route.name === "project-id" ||
+          route.name === "project" ||
+          route.name === "new-lavel") &&
+        theme.value !== "light" &&
+        !rootStore.popupProfile,
       "header__btn-light_active":
-        (route.name === "project-id" || route.name === "project") &&
-        theme.value === "light",
+        (route.name === "project-id" ||
+          route.name === "project" ||
+          route.name === "new-lavel") &&
+        theme.value === "light" &&
+        !rootStore.popupProfile,
+    };
+  } else if (name === "profile") {
+    return {
+      "header__btn-profile": true,
+      header__btn: !rootStore.popupProfile && theme.value !== "light",
+      "header__btn-light": !rootStore.popupProfile && theme.value === "light",
+      header__btn_active: rootStore.popupProfile && theme.value !== "light",
+      "header__btn-light_active":
+        rootStore.popupProfile && theme.value === "light",
     };
   }
   return {
-    header__btn: route.name !== name && theme.value !== "light",
-    "header__btn-light": route.name !== name && theme.value === "light",
-    header__btn_active: route.name === name && theme.value !== "light",
-    "header__btn-light_active": route.name === name && theme.value === "light",
-  };
-}
-
-function btnClassPopup(isPopupActive: boolean) {
-  return {
-    header__btn: !isPopupActive && theme.value !== "light",
-    "header__btn-light": !isPopupActive && theme.value === "light",
-    header__btn_active: isPopupActive && theme.value !== "light",
-    "header__btn-light_active": isPopupActive && theme.value === "light",
+    header__btn:
+      (route.name !== name || rootStore.popupProfile) &&
+      theme.value !== "light",
+    "header__btn-light":
+      (route.name !== name || rootStore.popupProfile) &&
+      theme.value === "light",
+    header__btn_active:
+      route.name === name && theme.value !== "light" && !rootStore.popupProfile,
+    "header__btn-light_active":
+      route.name === name && theme.value === "light" && !rootStore.popupProfile,
   };
 }
 
@@ -245,7 +262,10 @@ function controllClass() {
 
 <style lang="scss" scoped>
 .header {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   display: flex;
   margin: 3.7vh 2%;
   padding-right: 15px;
@@ -254,6 +274,7 @@ function controllClass() {
   column-gap: 16px;
   height: 7.4vh;
   max-height: 80px;
+  z-index: 3;
   &__burger {
     position: relative;
     z-index: 2;
@@ -338,6 +359,9 @@ function controllClass() {
     &-light {
       color: #191919;
     }
+    img {
+      box-sizing: content-box;
+    }
   }
   &__btn {
     padding: 6px 12px;
@@ -369,6 +393,10 @@ function controllClass() {
       scale: 1.2;
       border-bottom: 1px solid white;
       pointer-events: none;
+    }
+    &-profile {
+      cursor: pointer;
+      pointer-events: all;
     }
   }
   &__search {

@@ -26,6 +26,11 @@
 import { useRouter } from "vue-router";
 import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
 import FAQControl from "@/components/controls/FAQControl.vue";
+import { useRootStore } from "@/store";
+
+const rootStore = useRootStore();
+
+rootStore.noHover = false;
 
 const router = useRouter();
 

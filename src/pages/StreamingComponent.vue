@@ -51,6 +51,11 @@ import { useRouter } from "vue-router";
 import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import FooterComponent from "@/components/common/FooterComponent.vue";
+import { useRootStore } from "@/store";
+
+const rootStore = useRootStore();
+
+rootStore.noHover = false;
 
 const router = useRouter();
 const notes = ref(false);

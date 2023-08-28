@@ -77,12 +77,14 @@ import ApleAuth from "@/components/auth/ApleAuth.vue";
 import TelegramAuth from "@/components/auth/TelegramAuthTest.vue";
 
 import { telegramLoginTemp } from "vue3-telegram-login";
+import { useRootStore } from "@/store";
 
 const props = defineProps<{
   nextPage?: string;
 }>();
 
 const router = useRouter();
+const rootStore = useRootStore();
 
 const login = ref("");
 const isDevelopment = process.env.NODE_ENV === "development";
@@ -93,6 +95,7 @@ const telegramWgtFinishLoad = ref(false);
 const isPersonalData = ref(false);
 const isTermsUser = ref(false);
 
+rootStore.hiddenHeader = true;
 async function onTelegramAuth(user: any) {
   console.log("data telegram! ", user);
   await authService.registrationTelegramUser(

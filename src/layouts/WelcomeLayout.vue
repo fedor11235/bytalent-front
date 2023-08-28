@@ -12,7 +12,7 @@
         backdropFilter: bgrDropBlur,
       }"
     >
-      <HeaderComponent :theme="theme" :noHover="noHover" />
+      <EmptyComponent />
       <div class="layout-welcome__content">
         <div class="layout-welcome__content_top">
           <slot name="content-top"></slot>
@@ -37,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import HeaderComponent from "@/components/common/HeaderComponent.vue";
+import EmptyComponent from "@/components/common/EmptyComponent.vue";
 import LineComponent from "@/components/common/LineComponent.vue";
 
 defineProps<{
@@ -55,6 +55,9 @@ defineProps<{
 </script>
 
 <style lang="scss" scoped>
+.hidden {
+  opacity: 0;
+}
 .layout-welcome {
   position: fixed;
   height: 100vh;

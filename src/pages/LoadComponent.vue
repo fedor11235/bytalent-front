@@ -4,7 +4,17 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { onUnmounted } from "vue";
+import { useRootStore } from "@/store";
+
+const rootStore = useRootStore();
+
+rootStore.hiddenHeader = true;
+onUnmounted(() => {
+  rootStore.hiddenHeader = false;
+});
+</script>
 
 <style lang="scss" scoped>
 .load-page {

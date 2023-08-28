@@ -17,7 +17,7 @@
         <Transition name="fade">
           <AddFileProject v-if="isMediaAddProgect" />
         </Transition>
-        <HeaderComponent :removeBtnPst="true" noHover />
+        <EmptyComponent />
         <div v-if="IsModeAdrsWrt" class="new-level__title_input">
           <input v-model="name" />
         </div>
@@ -156,13 +156,19 @@ import { provide, ref, onMounted } from "vue";
 import { useProjectStore } from "@/store";
 import { useRouter } from "vue-router";
 import projectService from "@/services/projectService";
-import HeaderComponent from "@/components/common/HeaderComponent.vue";
+import EmptyComponent from "@/components/common/EmptyComponent.vue";
 import LineComponent from "@/components/common/LineComponent.vue";
 import AddFileBgr from "@/components/newLavel/AddFileBgr.vue";
 import AddFileProject from "@/components/newLavel/AddFileProject.vue";
 import CarouselComponent from "@/components/controls/CarouselComponent.vue";
 import ErrorComponent from "@/pages/ErrorComponent.vue";
 import LoadComponent from "@/pages/LoadComponent.vue";
+import { useRootStore } from "@/store";
+
+const rootStore = useRootStore();
+
+rootStore.hiddenHeader = false;
+rootStore.noHover = true;
 
 const props = defineProps<{
   idProject: string;

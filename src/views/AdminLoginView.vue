@@ -20,11 +20,16 @@ import Card from "primevue/card";
 import InputText from "primevue/inputtext";
 import Button from "primevue/button";
 import Password from "primevue/password";
+import { useRootStore } from "@/store";
 
 const router = useRouter();
 
 const login = ref("");
 const password = ref("");
+
+const rootStore = useRootStore();
+
+rootStore.hiddenHeader = true;
 
 function handlerEnter() {
   if (login.value === "admin" && password.value === "admin") {
