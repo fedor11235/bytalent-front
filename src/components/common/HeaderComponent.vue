@@ -163,10 +163,10 @@ function updateWidth() {
 }
 
 async function handlerLogin() {
+  await router.push({ name: "login" });
   for (const page of allPages) {
     rootStore[`${page}Hover`] = false;
   }
-  await router.push({ name: "login" });
 }
 
 function handlerMouseOverBtn(name: PageName) {
@@ -182,14 +182,14 @@ function handlerMouseOutBtn(name: PageName) {
 
 async function handlerSwitchPage(name: PageName) {
   isOpenMenu.value = false;
-  for (const page of allPages) {
-    rootStore[`${page}Hover`] = false;
-  }
   if (name === "profile") {
     rootStore.popupProfile = !rootStore.popupProfile;
   } else {
     await router.push({ name: name });
     rootStore.popupProfile = false;
+      for (const page of allPages) {
+      rootStore[`${page}Hover`] = false;
+    }
   }
 }
 
