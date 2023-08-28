@@ -6,7 +6,7 @@
     ref="fileInputBgr"
     accept="image/*"
   />
-  <div @click.self="emit('close')" class="add-file-bgr_bgdrop">
+  <div @click.self="rootStore.popupAddBgr = false" class="add-file-bgr_bgdrop">
     <div class="add-file-bgr">
       <div
         @click="handlerLeftMove"
@@ -54,8 +54,6 @@ import { fileInput, fileInsertion, browseFile } from "@/utils/file";
 import projectService from "@/services/projectService";
 import { useRootStore } from "@/store";
 import { useProjectStore } from "@/store";
-
-const emit = defineEmits(["close"]);
 
 const rootStore = useRootStore();
 const projectStore = useProjectStore();
@@ -198,7 +196,7 @@ watch(
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 2;
+    z-index: 4;
   }
   &__carousel {
     display: flex;

@@ -9,15 +9,6 @@
     >
       <div class="new-level__backdrop"></div>
       <div class="new-level__content">
-        <Transition name="fade">
-          <AddFileBgr v-if="isMediaAddBgr" @close="isMediaAddBgr = false" />
-        </Transition>
-        <Transition name="fade">
-          <AddFileProject
-            v-if="isMediaAddProgect"
-            @close="isMediaAddProgect = false"
-          />
-        </Transition>
         <EmptyComponent />
         <div v-if="IsModeAdrsWrt" class="new-level__title_input">
           <input v-model="name" />
@@ -83,10 +74,7 @@
         </div>
         <div class="assistant">
           <div class="new-level__content__control">
-            <div
-              @click="isMediaAddProgect = !isMediaAddProgect"
-              class="assistant__btn"
-            ></div>
+            <div @click="handlerOpenProjectPopup" class="assistant__btn"></div>
           </div>
           <div class="new-level__assistant">
             <div class="new-level__assistant_menu">
@@ -186,8 +174,6 @@ import { useRouter } from "vue-router";
 import projectService from "@/services/projectService";
 import EmptyComponent from "@/components/common/EmptyComponent.vue";
 import LineComponent from "@/components/common/LineComponent.vue";
-import AddFileBgr from "@/components/newLavel/AddFileBgr.vue";
-import AddFileProject from "@/components/newLavel/AddFileProject.vue";
 import CarouselComponent from "@/components/controls/CarouselComponent.vue";
 import ErrorComponent from "@/pages/ErrorComponent.vue";
 import LoadComponent from "@/pages/LoadComponent.vue";
@@ -223,8 +209,6 @@ const info = ref("Описание объекта");
 const comments = ref("Дополнительная информация");
 
 const IsModeAdrsWrt = ref(false);
-const isMediaAddBgr = ref(false);
-const isMediaAddProgect = ref(false);
 const isExpand = ref(false);
 
 const projects = ref([]);
@@ -265,7 +249,13 @@ function handlerSendCahnge() {
 
 function handlerOpenBgrPopup() {
   if (finishLoadBgr) {
-    isMediaAddBgr.value = !isMediaAddBgr.value;
+    rootStore.popupAddBgr = true;
+  }
+}
+
+function handlerOpenProjectPopup() {
+  if (finishLoadBgr) {
+    rootStore.popupAddProject = true;
   }
 }
 

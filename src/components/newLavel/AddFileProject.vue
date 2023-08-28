@@ -7,7 +7,10 @@
     ref="fileInputProject"
     accept="image/*"
   />
-  <div @click.self="emit('close')" class="add-file-prg_bgdrop">
+  <div
+    @click.self="rootStore.popupAddProject = false"
+    class="add-file-prg_bgdrop"
+  >
     <div class="add-file-prg">
       <div class="add-file-prg_grid">
         <div
@@ -50,8 +53,7 @@ import {
 import { useRootStore } from "@/store";
 import { useProjectStore } from "@/store";
 
-const emit = defineEmits(["close"]);
-// const rootStore = useRootStore();
+const rootStore = useRootStore();
 const projectStore = useProjectStore();
 
 const fileInputProject: Ref<HTMLInputElement | null> = ref(null);
@@ -106,7 +108,7 @@ function handlerDropProject(event: DragEvent) {
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 2;
+    z-index: 4;
   }
   &_grid {
     height: calc(100% - 4.5vh);

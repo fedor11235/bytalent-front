@@ -11,6 +11,12 @@
   <Transition name="fade">
     <PopupOrder v-if="rootStore.uploadProject" />
   </Transition>
+  <Transition name="fade">
+    <AddFileBgr v-if="rootStore.popupAddBgr" />
+  </Transition>
+  <Transition name="fade">
+    <AddFileProject v-if="rootStore.popupAddProject" />
+  </Transition>
 
   <HeaderComponent
     v-if="!rootStore.hiddenHeader"
@@ -49,6 +55,9 @@ import AppHover from "@/components/popup/AppHover.vue";
 import StreamingHover from "@/components/popup/StreamingHover.vue";
 import ProfileHover from "@/components/popup/ProfileHover.vue";
 import SearchHover from "@/components/popup/SearchHover.vue";
+
+import AddFileBgr from "@/components/newLavel/AddFileBgr.vue";
+import AddFileProject from "@/components/newLavel/AddFileProject.vue";
 
 import InfoComponents from "@/components/common/InfoComponents.vue";
 import PopupWarning from "@/components/common/PopupWarning.vue";
