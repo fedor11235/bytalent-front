@@ -162,11 +162,12 @@ function updateWidth() {
   width.value = window.innerWidth;
 }
 
-async function handlerLogin() {
-  await router.push({ name: "login" });
-  for (const page of allPages) {
-    rootStore[`${page}Hover`] = false;
-  }
+function handlerLogin() {
+  router.push({ name: "login" }).then(() => {
+      for (const page of allPages) {
+      rootStore[`${page}Hover`] = false;
+    }
+  })
 }
 
 function handlerMouseOverBtn(name: PageName) {
@@ -180,16 +181,17 @@ function handlerMouseOutBtn(name: PageName) {
   rootStore[`${name}Hover`] = false;
 }
 
-async function handlerSwitchPage(name: PageName) {
+function handlerSwitchPage(name: PageName) {
   isOpenMenu.value = false;
   if (name === "profile") {
     rootStore.popupProfile = !rootStore.popupProfile;
   } else {
-    await router.push({ name: name });
-    rootStore.popupProfile = false;
-      for (const page of allPages) {
-      rootStore[`${page}Hover`] = false;
-    }
+    router.push({ name: name }).then(() => {
+      rootStore.popupProfile = false;
+        for (const page of allPages) {
+        rootStore[`${page}Hover`] = false;
+      }
+    })
   }
 }
 

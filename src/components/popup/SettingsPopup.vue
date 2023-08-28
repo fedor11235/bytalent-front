@@ -1,6 +1,6 @@
 <template>
   <div class="settings-view">
-    <HeaderComponentAdditional class="settings-view__header" />
+    <!-- <HeaderComponentAdditional class="settings-view__header" /> -->
     <div class="settings-view__content">
       <div class="settings-view__left-panel">
         <div class="settings-view__card">
@@ -55,7 +55,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import HeaderComponentAdditional from "@/components/common/HeaderComponentAdditional.vue";
+// import HeaderComponentAdditional from "@/components/common/HeaderComponentAdditional.vue";
 import FAQControl from "@/components/controls/FAQControl.vue";
 import CommerceSettings from "@/components/test/CommerceSettings.vue";
 import ProfileSettings from "@/components/test/ProfileSettings.vue";
