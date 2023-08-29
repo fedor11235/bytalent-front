@@ -1,5 +1,5 @@
 <template>
-  <div class="settings-view__content">
+  <div @click.self="rootStore.popupProfile = false" class="settings-view__content">
     <div class="settings-view__left-panel">
       <div class="settings-view__card">
         <div v-if="aciveItem === 'Коммерция'">
@@ -56,6 +56,9 @@ import ProfileSettings from "@/components/test/ProfileSettings.vue";
 import LegalDataSettings from "@/components/test/LegalDataSettings.vue";
 import OfficialLinksSettings from "@/components/test/OfficialLinksSettings.vue";
 import SafetySettings from "@/components/test/SafetySettings.vue";
+import { useRootStore } from "@/store";
+
+const rootStore = useRootStore();
 
 const menu = [
   "Коммерция",
