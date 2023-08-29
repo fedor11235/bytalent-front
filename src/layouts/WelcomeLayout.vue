@@ -2,11 +2,27 @@
   <div
     class="layout-welcome"
     :style="{
-      backgroundImage: bgBase
-        ? `url(${bgBase})`
-        : `url(${require(`@/assets/backgrounds/${bg}.png`)})`,
+      backgroundImage: `url(${require(`@/assets/backgrounds/${bg}.png`)})`,
     }"
   >
+    <div v-if="bgBase">
+      <img
+        v-if="bgBase.type === 'img'"
+        class="layout-welcome__img"
+        :src="bgBase.content"
+        alt="img"
+      />
+      <video
+        v-else-if="bgBase.type === 'video'"
+        volume="0.0"
+        class="layout-welcome__img"
+        autoplay
+        loop
+        muted
+      >
+        <source :src="bgBase.content" />
+      </video>
+    </div>
     <div
       class="layout-welcome__backdrop"
       :style="{
@@ -48,7 +64,7 @@ defineProps<{
   isLine?: boolean;
   bgrDropColor?: string;
   bgrDropBlur?: string;
-  bgBase?: string;
+  bgBase?: any;
   btnClick: () => void;
   title: string;
   description: string;
@@ -69,6 +85,12 @@ defineProps<{
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
+  &__img {
+    position: fixed;
+    object-fit: cover;
+    height: 100vh;
+    width: 100vw;
+  }
   &__backdrop {
     height: 100vh;
     width: 100vw;

@@ -19,7 +19,20 @@
           class="popup-level__slider"
           @click.self="rootStore.showPopupBgr = false"
         >
-          <img :src="background.img" alt="img" />
+          <img
+            v-if="background.type === 'img'"
+            :src="background.content"
+            alt="img"
+          />
+          <video
+            v-else-if="background.type == 'video'"
+            volume="0.0"
+            @loadeddata="handlerVideoLoad"
+            @mouseenter="handlerVideoMouseenter"
+            @mouseleave="handlerVideoMouseleave"
+          >
+            <source :src="background.content" />
+          </video>
         </div>
       </div>
       <div class="popup-level__sliders"></div>
@@ -63,13 +76,31 @@ let move = indexBackgrounds.value * -widthSlid;
 
 const sliders: Ref<HTMLDivElement | null> = ref(null);
 
+function handlerVideoLoad(event: any) {
+  event.target.play();
+  setTimeout(() => {
+    event.target.pause();
+  }, 1000);
+}
+
+function handlerVideoMouseenter(event: any) {
+  event.target.play();
+}
+
+function handlerVideoMouseleave(event: any) {
+  event.target.pause();
+}
+
 function handlerAddBackground() {
   const backgroundId = projectStore.backgroundsFill[indexBackgrounds.value].id;
-  const backgroundImg =
-    projectStore.backgroundsFill[indexBackgrounds.value].img;
+  const backgroundContent =
+    projectStore.backgroundsFill[indexBackgrounds.value].content;
+  const backgroundType =
+    projectStore.backgroundsFill[indexBackgrounds.value].type;
   projectStore.background = {
     projectId: props.projectId,
-    img: backgroundImg,
+    content: backgroundContent,
+    type: backgroundType,
   };
   projectService.selectBackground(projectStore.project.id, backgroundId);
 }

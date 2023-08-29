@@ -1,12 +1,22 @@
 <template>
   <div v-if="finishLoad">
-    <div
-      v-if="project"
-      class="new-level"
-      :style="{
-        backgroundImage: bgr,
-      }"
-    >
+    <div v-if="project" class="new-level">
+      <img
+        v-if="bgr.type === 'img'"
+        class="new-level__img"
+        :src="bgr.content"
+        alt="img"
+      />
+      <video
+        v-else-if="bgr.type === 'video'"
+        volume="0.0"
+        class="new-level__img"
+        autoplay
+        loop
+        muted
+      >
+        <source :src="bgr.content" />
+      </video>
       <div class="new-level__backdrop"></div>
       <div class="new-level__content">
         <EmptyComponent />
@@ -175,12 +185,14 @@ import { provide, ref, computed, onMounted } from "vue";
 import { useProjectStore } from "@/store";
 import { useRouter } from "vue-router";
 import projectService from "@/services/projectService";
+import fileService from "@/services/fileService";
 import EmptyComponent from "@/components/common/EmptyComponent.vue";
 import LineComponent from "@/components/common/LineComponent.vue";
 import CarouselComponent from "@/components/controls/CarouselComponent.vue";
 import ErrorComponent from "@/pages/ErrorComponent.vue";
 import LoadComponent from "@/pages/LoadComponent.vue";
 import { useRootStore } from "@/store";
+import { getURLForFile } from "@/utils/str";
 
 const rootStore = useRootStore();
 
@@ -226,11 +238,18 @@ document.addEventListener("keydown", (event) => {
 
 const bgr = computed(() => {
   if (projectStore.background.projectId === Number(props.idProject)) {
-    return `url(${projectStore.background.img})`;
+    return projectStore.background;
   } else if (projectStore.project.background) {
-    return `url(${projectStore.project.background})`;
+    const background = projectStore.project.background;
+    return {
+      type: background.type,
+      content: getURLForFile(background.name, background.format),
+    };
   } else {
-    return `url(${require("@/assets/backgrounds/lvel.jpeg")})`;
+    return {
+      type: "img",
+      content: require("@/assets/backgrounds/lvel.jpeg"),
+    };
   }
 });
 
@@ -292,15 +311,22 @@ onMounted(async () => {
       }
     }
   });
-  await projectService.getBackgrounds().then((res) => {
+  await projectService.getBackgrounds().then(async (res) => {
     const backgrounds = res.backgrounds;
+
+    for (const background of res.backgrounds) {
+      background.content = getURLForFile(background.name, background.format);
+    }
     projectStore.backgroundsFill.push(...backgrounds);
+
     if (backgrounds.length > 1) {
-      projectStore.backgroundsEmpty = [{ id: "0-emty", img: "", plus: true }];
+      projectStore.backgroundsEmpty = [
+        { id: "0-emty", content: "", type: "empty", plus: true },
+      ];
     } else if (backgrounds.length === 1) {
       projectStore.backgroundsEmpty = [
-        { id: "0-emty", img: "", plus: true },
-        { id: "1-emty", img: "" },
+        { id: "0-emty", content: "", type: "empty", plus: true },
+        { id: "1-emty", content: "", type: "empty" },
       ];
     }
     finishLoadBgr = true;
@@ -328,6 +354,12 @@ onMounted(async () => {
   box-shadow: inset 0 0 5px #000;
   background-repeat: no-repeat;
   background-size: cover;
+  &__img {
+    position: fixed;
+    object-fit: cover;
+    height: 100vh;
+    width: 100vw;
+  }
   &__backdrop {
     position: fixed;
     height: 100vh;

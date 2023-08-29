@@ -1,5 +1,8 @@
 <template>
-  <div @click.self="rootStore.popupProfile = false" class="settings-view__content">
+  <div
+    @click.self="rootStore.popupProfile = false"
+    class="settings-view__content"
+  >
     <div class="settings-view__left-panel">
       <div class="settings-view__card">
         <div v-if="aciveItem === 'Коммерция'">

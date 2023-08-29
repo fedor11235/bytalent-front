@@ -5,7 +5,7 @@
   <WelcomeLayout
     v-if="total > 0"
     bg="project-new"
-    :bgBase="project.background"
+    :bgBase="bgr"
     noHover
     :title="(project as any).name ? (project as any).name: 'Новый уровень'"
     bgrDropColor="rgba(0, 0, 0, 0.55)"
@@ -51,7 +51,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
 import FooterComponent from "@/components/common/FooterComponent.vue";
 import projectService from "@/services/projectService";
@@ -59,6 +59,7 @@ import PopupAdd from "@/components/visualization/PopupAdd.vue";
 import FAQControl from "@/components/controls/FAQControl.vue";
 import { useRouter } from "vue-router";
 import { useRootStore } from "@/store";
+import { getURLForFile } from "@/utils/str";
 
 const rootStore = useRootStore();
 
@@ -76,6 +77,16 @@ const router = useRouter();
 
 const isPopupAdd = ref(false);
 
+const bgr = computed(() => {
+  if (props.project.background) {
+    const background = props.project.background;
+    return {
+      type: background.type,
+      content: getURLForFile(background.name, background.format),
+    };
+  }
+  return false;
+});
 async function HandkerClickCreate() {
   await projectService.createProject({
     name: "Новый проект",

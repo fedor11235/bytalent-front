@@ -7,14 +7,6 @@
     accept="image/*"
   />
   <div class="carousel">
-    <!-- <Transition name="fade">
-      <PopupLavel
-        v-if="isShowPopup"
-        :indexBackgrounds="indexBackgrounds"
-        :projectId="projectId"
-        @close="isShowPopup = false"
-      />
-    </Transition> -->
     <div class="sliders" ref="sliders">
       <div
         v-for="(background, index) in projectStore.backgrounds"
@@ -28,12 +20,22 @@
         @click="handlerUploadBgr(background.plus)"
       >
         <img
-          v-if="background.img"
+          v-if="background.type == 'img'"
           class="carousel__img"
-          @click="handlerShowPopup(index)"
-          :src="background.img"
+          @click="handlerShowPopup($event, index)"
+          :src="background.content"
           alt="img"
         />
+        <video
+          v-else-if="background.type == 'video'"
+          volume="0.0"
+          @loadeddata="handlerVideoLoad"
+          @mouseenter="handlerVideoMouseenter"
+          @mouseleave="handlerVideoMouseleave"
+          class="carousel__img"
+        >
+          <source :src="background.content" />
+        </video>
       </div>
     </div>
     <div
@@ -48,9 +50,8 @@
 </template>
 
 <script setup lang="ts">
-// import PopupLavel from "@/components/newLavel/PopupLavel.vue";
 import type { Ref } from "vue";
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import { useRootStore } from "@/store";
 import { useProjectStore } from "@/store";
 import projectService from "@/services/projectService";
@@ -66,13 +67,11 @@ const projectStore = useProjectStore();
 const widthSlid = 33.75;
 let move = 0;
 
-// const indexBackgrounds = ref(0);
-// const isShowPopup = ref(false);
 const sliders: Ref<HTMLDivElement | null> = ref(null);
 const fileInputBgr: Ref<HTMLInputElement | null> = ref(null);
 
 function getFilteredFileBg(file: File) {
-  if (/\.(jpg|jpeg|png|webp|JPG|PNG|JPEG|WEBP)$/.test(file.name)) {
+  if (/\.(jpg|jpeg|png|webp|mp4|JPG|PNG|JPEG|WEBP|MP4)$/.test(file.name)) {
     return file;
   }
   rootStore.popupWarning = true;
@@ -80,12 +79,30 @@ function getFilteredFileBg(file: File) {
   return null;
 }
 
-function handlerShowPopup(index: number) {
+function handlerVideoLoad(event: any) {
+  event.target.play();
+  setTimeout(() => {
+    event.target.pause();
+  }, 1000);
+}
+
+function handlerVideoMouseenter(event: any) {
+  event.target.play();
+}
+
+function handlerVideoMouseleave(event: any) {
+  event.target.pause();
+}
+
+async function handlerShowPopup(event: any, index: number) {
+  // if(event.target.tagName === 'VIDEO') {
+  //   if(!event.target.paused){
+  //     await event.target.pause();
+  //   }
+  // }
   rootStore.projectId = props.projectId;
   rootStore.indexBackgrounds = index;
   rootStore.showPopupBgr = true;
-  // indexBackgrounds.value = index;
-  // isShowPopup.value = true;
 }
 
 function handlerUploadBgr(enabled: boolean | undefined) {
@@ -104,7 +121,8 @@ function saveFaileBgr(filteredFile: File) {
     });
     projectStore.backgroundsFill.push({
       id: backgroundNew.id,
-      img: String(fbase64),
+      content: String(fbase64),
+      type: "img",
     });
     if (projectStore.backgroundsEmpty.length > 1) {
       projectStore.backgroundsEmpty.pop();

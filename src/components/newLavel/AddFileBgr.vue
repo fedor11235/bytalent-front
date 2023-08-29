@@ -4,7 +4,6 @@
     type="file"
     @change="fileInsertion(saveFaileBgr, getFilteredFileBg)"
     ref="fileInputBgr"
-    accept="image/*"
   />
   <div @click.self="rootStore.popupAddBgr = false" class="add-file-bgr_bgdrop">
     <div class="add-file-bgr">
@@ -54,6 +53,7 @@ import { fileInput, fileInsertion, browseFile } from "@/utils/file";
 import projectService from "@/services/projectService";
 import { useRootStore } from "@/store";
 import { useProjectStore } from "@/store";
+import { getURLForFile } from "@/utils/str";
 
 const rootStore = useRootStore();
 const projectStore = useProjectStore();
@@ -105,27 +105,23 @@ function handlerRightMove() {
   }
 }
 
-function saveFaileBgr(filteredFile: File) {
-  const fr = new FileReader();
-  fr.onload = async () => {
-    const fbase64 = fr.result;
-    const backgroundNew = await projectService.postBackgrounds({
-      file: filteredFile,
-    });
-    projectStore.backgroundsFill.push({
-      id: backgroundNew.id,
-      img: String(fbase64),
-    });
-    if (projectStore.backgroundsEmpty.length > 1) {
-      projectStore.backgroundsEmpty.pop();
-    }
-    updateBgrCarusel();
-  };
-  fr.readAsDataURL(filteredFile);
+async function saveFaileBgr(filteredFile: File) {
+  const backgroundNew = await projectService.postBackgrounds({
+    file: filteredFile,
+  });
+  projectStore.backgroundsFill.push({
+    id: backgroundNew.id,
+    content: getURLForFile(backgroundNew.name, backgroundNew.format),
+    type: backgroundNew.type,
+  });
+  if (projectStore.backgroundsEmpty.length > 1) {
+    projectStore.backgroundsEmpty.pop();
+  }
+  updateBgrCarusel();
 }
 
 function getFilteredFileBg(file: File) {
-  if (/\.(jpg|jpeg|png|webp|JPG|PNG|JPEG|WEBP)$/.test(file.name)) {
+  if (/\.(jpg|jpeg|png|webp|mp4|JPG|PNG|JPEG|WEBP|MP4)$/.test(file.name)) {
     return file;
   }
   rootStore.popupWarning = true;
