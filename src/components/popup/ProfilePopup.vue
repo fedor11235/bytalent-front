@@ -83,19 +83,6 @@ const activePanel = ref("profile");
     left: 0;
     right: 0;
   }
-  &__right-panel {
-    position: absolute;
-    height: calc(100% - 3.7vh - min(80px, 7.4vh));
-    right: 0;
-    bottom: 0;
-    max-width: 45vw;
-    width: 100%;
-    background-image: url(@/assets/components/profile-right-panel.svg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    padding: 2.5vh 5.8vw 7.2vh 8.6vw;
-    box-sizing: border-box;
-  }
   &__cards {
     display: flex;
     flex-direction: column;

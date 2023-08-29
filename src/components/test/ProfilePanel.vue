@@ -136,10 +136,13 @@ onMounted(async () => {
   position.value = profile.position ?? "-";
   phone.value = profile.phone ?? "-";
   email.value = profile.email ?? "-";
-  projectsActive.value = await projectService.getActiveProjects();
+  const projectsActiveRes = await projectService.getActiveProjects();
+  projectsActive.value = projectsActiveRes.projects;
   const commerce = await commerceService.getCommerce();
   nots.value = commerce.operationsHistory;
-  notifications.value = await notificationsService.getAllNotifications();
+  const notificationsRes = await notificationsService.getAllNotifications();
+  notifications.value = notificationsRes.notifications;
+  console.log(projectsActive.value, "projectsActive.value");
 });
 </script>
 
@@ -154,7 +157,7 @@ onMounted(async () => {
   background-image: url(@/assets/components/profile-right-panel.svg);
   background-size: cover;
   background-repeat: no-repeat;
-  padding: 2.5vh 5.8vw 7.2vh 8.6vw;
+  padding: 7.5vh 5.156vw 7.03vh 6.66vw;
   box-sizing: border-box;
 }
 .profile-view__cards {
@@ -164,7 +167,7 @@ onMounted(async () => {
 }
 .profile-view__card-profile {
   width: 100%;
-  height: 32.5vh;
+  height: 28.5vh;
   box-sizing: border-box;
   border-radius: 24px;
   border-top: 2px solid rgba(255, 255, 255, 0.25);
@@ -172,18 +175,18 @@ onMounted(async () => {
   background-color: rgba(255, 255, 255, 0.1);
 
   display: flex;
-  padding: 1.1vh 1.25vw;
+  padding: 1.48vh 1.66vw;
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 2.2vh;
   &_title {
-    width: calc(100% - 48px);
-    padding-bottom: 1.6vh;
-    padding-left: 2.9vw;
+    width: 100%;
+    padding-bottom: 1.48vh;
+    padding-left: 2.91vw;
 
     color: rgba(255, 255, 255, 0.65);
     font-family: JuraMedium;
-    font-size: 2.5vh;
+    font-size: 1.85vh;
     line-height: 100%;
     letter-spacing: -0.56px;
 
@@ -192,14 +195,15 @@ onMounted(async () => {
     justify-content: space-between;
 
     &_img {
-      height: 1.6vw;
-      width: 1.6vw;
+      height: 1.25vw;
+      width: 1.25vw;
       margin-right: 1.25vw;
+      cursor: pointer;
     }
   }
   &_info {
-    width: calc(100% - 48px);
-    padding: 1.4vh 1.25vw;
+    width: 100%;
+    padding: 1.176vh 0.83vw;
     border-top: 1px solid rgba(255, 255, 255, 0.25);
     color: #f9f9f9;
     font-family: JuraMedium;
@@ -217,13 +221,13 @@ onMounted(async () => {
 }
 .profile-view__card-not {
   width: 100%;
-  height: 32.5vh;
+  height: 28.5vh;
   box-sizing: border-box;
   border-radius: 24px;
   border-top: 2px solid rgba(255, 255, 255, 0.25);
   border-bottom: 2px solid rgba(255, 255, 255, 0.25);
   background-color: rgba(255, 255, 255, 0.1);
-  padding: 1.4vh 2.5vw;
+  padding: 1.48vh 1.66vw;
   margin-bottom: 3.3vh;
   &_tabs {
     display: flex;
@@ -235,11 +239,12 @@ onMounted(async () => {
     border-radius: 12px;
     border-top: 1px solid rgba(255, 255, 255, 0.65);
     background-color: rgba(0, 0, 0, 0.1);
-    padding: 1.4vh 1.25vw;
+    padding: 0.784vh 0.833vw;
+    text-align: center;
 
     color: #f9f9f9;
-    font-family: JuraMedium;
-    font-size: 1.6vh;
+    font-family: JuraSemiBold;
+    font-size: 1.764vh;
     line-height: 100%;
     letter-spacing: -0.36px;
 
