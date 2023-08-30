@@ -14,28 +14,36 @@
         :class="[
           'sliders__bacdrop',
           {
+            index: index,
             sliders__bacdrop_last: background.plus,
           },
         ]"
         @click="handlerUploadBgr(background.plus)"
       >
+        <LoaderComponent />
+        <!-- <LoaderComponent v-if="!background.load && !background.plus" />
         <img
           v-if="background.type == 'img'"
+          v-show="background.load"
           class="carousel__img"
           @click="handlerShowPopup($event, index)"
+          @load="background.load = true"
           :src="background.content"
           alt="img"
         />
         <video
           v-else-if="background.type == 'video'"
+          v-show="background.load"
           volume="0.0"
-          @loadeddata="handlerVideoLoad"
+          @click.prevent="handlerShowPopup($event, index, background)"
+          @loadeddata="handlerVideoLoad($event, background)"
           @mouseenter="handlerVideoMouseenter"
           @mouseleave="handlerVideoMouseleave"
+          @load="console.log('load video')"
           class="carousel__img"
         >
           <source :src="background.content" />
-        </video>
+        </video> -->
       </div>
     </div>
     <div
@@ -56,6 +64,7 @@ import { useRootStore } from "@/store";
 import { useProjectStore } from "@/store";
 import projectService from "@/services/projectService";
 import { fileInput, fileInsertion, browseFile } from "@/utils/file";
+import LoaderComponent from "@/components/common/LoaderComponent.vue";
 
 const props = defineProps<{
   projectId: number;
@@ -79,7 +88,8 @@ function getFilteredFileBg(file: File) {
   return null;
 }
 
-function handlerVideoLoad(event: any) {
+function handlerVideoLoad(event: any, background: any) {
+  background.load = true;
   event.target.play();
   setTimeout(() => {
     event.target.pause();
@@ -94,12 +104,7 @@ function handlerVideoMouseleave(event: any) {
   event.target.pause();
 }
 
-async function handlerShowPopup(event: any, index: number) {
-  // if(event.target.tagName === 'VIDEO') {
-  //   if(!event.target.paused){
-  //     await event.target.pause();
-  //   }
-  // }
+async function handlerShowPopup(event: any, index: number, background?: any) {
   rootStore.projectId = props.projectId;
   rootStore.indexBackgrounds = index;
   rootStore.showPopupBgr = true;
@@ -174,6 +179,9 @@ function handlerRightMove() {
       border-radius: 20px;
       background-color: rgba(0, 0, 0, 0.25);
       flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       &_last {
         background-image: url(@/assets/icons/plus.svg);
         background-repeat: no-repeat;

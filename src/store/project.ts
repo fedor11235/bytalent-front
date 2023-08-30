@@ -33,6 +33,7 @@ type Background = {
   type: string;
   content: string;
   plus?: boolean;
+  load?: boolean;
 };
 
 type BackgroundPlug = {
@@ -40,4 +41,5 @@ type BackgroundPlug = {
   type: string;
   content: string;
   plus?: boolean;
+  load?: boolean;
 };

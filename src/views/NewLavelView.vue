@@ -9,6 +9,7 @@
       />
       <video
         v-else-if="bgr.type === 'video'"
+        poster="@/assets/backgrounds/lvel.jpeg"
         volume="0.0"
         class="new-level__img"
         autoplay
@@ -185,7 +186,6 @@ import { provide, ref, computed, onMounted } from "vue";
 import { useProjectStore } from "@/store";
 import { useRouter } from "vue-router";
 import projectService from "@/services/projectService";
-import fileService from "@/services/fileService";
 import EmptyComponent from "@/components/common/EmptyComponent.vue";
 import LineComponent from "@/components/common/LineComponent.vue";
 import CarouselComponent from "@/components/controls/CarouselComponent.vue";
@@ -526,6 +526,9 @@ onMounted(async () => {
       line-height: 100%;
       letter-spacing: -0.56px;
       height: 2.5vh;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-wrap: nowrap;
       &_input {
         background-color: #f9f9f9;
         border-radius: 8px;

@@ -7,7 +7,7 @@
       justifyContent: finishLoad ? 'flex-start' : '',
     }"
   >
-    <div v-if="!finishLoad" class="telegram-auth__loader"></div>
+    <LoaderComponent size="19px" v-if="!finishLoad" />
     <img
       v-if="finishLoad"
       src="@/assets/icons/telegram-w.svg"
@@ -22,6 +22,7 @@
 </template>
 
 <script setup lang="ts">
+import LoaderComponent from "@/components/common/LoaderComponent.vue";
 import { ref } from "vue";
 import "./wgtTelegram.js";
 
@@ -70,29 +71,6 @@ function test() {
     font-size: 1.759vh;
     line-height: 100%;
     letter-spacing: -0.38px;
-  }
-  &__loader {
-    display: inline-block;
-    width: 19px;
-    height: 19px;
-  }
-  &__loader:after {
-    content: " ";
-    display: block;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    border: 3px solid white;
-    border-color: white transparent white transparent;
-    animation: lds-dual-ring 1.2s linear infinite;
-  }
-  @keyframes lds-dual-ring {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
   }
 }
 </style>
