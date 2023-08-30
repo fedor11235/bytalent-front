@@ -6,7 +6,7 @@
       multiple
       @change="filesInsertion(saveFailesProject, getFilteredFileProject)"
       ref="fileInputProject"
-      accept="image/*"
+      accept="image/*,video/*"
     />
     <div class="add__visualization__title">Добавление визуализации</div>
     <div class="add__visualization__btns">

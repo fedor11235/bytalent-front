@@ -4,7 +4,7 @@
     type="file"
     @change="fileInsertion(saveFaileBgr, getFilteredFileBg)"
     ref="fileInputBgr"
-    accept="image/*"
+    accept="image/*,video/*"
   />
   <div class="carousel">
     <div class="sliders" ref="sliders">

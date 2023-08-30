@@ -5,7 +5,7 @@
     multiple
     @change="filesInsertion(saveFailesProject, getFilteredFileProject)"
     ref="fileInputProject"
-    accept="image/*"
+    accept="image/*,video/*"
   />
   <div
     @click.self="rootStore.popupAddProject = false"
