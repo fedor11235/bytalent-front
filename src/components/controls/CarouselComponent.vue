@@ -20,8 +20,9 @@
         ]"
         @click="handlerUploadBgr(background.plus)"
       >
-        <LoaderComponent />
-        <!-- <LoaderComponent v-if="!background.load && !background.plus" />
+        <LoaderComponent
+          v-if="!background.load && background.type !== 'empty'"
+        />
         <img
           v-if="background.type == 'img'"
           v-show="background.load"
@@ -43,7 +44,7 @@
           class="carousel__img"
         >
           <source :src="background.content" />
-        </video> -->
+        </video>
       </div>
     </div>
     <div
@@ -65,6 +66,7 @@ import { useProjectStore } from "@/store";
 import projectService from "@/services/projectService";
 import { fileInput, fileInsertion, browseFile } from "@/utils/file";
 import LoaderComponent from "@/components/common/LoaderComponent.vue";
+import { getURLForFile } from "@/utils/str";
 
 const props = defineProps<{
   projectId: number;
@@ -126,8 +128,8 @@ function saveFaileBgr(filteredFile: File) {
     });
     projectStore.backgroundsFill.push({
       id: backgroundNew.id,
-      content: String(fbase64),
-      type: "img",
+      content: getURLForFile(backgroundNew.name, backgroundNew.format),
+      type: backgroundNew.type,
     });
     if (projectStore.backgroundsEmpty.length > 1) {
       projectStore.backgroundsEmpty.pop();

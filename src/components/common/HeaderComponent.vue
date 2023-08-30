@@ -137,16 +137,17 @@ function handlerMouseOutBtn(name: PageName) {
   rootStore[`${name}Hover`] = false;
 }
 
-function handlerSwitchPage(name: PageName) {
+async function handlerSwitchPage(name: PageName) {
   if (name === "profile") {
     rootStore.popupProfile = !rootStore.popupProfile;
+  } else if (name === "project") {
+    await router.push({ name: "project-main" });
   } else {
-    router.push({ name: name }).then(() => {
-      rootStore.popupProfile = false;
-      for (const page of allPages) {
-        rootStore[`${page}Hover`] = false;
-      }
-    });
+    await router.push({ name: name });
+    rootStore.popupProfile = false;
+    for (const page of allPages) {
+      rootStore[`${page}Hover`] = false;
+    }
   }
 }
 

@@ -216,8 +216,6 @@ const menu = [
   "Интеграция",
 ];
 
-let finishLoadBgr = false;
-
 const address = ref("Адрес проекта");
 const name = ref("Новый уровень");
 const info = ref("Описание объекта");
@@ -228,7 +226,6 @@ const isExpand = ref(false);
 
 const projects = ref([]);
 const project = ref();
-const total = ref(0);
 
 document.addEventListener("keydown", (event) => {
   if (event.code === "Enter" && IsModeAdrsWrt.value) {
@@ -270,13 +267,13 @@ function handlerSendCahnge() {
 }
 
 function handlerOpenBgrPopup() {
-  if (finishLoadBgr) {
+  if (finishLoad.value) {
     rootStore.popupAddBgr = true;
   }
 }
 
 function handlerOpenProjectPopup() {
-  if (finishLoadBgr) {
+  if (finishLoad.value) {
     rootStore.popupAddProject = true;
   }
 }
@@ -295,42 +292,35 @@ function setIconMenu(name: string) {
 provide("handlerBtnHeaderClick", returnHome);
 
 onMounted(async () => {
-  await projectService.getAllNumberProjects().then(async (res) => {
-    if (res) {
-      projects.value = res.projects;
-      total.value = res.total;
-      project.value = projects.value.find(
-        (item: any) => item.id === Number(props.idProject)
-      );
-      projectStore.project = project.value;
-      if (project.value) {
-        address.value = project.value.address ?? "Адрес проекта";
-        name.value = project.value.name ?? "Новый уровень";
-        info.value = project.value.info ?? "Описание объекта";
-        comments.value = project.value.comments ?? "Дополнительная информация";
-      }
-    }
-  });
-  await projectService.getBackgrounds().then(async (res) => {
-    const backgrounds = res.backgrounds;
+  const projects = await projectService.getAllNumberProjects();
+  projects.value = projects.projects;
+  project.value = projects.value.find(
+    (item: any) => item.id === Number(props.idProject)
+  );
+  projectStore.project = project.value;
+  if (project.value) {
+    address.value = project.value.address ?? "Адрес проекта";
+    name.value = project.value.name ?? "Новый уровень";
+    info.value = project.value.info ?? "Описание объекта";
+    comments.value = project.value.comments ?? "Дополнительная информация";
+  }
+  const backgroundsResp = await projectService.getBackgrounds();
+  const backgrounds = backgroundsResp.backgrounds;
+  for (const background of backgrounds) {
+    background.content = getURLForFile(background.name, background.format);
+  }
+  projectStore.backgroundsFill = backgrounds;
 
-    for (const background of res.backgrounds) {
-      background.content = getURLForFile(background.name, background.format);
-    }
-    projectStore.backgroundsFill.push(...backgrounds);
-
-    if (backgrounds.length > 1) {
-      projectStore.backgroundsEmpty = [
-        { id: "0-emty", content: "", type: "empty", plus: true },
-      ];
-    } else if (backgrounds.length === 1) {
-      projectStore.backgroundsEmpty = [
-        { id: "0-emty", content: "", type: "empty", plus: true },
-        { id: "1-emty", content: "", type: "empty" },
-      ];
-    }
-    finishLoadBgr = true;
-  });
+  if (backgrounds.length > 1) {
+    projectStore.backgroundsEmpty = [
+      { id: "0-emty", content: "", type: "empty", plus: true },
+    ];
+  } else if (backgrounds.length === 1) {
+    projectStore.backgroundsEmpty = [
+      { id: "0-emty", content: "", type: "empty", plus: true },
+      { id: "1-emty", content: "", type: "empty" },
+    ];
+  }
   finishLoad.value = true;
 });
 </script>
