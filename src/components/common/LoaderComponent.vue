@@ -1,6 +1,6 @@
 <template>
-  <div class="loader" :style="{width: size, height: size}">
-    <div class="loader__circle" :style="{width: size, height: size}"></div>
+  <div class="loader" :style="{ width: size, height: size }">
+    <div class="loader__circle" :style="{ width: size, height: size }"></div>
   </div>
 </template>
 

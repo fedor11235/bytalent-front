@@ -282,7 +282,7 @@ function handlerOpenProjectPopup() {
 }
 
 function returnHome() {
-  router.push({ name: "project" });
+  router.push({ name: "project-main" });
 }
 
 function setIconMenu(name: string) {

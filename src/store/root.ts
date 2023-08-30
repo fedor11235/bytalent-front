@@ -10,6 +10,7 @@ export const useRootStore = defineStore("root", {
 
     FAQPopup: false,
     popupUpload: false,
+    popupAdd: false,
     uploadProject: false,
     infoPage: false,
 
@@ -49,6 +50,7 @@ type StreamingStore = {
   popupWarning: boolean;
   textWarning: string;
   popupAddBgr: boolean;
+  popupAdd: boolean;
   popupAddProject: boolean;
   popupProfile: boolean;
   showPopupBgr: boolean;

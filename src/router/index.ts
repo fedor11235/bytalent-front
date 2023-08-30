@@ -13,6 +13,10 @@ import SearchView from "@/views/SearchView.vue";
 import LoginView from "@/views/LoginView.vue";
 import AdminHomeView from "@/views/AdminHomeView.vue";
 import AdminLoginView from "@/views/AdminLoginView.vue";
+import ProjectEmptyView from "@/views/ProjectEmptyView.vue";
+import ProjectIdView from "@/views/ProjectIdView.vue";
+
+// for test
 import LoadStartPage from "@/pages/LoadStartPage.vue";
 
 const routes: Array<RouteRecordRaw> = [
@@ -34,15 +38,18 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: "/project/:idProject",
-    name: "project-id",
-    component: ProjectView,
-    props: true,
-  },
-  {
     path: "/project",
     name: "project",
-    component: ProjectView,
+    children: [
+      { path: "", name: "project-main", component: ProjectView },
+      { path: "empty", name: "project-empty", component: ProjectEmptyView },
+      {
+        path: ":idProject",
+        name: "project-id",
+        component: ProjectIdView,
+        props: true,
+      },
+    ],
   },
   {
     path: "/new-lavel/:idProject",

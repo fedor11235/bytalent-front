@@ -97,7 +97,7 @@ const isTermsUser = ref(false);
 
 rootStore.hiddenHeader = true;
 
-console.log(rootStore.hiddenHeader)
+console.log(rootStore.hiddenHeader);
 
 async function onTelegramAuth(user: any) {
   console.log("data telegram! ", user);
@@ -115,7 +115,7 @@ function callBackRedirect() {
   if (props.nextPage) {
     window.location.href = props.nextPage;
   } else {
-    router.push({ name: "project" });
+    router.push({ name: "project-main" });
   }
 }
 

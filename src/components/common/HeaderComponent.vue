@@ -1,16 +1,5 @@
 <template>
   <div class="header">
-    <Transition name="slide">
-      <div v-if="isOpenMenu" class="header__mobile-menu">
-        <span
-          v-for="button of buttons"
-          :key="button.name"
-          @click="handlerSwitchPage(button.name)"
-          class="header__mobile-menu_btn"
-          >{{ button.title }}</span
-        >
-      </div>
-    </Transition>
     <div class="header__border header__border-top">
       <div
         v-for="(line, index) of lines"
@@ -34,7 +23,7 @@
       ></div>
     </div>
     <div class="header__logo" :style="logoStyle()"></div>
-    <div v-if="isDesctop" :class="controllClass()">
+    <div :class="controllClass()">
       <span
         v-for="button of buttons"
         :key="button.name"
@@ -93,20 +82,13 @@
         alt="search"
       />
     </div>
-    <BurgerComponent
-      v-else
-      class="header__burger"
-      @click="isOpenMenu = !isOpenMenu"
-      :type="isOpenMenu ? 'cross' : 'burger'"
-    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { toRef, ref, computed, watch } from "vue";
+import { toRef } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useRootStore } from "@/store";
-import BurgerComponent from "@/components/common/BurgerComponent.vue";
 
 type PageName =
   | "project"
@@ -136,31 +118,6 @@ const props = defineProps<{
 }>();
 
 const theme = toRef(props, "theme");
-const width = ref(window.innerWidth);
-const isOpenMenu = ref(false);
-
-const isDesctop = computed(() => {
-  if (width.value > 850) {
-    return true;
-  } else {
-    return false;
-  }
-});
-
-watch(
-  () => isOpenMenu.value,
-  (newVal) => {
-    if (newVal) {
-      isOpenMenu.value = false;
-    }
-  }
-);
-
-window.addEventListener("resize", updateWidth);
-
-function updateWidth() {
-  width.value = window.innerWidth;
-}
 
 function handlerLogin() {
   router.push({ name: "login" }).then(() => {
@@ -181,7 +138,6 @@ function handlerMouseOutBtn(name: PageName) {
 }
 
 function handlerSwitchPage(name: PageName) {
-  isOpenMenu.value = false;
   if (name === "profile") {
     rootStore.popupProfile = !rootStore.popupProfile;
   } else {
@@ -207,17 +163,25 @@ function btnClass(name: string) {
   if (name === "project") {
     return {
       header__btn:
-        (route.name !== "project-id" || route.name !== "project") &&
+        (route.name !== "project-main" ||
+          route.name !== "project-id" ||
+          route.name !== "project-empty") &&
         theme.value !== "light",
       "header__btn-light":
-        (route.name !== "project-id" || route.name !== "project") &&
+        (route.name !== "project-main" ||
+          route.name !== "project-id" ||
+          route.name !== "project-empty") &&
         theme.value === "light",
       header__btn_active:
-        (route.name === "project-id" || route.name === "project") &&
+        (route.name === "project-main" ||
+          route.name === "project-id" ||
+          route.name === "project-empty") &&
         theme.value !== "light" &&
         !rootStore.popupProfile,
       "header__btn-light_active":
-        (route.name === "project-id" || route.name === "project") &&
+        (route.name === "project-main" ||
+          route.name === "project-id" ||
+          route.name === "project-empty") &&
         theme.value === "light" &&
         !rootStore.popupProfile,
     };

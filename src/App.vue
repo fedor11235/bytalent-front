@@ -26,6 +26,9 @@
         :projectId="rootStore.projectId"
       />
     </Transition>
+    <Transition name="fade">
+      <PopupAdd v-if="rootStore.popupAdd" @close="rootStore.popupAdd = false" />
+    </Transition>
 
     <HeaderComponent
       v-if="!rootStore.hiddenHeader"
@@ -60,7 +63,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from "vue";
 
 import VisualizationHover from "@/components/popup/VisualizationHover.vue";
 import AppHover from "@/components/popup/AppHover.vue";
@@ -81,18 +84,19 @@ import PopupFAQ from "@/components/docs/PopupFAQ.vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 
 import MobileWarningPage from "@/pages/MobileWarningPage.vue";
+import PopupAdd from "@/components/visualization/PopupAdd.vue";
 
 import { useRootStore } from "@/store";
 
 const rootStore = useRootStore();
 
-const minWidth = 840
-const screenWidth = ref(window.innerWidth)
+const minWidth = 840;
+const screenWidth = ref(window.innerWidth);
 
-window.addEventListener('resize', setScrennWidth)
+window.addEventListener("resize", setScrennWidth);
 
 function setScrennWidth() {
-  screenWidth.value = window.innerWidth
+  screenWidth.value = window.innerWidth;
 }
 </script>
 

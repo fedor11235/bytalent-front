@@ -3,7 +3,6 @@
     <PopupAdd v-if="isPopupAdd" @close="isPopupAdd = false" />
   </Transition>
   <WelcomeLayout
-    v-if="total > 0"
     bg="project-new"
     :bgBase="bgr"
     noHover
@@ -34,7 +33,6 @@
 import { computed, ref } from "vue";
 import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
 import FooterComponent from "@/components/common/FooterComponent.vue";
-import projectService from "@/services/projectService";
 import PopupAdd from "@/components/visualization/PopupAdd.vue";
 import FAQControl from "@/components/controls/FAQControl.vue";
 import { useRouter } from "vue-router";
