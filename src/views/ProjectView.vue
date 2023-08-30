@@ -13,14 +13,14 @@
     </div>
     <ProjectComponent v-else />
   </div>
-  <LoadComponent v-else />
+  <LoadPage v-else />
 </template>
 
 <script setup lang="ts">
 import { useRouter, useRoute } from "vue-router";
 import type { Ref } from "vue";
 import { ref, watch } from "vue";
-import LoadComponent from "@/pages/LoadComponent.vue";
+import LoadPage from "@/pages/LoadPage.vue";
 import ErrorComponent from "@/pages/ErrorComponent.vue";
 import ProjectComponentAuth from "@/pages/ProjectComponentAuth.vue";
 import ProjectComponent from "@/pages/ProjectComponent.vue";

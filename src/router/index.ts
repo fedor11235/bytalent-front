@@ -2,7 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import { setToken } from "@/utils/token";
 import authService from "@/services/authService";
 import StartView from "@/views/StartView.vue";
-import VisualizationView from "@/views/VisualizationView.vue";
+import ProjectView from "@/views/ProjectView.vue";
 import ErrorView from "@/views/ErrorView.vue";
 // import SettingsView from "@/views/SettingsView.vue";
 import NewLavelView from "@/views/NewLavelView.vue";
@@ -13,11 +13,17 @@ import SearchView from "@/views/SearchView.vue";
 import LoginView from "@/views/LoginView.vue";
 import AdminHomeView from "@/views/AdminHomeView.vue";
 import AdminLoginView from "@/views/AdminLoginView.vue";
+import LoadStartPage from "@/pages/LoadStartPage.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     redirect: { name: "start" },
+  },
+  {
+    path: "/demo",
+    name: "demo",
+    component: LoadStartPage,
   },
   {
     path: "/start",
@@ -30,13 +36,13 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/project/:idProject",
     name: "project-id",
-    component: VisualizationView,
+    component: ProjectView,
     props: true,
   },
   {
     path: "/project",
     name: "project",
-    component: VisualizationView,
+    component: ProjectView,
   },
   {
     path: "/new-lavel/:idProject",

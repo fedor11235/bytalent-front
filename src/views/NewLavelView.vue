@@ -178,7 +178,7 @@
     </div>
     <ErrorComponent v-else />
   </div>
-  <LoadComponent v-else />
+  <LoadPage v-else />
 </template>
 
 <script setup lang="ts">
@@ -190,7 +190,7 @@ import EmptyComponent from "@/components/common/EmptyComponent.vue";
 import LineComponent from "@/components/common/LineComponent.vue";
 import CarouselComponent from "@/components/controls/CarouselComponent.vue";
 import ErrorComponent from "@/pages/ErrorComponent.vue";
-import LoadComponent from "@/pages/LoadComponent.vue";
+import LoadPage from "@/pages/LoadPage.vue";
 import { useRootStore } from "@/store";
 import { getURLForFile } from "@/utils/str";
 

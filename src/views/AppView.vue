@@ -3,14 +3,14 @@
     <AppComponentAuth v-if="check" />
     <AppComponent v-else />
   </div>
-  <LoadComponent v-else />
+  <LoadPage v-else />
   <!-- <mapbox-map :accessToken="myAccessToken" /> -->
 </template>
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
-import LoadComponent from "@/pages/LoadComponent.vue";
+import LoadPage from "@/pages/LoadPage.vue";
 import AppComponentAuth from "@/pages/AppComponentAuth.vue";
 import AppComponent from "@/pages/AppComponent.vue";
 import authService from "@/services/authService";

@@ -3,14 +3,14 @@
     <StreamingComponentAuth v-if="check" />
     <StreamingComponent v-else />
   </div>
-  <LoadComponent v-else />
+  <LoadPage v-else />
 </template>
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import authService from "@/services/authService";
-import LoadComponent from "@/pages/LoadComponent.vue";
+import LoadPage from "@/pages/LoadPage.vue";
 import StreamingComponent from "@/pages/StreamingComponent.vue";
 import StreamingComponentAuth from "@/pages/StreamingComponentAuth.vue";
 import { useRootStore } from "@/store";

@@ -18,13 +18,13 @@
       />
     </div>
   </div>
-  <LoadComponent v-else />
+  <LoadPage v-else />
 </template>
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
-import LoadComponent from "@/pages/LoadComponent.vue";
+import LoadPage from "@/pages/LoadPage.vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import InputComponent from "@/components/controls/InputComponent.vue";
 import authService from "@/services/authService";
