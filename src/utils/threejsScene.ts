@@ -112,7 +112,6 @@ export async function init(name: any, btns: any, sceletron: any) {
                 const request = new XMLHttpRequest();
               const test = request.open("GET", url, false); // `false` makes the request synchronous
                 request.send(null);
-                console.log('test: ', request.response[0])
 
                 //TODO кастыль для SPA, нужно пофиксить
                 if (request.response[0] == '<') {

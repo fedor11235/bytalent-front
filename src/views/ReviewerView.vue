@@ -80,7 +80,7 @@ onMounted(() => {
   height: 100px;
 }
 
-.loader::before {
+.loader-wbgl::before {
   content: "";
   position: absolute;
   left: 25px;
