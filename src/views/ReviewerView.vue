@@ -1,6 +1,6 @@
 <template>
-  <div class="loading" id="js-loader">
-    <div class="loader"></div>
+  <div class="loading-wbgl" id="js-loader">
+    <div class="loader-wbgl"></div>
   </div>
 
   <canvas id="c"></canvas>
@@ -58,12 +58,7 @@ onMounted(() => {
   border: 5px solid #dfa946;
 }
 
-.container {
-  width: 100%;
-  height: 100vh;
-}
-
-.loading {
+.loading-wbgl {
   position: fixed;
   z-index: 50;
   width: 100%;
@@ -76,7 +71,7 @@ onMounted(() => {
   align-items: center;
 }
 
-.loader {
+.loader-wbgl {
   -webkit-perspective: 120px;
   -moz-perspective: 120px;
   -ms-perspective: 120px;
