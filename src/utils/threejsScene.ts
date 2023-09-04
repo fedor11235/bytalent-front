@@ -95,6 +95,12 @@ export async function init(name: any, btns: any, sceletron: any) {
             let find = true;
             let i = 1;
             const textureArray = [];
+            // (child as any).material = new THREE.MeshStandardMaterial();
+
+            // eslint-disable-next-line
+            // ;(child as any).castShadow = true;
+            // eslint-disable-next-line
+            // ;(child as any).receiveShadow = true;
             //ищем все вариантики
             while (find) {
               if ((child as any).material.map != null) {
@@ -108,9 +114,9 @@ export async function init(name: any, btns: any, sceletron: any) {
                   "_baseColor" +
                   i +
                   ".jpeg";
-
+                
                 const request = new XMLHttpRequest();
-              const test = request.open("GET", url, false); // `false` makes the request synchronous
+                request.open("GET", url, false); // `false` makes the request synchronous
                 request.send(null);
 
                 //TODO кастыль для SPA, нужно пофиксить
@@ -121,6 +127,8 @@ export async function init(name: any, btns: any, sceletron: any) {
                   // console.log(tempTexture)
                   i = i + 1;
                   textureArray.push(tempTexture);
+                } else {
+                  find = false;
                 }
               } else {
                 find = false;
@@ -141,36 +149,34 @@ export async function init(name: any, btns: any, sceletron: any) {
     });
 
     //освещение
-    {
-      {
-        const light = new THREE.DirectionalLight(0xffffff, 1);
-        light.position.set(-2, 0, 10);
-        light.lookAt(0, -1, 0);
-        mainScene.add(light);
-      }
+    const lightDirectional = new THREE.DirectionalLight(0xffffff, 2);
+    // lightOne.position.set(-2, 0, 10);
+    lightDirectional.lookAt(-1, -1, 0.5);
+    mainScene.add(lightDirectional);
 
-      {
-        const light = new THREE.DirectionalLight(0xffffff, 1);
-        light.position.set(2, 0, 5);
-        light.lookAt(0, 1, 0);
-        mainScene.add(light);
-      }
+    const lightAmbient = new THREE.AmbientLight( 0x404040 ); // soft white light
+    lightAmbient.intensity = 5;
+    mainScene.add(lightAmbient);
 
-      RectAreaLightUniformsLib.init();
-      {
-        const rectLight = new THREE.RectAreaLight(0xffffff, 1, 100, 100);
-        rectLight.position.set(-10, 0, 0);
-        rectLight.rotation.y = Math.PI + Math.PI / 4;
-        mainScene.add(rectLight);
-      }
+    // const lightOne = new THREE.DirectionalLight(0xffffff, 2);
 
-      {
-        const rectLight = new THREE.RectAreaLight(0xffffff, 1, 100, 100);
-        rectLight.position.set(10, 0, 0);
-        rectLight.rotation.y = Math.PI - Math.PI / 4;
-        mainScene.add(rectLight);
-      }
-    }
+    // const light = new THREE.DirectionalLight(0xffffff, 1);
+    // light.position.set(2, 0, 5);
+    // light.lookAt(0, 1, 0);
+    // mainScene.add(light);
+
+    // RectAreaLightUniformsLib.init();
+
+    // const rectLight = new THREE.RectAreaLight(0xffffff, 1, 100, 100);
+    // rectLight.position.set(-10, 0, 0);
+    // rectLight.rotation.y = Math.PI + Math.PI / 4;
+    // mainScene.add(rectLight);
+
+
+  //   const rectLight = new THREE.RectAreaLight(0xffffff, 1, 100, 100);
+  //   rectLight.position.set(10, 0, 0);
+  //   rectLight.rotation.y = Math.PI - Math.PI / 4;
+  //   mainScene.add(rectLight);
   }
 
   //камера
@@ -190,7 +196,7 @@ export async function init(name: any, btns: any, sceletron: any) {
 
   //OrbitControls
   const controls = new OrbitControls(camera, renderer.domElement);
-  controls.autoRotate = true;
+  // controls.autoRotate = true;
   controls.autoRotateSpeed = 5;
   controls.enableDamping = true;
 

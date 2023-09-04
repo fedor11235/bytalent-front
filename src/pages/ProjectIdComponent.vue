@@ -71,7 +71,7 @@ async function switchPreviousProject() {
   if (props.indexProject <= 1) {
     return;
   }
-  const previousProjectId = props.projects[props.indexProject - 2].id;
+  const previousProjectId = props.projects[props.indexProject - 1].id;
   console.log("previousProjectId", previousProjectId);
   await router.push({
     name: "project-id",
@@ -80,12 +80,13 @@ async function switchPreviousProject() {
 }
 
 async function switchNextProject() {
+  console.log("total: ", props.total)
+  console.log("indexProject: ", props.indexProject)
   if (props.total === props.indexProject) {
     return;
   }
-  // const nextProjectId = props.projects[props.indexProject].id;
-  // console.log('nextProjectId', props.projects[props.indexProject].id)
-  await router.push({ name: "project-id", params: { idProject: 2 } });
+  const nextProjectId = props.projects[props.indexProject].id;
+  await router.push({ name: "project-id", params: { idProject: nextProjectId } });
 }
 
 function handlerBtnFooterClick() {

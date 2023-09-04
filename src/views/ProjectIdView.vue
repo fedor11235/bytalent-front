@@ -50,20 +50,17 @@ watch(
     //TODO Проверки нужно будет вынести в роуты
     check.value = await authService.checkToken();
     if (check.value) {
-      const projects = await projectService.getAllNumberProjects();
-      projects.value = projects.projects;
-      total.value = projects.total;
+      const projectsRes = await projectService.getAllNumberProjects();
+      projects.value = projectsRes.projects;
+      console.log("projects res: ", projects)
+
+      total.value = projectsRes.total;
       if (projects.value.length > 0) {
-        console.log(projects.value);
-        project.value = projects.value.find((item: any) => {
-          console.log(item.id);
-          return item.id === Number(idProject.value);
-        });
-        indexProject.value = projects.value.findIndex((item: any) => {
-          item.id === Number(idProject.value);
-        });
+        project.value = projects.value.find((item: any) => item.id === Number(idProject.value));
+        indexProject.value = projects.value.findIndex((item: any) => item.id === Number(idProject.value));
       }
     }
+    console.log("projects perent: ", projects.value)
     finishLoad.value = true;
   },
   { immediate: true }
