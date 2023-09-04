@@ -110,15 +110,18 @@ export async function init(name: any, btns: any, sceletron: any) {
                   ".jpeg";
 
                 const request = new XMLHttpRequest();
-                request.open("GET", url, false); // `false` makes the request synchronous
+              const test = request.open("GET", url, false); // `false` makes the request synchronous
                 request.send(null);
+                console.log('test: ', request.response[0])
 
-                if (request.status === 200) {
+                //TODO кастыль для SPA, нужно пофиксить
+                if (request.response[0] == '<') {
+                  find = false;
+                } else if(request.status === 200 ) {
                   const tempTexture = GiveMeTexture(url);
+                  // console.log(tempTexture)
                   i = i + 1;
                   textureArray.push(tempTexture);
-                } else {
-                  find = false;
                 }
               } else {
                 find = false;
