@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { RectAreaLightUniformsLib } from "three/examples/jsm/lights/RectAreaLightUniformsLib";
+// import { RectAreaLightUniformsLib } from "three/examples/jsm/lights/RectAreaLightUniformsLib";
 
 //сюда записывается массив кнопок
 let btnsTexture: any;
@@ -37,6 +37,7 @@ function clickTexture(event: any) {
     (mat: any) => mat.name === textureActiveName
   )[0];
   const textureActiveObj = matActive.texVars[Number(textureActiveIndex) - 1];
+  textureActiveObj.wrapS = textureActiveObj.wrapT = THREE.RepeatWrapping;
   matActive.mat.map = textureActiveObj;
   matActive.mat.needsUpdate = true;
 }
@@ -44,17 +45,16 @@ function clickTexture(event: any) {
 function showMats(mats: any) {
   let btnsHtml = "";
   let btnsHtmlTemp = "";
-  console.log("modelName", modelName);
   for (const mat of mats) {
-    btnsHtmlTemp = `<div class="model-info__item"><div class="model-info__title">${mat.name}</div>`;
+    btnsHtmlTemp = `<div class="model-info__item"><div class="model-info__title">${mat.name}</div><div class="model-info__imgs">`;
     for (let i = 1; i <= mat.texVars.length; i++) {
       if (i === 1) {
-        btnsHtmlTemp += `<img class="model-info__img model-info__img_active" data-index="1" data-name="${mat.name}" src="models/${modelName}//textures/${mat.name}/${mat.name}_baseColor${i}.jpeg" height="24" width="24"/>`;
+        btnsHtmlTemp += `<img class="model-info__img model-info__img_active" data-index="1" data-name="${mat.name}" src="models/${modelName}/textures/${mat.name}/${mat.name}_baseColor${i}.jpeg" height="60" width="60"/>`;
       } else {
-        btnsHtmlTemp += `<img class="model-info__img" data-index="${i}" data-name="${mat.name}" src="models/${modelName}/textures/${mat.name}/${mat.name}_baseColor${i}.jpeg" height="24" width="24"/>`;
+        btnsHtmlTemp += `<img class="model-info__img" data-index="${i}" data-name="${mat.name}" src="models/${modelName}/textures/${mat.name}/${mat.name}_baseColor${i}.jpeg" height="60" width="60"/>`;
       }
     }
-    btnsHtmlTemp += "</div>";
+    btnsHtmlTemp += "</div></div>";
     btnsHtml += btnsHtmlTemp;
   }
   BTNS.innerHTML = btnsHtml;
@@ -89,13 +89,16 @@ export async function init(name: any, btns: any, sceletron: any) {
       const model = gltf.scene;
       LOADER.style.display = "none";
       model.traverse(async (child) => {
-        if ((child as any).isMesh) {
+        if ((child as THREE.Mesh).isMesh) {
           if (!matsWithTexNames.includes((child as any).material.name)) {
             matsWithTexNames.push((child as any).material.name);
             let find = true;
             let i = 1;
             const textureArray = [];
             // (child as any).material = new THREE.MeshStandardMaterial();
+            // (child as any).material = new THREE.MeshLambertMaterial({color: 0xcccccc});
+            child.castShadow = true;
+            child.receiveShadow = true;
 
             // eslint-disable-next-line
             // ;(child as any).castShadow = true;
@@ -149,13 +152,20 @@ export async function init(name: any, btns: any, sceletron: any) {
     });
 
     //освещение
-    const lightDirectional = new THREE.DirectionalLight(0xffffff, 2);
-    // lightOne.position.set(-2, 0, 10);
-    lightDirectional.lookAt(-1, -1, 0.5);
-    mainScene.add(lightDirectional);
+    const lightPoint = new THREE.PointLight( 0xffffff, 50, 10 );
+    lightPoint.position.set(0, 5, -2);
+    lightPoint.shadow.radius = 8;
+    lightPoint.shadow.mapSize.width = 2048; 
+    lightPoint.shadow.mapSize.height = 2048; 
+    lightPoint.castShadow = true;
+    mainScene.add(lightPoint);
+    
+    // const lightDirectional = new THREE.DirectionalLight(0xffffff, 2);
+    // lightDirectional.lookAt(-1, -1, 0.5);
+    // mainScene.add(lightDirectional);
 
     const lightAmbient = new THREE.AmbientLight( 0x404040 ); // soft white light
-    lightAmbient.intensity = 5;
+    lightAmbient.intensity = 10;
     mainScene.add(lightAmbient);
 
     // const lightOne = new THREE.DirectionalLight(0xffffff, 2);
@@ -191,6 +201,9 @@ export async function init(name: any, btns: any, sceletron: any) {
   //рендер
   const canvas: any = document.querySelector("#c");
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+  renderer.shadowMap.enabled = true;
+  // renderer.shadowMap.type = THREE.VSMShadowMap;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
 

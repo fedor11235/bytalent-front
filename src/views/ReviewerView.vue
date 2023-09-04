@@ -1,11 +1,13 @@
 <template>
-  <div class="loading-wbgl" id="js-loader">
-    <div class="loader-wbgl"></div>
+  <div class="reviewer">
+    <div class="loading-wbgl" id="js-loader">
+      <div class="loader-wbgl"></div>
+    </div>
+
+    <canvas id="c"></canvas>
+
+    <div id="model-info"></div>
   </div>
-
-  <canvas id="c"></canvas>
-
-  <div id="model-info"></div>
 </template>
 
 <script setup lang="ts">
@@ -26,36 +28,76 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
+// .reviewer {
+//   overflow: hidden;
+// }
 #model-info {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   row-gap: 6px;
   position: fixed;
-  top: 2vh;
+  bottom: 2vh;
+  left: 2vw;
   right: 2vw;
+  column-gap: 5vw;
+  padding-bottom: 8px;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    background-color: transparent;
+    height: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background-color: rgba(0, 0, 0, .7);
+    backdrop-filter: blur(5px);
+    // border: 1px solid white;
+  }
+  // overflow-x: scroll;
 }
+
+// #model-info::-webkit-scrollbar {
+//   height: 5px;
+//   width: 10px;
+// }
 
 .model-info__item {
   display: flex;
   align-items: center;
-  column-gap: 6px;
+  row-gap: 15px;
+  flex-direction: column;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 8px;
+  backdrop-filter: blur(5px);
 }
 
 .model-info__title {
-  width: 130px;
+  font-family: JuraMedium, sans-serif;
+  color: wheat;
+}
+
+.model-info__imgs {
+  display: flex;
+  column-gap: 12px;
 }
 
 .model-info__img {
   cursor: pointer;
-  border: 5px solid transparent;
+  border: 1px solid white;
+  border-radius: 50%;
+  transition: scale .2s ease;
 }
 
 .model-info__img:hover {
-  border: 5px solid #dfa946;
+  border: 3px solid wheat;
+}
+
+.model-info__img:active {
+  scale: .9;
 }
 
 .model-info__img_active {
-  border: 5px solid #dfa946;
+  border: 3px solid wheat;
 }
 
 .loading-wbgl {
