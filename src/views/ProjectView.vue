@@ -32,16 +32,18 @@ watch(
   () => route.params,
   async () => {
     finishLoad.value = false;
+    //TODO Проверки нужно будет вынести в роуты
     check.value = await authService.checkToken();
-    const projects = await projectService.getAllNumberProjects();
-    //Проверки нужно будет вынести в роуты
-    if (check.value && projects.projects.length > 0) {
-      await router.push({
-        name: "project-id",
-        params: { idProject: projects.projects[0].id },
-      });
-    } else if (check.value) {
-      await router.push({ name: "project-empty" });
+    if (check.value) {
+      const projects = await projectService.getAllNumberProjects();
+      if (projects.projects.length > 0) {
+        await router.push({
+          name: "project-id",
+          params: { idProject: projects.projects[0].id },
+        });
+      } else {
+        await router.push({ name: "project-empty" });
+      }
     }
     finishLoad.value = true;
   },

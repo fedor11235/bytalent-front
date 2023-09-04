@@ -37,7 +37,7 @@ import PopupAdd from "@/components/visualization/PopupAdd.vue";
 import FAQControl from "@/components/controls/FAQControl.vue";
 import { useRouter } from "vue-router";
 import { useRootStore } from "@/store";
-import { getURLForFile } from "@/utils/str";
+import { getURLForFile, getURLForFilePoster } from "@/utils/str";
 
 const rootStore = useRootStore();
 
@@ -61,25 +61,31 @@ const bgr = computed(() => {
     return {
       type: background.type,
       content: getURLForFile(background.name, background.format),
+      poster: getURLForFilePoster(background.poster_path),
     };
   }
   return false;
 });
 
-function switchPreviousProject() {
+async function switchPreviousProject() {
   if (props.indexProject <= 1) {
     return;
   }
   const previousProjectId = props.projects[props.indexProject - 2].id;
-  router.push({ name: "project-id", params: { idProject: previousProjectId } });
+  console.log("previousProjectId", previousProjectId);
+  await router.push({
+    name: "project-id",
+    params: { idProject: previousProjectId },
+  });
 }
 
-function switchNextProject() {
+async function switchNextProject() {
   if (props.total === props.indexProject) {
     return;
   }
-  const nextProjectId = props.projects[props.indexProject].id;
-  router.push({ name: "project-id", params: { idProject: nextProjectId } });
+  // const nextProjectId = props.projects[props.indexProject].id;
+  // console.log('nextProjectId', props.projects[props.indexProject].id)
+  await router.push({ name: "project-id", params: { idProject: 2 } });
 }
 
 function handlerBtnFooterClick() {

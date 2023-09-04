@@ -15,6 +15,7 @@ import AdminHomeView from "@/views/AdminHomeView.vue";
 import AdminLoginView from "@/views/AdminLoginView.vue";
 import ProjectEmptyView from "@/views/ProjectEmptyView.vue";
 import ProjectIdView from "@/views/ProjectIdView.vue";
+import ReviewerView from "@/views/ReviewerView.vue";
 
 // for test
 import LoadStartPage from "@/pages/LoadStartPage.vue";
@@ -23,11 +24,6 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     redirect: { name: "start" },
-  },
-  {
-    path: "/demo",
-    name: "demo",
-    component: LoadStartPage,
   },
   {
     path: "/start",
@@ -111,6 +107,16 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       adminLogin: true,
     },
+  },
+  {
+    path: "/demo",
+    name: "demo",
+    component: LoadStartPage,
+  },
+  {
+    path: "/reviewer",
+    name: "reviewer",
+    component: ReviewerView,
   },
   {
     path: "/:pathMatch(.*)*",

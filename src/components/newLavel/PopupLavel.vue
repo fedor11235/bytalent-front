@@ -27,7 +27,7 @@
           <video
             v-else-if="background.type == 'video'"
             volume="0.0"
-            @loadeddata="handlerVideoLoad"
+            :poster="background.poster"
             @mouseenter="handlerVideoMouseenter"
             @mouseleave="handlerVideoMouseleave"
           >
@@ -76,12 +76,12 @@ let move = indexBackgrounds.value * -widthSlid;
 
 const sliders: Ref<HTMLDivElement | null> = ref(null);
 
-function handlerVideoLoad(event: any) {
-  event.target.play();
-  setTimeout(() => {
-    event.target.pause();
-  }, 1000);
-}
+// function handlerVideoLoad(event: any) {
+//   event.target.play();
+//   setTimeout(() => {
+//     event.target.pause();
+//   }, 1000);
+// }
 
 function handlerVideoMouseenter(event: any) {
   event.target.play();

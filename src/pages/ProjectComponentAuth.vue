@@ -39,7 +39,7 @@ import PopupAdd from "@/components/visualization/PopupAdd.vue";
 import FAQControl from "@/components/controls/FAQControl.vue";
 import { useRouter } from "vue-router";
 import { useRootStore } from "@/store";
-import { getURLForFile } from "@/utils/str";
+import { getURLForFile, getURLForFilePoster } from "@/utils/str";
 
 const rootStore = useRootStore();
 
@@ -63,6 +63,7 @@ const bgr = computed(() => {
     return {
       type: background.type,
       content: getURLForFile(background.name, background.format),
+      poster: getURLForFilePoster(background.poster_path),
     };
   }
   return false;

@@ -9,10 +9,12 @@
       />
       <video
         v-else-if="bgr.type === 'video'"
-        poster="@/assets/backgrounds/lvel.jpeg"
         volume="0.0"
         class="new-level__img"
         autoplay
+        :poster="
+          bgr.poster ? bgr.poster : require('@/assets/backgrounds/lvel.jpeg')
+        "
         loop
         muted
       >
@@ -192,7 +194,7 @@ import CarouselComponent from "@/components/controls/CarouselComponent.vue";
 import ErrorComponent from "@/pages/ErrorComponent.vue";
 import LoadPage from "@/pages/LoadPage.vue";
 import { useRootStore } from "@/store";
-import { getURLForFile } from "@/utils/str";
+import { getURLForFile, getURLForFilePoster } from "@/utils/str";
 
 const rootStore = useRootStore();
 
@@ -241,6 +243,7 @@ const bgr = computed(() => {
     return {
       type: background.type,
       content: getURLForFile(background.name, background.format),
+      poster: getURLForFilePoster(background.poster_path),
     };
   } else {
     return {
@@ -308,6 +311,7 @@ onMounted(async () => {
   const backgrounds = backgroundsResp.backgrounds;
   for (const background of backgrounds) {
     background.content = getURLForFile(background.name, background.format);
+    background.poster = getURLForFilePoster(background.poster_path);
   }
   projectStore.backgroundsFill = backgrounds;
 

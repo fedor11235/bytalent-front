@@ -90,7 +90,9 @@ import { useRootStore } from "@/store";
 
 const rootStore = useRootStore();
 
-const minWidth = 840;
+// const minWidth = 840;
+const minWidth = 0;
+
 const screenWidth = ref(window.innerWidth);
 
 window.addEventListener("resize", setScrennWidth);

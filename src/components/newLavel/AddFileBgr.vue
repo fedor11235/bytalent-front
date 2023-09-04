@@ -53,7 +53,7 @@ import { fileInput, fileInsertion, browseFile } from "@/utils/file";
 import projectService from "@/services/projectService";
 import { useRootStore } from "@/store";
 import { useProjectStore } from "@/store";
-import { getURLForFile } from "@/utils/str";
+import { getURLForFile, getURLForFilePoster } from "@/utils/str";
 
 const rootStore = useRootStore();
 const projectStore = useProjectStore();
@@ -112,6 +112,7 @@ async function saveFaileBgr(filteredFile: File) {
   projectStore.backgroundsFill.push({
     id: backgroundNew.id,
     content: getURLForFile(backgroundNew.name, backgroundNew.format),
+    poster: getURLForFilePoster(backgroundNew.poster_path),
     type: backgroundNew.type,
   });
   if (projectStore.backgroundsEmpty.length > 1) {

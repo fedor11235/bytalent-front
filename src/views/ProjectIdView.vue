@@ -14,9 +14,9 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter, useRoute } from "vue-router";
+import { useRoute } from "vue-router";
 import type { Ref } from "vue";
-import { ref, watch } from "vue";
+import { ref, watch, toRef } from "vue";
 import LoadPage from "@/pages/LoadPage.vue";
 import ProjectIdComponent from "@/pages/ProjectIdComponent.vue";
 import ErrorComponent from "@/pages/ErrorComponent.vue";
@@ -32,6 +32,7 @@ const props = defineProps<{
   idProject?: string;
 }>();
 
+const idProject = toRef(props.idProject);
 const route = useRoute();
 
 const check = ref(false);
@@ -46,19 +47,21 @@ watch(
   () => route.params,
   async () => {
     finishLoad.value = false;
-    //Проверки нужно будет вынести в роуты
+    //TODO Проверки нужно будет вынести в роуты
     check.value = await authService.checkToken();
     if (check.value) {
       const projects = await projectService.getAllNumberProjects();
       projects.value = projects.projects;
       total.value = projects.total;
       if (projects.value.length > 0) {
-        project.value = projects.value.find(
-          (item: any) => item.id === Number(props.idProject)
-        );
-        indexProject.value = projects.value.findIndex(
-          (item: any) => item.id === Number(props.idProject)
-        );
+        console.log(projects.value);
+        project.value = projects.value.find((item: any) => {
+          console.log(item.id);
+          return item.id === Number(idProject.value);
+        });
+        indexProject.value = projects.value.findIndex((item: any) => {
+          item.id === Number(idProject.value);
+        });
       }
     }
     finishLoad.value = true;

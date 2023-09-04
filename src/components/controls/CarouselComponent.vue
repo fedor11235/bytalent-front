@@ -36,6 +36,7 @@
           v-else-if="background.type == 'video'"
           v-show="background.load"
           volume="0.0"
+          :poster="background.poster"
           @click.prevent="handlerShowPopup($event, index, background)"
           @loadeddata="handlerVideoLoad($event, background)"
           @mouseenter="handlerVideoMouseenter"
@@ -66,7 +67,7 @@ import { useProjectStore } from "@/store";
 import projectService from "@/services/projectService";
 import { fileInput, fileInsertion, browseFile } from "@/utils/file";
 import LoaderComponent from "@/components/common/LoaderComponent.vue";
-import { getURLForFile } from "@/utils/str";
+import { getURLForFile, getURLForFilePoster } from "@/utils/str";
 
 const props = defineProps<{
   projectId: number;
@@ -92,10 +93,6 @@ function getFilteredFileBg(file: File) {
 
 function handlerVideoLoad(event: any, background: any) {
   background.load = true;
-  event.target.play();
-  setTimeout(() => {
-    event.target.pause();
-  }, 1000);
 }
 
 function handlerVideoMouseenter(event: any) {
@@ -119,23 +116,19 @@ function handlerUploadBgr(enabled: boolean | undefined) {
   }
 }
 
-function saveFaileBgr(filteredFile: File) {
-  const fr = new FileReader();
-  fr.onload = async () => {
-    const fbase64 = fr.result;
-    const backgroundNew = await projectService.postBackgrounds({
-      file: filteredFile,
-    });
-    projectStore.backgroundsFill.push({
-      id: backgroundNew.id,
-      content: getURLForFile(backgroundNew.name, backgroundNew.format),
-      type: backgroundNew.type,
-    });
-    if (projectStore.backgroundsEmpty.length > 1) {
-      projectStore.backgroundsEmpty.pop();
-    }
-  };
-  fr.readAsDataURL(filteredFile);
+async function saveFaileBgr(filteredFile: File) {
+  const backgroundNew = await projectService.postBackgrounds({
+    file: filteredFile,
+  });
+  projectStore.backgroundsFill.push({
+    id: backgroundNew.id,
+    content: getURLForFile(backgroundNew.name, backgroundNew.format),
+    poster: getURLForFilePoster(backgroundNew.poster_path),
+    type: backgroundNew.type,
+  });
+  if (projectStore.backgroundsEmpty.length > 1) {
+    projectStore.backgroundsEmpty.pop();
+  }
 }
 
 function handlerLeftMove() {

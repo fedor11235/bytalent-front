@@ -14,7 +14,11 @@
       />
       <video
         v-else-if="bgBase.type === 'video'"
-        :poster="require(`@/assets/backgrounds/${bg}.png`)"
+        :poster="
+          bgBase.poster
+            ? bgBase.poster
+            : require(`@/assets/backgrounds/${bg}.png`)
+        "
         volume="0.0"
         class="layout-welcome__img"
         autoplay

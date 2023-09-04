@@ -34,6 +34,7 @@ type Background = {
   content: string;
   plus?: boolean;
   load?: boolean;
+  poster?: string;
 };
 
 type BackgroundPlug = {

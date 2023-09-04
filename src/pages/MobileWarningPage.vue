@@ -1,6 +1,6 @@
 <template>
   <div class="mobile-page">
-    <div class="mobile-page__title">Только с компьюютера</div>
+    <div class="mobile-page__title">Только с компьютера</div>
   </div>
 </template>
 
