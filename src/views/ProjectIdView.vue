@@ -32,7 +32,6 @@ const props = defineProps<{
   idProject?: string;
 }>();
 
-const idProject = toRef(props.idProject);
 const route = useRoute();
 
 const check = ref(false);
@@ -52,15 +51,19 @@ watch(
     if (check.value) {
       const projectsRes = await projectService.getAllNumberProjects();
       projects.value = projectsRes.projects;
-      console.log("projects res: ", projects)
+      console.log("projects res: ", projects);
 
       total.value = projectsRes.total;
       if (projects.value.length > 0) {
-        project.value = projects.value.find((item: any) => item.id === Number(idProject.value));
-        indexProject.value = projects.value.findIndex((item: any) => item.id === Number(idProject.value));
+        project.value = projects.value.find(
+          (item: any) => item.id === Number(props.idProject)
+        );
+        indexProject.value = projects.value.findIndex(
+          (item: any) => item.id === Number(props.idProject)
+        );
       }
     }
-    console.log("projects perent: ", projects.value)
+    console.log("projects perent: ", projects.value);
     finishLoad.value = true;
   },
   { immediate: true }

@@ -76,10 +76,10 @@
                   v-if="IsModeAdrsWrt"
                   class="new-level__description_text_input"
                 >
-                  <input v-model="comments" />
+                  <input v-model="infoDop" />
                 </div>
                 <div v-else class="new-level__description_text">
-                  {{ comments }}
+                  {{ infoDop }}
                 </div>
               </div>
             </div>
@@ -221,7 +221,7 @@ const menu = [
 const address = ref("Адрес проекта");
 const name = ref("Новый уровень");
 const info = ref("Описание объекта");
-const comments = ref("Дополнительная информация");
+const infoDop = ref("Дополнительная информация");
 
 const IsModeAdrsWrt = ref(false);
 const isExpand = ref(false);
@@ -260,7 +260,7 @@ function handlerEdit() {
       name: name.value,
       address: address.value,
       info: info.value,
-      comments: comments.value,
+      info_dop: infoDop.value,
     });
   }
 }
@@ -305,7 +305,7 @@ onMounted(async () => {
     address.value = project.value.address ?? "Адрес проекта";
     name.value = project.value.name ?? "Новый уровень";
     info.value = project.value.info ?? "Описание объекта";
-    comments.value = project.value.comments ?? "Дополнительная информация";
+    infoDop.value = project.value.info_dop ?? "Дополнительная информация";
   }
   const backgroundsResp = await projectService.getBackgrounds();
   const backgrounds = backgroundsResp.backgrounds;

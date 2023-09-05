@@ -28,9 +28,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-// .reviewer {
-//   overflow: hidden;
-// }
 #model-info {
   display: flex;
   flex-direction: row;
@@ -48,17 +45,10 @@ onMounted(() => {
   }
   &::-webkit-scrollbar-thumb {
     border-radius: 6px;
-    background-color: rgba(0, 0, 0, .7);
+    background-color: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(5px);
-    // border: 1px solid white;
   }
-  // overflow-x: scroll;
 }
-
-// #model-info::-webkit-scrollbar {
-//   height: 5px;
-//   width: 10px;
-// }
 
 .model-info__item {
   display: flex;
@@ -85,7 +75,7 @@ onMounted(() => {
   cursor: pointer;
   border: 1px solid white;
   border-radius: 50%;
-  transition: scale .2s ease;
+  transition: scale 0.2s ease;
 }
 
 .model-info__img:hover {
@@ -93,7 +83,7 @@ onMounted(() => {
 }
 
 .model-info__img:active {
-  scale: .9;
+  scale: 0.9;
 }
 
 .model-info__img_active {

@@ -7,7 +7,9 @@
         v-model="name"
         class="settings-view__card_input"
       />
-      <div v-else class="settings-view__card_text">{{ name }}</div>
+      <div v-else class="settings-view__card_text">
+        {{ parseTextSetting(name) }}
+      </div>
     </div>
   </div>
   <div class="settings-view__card_delimiter"></div>
@@ -19,7 +21,9 @@
         v-model="surname"
         class="settings-view__card_input"
       />
-      <div v-else class="settings-view__card_text">{{ surname }}</div>
+      <div v-else class="settings-view__card_text">
+        {{ parseTextSetting(surname) }}
+      </div>
     </div>
   </div>
   <div class="settings-view__card_delimiter"></div>
@@ -31,7 +35,9 @@
         v-model="organization"
         class="settings-view__card_input"
       />
-      <div v-else class="settings-view__card_text">{{ organization }}</div>
+      <div v-else class="settings-view__card_text">
+        {{ parseTextSetting(organization) }}
+      </div>
     </div>
   </div>
   <div class="settings-view__card_delimiter"></div>
@@ -43,7 +49,9 @@
         v-model="position"
         class="settings-view__card_input"
       />
-      <div v-else class="settings-view__card_text">{{ position }}</div>
+      <div v-else class="settings-view__card_text">
+        {{ parseTextSetting(position) }}
+      </div>
     </div>
   </div>
   <div class="settings-view__card_delimiter"></div>
@@ -55,7 +63,9 @@
         v-model="phone"
         class="settings-view__card_input"
       />
-      <div v-else class="settings-view__card_text">{{ phone }}</div>
+      <div v-else class="settings-view__card_text">
+        {{ parseTextSetting(phone) }}
+      </div>
     </div>
   </div>
   <div class="settings-view__card_delimiter"></div>
@@ -67,7 +77,9 @@
         v-model="email"
         class="settings-view__card_input"
       />
-      <div v-else class="settings-view__card_text">{{ email }}</div>
+      <div v-else class="settings-view__card_text">
+        {{ parseTextSetting(email) }}
+      </div>
     </div>
   </div>
   <div
@@ -103,13 +115,14 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import profileService from "@/services/profileService";
+import { parseTextSetting } from "@/utils/parse";
 
-const name = ref(false);
-const surname = ref(false);
-const organization = ref(false);
-const position = ref(false);
-const phone = ref(false);
-const email = ref(false);
+const name = ref("");
+const surname = ref("");
+const organization = ref("");
+const position = ref("");
+const phone = ref("");
+const email = ref("");
 
 const isProfileEdit = ref(false);
 
@@ -127,12 +140,13 @@ function handlerSave() {
 
 onMounted(async () => {
   const profile = await profileService.getProfile();
-  name.value = profile.name ?? "-";
-  surname.value = profile.surname ?? "-";
-  organization.value = profile.organization ?? "-";
-  position.value = profile.position ?? "-";
-  phone.value = profile.phone ?? "-";
-  email.value = profile.email ?? "-";
+  name.value = profile.name;
+  surname.value = profile.surname;
+  organization.value = profile.organization;
+  position.value = profile.position;
+  phone.value = profile.phone;
+  email.value = profile.email;
+  // console.log('profile.email', profile.email)
 });
 </script>
 

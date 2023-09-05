@@ -7,7 +7,9 @@
         v-model="website"
         class="settings-view__card_input"
       />
-      <div v-else class="settings-view__card_text">{{ website }}</div>
+      <div v-else class="settings-view__card_text">
+        {{ parseTextSetting(website) }}
+      </div>
     </div>
   </div>
   <div class="settings-view__card_delimiter"></div>
@@ -19,7 +21,9 @@
         v-model="telegram"
         class="settings-view__card_input"
       />
-      <div v-else class="settings-view__card_text">{{ telegram }}</div>
+      <div v-else class="settings-view__card_text">
+        {{ parseTextSetting(telegram) }}
+      </div>
     </div>
   </div>
   <div class="settings-view__card_delimiter"></div>
@@ -31,7 +35,9 @@
         v-model="instagram"
         class="settings-view__card_input"
       />
-      <div v-else class="settings-view__card_text">{{ instagram }}</div>
+      <div v-else class="settings-view__card_text">
+        {{ parseTextSetting(instagram) }}
+      </div>
     </div>
   </div>
   <div class="settings-view__card_delimiter"></div>
@@ -43,7 +49,9 @@
         v-model="twitter"
         class="settings-view__card_input"
       />
-      <div v-else class="settings-view__card_text">{{ twitter }}</div>
+      <div v-else class="settings-view__card_text">
+        {{ parseTextSetting(twitter) }}
+      </div>
     </div>
   </div>
   <div class="settings-view__card_delimiter"></div>
@@ -55,7 +63,9 @@
         v-model="behance"
         class="settings-view__card_input"
       />
-      <div v-else class="settings-view__card_text">{{ behance }}</div>
+      <div v-else class="settings-view__card_text">
+        {{ parseTextSetting(behance) }}
+      </div>
     </div>
   </div>
   <div class="settings-view__card_delimiter"></div>
@@ -67,7 +77,9 @@
         v-model="artstation"
         class="settings-view__card_input"
       />
-      <div v-else class="settings-view__card_text">{{ artstation }}</div>
+      <div v-else class="settings-view__card_text">
+        {{ parseTextSetting(artstation) }}
+      </div>
     </div>
   </div>
   <div
@@ -103,13 +115,14 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import linksService from "@/services/linksService";
+import { parseTextSetting } from "@/utils/parse";
 
-const website = ref();
-const telegram = ref();
-const instagram = ref();
-const twitter = ref();
-const behance = ref();
-const artstation = ref();
+const website = ref("");
+const telegram = ref("");
+const instagram = ref("");
+const twitter = ref("");
+const behance = ref("");
+const artstation = ref("");
 
 const isProfileEdit = ref(false);
 
@@ -127,12 +140,12 @@ function handlerSave() {
 
 onMounted(async () => {
   const links = await linksService.getLinks();
-  website.value = links.website ?? "-";
-  telegram.value = links.telegram ?? "-";
-  instagram.value = links.instagram ?? "-";
-  twitter.value = links.twitter ?? "-";
-  behance.value = links.behance ?? "-";
-  artstation.value = links.artstation ?? "-";
+  website.value = links.website;
+  telegram.value = links.telegram;
+  instagram.value = links.instagram;
+  twitter.value = links.twitter;
+  behance.value = links.behance;
+  artstation.value = links.artstation;
 });
 </script>
 

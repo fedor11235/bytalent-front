@@ -7,6 +7,7 @@
           <img
             class="profile-view__card-profile_title_img"
             src="@/assets/icons/edit.svg"
+            @click="handlerProfileEdit"
           />
         </div>
         <div class="profile-view__card-profile_info">
@@ -14,35 +15,65 @@
             class="profile-view__card-profile_img"
             src="@/assets/icons/person.svg"
           />
-          {{ name }} {{ surname }}
+          <input
+            v-model="name"
+            class="profile-view__card-profile_info__input"
+            v-if="profileEdit"
+          />
+          <div class="profile-view__card-profile_info__text" v-else>
+            {{ parseTextSetting(name) }}
+          </div>
         </div>
         <div class="profile-view__card-profile_info">
           <img
             class="profile-view__card-profile_img"
             src="@/assets/icons/company.svg"
           />
-          {{ organization }}
+          <input
+            v-model="organization"
+            class="profile-view__card-profile_info__input"
+            v-if="profileEdit"
+          />
+          <div class="profile-view__card-profile_info__text" v-else>
+            {{ parseTextSetting(organization) }}
+          </div>
         </div>
         <div class="profile-view__card-profile_info">
           <img
             class="profile-view__card-profile_img"
             src="@/assets/icons/role.svg"
           />
-          {{ position }}
+          <input
+            v-model="position"
+            class="profile-view__card-profile_info__input"
+            v-if="profileEdit"
+          />
+          <div class="profile-view__card-profile_info__text" v-else>
+            {{ parseTextSetting(position) }}
+          </div>
         </div>
         <div class="profile-view__card-profile_info">
           <img
             class="profile-view__card-profile_img"
             src="@/assets/icons/phone-profile.svg"
           />
-          {{ phone }}
+          <input
+            v-model="phone"
+            class="profile-view__card-profile_info__input"
+            v-if="profileEdit"
+          />
+          <div class="profile-view__card-profile_info__text" v-else>
+            {{ parseTextSetting(phone) }}
+          </div>
         </div>
         <div class="profile-view__card-profile_info">
           <img
             class="profile-view__card-profile_img"
             src="@/assets/icons/telegram-profile.svg"
           />
-          {{ email }}
+          <div class="profile-view__card-profile_info__text">
+            {{ parseTextSetting(username) }}
+          </div>
         </div>
       </div>
       <div class="profile-view__card-not">
@@ -113,29 +144,43 @@ import profileService from "@/services/profileService";
 import projectService from "@/services/projectService";
 import commerceService from "@/services/commerceService";
 import notificationsService from "@/services/notificationsService";
+import { parseTextSetting } from "@/utils/parse";
 
 const tabs = ["Активные проекты", "Коммерция", "Уведомления"];
 
-const name = ref(false);
-const surname = ref(false);
-const organization = ref(false);
-const position = ref(false);
-const phone = ref(false);
-const email = ref(false);
+const profileEdit = ref(false);
+
+const name = ref("");
+// const surname = ref('');
+const organization = ref("");
+const position = ref("");
+const phone = ref("");
+const username = ref("");
 
 const projectsActive = ref([]);
 const nots = ref([]);
 const notifications = ref([]);
 const tabActive = ref("Активные проекты");
 
+function handlerProfileEdit() {
+  if (profileEdit.value) {
+    profileService.setProfile({
+      name: name.value,
+      organization: organization.value,
+      position: position.value,
+      phone: phone.value,
+    });
+  }
+  profileEdit.value = !profileEdit.value;
+}
+
 onMounted(async () => {
   const profile = await profileService.getProfile();
-  name.value = profile.name ?? "-";
-  surname.value = profile.surname ?? "-";
-  organization.value = profile.organization ?? "-";
-  position.value = profile.position ?? "-";
-  phone.value = profile.phone ?? "-";
-  email.value = profile.email ?? "-";
+  name.value = profile.name;
+  organization.value = profile.organization;
+  position.value = profile.position;
+  phone.value = profile.phone;
+  username.value = profile.username;
   const projectsActiveRes = await projectService.getActiveProjects();
   projectsActive.value = projectsActiveRes.projects;
   const commerce = await commerceService.getCommerce();
@@ -212,6 +257,21 @@ onMounted(async () => {
     letter-spacing: -0.56px;
     display: flex;
     align-items: center;
+    &__input {
+      border: none;
+      outline: none;
+      color: #191919;
+      font-family: JuraMedium;
+      font-size: 2.2vh;
+      line-height: 100%;
+      letter-spacing: -0.56px;
+      padding: 0px 0.8vw;
+      border-radius: 8px;
+      height: 2.2vh;
+    }
+    &__text {
+      padding: 0px 0.8vw;
+    }
   }
   &_img {
     height: 2.2vh;

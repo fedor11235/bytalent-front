@@ -2,7 +2,7 @@
   <div class="settings-view__card_grid">
     <div class="settings-view__card_title">Авторизация</div>
     <div>
-      <div class="settings-view__card_text">{{ auth }}</div>
+      <div class="settings-view__card_text">{{ parseTextSetting(auth) }}</div>
     </div>
   </div>
   <div class="settings-view__card_delimiter"></div>
@@ -18,6 +18,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import securityService from "@/services/securityService";
+import { parseTextSetting } from "@/utils/parse";
 
 const auth = ref();
 const twoFactor = ref();

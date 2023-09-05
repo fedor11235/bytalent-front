@@ -1,5 +1,5 @@
 <template>
-  <MobileWarningPage v-if="screenWidth < minWidth" />
+  <MobileWarningPage v-if="isMobile" />
   <div v-else>
     <Transition name="drop">
       <PopupWarning
@@ -63,7 +63,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed, watch } from "vue";
 
 import VisualizationHover from "@/components/popup/VisualizationHover.vue";
 import AppHover from "@/components/popup/AppHover.vue";
@@ -86,20 +86,32 @@ import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import MobileWarningPage from "@/pages/MobileWarningPage.vue";
 import PopupAdd from "@/components/visualization/PopupAdd.vue";
 
+import { useRoute } from "vue-router";
 import { useRootStore } from "@/store";
 
+const route = useRoute();
 const rootStore = useRootStore();
 
-// const minWidth = 840;
-const minWidth = 0;
-
+const minWidth = 840;
+// const minWidth = 0;
 const screenWidth = ref(window.innerWidth);
-
+const finish = ref(false);
+const isMobile = computed(() => 
+  screenWidth.value < minWidth && finish.value
+)
 window.addEventListener("resize", setScrennWidth);
 
 function setScrennWidth() {
   screenWidth.value = window.innerWidth;
 }
+
+watch(
+  () => route.params,
+  () => {
+    finish.value = route.name !== 'reviewer'
+  },
+  { immediate: true }
+);
 </script>
 
 <style lang="scss" scoped></style>

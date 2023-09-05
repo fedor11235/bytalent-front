@@ -117,15 +117,15 @@ export async function init(name: any, btns: any, sceletron: any) {
                   "_baseColor" +
                   i +
                   ".jpeg";
-                
+
                 const request = new XMLHttpRequest();
                 request.open("GET", url, false); // `false` makes the request synchronous
                 request.send(null);
 
                 //TODO кастыль для SPA, нужно пофиксить
-                if (request.response[0] == '<') {
+                if (request.response[0] == "<") {
                   find = false;
-                } else if(request.status === 200 ) {
+                } else if (request.status === 200) {
                   const tempTexture = GiveMeTexture(url);
                   // console.log(tempTexture)
                   i = i + 1;
@@ -152,19 +152,19 @@ export async function init(name: any, btns: any, sceletron: any) {
     });
 
     //освещение
-    const lightPoint = new THREE.PointLight( 0xffffff, 50, 10 );
+    const lightPoint = new THREE.PointLight(0xffffff, 50, 10);
     lightPoint.position.set(0, 5, -2);
     lightPoint.shadow.radius = 8;
-    lightPoint.shadow.mapSize.width = 2048; 
-    lightPoint.shadow.mapSize.height = 2048; 
+    lightPoint.shadow.mapSize.width = 2048;
+    lightPoint.shadow.mapSize.height = 2048;
     lightPoint.castShadow = true;
     mainScene.add(lightPoint);
-    
+
     // const lightDirectional = new THREE.DirectionalLight(0xffffff, 2);
     // lightDirectional.lookAt(-1, -1, 0.5);
     // mainScene.add(lightDirectional);
 
-    const lightAmbient = new THREE.AmbientLight( 0x404040 ); // soft white light
+    const lightAmbient = new THREE.AmbientLight(0x404040); // soft white light
     lightAmbient.intensity = 10;
     mainScene.add(lightAmbient);
 
@@ -182,11 +182,10 @@ export async function init(name: any, btns: any, sceletron: any) {
     // rectLight.rotation.y = Math.PI + Math.PI / 4;
     // mainScene.add(rectLight);
 
-
-  //   const rectLight = new THREE.RectAreaLight(0xffffff, 1, 100, 100);
-  //   rectLight.position.set(10, 0, 0);
-  //   rectLight.rotation.y = Math.PI - Math.PI / 4;
-  //   mainScene.add(rectLight);
+    //   const rectLight = new THREE.RectAreaLight(0xffffff, 1, 100, 100);
+    //   rectLight.position.set(10, 0, 0);
+    //   rectLight.rotation.y = Math.PI - Math.PI / 4;
+    //   mainScene.add(rectLight);
   }
 
   //камера

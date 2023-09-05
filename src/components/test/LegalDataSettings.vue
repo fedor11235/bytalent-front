@@ -7,7 +7,9 @@
         v-model="companyName"
         class="settings-view__card_input"
       />
-      <div v-else class="settings-view__card_text">{{ companyName }}</div>
+      <div v-else class="settings-view__card_text">
+        {{ parseTextSetting(companyName) }}
+      </div>
     </div>
   </div>
   <div class="settings-view__card_delimiter"></div>
@@ -20,7 +22,7 @@
         class="settings-view__card_input"
       />
       <div v-else class="settings-view__card_text">
-        {{ organizationalForms }}
+        {{ parseTextSetting(organizationalForms) }}
       </div>
     </div>
   </div>
@@ -33,7 +35,9 @@
         v-model="oGRN"
         class="settings-view__card_input"
       />
-      <div v-else class="settings-view__card_text">{{ oGRN }}</div>
+      <div v-else class="settings-view__card_text">
+        {{ parseTextSetting(oGRN) }}
+      </div>
     </div>
   </div>
   <div class="settings-view__card_delimiter"></div>
@@ -45,7 +49,9 @@
         v-model="iNN"
         class="settings-view__card_input"
       />
-      <div v-else class="settings-view__card_text">{{ iNN }}</div>
+      <div v-else class="settings-view__card_text">
+        {{ parseTextSetting(iNN) }}
+      </div>
     </div>
   </div>
   <div class="settings-view__card_delimiter"></div>
@@ -57,7 +63,9 @@
         v-model="bankBIC"
         class="settings-view__card_input"
       />
-      <div v-else class="settings-view__card_text">{{ bankBIC }}</div>
+      <div v-else class="settings-view__card_text">
+        {{ parseTextSetting(bankBIC) }}
+      </div>
     </div>
   </div>
   <div class="settings-view__card_delimiter"></div>
@@ -69,7 +77,9 @@
         v-model="checkingAccount"
         class="settings-view__card_input"
       />
-      <div v-else class="settings-view__card_text">{{ checkingAccount }}</div>
+      <div v-else class="settings-view__card_text">
+        {{ parseTextSetting(checkingAccount) }}
+      </div>
     </div>
   </div>
   <div
@@ -105,6 +115,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import legalService from "@/services/legalService";
+import { parseTextSetting } from "@/utils/parse";
 
 const bankBIC = ref();
 const checkingAccount = ref();
@@ -129,12 +140,12 @@ function handlerSave() {
 
 onMounted(async () => {
   const legalData = await legalService.getlegal();
-  bankBIC.value = legalData.bankBIC ?? "-";
-  checkingAccount.value = legalData.checkingAccount ?? "-";
-  companyName.value = legalData.companyName ?? "-";
-  iNN.value = legalData.iNN ?? "-";
-  oGRN.value = legalData.oGRN ?? "-";
-  organizationalForms.value = legalData.organizationalForms ?? "-";
+  bankBIC.value = legalData.bankBIC;
+  checkingAccount.value = legalData.checkingAccount;
+  companyName.value = legalData.companyName;
+  iNN.value = legalData.iNN;
+  oGRN.value = legalData.oGRN;
+  organizationalForms.value = legalData.organizationalForms;
 });
 </script>
 

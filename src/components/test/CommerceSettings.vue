@@ -21,11 +21,7 @@
   <div class="settings-view__card_delimiter"></div>
 </template>
 
-<script setup lang="ts">
-import { ref } from "vue";
-
-const isProfileEdit = ref(false);
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss" scoped>
 .settings-view {
