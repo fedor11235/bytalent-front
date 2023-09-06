@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="header" @click.self="handlerClosePopup">
     <div class="header__border header__border-top">
       <div
         v-for="(line, index) of lines"
@@ -126,13 +126,17 @@ function handlerLogin() {
 }
 
 function handlerMouseOverBtn(name: PageName) {
-  if (!props.noHover) {
+  if (!props.noHover && route.name !== "start") {
     rootStore[`${name}Hover`] = true;
+  }
+  if (route.name === "start") {
+    rootStore[`${name}StartHover`] = true;
   }
 }
 
 function handlerMouseOutBtn(name: PageName) {
   rootStore[`${name}Hover`] = false;
+  rootStore[`${name}StartHover`] = false;
 }
 
 async function handlerSwitchPage(name: PageName) {
@@ -144,15 +148,20 @@ async function handlerSwitchPage(name: PageName) {
   } else {
     closeHover();
     await router.push({ name: name });
-    rootStore.popupProfile = false;
   }
+}
+
+function handlerClosePopup() {
+  rootStore.popupProfile = false;
 }
 
 function closeHover() {
   for (const page of allPages) {
     rootStore[`${page}Hover`] = false;
+    rootStore[`${page}StartHover`] = false;
   }
   rootStore.projectHover = false;
+  rootStore.popupProfile = false;
 }
 
 function logoStyle() {
