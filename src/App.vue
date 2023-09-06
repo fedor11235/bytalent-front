@@ -4,6 +4,7 @@
     <Transition name="drop">
       <PopupWarning
         v-if="rootStore.popupWarning"
+        :titleWarning="rootStore.titleWarning"
         :textWarning="rootStore.textWarning"
       />
     </Transition>
@@ -59,6 +60,12 @@
     <Transition name="fade">
       <PopupFAQ v-if="rootStore.FAQPopup" @close="rootStore.FAQPopup = false" />
     </Transition>
+
+    <LoaderFileComponent
+      v-if="rootStore.loaderFile"
+      :loadPercentage="rootStore.loadPercentage"
+      class="test"
+    />
   </div>
 </template>
 
@@ -85,6 +92,7 @@ import HeaderComponent from "@/components/common/HeaderComponent.vue";
 
 import MobileWarningPage from "@/pages/MobileWarningPage.vue";
 import PopupAdd from "@/components/visualization/PopupAdd.vue";
+import LoaderFileComponent from "@/components/common/LoaderFileComponent.vue";
 
 import { useRoute } from "vue-router";
 import { useRootStore } from "@/store";
@@ -96,9 +104,7 @@ const minWidth = 840;
 // const minWidth = 0;
 const screenWidth = ref(window.innerWidth);
 const finish = ref(false);
-const isMobile = computed(() => 
-  screenWidth.value < minWidth && finish.value
-)
+const isMobile = computed(() => screenWidth.value < minWidth && finish.value);
 window.addEventListener("resize", setScrennWidth);
 
 function setScrennWidth() {
@@ -108,10 +114,17 @@ function setScrennWidth() {
 watch(
   () => route.params,
   () => {
-    finish.value = route.name !== 'reviewer'
+    finish.value = route.name !== "reviewer";
   },
   { immediate: true }
 );
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.test {
+  position: fixed;
+  width: 74vw;
+  bottom: 1.48vh;
+  left: 13vw;
+}
+</style>

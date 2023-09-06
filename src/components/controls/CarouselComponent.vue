@@ -20,8 +20,10 @@
         ]"
         @click="handlerUploadBgr(background.plus)"
       >
+        <!-- v-if="!background.load && background.type !== 'empty'" -->
         <LoaderComponent
           v-if="!background.load && background.type !== 'empty'"
+          size="48px"
         />
         <img
           v-if="background.type == 'img'"
@@ -87,7 +89,8 @@ function getFilteredFileBg(file: File) {
     return file;
   }
   rootStore.popupWarning = true;
-  rootStore.textWarning = "неверный формат файла";
+  rootStore.titleWarning = "Неподдерживаемый формат файла";
+  rootStore.textWarning = "Поддерживаемые форматы:  *3dm, *fbx, *dwg";
   return null;
 }
 

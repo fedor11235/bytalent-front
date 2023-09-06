@@ -11,20 +11,31 @@ defineProps<{
 </script>
 
 <style lang="scss" scoped>
+// rc\assets\components\loading.svgs
 .loader {
   display: inline-block;
   width: 80px;
   height: 80px;
 
   &__circle {
-    display: block;
+    background-image: url(@/assets/components/loading.svg);
     width: 80px;
     height: 80px;
-    border-radius: 50%;
-    border: 3px solid white;
-    border-color: white transparent white transparent;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
     animation: lds-dual-ring 1.2s linear infinite;
   }
+
+  // &__circle {
+  //   display: block;
+  //   width: 80px;
+  //   height: 80px;
+  //   border-radius: 50%;
+  //   border: 3px solid white;
+  //   border-color: white transparent white transparent;
+  //   animation: lds-dual-ring 1.2s linear infinite;
+  // }
   @keyframes lds-dual-ring {
     0% {
       transform: rotate(0deg);

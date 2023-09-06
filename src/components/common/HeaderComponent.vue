@@ -121,9 +121,7 @@ const theme = toRef(props, "theme");
 
 function handlerLogin() {
   router.push({ name: "login" }).then(() => {
-    for (const page of allPages) {
-      rootStore[`${page}Hover`] = false;
-    }
+    closeHover();
   });
 }
 
@@ -141,14 +139,20 @@ async function handlerSwitchPage(name: PageName) {
   if (name === "profile") {
     rootStore.popupProfile = !rootStore.popupProfile;
   } else if (name === "project") {
+    closeHover();
     await router.push({ name: "project-main" });
   } else {
+    closeHover();
     await router.push({ name: name });
     rootStore.popupProfile = false;
-    for (const page of allPages) {
-      rootStore[`${page}Hover`] = false;
-    }
   }
+}
+
+function closeHover() {
+  for (const page of allPages) {
+    rootStore[`${page}Hover`] = false;
+  }
+  rootStore.projectHover = false;
 }
 
 function logoStyle() {

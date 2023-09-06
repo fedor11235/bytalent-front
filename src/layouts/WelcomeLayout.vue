@@ -32,9 +32,9 @@
       class="layout-welcome__backdrop"
       :style="{
         backgroundColor: bgrDropColor,
-        backdropFilter: bgrDropBlur,
       }"
     >
+      <!-- backdropFilter: bgrDropBlur, -->
       <EmptyComponent />
       <div class="layout-welcome__content">
         <div class="layout-welcome__content_top">
@@ -101,7 +101,7 @@ defineProps<{
     width: 100vw;
     position: fixed;
     background-color: rgba(0, 0, 0, 0.35);
-    backdrop-filter: blur(12.5px);
+    // backdrop-filter: blur(12.5px);
   }
   &__content {
     display: flex;

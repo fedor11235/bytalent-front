@@ -51,8 +51,6 @@ watch(
     if (check.value) {
       const projectsRes = await projectService.getAllNumberProjects();
       projects.value = projectsRes.projects;
-      console.log("projects res: ", projects);
-
       total.value = projectsRes.total;
       if (projects.value.length > 0) {
         project.value = projects.value.find(
@@ -63,7 +61,6 @@ watch(
         );
       }
     }
-    console.log("projects perent: ", projects.value);
     finishLoad.value = true;
   },
   { immediate: true }
