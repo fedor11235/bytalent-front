@@ -11,7 +11,7 @@ export const useRootStore = defineStore("root", {
     appStartHover: false,
     projectStartHover: false,
     streamingStartHover: false,
-    loginStartHover: false,
+    loginStartHover: true,
     searchStartHover: false,
 
     FAQPopup: false,

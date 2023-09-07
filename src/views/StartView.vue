@@ -10,6 +10,9 @@
           },
         ]"
       >
+        <Transition name="login">
+          <LoginForm v-if="rootStore.loginStartHover" absolutePos />
+        </Transition>
         <CardComponent
           :isHover="rootStore.appStartHover"
           :isLogin="rootStore.loginStartHover"
@@ -54,6 +57,7 @@ import { useRootStore } from "@/store";
 import CardComponent from "@/components/start/CardComponent.vue";
 import SearchComponent from "@/components/common/SearchComponent.vue";
 import FAQControl from "@/components/controls/FAQControl.vue";
+import LoginForm from "@/components/auth/LoginForm.vue";
 
 const rootStore = useRootStore();
 const loginStartHover = true;

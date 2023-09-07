@@ -65,3 +65,13 @@
 .test-leave-to {
   transform: translateY(65vh);
 }
+
+
+.login-enter-active,
+.login-leave-active {
+  transition: opacity .6s ease;
+}
+.login-enter-from,
+.login-leave-to {
+  opacity: 0;
+}

@@ -11,37 +11,7 @@
     </Transition>
     <div class="login__card">
       <div class="login__title">Добро пожаловать!</div>
-      <div class="login__form">
-        <div class="login__enter" @click="handlerClickPhone">
-          <img
-            src="@/assets/icons/phone.svg"
-            height="24"
-            width="24"
-            alt="apple"
-          />
-          <span class="login__text">Войти по номеру</span>
-        </div>
-        <telegram-login-temp
-          class="crutch-telegram"
-          mode="callback"
-          telegram-login="ByTALENTBot"
-          @loaded="telegramLoadedCallbackFunc"
-          @callback="yourCallbackFunctionTelegram"
-        />
-        <TelegramAuth
-          :finishLoad="telegramWgtFinishLoad"
-          @enter="onTelegramAuth"
-        />
-        <div class="login__enter" @click="handlerClickApple">
-          <img
-            src="@/assets/icons/apple.svg"
-            height="24"
-            width="24"
-            alt="apple"
-          />
-          <span class="login__text">Войти через Apple</span>
-        </div>
-      </div>
+      <LoginForm />
       <div class="login__form">
         <div class="login__agreement" @click="isPersonalData = true">
           При начале авторизации пользователь подтверждает, что ознакомился с
@@ -54,9 +24,9 @@
         </div>
       </div>
 
-      <div v-show="false" class="login__apple" ref="appleIdBtn">
+      <!-- <div v-show="false" class="login__apple" ref="appleIdBtn">
         <ApleAuth />
-      </div>
+      </div> -->
       <!-- TODO тестовый вход -->
       <div class="login__test" v-if="isDevelopment">
         <div class="login__title">Тестовый вход</div>
@@ -73,10 +43,8 @@ import { useRouter } from "vue-router";
 import authService from "@/services/authService";
 import PopupTermsUser from "@/components/docs/PopupTermsUser.vue";
 import PopupPersonalData from "@/components/docs/PopupPersonalData.vue";
-import ApleAuth from "@/components/auth/ApleAuth.vue";
-import TelegramAuth from "@/components/auth/TelegramAuthTest.vue";
+import LoginForm from "@/components/auth/LoginForm.vue";
 
-import { telegramLoginTemp } from "vue3-telegram-login";
 import { useRootStore } from "@/store";
 
 const props = defineProps<{
@@ -208,42 +176,26 @@ async function yourCallbackFunctionTelegram(user: any) {
     line-height: 100%;
     letter-spacing: -0.38px;
   }
-  &__enter {
-    width: 100%;
-    padding: 16px 48px;
-    border-radius: 28px;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    column-gap: 16px;
-    box-sizing: border-box;
-    cursor: pointer;
-    &:hover {
-      box-shadow: -3px -1px 8px 0px rgba(232, 232, 232, 0.25),
-        4px 6px 12px 0px rgba(232, 232, 232, 0.25),
-        2px 2px 2px 0px rgba(232, 232, 232, 0.5) inset;
-    }
-    &:active {
-      box-shadow: 6px 9px 12px 0px rgba(0, 0, 0, 0.35) inset,
-        -8px -12px 12px 0px rgba(0, 0, 0, 0.35) inset;
-    }
-  }
-  .telegram-wgit {
-    width: 100%;
-    &:deep(.tgme_widget_login_user_photo) {
-      display: none;
-    }
-    &:deep(body) {
-      width: 100%;
-    }
-    &:deep(.tgme_widget_login_button) {
-      width: 100%;
-      padding: 16px 48px;
-      border-radius: 28px;
-      display: flex;
-      column-gap: 16px;
-    }
-  }
+  // &__enter {
+  //   width: 100%;
+  //   padding: 16px 48px;
+  //   border-radius: 28px;
+  //   background-color: white;
+  //   display: flex;
+  //   align-items: center;
+  //   column-gap: 16px;
+  //   box-sizing: border-box;
+  //   cursor: pointer;
+  //   &:hover {
+  //     box-shadow: -3px -1px 8px 0px rgba(232, 232, 232, 0.25),
+  //       4px 6px 12px 0px rgba(232, 232, 232, 0.25),
+  //       2px 2px 2px 0px rgba(232, 232, 232, 0.5) inset;
+  //   }
+  //   &:active {
+  //     box-shadow: 6px 9px 12px 0px rgba(0, 0, 0, 0.35) inset,
+  //       -8px -12px 12px 0px rgba(0, 0, 0, 0.35) inset;
+  //   }
+  // }
   &__agreement {
     width: 310px;
     padding: 0 16px;
@@ -256,9 +208,9 @@ async function yourCallbackFunctionTelegram(user: any) {
     letter-spacing: -0.48px;
     cursor: pointer;
   }
-  &__apple {
-    pointer-events: none;
-  }
+  // &__apple {
+  //   pointer-events: none;
+  // }
   &__test {
     display: flex;
     flex-direction: column;
