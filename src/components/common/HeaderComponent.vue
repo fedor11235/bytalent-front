@@ -120,9 +120,12 @@ const props = defineProps<{
 const theme = toRef(props, "theme");
 
 function handlerLogin() {
-  router.push({ name: "login" }).then(() => {
-    closeHover();
-  });
+  console.log("login!!!!!!!!!!!!!!!!!!!!");
+  rootStore.popuplogin = !rootStore.popuplogin;
+  closeHover();
+  // router.push({ name: "login" }).then(() => {
+  //   closeHover();
+  // });
 }
 
 function handlerMouseOverBtn(name: PageName) {

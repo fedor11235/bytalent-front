@@ -1,12 +1,9 @@
 <template>
-  <div class="search">
-  </div>
+  <div class="search"></div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
-
-
 </script>
 
 <style lang="scss" scoped>

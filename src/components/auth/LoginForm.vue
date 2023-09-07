@@ -1,12 +1,7 @@
 <template>
-  <div :class="['login-form', {'test-login-card': absolutePos}]">
+  <div :class="['login-form', { 'test-login-card': absolutePos }]">
     <div class="login-form__enter" @click="handlerClickPhone">
-      <img
-        src="@/assets/icons/phone.svg"
-        height="24"
-        width="24"
-        alt="apple"
-      />
+      <img src="@/assets/icons/phone.svg" height="24" width="24" alt="apple" />
       <span class="login__text">Войти по номеру</span>
     </div>
     <telegram-login-temp
@@ -16,20 +11,12 @@
       @loaded="telegramLoadedCallbackFunc"
       @callback="yourCallbackFunctionTelegram"
     />
-    <TelegramAuth
-      :finishLoad="telegramWgtFinishLoad"
-      @enter="onTelegramAuth"
-    />
+    <TelegramAuth :finishLoad="telegramWgtFinishLoad" @enter="onTelegramAuth" />
     <div class="login-form__enter" @click="handlerClickApple">
-      <img
-        src="@/assets/icons/apple.svg"
-        height="24"
-        width="24"
-        alt="apple"
-      />
+      <img src="@/assets/icons/apple.svg" height="24" width="24" alt="apple" />
       <span class="login__text">Войти через Apple</span>
-      </div>
-      <div v-show="false" class="login-apple" ref="appleIdBtn">
+    </div>
+    <div v-show="false" class="login-apple" ref="appleIdBtn">
       <ApleAuth />
     </div>
   </div>
@@ -120,7 +107,7 @@ async function yourCallbackFunctionTelegram(user: any) {
   flex-direction: column;
   row-gap: 14px;
   align-items: center;
-  transition: opacity .6s ease;
+  transition: opacity 0.6s ease;
   // opacity: 1;
   &__enter {
     width: 100%;
