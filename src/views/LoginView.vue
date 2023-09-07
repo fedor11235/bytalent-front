@@ -167,15 +167,15 @@ async function yourCallbackFunctionTelegram(user: any) {
     line-height: 100%;
     letter-spacing: -0.56px;
   }
-  &__text {
-    color: #191919;
-    font-family: SFProDisplaySemibold;
-    font-size: 1.759vh;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 100%;
-    letter-spacing: -0.38px;
-  }
+  // &__text {
+  //   color: #191919;
+  //   font-family: SFProDisplaySemibold;
+  //   font-size: 1.759vh;
+  //   font-style: normal;
+  //   font-weight: 600;
+  //   line-height: 100%;
+  //   letter-spacing: -0.38px;
+  // }
   // &__enter {
   //   width: 100%;
   //   padding: 16px 48px;

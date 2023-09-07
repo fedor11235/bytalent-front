@@ -120,7 +120,6 @@ const props = defineProps<{
 const theme = toRef(props, "theme");
 
 function handlerLogin() {
-  console.log("login!!!!!!!!!!!!!!!!!!!!");
   rootStore.popuplogin = !rootStore.popuplogin;
   closeHover();
   // router.push({ name: "login" }).then(() => {
@@ -143,7 +142,9 @@ function handlerMouseOutBtn(name: PageName) {
 }
 
 async function handlerSwitchPage(name: PageName) {
-  if (name === "profile") {
+  if (route.name === "start" && name === "search") {
+    rootStore.popupSearch = !rootStore.popupSearch;
+  } else if (name === "profile") {
     rootStore.popupProfile = !rootStore.popupProfile;
   } else if (name === "project") {
     closeHover();

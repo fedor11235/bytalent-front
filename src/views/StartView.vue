@@ -6,20 +6,48 @@
         :class="[
           'start-view__content',
           {
-            'start-view__content_login': rootStore.isActiveLoginPopup,
+            'start-view__content_login':
+              rootStore.isActiveLoginPopup && !rootStore.isActiveSearchPopup,
             'start-view__content_search':
               rootStore.searchStartHover && !rootStore.popuplogin,
           },
         ]"
       >
-        <div v-if="rootStore.popuplogin" class="login-back"></div>
+        <div v-if="rootStore.popuplogin" class="login-back">
+          <div class="login-back__empty">
+            <div class="login-back__title">Добро пожаловать!</div>
+            <div class="login-back__form">
+              <div
+                class="login-back__agreement"
+                @click="rootStore.popupPersonalData = true"
+              >
+                При начале авторизации пользователь подтверждает, что
+                ознакомился с политикой конфиденциальности и дает согласие на
+                обработку персональных данных.
+              </div>
+              <div
+                class="login-back__agreement"
+                @click="rootStore.popupTermsUser = true"
+              >
+                При начале авторизации пользователь подтверждает, что
+                ознакомился с правилами платформы и согласен с пользовательским
+                соглашением
+              </div>
+            </div>
+          </div>
+        </div>
         <Transition name="login">
-          <LoginForm v-if="rootStore.isActiveLoginPopup" absolutePos />
+          <LoginForm
+            v-if="
+              rootStore.isActiveLoginPopup && !rootStore.isActiveSearchPopup
+            "
+            absolutePos
+          />
         </Transition>
         <CardComponent
           :isHover="rootStore.appStartHover && !rootStore.popuplogin"
           :isLogin="rootStore.isActiveLoginPopup"
-          :isSearch="rootStore.searchStartHover && !rootStore.popuplogin"
+          :isSearch="rootStore.isActiveSearchPopup && !rootStore.popuplogin"
           searchPosX="-200%"
           searchPosY="17.01vh"
           backgroundImage="app.png"
@@ -29,7 +57,7 @@
         <CardComponent
           :isHover="rootStore.projectStartHover && !rootStore.popuplogin"
           :isLogin="rootStore.isActiveLoginPopup"
-          :isSearch="rootStore.searchStartHover && !rootStore.popuplogin"
+          :isSearch="rootStore.isActiveSearchPopup && !rootStore.popuplogin"
           searchPosX="-100%"
           searchPosY="0"
           backgroundImage="projects-auth.png"
@@ -39,7 +67,7 @@
         <CardComponent
           :isHover="rootStore.streamingStartHover && !rootStore.popuplogin"
           :isLogin="rootStore.isActiveLoginPopup"
-          :isSearch="rootStore.searchStartHover && !rootStore.popuplogin"
+          :isSearch="rootStore.isActiveSearchPopup && !rootStore.popuplogin"
           searchPosX="0"
           searchPosY="-17.01vh"
           backgroundImage="streaming-new.png"
@@ -51,7 +79,7 @@
     <FAQControl />
     <Transition name="test">
       <SearchComponent
-        v-if="rootStore.searchStartHover && !rootStore.popuplogin"
+        v-if="rootStore.isActiveSearchPopup && !rootStore.popuplogin"
         class="test"
       />
     </Transition>
@@ -82,6 +110,10 @@ rootStore.hiddenHeader = true;
   translate: -50% -50%;
 }
 .login-back {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -92,6 +124,44 @@ rootStore.hiddenHeader = true;
   height: 100vh;
   z-index: 1;
   transition: all 0.6s;
+  &__title {
+    color: rgba(255, 255, 255, 0.85);
+    text-align: center;
+    font-family: JuraMedium;
+    font-size: 2.592vh;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 100%;
+    letter-spacing: -0.56px;
+  }
+  &__empty {
+    display: flex;
+    height: calc(200px + 2.592vh + 180px);
+    width: 26vw;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 130px;
+  }
+  &__form {
+    min-width: 300px;
+    // width: 15.625vw;
+    display: flex;
+    flex-direction: column;
+    row-gap: 14px;
+    align-items: center;
+  }
+  &__agreement {
+    width: 310px;
+    padding: 0 16px;
+    color: rgba(255, 255, 255, 0.65);
+    font-family: JuraMedium;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 130%;
+    letter-spacing: -0.48px;
+    cursor: pointer;
+  }
   @keyframes login-back-active {
     0% {
       height: 44.1vh;

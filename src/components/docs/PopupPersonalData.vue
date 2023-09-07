@@ -68,6 +68,7 @@ function handlerAccept() {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 3;
   &__card {
     position: relative;
     width: 70%;

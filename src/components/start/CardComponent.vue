@@ -6,7 +6,7 @@
     :class="[
       'card',
       {
-        card_hover: isHover,
+        card_hover: isHover && !isSearch && !isLogin,
         card_search: isSearch,
       },
     ]"
@@ -19,7 +19,7 @@
       }"
       class="card_img"
     ></div>
-    <div v-if="isHover" class="card__title">
+    <div v-if="isHover && !isSearch && !isLogin" class="card__title">
       {{ text }}
     </div>
     <div v-else class="card__text">{{ name }}</div>
@@ -59,7 +59,7 @@ function opactiImg(isHover: boolean, isLogin: boolean, isSearch: boolean) {
 }
 
 function handlerMouseenterImg(event: any) {
-  if (props.isLogin) return;
+  if (props.isLogin || props.isSearch) return;
   const childText = event.target.querySelector(".card__text");
   if (childText) {
     event.target.classList.add("card_big");
@@ -68,7 +68,7 @@ function handlerMouseenterImg(event: any) {
 }
 
 function handlerMouseleaveImg(event: any) {
-  if (props.isLogin) return;
+  if (props.isLogin || props.isSearch) return;
   const childText = event.target.querySelector(".card__text");
   if (childText) {
     event.target.classList.remove("card_big");

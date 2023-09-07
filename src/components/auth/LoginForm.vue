@@ -14,7 +14,7 @@
     <TelegramAuth :finishLoad="telegramWgtFinishLoad" @enter="onTelegramAuth" />
     <div class="login-form__enter" @click="handlerClickApple">
       <img src="@/assets/icons/apple.svg" height="24" width="24" alt="apple" />
-      <span class="login__text">Войти через Apple</span>
+      <span class="login-form__text">Войти через Apple</span>
     </div>
     <div v-show="false" class="login-apple" ref="appleIdBtn">
       <ApleAuth />
@@ -128,6 +128,15 @@ async function yourCallbackFunctionTelegram(user: any) {
       box-shadow: 6px 9px 12px 0px rgba(0, 0, 0, 0.35) inset,
         -8px -12px 12px 0px rgba(0, 0, 0, 0.35) inset;
     }
+  }
+  &__text {
+    color: #191919;
+    font-family: SFProDisplaySemibold;
+    font-size: 1.759vh;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 100%;
+    letter-spacing: -0.38px;
   }
 }
 .login-apple {

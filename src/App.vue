@@ -30,6 +30,18 @@
     <Transition name="fade">
       <PopupAdd v-if="rootStore.popupAdd" @close="rootStore.popupAdd = false" />
     </Transition>
+    <Transition name="fade">
+      <PopupPersonalData
+        v-if="rootStore.popupPersonalData"
+        @close="rootStore.popupPersonalData = false"
+      />
+    </Transition>
+    <Transition name="fade">
+      <PopupTermsUser
+        v-if="rootStore.popupTermsUser"
+        @close="rootStore.popupTermsUser = false"
+      />
+    </Transition>
 
     <HeaderComponent
       v-if="!rootStore.hiddenHeader"
@@ -97,6 +109,9 @@ import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import MobileWarningPage from "@/pages/MobileWarningPage.vue";
 import PopupAdd from "@/components/visualization/PopupAdd.vue";
 import LoaderFileComponent from "@/components/common/LoaderFileComponent.vue";
+
+import PopupTermsUser from "@/components/docs/PopupTermsUser.vue";
+import PopupPersonalData from "@/components/docs/PopupPersonalData.vue";
 
 import { useRoute } from "vue-router";
 import { useRootStore } from "@/store";

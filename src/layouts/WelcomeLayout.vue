@@ -130,7 +130,7 @@ defineProps<{
   }
   &__description {
     color: #f9f9f9;
-    font-family: JuraMedium;
+    font-family: JuraRegular;
     font-size: 20px;
     line-height: 140%;
     letter-spacing: -0.4px;
