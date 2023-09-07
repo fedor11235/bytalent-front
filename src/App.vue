@@ -64,7 +64,7 @@
     <LoaderFileComponent
       v-if="rootStore.loaderFile"
       :loadPercentage="rootStore.loadPercentage"
-      class="test"
+      class="loader-file"
     />
   </div>
 </template>
@@ -121,10 +121,20 @@ watch(
 </script>
 
 <style lang="scss" scoped>
-.test {
+.loader-file {
   position: fixed;
   width: 74vw;
   bottom: 1.48vh;
   left: 13vw;
+}
+.test {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transition: -50% -50%;
+  background-color: #191919;
+  opacity: 0;
+  height: 44.1vh;
+  width: 26vw;
 }
 </style>
