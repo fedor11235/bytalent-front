@@ -43,12 +43,16 @@
       </div>
     </div>
     <FAQControl />
+    <Transition name="test">
+      <SearchComponent v-if="rootStore.searchStartHover" class="test"/>
+    </Transition>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useRootStore } from "@/store";
 import CardComponent from "@/components/start/CardComponent.vue";
+import SearchComponent from "@/components/common/SearchComponent.vue";
 import FAQControl from "@/components/controls/FAQControl.vue";
 
 const rootStore = useRootStore();
@@ -59,6 +63,12 @@ rootStore.hiddenHeader = false;
 </script>
 
 <style lang="scss" scoped>
+.test {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+}
 .start-view {
   position: fixed;
   height: 100vh;
@@ -90,10 +100,6 @@ rootStore.hiddenHeader = false;
       right: 50%;
       row-gap: 0;
       transform: translate(50%, -50%);
-    }
-    &_search {
-      // height: 8.8vh;
-      // width: 74vw;
     }
   }
 }
