@@ -1,19 +1,21 @@
 <template>
   <div class="start-view">
     <div class="start-view__backdrop">
-      <div 
+      <div
         :class="[
           'start-view__content',
           {
             'start-view__content_login': rootStore.loginStartHover,
-            'start-view__content_search': rootStore.searchStartHover
-          }
+            'start-view__content_search': rootStore.searchStartHover,
+          },
         ]"
       >
         <CardComponent
           :isHover="rootStore.appStartHover"
           :isLogin="rootStore.loginStartHover"
           :isSearch="rootStore.searchStartHover"
+          searchPosX="-200%"
+          searchPosY="17.01vh"
           backgroundImage="app.png"
           name="Приложение"
           text="Каждая деталь важна: Визуализация 3D с Unreal Engine 5"
@@ -22,6 +24,8 @@
           :isHover="rootStore.projectStartHover"
           :isLogin="rootStore.loginStartHover"
           :isSearch="rootStore.searchStartHover"
+          searchPosX="-100%"
+          searchPosY="0"
           backgroundImage="projects-auth.png"
           name="Проекты"
           text="Управляйте пространством: создайте свое приложение создания интерьеров Unreal Engine 5"
@@ -30,6 +34,8 @@
           :isHover="rootStore.streamingStartHover"
           :isLogin="rootStore.loginStartHover"
           :isSearch="rootStore.searchStartHover"
+          searchPosX="0"
+          searchPosY="-17.01vh"
           backgroundImage="streaming-new.png"
           name="Стриминг"
           text="3D миры в реальном времени: Онлайн стриминг с by Talent"
@@ -50,7 +56,6 @@ const loginStartHover = true;
 const searchStartHover = true;
 
 rootStore.hiddenHeader = false;
-
 </script>
 
 <style lang="scss" scoped>
@@ -80,15 +85,15 @@ rootStore.hiddenHeader = false;
     flex-direction: column;
     align-items: flex-end;
     row-gap: 2.31vh;
-    transition: all .6s;
+    transition: all 0.6s;
     &_login {
       right: 50%;
       row-gap: 0;
-      transform: translate(50%,  -50%);
+      transform: translate(50%, -50%);
     }
     &_search {
-      height: 8.8vh;
-      width: 74vw;
+      // height: 8.8vh;
+      // width: 74vw;
     }
   }
 }

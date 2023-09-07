@@ -5,23 +5,21 @@
     class="card"
     :class="[
       'card',
-      { 
-        'card_hover': isHover,
-        'card_search': isSearch
+      {
+        card_hover: isHover,
+        card_search: isSearch,
       },
     ]"
+    :style="styleSearch"
   >
     <div
       :style="{
         backgroundImage: `url(${require(`@/assets/backgrounds/${backgroundImage}`)})`,
-        opacity: opactiImg(isHover, isLogin)
+        opacity: opactiImg(isHover, isLogin, isSearch),
       }"
       class="card_img"
     ></div>
-    <div
-      v-if="isHover"
-      class="card__title"
-    >
+    <div v-if="isHover" class="card__title">
       {{ text }}
     </div>
     <div v-else class="card__text">{{ name }}</div>
@@ -29,6 +27,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
 
 const props = defineProps<{
   isSearch: boolean;
@@ -37,21 +36,31 @@ const props = defineProps<{
   backgroundImage: string;
   name: string;
   text: string;
+  searchPosX: string;
+  searchPosY: string;
 }>();
 
-function opactiImg(isHover: boolean, isLogin: boolean) {
-  if(isHover || isLogin) {
+const styleSearch = computed(() => {
+  if (props.isSearch) {
+    return {
+      left: props.searchPosX,
+      top: props.searchPosY,
+    };
+  }
+  return {};
+});
+
+function opactiImg(isHover: boolean, isLogin: boolean, isSearch: boolean) {
+  if (isHover || isLogin || isSearch) {
     return "0";
   } else {
-    return "1"
+    return "1";
   }
 }
 
 function handlerMouseenterImg(event: any) {
-  if(props.isLogin) return
-  const childText = event.target.querySelector(
-    ".card__text"
-  );
+  if (props.isLogin) return;
+  const childText = event.target.querySelector(".card__text");
   if (childText) {
     event.target.classList.add("card_big");
     childText.style.transform = "translate(0)";
@@ -59,10 +68,8 @@ function handlerMouseenterImg(event: any) {
 }
 
 function handlerMouseleaveImg(event: any) {
-  if(props.isLogin) return
-  const childText = event.target.querySelector(
-    ".card__text"
-  );
+  if (props.isLogin) return;
+  const childText = event.target.querySelector(".card__text");
   if (childText) {
     event.target.classList.remove("card_big");
     childText.style.transform = "translate(calc(100% + 0.41vw), 100%)";
@@ -73,6 +80,7 @@ function handlerMouseleaveImg(event: any) {
 <style lang="scss" scoped>
 .card {
   position: relative;
+  top: 0;
   left: 0;
   width: 26vw;
   height: 14.7vh;
@@ -108,9 +116,9 @@ function handlerMouseleaveImg(event: any) {
     backdrop-filter: blur(5px);
   }
   &_search {
-    position: absolute;
+    // position: absolute;
+    background-color: rgba(255, 255, 255, 0.15);
     left: 0;
-    height: 8.8vh;
     width: 24.66vw;
   }
   &__title {
@@ -136,4 +144,3 @@ function handlerMouseleaveImg(event: any) {
   }
 }
 </style>
-
