@@ -78,7 +78,7 @@
     </Transition> -->
 
     <LoaderFileComponent
-      v-if="rootStore.loaderFile"
+      v-show="rootStore.loaderFile"
       :loadPercentage="rootStore.loadPercentage"
       class="loader-file"
     />

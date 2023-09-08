@@ -1,16 +1,14 @@
 <template>
-  <div
-    class="layout-welcome"
-  >
-  <!-- :style="{
+  <div class="layout-welcome">
+    <!-- :style="{
       backgroundImage: `linear-gradient(
       to bottom right,
       rgba(0, 0, 0, 0.7),
       rgba(0, 0, 0, 0.2)
     ), url(${require(`@/assets/backgrounds/${bg}`)})`,
     }" -->
-  <img class="test" :src="require(`@/assets/backgrounds/${bg}`)" />
-  <div class="overlay"></div>
+    <img class="test" :src="require(`@/assets/backgrounds/${bg}`)" />
+    <div class="overlay"></div>
     <div v-if="bgBase">
       <img
         v-if="bgBase.type === 'img'"
@@ -66,7 +64,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from "vue";
 import EmptyComponent from "@/components/common/EmptyComponent.vue";
 import LineComponent from "@/components/common/LineComponent.vue";
 
@@ -84,8 +82,8 @@ defineProps<{
   noHover?: boolean;
 }>();
 
-const previewImage = ref()
-const newImage = ref()
+// const previewImage = ref()
+// const newImage = ref()
 
 // onMounted(() => {
 //   var image = new Image();

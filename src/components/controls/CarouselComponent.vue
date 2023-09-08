@@ -122,6 +122,7 @@ async function saveFaileBgr(filteredFile: File) {
   const backgroundNew = await projectService.postBackgrounds({
     file: filteredFile,
   });
+
   projectStore.backgroundsFill.push({
     id: backgroundNew.id,
     content: getURLForFile(backgroundNew.name, backgroundNew.format),

@@ -151,7 +151,7 @@ async function handlerSwitchPage(name: PageName) {
     closeHover();
     await router.push({ name: "project-main" });
   } else {
-    console.log('else name: ', name)
+    console.log("else name: ", name);
     closeHover();
     await router.push({ name: name });
   }

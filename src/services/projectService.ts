@@ -1,5 +1,6 @@
 import projectApi from "@/api/projectApi";
 import { createFormData } from "@/utils/formData";
+import { useRootStore } from "@/store";
 
 export default {
   async getActiveProjects() {
@@ -27,13 +28,45 @@ export default {
     }
   },
   async postBackgrounds(payload: any) {
-    try {
+    return new Promise((resolve, reject) => {
+      const rootStore = useRootStore();
+
+      rootStore.loaderFile = true;
+      rootStore.loadPercentage = 0;
+
+      const urlBase =
+        process.env.NODE_ENV === "production"
+          ? "https://bytalent.ru/api/"
+          : "http://localhost:3000/";
+
       const formData = createFormData(payload);
-      const { data } = await projectApi.postBackgrounds(formData);
-      return data;
-    } catch (e) {
-      console.error(e);
-    }
+      const token = window.localStorage.getItem("token");
+
+      const req = new XMLHttpRequest();
+
+      req.onprogress = function (event) {
+        console.log(
+          "Получено с сервера " + event.loaded + " байт из " + event.total
+        );
+      };
+      req.onerror = function (event) {
+        reject("ошибка");
+      };
+      req.onreadystatechange = reqChange;
+
+      req.open("POST", `${urlBase}project/backgrounds`);
+      req.setRequestHeader("Authorization", "Bearer " + token);
+      req.send(formData);
+
+      function reqChange() {
+        rootStore.loadPercentage = req.readyState * 25;
+        if (req.readyState === 4) {
+          rootStore.loaderFile = false;
+          const result = JSON.parse(req.response);
+          resolve(result);
+        }
+      }
+    });
   },
   async selectBackground(projectId: number, backgroundId: number) {
     try {
@@ -89,3 +122,54 @@ export default {
     }
   },
 };
+
+// async postBackgrounds(payload: any) {
+//   // try {
+//   //   const formData = createFormData(payload);
+//   //   const { data } = await projectApi.postBackgrounds(formData);
+//   //   return data;
+//   // } catch (e) {
+//   //   console.error(e);
+//   // }
+
+//   const urlBase = process.env.NODE_ENV === "production"
+//     ? "https://bytalent.ru/api/"
+//     : "http://localhost:3000/";
+
+//   const formData = createFormData(payload);
+//   const token = window.localStorage.getItem("token");
+
+//   const req = new XMLHttpRequest();
+
+//   req.addEventListener("load", reqLoadFile);
+//   // req.addEventListener("progress", updateProgress);
+//   // req.onload = reqOnloadFile;
+//   req.onprogress = function(event) {
+//     console.log( 'Получено с сервера ' + event.loaded + ' байт из ' + event.total );
+//   }
+//   req.onreadystatechange  = reqChange
+
+//   req.open("POST", `${urlBase}project/backgrounds`);
+//   req.setRequestHeader("Authorization", "Bearer " + token)
+//   req.send(formData);
+
+//   function reqChange() {
+//     console.log('req-change: ', req.readyState)
+
+//   }
+
+//   // function updateProgress(progress: any) {
+//   //   console.log('req-progres: ', req.responseText)
+//   //   // console.log('progres: ', progress)
+//   // }
+
+//   // function reqOnloadFile(progress: any) {
+//   //   console.log('req-onload: ', req.responseText)
+//   //   // console.log('onload: ', progress)
+//   // }
+
+//   function reqLoadFile(progress: any) {
+//     console.log('req-finish: ', req.responseText)
+//     // console.log('finish: ', progress)
+//   }
+// },

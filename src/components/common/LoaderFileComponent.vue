@@ -23,6 +23,7 @@ defineProps<{
   display: flex;
   align-items: center;
   column-gap: 10px;
+  z-index: 1;
   &__dot {
     width: 2px;
     height: 2px;
@@ -31,7 +32,7 @@ defineProps<{
   &__sceletron {
     height: 6px;
     background-color: white;
-    transition: width 0.3s;
+    transition: width 1s;
   }
 }
 </style>

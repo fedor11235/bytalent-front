@@ -16,9 +16,9 @@ export default {
   getBackgrounds() {
     return api.get("/project/backgrounds");
   },
-  postBackgrounds(payload: FormData) {
-    return api.post("/project/backgrounds", payload);
-  },
+  // postBackgrounds(payload: FormData) {
+  //   return api.post("/project/backgrounds", payload);
+  // },
   selectBackground(projectId: number, backgroundId: number) {
     return api.get(`/project/background/${projectId}/${backgroundId}`);
   },
