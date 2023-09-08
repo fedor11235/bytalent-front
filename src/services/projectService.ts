@@ -53,7 +53,9 @@ export default {
       req.send(formData);
 
       function reqProgress(event: any) {
-        rootStore.loadPercentage = event.loaded * (event.total / 100);
+        const percent = Math.trunc(event.loaded / (event.total / 100))
+        rootStore.loadPercentage = percent;
+        console.log('процент: ', percent)
         console.log(
           "Получено с сервера " + event.loaded + " байт из " + event.total
         );
@@ -108,7 +110,9 @@ export default {
       req.send(formData);
 
       function reqProgress(event: any) {
-        rootStore.loadPercentage = event.loaded * (event.total / 100);
+        const percent = Math.trunc(event.loaded / (event.total / 100))
+        rootStore.loaderFilePercentage = percent;
+        console.log('процент: ', percent)
         console.log(
           "Получено с сервера " + event.loaded + " байт из " + event.total
         );
