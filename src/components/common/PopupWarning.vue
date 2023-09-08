@@ -32,6 +32,12 @@ function handlerClose() {
 </script>
 
 <style lang="scss" scoped>
+.popup-warning_cntnr {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 9;
+}
 .popup-warning {
   transform: translate(-50%, -50%);
   border-radius: 24px;
@@ -44,12 +50,6 @@ function handlerClose() {
   display: flex;
   flex-direction: column;
   row-gap: 2.59vh;
-  &_cntnr {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    z-index: 3;
-  }
   &__close {
     height: 2.29vw;
     width: 2.29vw;

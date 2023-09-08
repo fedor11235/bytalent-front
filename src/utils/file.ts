@@ -67,11 +67,12 @@ export async function fileProcessing(
   clearFileInput();
 }
 
+// проверка на размер
 function checkSizeCompatibleOne(file: File) {
-  const sizeInMb = Number((file.size / (1024 * 1024)).toFixed(2));
-  if (sizeInMb > 5) {
-    return false;
-  }
+  // const sizeInMb = Number((file.size / (1024 * 1024)).toFixed(2));
+  // if (sizeInMb > 5) {
+  //   return false;
+  // }
   return true;
 }
 

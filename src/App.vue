@@ -18,7 +18,10 @@
       <AddFileBgr v-if="rootStore.popupAddBgr" />
     </Transition>
     <Transition name="fade">
-      <AddFileProject v-if="rootStore.popupAddProject" />
+      <AddFileProject
+        v-if="rootStore.popupAddProject"
+        :projectId="rootStore.idActiveProject"
+      />
     </Transition>
     <Transition name="fade">
       <PopupLavel
@@ -83,7 +86,7 @@
     /> -->
 
     <LoaderFileComponent
-      v-show="rootStore.loaderFile"
+      v-show="rootStore.loaderMain"
       :loadPercentage="rootStore.loadPercentage"
       class="loader-file"
     />

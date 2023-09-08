@@ -36,9 +36,11 @@ export const useRootStore = defineStore("root", {
 
     popupProfile: false,
     loaderFile: false,
+    loaderMain: false,
     // popupSettings: false,
 
     // for test
+    idActiveProject: 0,
     auth: false,
     hiddenHeader: false,
     noHover: false,
@@ -46,6 +48,7 @@ export const useRootStore = defineStore("root", {
     projectId: 0,
 
     loadPercentage: 0,
+    loaderFilePercentage: 0,
   }),
   getters: {
     isActiveLoginPopup: (state) => state.loginStartHover || state.popuplogin,
@@ -79,6 +82,7 @@ type StreamingStore = {
   popupAddProject: boolean;
   popupProfile: boolean;
   loaderFile: boolean;
+  loaderMain: boolean;
   showPopupBgr: boolean;
   popupSearch: boolean;
 
@@ -90,7 +94,9 @@ type StreamingStore = {
   hiddenHeader: boolean;
   noHover: boolean;
 
+  idActiveProject: number;
   indexBackgrounds: number;
   projectId: number;
   loadPercentage: number;
+  loaderFilePercentage: number;
 };

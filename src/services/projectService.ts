@@ -30,9 +30,8 @@ export default {
   async postBackgrounds(payload: any) {
     const rootStore = useRootStore();
     rootStore.loadPercentage = 0;
-    rootStore.loaderFile = true;
+    rootStore.loaderMain = true;
     return new Promise((resolve, reject) => {
-
       const urlBase =
         process.env.NODE_ENV === "production"
           ? "https://bytalent.ru/api/"
@@ -61,13 +60,13 @@ export default {
         if (req.readyState === 2 || req.readyState === 3) {
           rootStore.loadPercentage = req.readyState * 25;
         } else if (req.readyState === 4) {
-            rootStore.loadPercentage = req.readyState * 25;
-            setTimeout(() => {
-              rootStore.loaderFile = false;
-              rootStore.loadPercentage = 0;
-              const result = JSON.parse(req.response);
-              resolve(result);
-            }, 1000);
+          rootStore.loadPercentage = req.readyState * 25;
+          setTimeout(() => {
+            rootStore.loaderMain = false;
+            rootStore.loadPercentage = 0;
+            const result = JSON.parse(req.response);
+            resolve(result);
+          }, 1000);
         }
       }
     });
@@ -80,16 +79,48 @@ export default {
     }
   },
   async uploadFileProject(projectId: number, payload: any) {
-    try {
-      const formData = new FormData();
-      for (const index in payload) {
-        formData.append("files", payload[index]);
+    const rootStore = useRootStore();
+    rootStore.loaderFilePercentage = 0;
+    rootStore.loaderFile = true;
+    return new Promise((resolve, reject) => {
+      const urlBase =
+        process.env.NODE_ENV === "production"
+          ? "https://bytalent.ru/api/"
+          : "http://localhost:3000/";
+
+      const formData = createFormData(payload);
+      const token = window.localStorage.getItem("token");
+
+      const req = new XMLHttpRequest();
+
+      req.onprogress = function (event) {
+        console.log(
+          "Получено с сервера " + event.loaded + " байт из " + event.total
+        );
+      };
+      req.onerror = function (event) {
+        reject("ошибка");
+      };
+      req.onreadystatechange = reqChange;
+
+      req.open("POST", `${urlBase}/project/upload/${projectId}`);
+      req.setRequestHeader("Authorization", "Bearer " + token);
+      req.send(formData);
+
+      function reqChange() {
+        if (req.readyState === 2 || req.readyState === 3) {
+          rootStore.loaderFilePercentage = req.readyState * 25;
+        } else if (req.readyState === 4) {
+          rootStore.loaderFilePercentage = req.readyState * 25;
+          setTimeout(() => {
+            rootStore.loaderFile = false;
+            rootStore.loaderFilePercentage = 0;
+            const result = JSON.parse(req.response);
+            resolve(result);
+          }, 1000);
+        }
       }
-      const { data } = await projectApi.uploadFileProject(projectId, formData);
-      return data;
-    } catch (e) {
-      console.error(e);
-    }
+    });
   },
   async deleteBackgrounds(id: number) {
     try {
@@ -175,5 +206,18 @@ export default {
 //   function reqLoadFile(progress: any) {
 //     console.log('req-finish: ', req.responseText)
 //     // console.log('finish: ', progress)
+//   }
+// },
+
+// async uploadFileProject(projectId: number, payload: any) {
+//   try {
+//     const formData = new FormData();
+//     for (const index in payload) {
+//       formData.append("files", payload[index]);
+//     }
+//     const { data } = await projectApi.uploadFileProject(projectId, formData);
+//     return data;
+//   } catch (e) {
+//     console.error(e);
 //   }
 // },

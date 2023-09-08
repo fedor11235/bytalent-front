@@ -5,7 +5,7 @@
     multiple
     @change="filesInsertion(saveFailesProject, getFilteredFileProject)"
     ref="fileInputProject"
-    accept="image/*,video/*"
+    accept="*"
   />
   <div
     @click.self="rootStore.popupAddProject = false"
@@ -21,19 +21,27 @@
           <div class="add-file-prg_elem_title">
             Поддерживаемые форматы: *3dm, *fbx, *dwg
           </div>
-          <img
+          <div v-if="rootStore.loaderFile" class="add-file-prg__loader-file">
+            <div class="add-file-prg__loader-file__title">
+              First place with spiral stairway
+            </div>
+            <LoaderFileComponent
+              :loadPercentage="rootStore.loaderFilePercentage"
+            />
+          </div>
+          <!-- <img
             src="@/assets/icons/upload-prj.svg"
             width="48"
             height="48"
             alt="upload"
-          />
+          /> -->
         </div>
-        <div class="add-file-prg_elem add-file-prg_elem-preview">
+        <!-- <div class="add-file-prg_elem add-file-prg_elem-preview">
           <div class="add-file-prg_elem_title">Предпросмотр</div>
         </div>
         <div class="add-file-prg_elem add-file-prg_elem-preview">
           <div class="add-file-prg_elem_title">Информация</div>
-        </div>
+        </div> -->
       </div>
       <div class="add-file-prg_title">Загрузите файлы проекта</div>
     </div>
@@ -41,6 +49,7 @@
 </template>
 
 <script setup lang="ts">
+import LoaderFileComponent from "@/components/common/LoaderFileComponent.vue";
 import type { Ref } from "vue";
 import { ref } from "vue";
 import {
@@ -49,12 +58,16 @@ import {
   browseFile,
   filesProcessing,
 } from "@/utils/file";
-// import projectService from "@/services/projectService";
+import projectService from "@/services/projectService";
 import { useRootStore } from "@/store";
 import { useProjectStore } from "@/store";
 
 const rootStore = useRootStore();
 const projectStore = useProjectStore();
+
+const props = defineProps<{
+  projectId: number;
+}>();
 
 const fileInputProject: Ref<HTMLInputElement | null> = ref(null);
 
@@ -73,11 +86,19 @@ function handlerAddProject() {
 }
 function saveFailesProject(filteredFiles: File[]) {
   projectStore.files = filteredFiles;
-  // projectService.uploadFileProject(3, filteredFiles)
+  projectService.uploadFileProject(props.projectId, filteredFiles);
 }
 
 function getFilteredFileProject(file: File) {
-  return file;
+  if (/\.(3dm|fbx|dwg|3DM|FBX|DWG)$/.test(file.name)) {
+    console.log(file);
+    // return null;
+    return file;
+  }
+  rootStore.popupWarning = true;
+  rootStore.titleWarning = "Неподдерживаемый формат файла";
+  rootStore.textWarning = "Поддерживаемые форматы:  *3dm, *fbx, *dwg";
+  return null;
 }
 
 function handlerDropProject(event: DragEvent) {
@@ -102,6 +123,19 @@ function handlerDropProject(event: DragEvent) {
   box-sizing: border-box;
   padding: 8px;
   overflow: hidden;
+  &__loader-file {
+    padding: 0 1.6vw;
+    width: 100%;
+    &__title {
+      color: rgba(255, 255, 255, 0.75);
+      font-family: JuraMedium;
+      font-size: 1.85vh;
+      line-height: 140%;
+      letter-spacing: -0.4px;
+      margin-top: 2.96vh;
+      margin-bottom: 1.48vh;
+    }
+  }
   &_bgdrop {
     position: fixed;
     top: 0;
@@ -113,8 +147,8 @@ function handlerDropProject(event: DragEvent) {
   &_grid {
     height: calc(100% - 4.5vh);
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    // grid-template-columns: repeat(3, 1fr);
+    // grid-template-rows: repeat(2, 1fr);
     gap: 1.25%;
     flex-shrink: 0;
   }
@@ -132,14 +166,19 @@ function handlerDropProject(event: DragEvent) {
     background-color: #2a2a2a;
     &-format {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      grid-area: 1 / 1 / span 2 / span 2;
+      align-items: flex-start;
+      justify-content: flex-start;
+      background-image: url(https://localhost:8080/img/upload-prj.cfc97225.svg);
+      background-position: center;
+      background-size: 48px 48px;
+      background-repeat: no-repeat;
       cursor: pointer;
+      flex-direction: column;
+      // grid-area: 1 / 1 / span 2 / span 2;
     }
     &_title {
-      position: absolute;
-      top: 1.48vh;
+      // position: absolute;
+      margin-top: 1.48vh;
       width: 100%;
       text-align: center;
       color: rgba(255, 255, 255, 0.75);

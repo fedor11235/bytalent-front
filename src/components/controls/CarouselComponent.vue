@@ -84,12 +84,13 @@ const sliders: Ref<HTMLDivElement | null> = ref(null);
 const fileInputBgr: Ref<HTMLInputElement | null> = ref(null);
 
 function getFilteredFileBg(file: File) {
-  if (/\.(jpg|jpeg|png|webp|mp4|JPG|PNG|JPEG|WEBP|MP4)$/.test(file.name)) {
+  if (/\.(jpg|jpeg|png|mp4|mov|JPG|JPEG|WEBP|MP4|MOV)$/.test(file.name)) {
     return file;
   }
   rootStore.popupWarning = true;
   rootStore.titleWarning = "Неподдерживаемый формат файла";
-  rootStore.textWarning = "Поддерживаемые форматы:  *3dm, *fbx, *dwg";
+  rootStore.textWarning =
+    "Поддерживаемые форматы:  *jpg, *jpeg, *png, *mp4, *mov";
   return null;
 }
 

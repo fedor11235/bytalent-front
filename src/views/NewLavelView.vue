@@ -278,6 +278,8 @@ function handlerOpenBgrPopup() {
 function handlerOpenProjectPopup() {
   if (finishLoad.value) {
     rootStore.popupAddProject = true;
+    rootStore.idActiveProject = Number(props.idProject);
+    console.log("idActiveProject: ", rootStore.idActiveProject);
   }
 }
 
