@@ -45,32 +45,35 @@
           />
         </Transition>
         <CardComponent
+          @click="handlerClickApp"
           :isHover="rootStore.appStartHover && !rootStore.popuplogin"
           :isLogin="rootStore.isActiveLoginPopup"
           :isSearch="rootStore.isActiveSearchPopup && !rootStore.popuplogin"
           searchPosX="-200%"
           searchPosY="17.01vh"
-          backgroundImage="app.png"
+          backgroundImage="app.jpg"
           name="Приложение"
           text="Каждая деталь важна: Визуализация 3D с Unreal Engine 5"
         />
         <CardComponent
+          @click="handlerClickProject"
           :isHover="rootStore.projectStartHover && !rootStore.popuplogin"
           :isLogin="rootStore.isActiveLoginPopup"
           :isSearch="rootStore.isActiveSearchPopup && !rootStore.popuplogin"
           searchPosX="-100%"
           searchPosY="0"
-          backgroundImage="projects-auth.png"
+          backgroundImage="projects-auth.jpg"
           name="Проекты"
           text="Управляйте пространством: создайте свое приложение создания интерьеров Unreal Engine 5"
         />
         <CardComponent
+          @click="handlerClickStreaming"
           :isHover="rootStore.streamingStartHover && !rootStore.popuplogin"
           :isLogin="rootStore.isActiveLoginPopup"
           :isSearch="rootStore.isActiveSearchPopup && !rootStore.popuplogin"
           searchPosX="0"
           searchPosY="-17.01vh"
-          backgroundImage="streaming-new.png"
+          backgroundImage="streaming-new.jpg"
           name="Стриминг"
           text="3D миры в реальном времени: Онлайн стриминг с by Talent"
         />
@@ -87,6 +90,7 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter, useRoute } from "vue-router";
 import { useRootStore } from "@/store";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import CardComponent from "@/components/start/CardComponent.vue";
@@ -94,12 +98,20 @@ import SearchComponent from "@/components/common/SearchComponent.vue";
 import FAQControl from "@/components/controls/FAQControl.vue";
 import LoginForm from "@/components/auth/LoginForm.vue";
 
+const router = useRouter();
 const rootStore = useRootStore();
-rootStore.hiddenHeader = true;
-const loginStartHover = true;
-const searchStartHover = true;
 
 rootStore.hiddenHeader = true;
+
+async function handlerClickApp() {
+  await router.push({ name: "app" });
+}
+async function handlerClickProject() {
+  await router.push({ name: "project-main" });
+}
+async function handlerClickStreaming() {
+  await router.push({ name: "streaming" });
+}
 </script>
 
 <style lang="scss" scoped>

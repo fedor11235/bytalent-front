@@ -1,6 +1,6 @@
 <template>
   <WelcomeLayout
-    bg="app-noauth"
+    bg="app-noauth.jpg"
     title="Приложение «by Talent»"
     bgrDropColor="rgba(0, 0, 0, 0.75)"
     description="Персональное приложение для доступа в проекты Unreal Engine 5"

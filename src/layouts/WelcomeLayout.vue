@@ -2,7 +2,7 @@
   <div
     class="layout-welcome"
     :style="{
-      backgroundImage: `url(${require(`@/assets/backgrounds/${bg}.png`)})`,
+      backgroundImage: `url(${require(`@/assets/backgrounds/${bg}`)})`,
     }"
   >
     <div v-if="bgBase">

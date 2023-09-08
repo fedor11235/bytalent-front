@@ -1,6 +1,6 @@
 <template>
   <HoverLayout
-    bg="visualization-first.jpeg"
+    bg="visualization-first.jpg"
     content="Ваше пространство: Профиль пользователя в платформе By Talent"
     :load="true"
   />

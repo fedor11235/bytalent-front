@@ -1,6 +1,6 @@
 <template>
   <HoverLayout
-    bg="visualization-first.jpeg"
+    bg="visualization-first.jpg"
     content="Найти"
     subcontent="Проекты, модели, уровни"
     :load="true"

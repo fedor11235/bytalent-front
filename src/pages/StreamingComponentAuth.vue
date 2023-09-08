@@ -26,7 +26,7 @@
   </div>
   <WelcomeLayout
     v-else
-    bg="streaming-new"
+    bg="streaming-new.jpg"
     title="Подключите онлайн доступ к проекту"
     bgrDropColor="rgba(0, 0, 0, 0.55)"
     description="Доступ через бразуер к любому проекту"

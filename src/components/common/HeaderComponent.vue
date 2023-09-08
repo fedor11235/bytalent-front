@@ -119,12 +119,13 @@ const props = defineProps<{
 
 const theme = toRef(props, "theme");
 
-function handlerLogin() {
-  rootStore.popuplogin = !rootStore.popuplogin;
+async function handlerLogin() {
   closeHover();
-  // router.push({ name: "login" }).then(() => {
-  //   closeHover();
-  // });
+  if (route.name === "start") {
+    rootStore.popuplogin = !rootStore.popuplogin;
+  } else {
+    await router.push({ name: "login" });
+  }
 }
 
 function handlerMouseOverBtn(name: PageName) {
@@ -150,6 +151,7 @@ async function handlerSwitchPage(name: PageName) {
     closeHover();
     await router.push({ name: "project-main" });
   } else {
+    console.log('else name: ', name)
     closeHover();
     await router.push({ name: name });
   }

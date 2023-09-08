@@ -187,7 +187,6 @@ onMounted(async () => {
   nots.value = commerce.operationsHistory;
   const notificationsRes = await notificationsService.getAllNotifications();
   notifications.value = notificationsRes.notifications;
-  console.log(projectsActive.value, "projectsActive.value");
 });
 </script>
 

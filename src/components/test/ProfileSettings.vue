@@ -146,7 +146,6 @@ onMounted(async () => {
   position.value = profile.position;
   phone.value = profile.phone;
   email.value = profile.email;
-  // console.log('profile.email', profile.email)
 });
 </script>
 

@@ -4,7 +4,7 @@
   </Transition>
   <WelcomeLayout
     v-if="total > 0"
-    bg="project-new"
+    bg="project-new.jpg"
     :bgBase="bgr"
     noHover
     :title="(project as any).name ? (project as any).name: 'Новый уровень'"

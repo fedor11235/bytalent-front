@@ -127,7 +127,6 @@ export async function init(name: any, btns: any, sceletron: any) {
                   find = false;
                 } else if (request.status === 200) {
                   const tempTexture = GiveMeTexture(url);
-                  // console.log(tempTexture)
                   i = i + 1;
                   textureArray.push(tempTexture);
                 } else {

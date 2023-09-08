@@ -3,7 +3,7 @@
     <PopupAdd v-if="isPopupAdd" @close="isPopupAdd = false" />
   </Transition>
   <WelcomeLayout
-    bg="project-new"
+    bg="project-new.jpg"
     :bgBase="bgr"
     noHover
     :title="(project as any).name ? (project as any).name: 'Новый уровень'"

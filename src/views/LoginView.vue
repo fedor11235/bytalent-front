@@ -57,44 +57,16 @@ const rootStore = useRootStore();
 const login = ref("");
 const isDevelopment = process.env.NODE_ENV === "development";
 
-const appleIdBtn = ref();
-const telegramWgtFinishLoad = ref(false);
-
 const isPersonalData = ref(false);
 const isTermsUser = ref(false);
 
 rootStore.hiddenHeader = true;
-
-console.log(rootStore.hiddenHeader);
-
-async function onTelegramAuth(user: any) {
-  console.log("data telegram! ", user);
-  await authService.registrationTelegramUser(
-    {
-      username: user.username,
-      name: user.first_name,
-      surname: user.last_name,
-    },
-    callBackRedirect
-  );
-}
 
 function callBackRedirect() {
   if (props.nextPage) {
     window.location.href = props.nextPage;
   } else {
     router.push({ name: "project-main" });
-  }
-}
-
-async function handlerClickPhone() {
-  alert("В разработке");
-}
-
-async function handlerClickApple() {
-  const elem = document.getElementById("sign-in-with-apple-button");
-  if (elem) {
-    elem.click();
   }
 }
 
@@ -107,21 +79,6 @@ async function handlerLogin() {
   );
 }
 
-function telegramLoadedCallbackFunc() {
-  telegramWgtFinishLoad.value = true;
-}
-
-async function yourCallbackFunctionTelegram(user: any) {
-  console.log("data telegram! ", user);
-  await authService.registrationTelegramUser(
-    {
-      username: user.username,
-      name: user.first_name,
-      surname: user.last_name,
-    },
-    callBackRedirect
-  );
-}
 // #telegram-login-ByTALENTBot
 // onMounted(() => {
 //   const iFrame = document.getElementById('telegram-login-ByTALENTBot')

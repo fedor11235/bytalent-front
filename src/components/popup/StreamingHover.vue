@@ -1,6 +1,6 @@
 <template>
   <HoverLayout
-    bg="visualization-first.jpeg"
+    bg="visualization-first.jpg"
     content="3D миры в реальном времени: Онлайн стриминг с by Talent"
     :load="true"
   />

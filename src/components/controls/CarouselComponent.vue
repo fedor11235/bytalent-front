@@ -43,7 +43,6 @@
           @loadeddata="handlerVideoLoad($event, background)"
           @mouseenter="handlerVideoMouseenter"
           @mouseleave="handlerVideoMouseleave"
-          @load="console.log('load video')"
           class="carousel__img"
         >
           <source :src="background.content" />

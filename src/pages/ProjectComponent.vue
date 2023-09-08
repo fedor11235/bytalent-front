@@ -1,6 +1,6 @@
 <template>
   <WelcomeLayout
-    bg="projects"
+    bg="projects.jpg"
     title="Разместите свой проект"
     bgrDropColor="rgba(0, 0, 0, 0.50)"
     bgrDropBlur="blur(7.5px)"

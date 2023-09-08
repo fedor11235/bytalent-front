@@ -1,6 +1,6 @@
 <template>
   <WelcomeLayout
-    bg="app"
+    bg="app.jpg"
     imgBtn="download"
     title="Приложение просмотра интерьеров"
     description="Персональное приложение для доступа в проекты Unreal Engine 5"

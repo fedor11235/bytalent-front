@@ -50,7 +50,7 @@ onUnmounted(() => {
     border-radius: 55.833vh;
     box-sizing: content-box;
 
-    animation-duration: 5s;
+    animation-duration: 7s;
     animation-name: moved;
     animation-iteration-count: infinite;
 

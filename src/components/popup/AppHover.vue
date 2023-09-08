@@ -1,6 +1,6 @@
 <template>
   <HoverLayout
-    bg="visualization-first.jpeg"
+    bg="visualization-first.jpg"
     content="Управляйте пространством: создайте свое приложение создания интерьеров Unreal Engine 5 "
     :load="true"
   />

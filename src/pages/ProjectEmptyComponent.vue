@@ -1,6 +1,6 @@
 <template>
   <WelcomeLayout
-    bg="projects-auth"
+    bg="projects-auth.jpg"
     noHover
     title="Нет активных проектов"
     bgrDropColor="rgba(0, 0, 0, 0.50)"

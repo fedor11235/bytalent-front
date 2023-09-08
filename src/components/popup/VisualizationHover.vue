@@ -1,6 +1,6 @@
 <template>
   <HoverLayout
-    bg="visualization-first.jpeg"
+    bg="visualization-first.jpg"
     content="Каждая деталь важна: Визуализация 3D с Unreal Engine 5"
     :load="true"
   />
