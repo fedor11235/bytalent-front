@@ -1,10 +1,16 @@
 <template>
   <div
     class="layout-welcome"
-    :style="{
-      backgroundImage: `url(${require(`@/assets/backgrounds/${bg}`)})`,
-    }"
   >
+  <!-- :style="{
+      backgroundImage: `linear-gradient(
+      to bottom right,
+      rgba(0, 0, 0, 0.7),
+      rgba(0, 0, 0, 0.2)
+    ), url(${require(`@/assets/backgrounds/${bg}`)})`,
+    }" -->
+  <img class="test" :src="require(`@/assets/backgrounds/${bg}`)" />
+  <div class="overlay"></div>
     <div v-if="bgBase">
       <img
         v-if="bgBase.type === 'img'"
@@ -60,6 +66,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import EmptyComponent from "@/components/common/EmptyComponent.vue";
 import LineComponent from "@/components/common/LineComponent.vue";
 
@@ -76,9 +83,33 @@ defineProps<{
   theme?: "light";
   noHover?: boolean;
 }>();
+
+const previewImage = ref()
+const newImage = ref()
+
+// onMounted(() => {
+//   var image = new Image();
+
+//   image.onload = function(){
+//     newImage.value.css('background-image', 'url(' + image.src + ')');
+//     newImage.value.css('opacity', '1');
+//     console.log('complete');
+//   };
+
+//   image.src = previewImage.value.data('image');
+// })
 </script>
 
 <style lang="scss" scoped>
+.test {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+}
+// .overlay {
+//   height: 23px;
+//   width: 23px;
+// }
 .hidden {
   opacity: 0;
 }
@@ -97,6 +128,7 @@ defineProps<{
     width: 100vw;
   }
   &__backdrop {
+    top: 0;
     height: 100vh;
     width: 100vw;
     position: fixed;
