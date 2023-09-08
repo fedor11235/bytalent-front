@@ -42,26 +42,30 @@ export default {
 
       const req = new XMLHttpRequest();
 
-      req.onprogress = function (event) {
-        console.log(
-          "Получено с сервера " + event.loaded + " байт из " + event.total
-        );
-      };
-      req.onerror = function (event) {
+      req.upload.onprogress = reqProgress;
+      req.upload.onerror = function (event) {
         reject("ошибка");
       };
       req.onreadystatechange = reqChange;
 
-      req.open("POST", `${urlBase}project/backgrounds`);
+      req.open("POST", `${urlBase}project/backgrounds`, true);
       req.setRequestHeader("Authorization", "Bearer " + token);
       req.send(formData);
 
+      function reqProgress(event: any) {
+        rootStore.loadPercentage = event.loaded * (event.total / 100);
+        console.log(
+          "Получено с сервера " + event.loaded + " байт из " + event.total
+        );
+      }
+
       function reqChange() {
         if (req.readyState === 2 || req.readyState === 3) {
-          rootStore.loadPercentage = req.readyState * 25;
+          // rootStore.loadPercentage = req.readyState * 25;
         } else if (req.readyState === 4) {
-          rootStore.loadPercentage = req.readyState * 25;
+          // rootStore.loadPercentage = req.readyState * 25;
           setTimeout(() => {
+            rootStore.loadPercentage = 100;
             rootStore.loaderMain = false;
             rootStore.loadPercentage = 0;
             const result = JSON.parse(req.response);
@@ -93,12 +97,8 @@ export default {
 
       const req = new XMLHttpRequest();
 
-      req.onprogress = function (event) {
-        console.log(
-          "Получено с сервера " + event.loaded + " байт из " + event.total
-        );
-      };
-      req.onerror = function (event) {
+      req.upload.onprogress = reqProgress;
+      req.upload.onerror = function (event) {
         reject("ошибка");
       };
       req.onreadystatechange = reqChange;
@@ -107,12 +107,20 @@ export default {
       req.setRequestHeader("Authorization", "Bearer " + token);
       req.send(formData);
 
+      function reqProgress(event: any) {
+        rootStore.loadPercentage = event.loaded * (event.total / 100);
+        console.log(
+          "Получено с сервера " + event.loaded + " байт из " + event.total
+        );
+      }
+
       function reqChange() {
         if (req.readyState === 2 || req.readyState === 3) {
-          rootStore.loaderFilePercentage = req.readyState * 25;
+          // rootStore.loaderFilePercentage = req.readyState * 25;
         } else if (req.readyState === 4) {
-          rootStore.loaderFilePercentage = req.readyState * 25;
+          // rootStore.loaderFilePercentage = req.readyState * 25;
           setTimeout(() => {
+            rootStore.loaderFilePercentage = 100;
             rootStore.loaderFile = false;
             rootStore.loaderFilePercentage = 0;
             const result = JSON.parse(req.response);
