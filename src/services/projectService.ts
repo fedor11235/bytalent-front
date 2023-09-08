@@ -28,11 +28,10 @@ export default {
     }
   },
   async postBackgrounds(payload: any) {
+    const rootStore = useRootStore();
+    rootStore.loadPercentage = 0;
+    rootStore.loaderFile = true;
     return new Promise((resolve, reject) => {
-      const rootStore = useRootStore();
-
-      rootStore.loaderFile = true;
-      rootStore.loadPercentage = 0;
 
       const urlBase =
         process.env.NODE_ENV === "production"
@@ -59,11 +58,16 @@ export default {
       req.send(formData);
 
       function reqChange() {
-        rootStore.loadPercentage = req.readyState * 25;
-        if (req.readyState === 4) {
-          rootStore.loaderFile = false;
-          const result = JSON.parse(req.response);
-          resolve(result);
+        if (req.readyState === 2 || req.readyState === 3) {
+          rootStore.loadPercentage = req.readyState * 25;
+        } else if (req.readyState === 4) {
+            rootStore.loadPercentage = req.readyState * 25;
+            setTimeout(() => {
+              rootStore.loaderFile = false;
+              rootStore.loadPercentage = 0;
+              const result = JSON.parse(req.response);
+              resolve(result);
+            }, 1000);
         }
       }
     });

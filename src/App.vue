@@ -77,6 +77,11 @@
     <div v-if="rootStore.popuplogin" class="test"></div>
     </Transition> -->
 
+    <!-- <LoaderFileComponent
+      :loadPercentage="rootStore.loadPercentage"
+      class="loader-file"
+    /> -->
+
     <LoaderFileComponent
       v-show="rootStore.loaderFile"
       :loadPercentage="rootStore.loadPercentage"

@@ -31,6 +31,7 @@ defineProps<{
   }
   &__sceletron {
     height: 6px;
+    width: 0%;
     background-color: white;
     transition: width 1s;
   }
