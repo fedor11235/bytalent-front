@@ -1,7 +1,9 @@
 <template>
   <div ref="drop" class="locate-cmpt">
+    <div v-show="isShowMap" id="map"></div>
     <img
       v-if="!isOpen"
+      @click="handlerOpenMap"
       class="locate-cmpt_icon"
       :src="require(`@/assets/icons/${icon}.svg`)"
       height="24"
@@ -39,8 +41,12 @@
 
 <script setup lang="ts">
 import type { Ref } from "vue";
-import { ref, computed } from "vue";
-import HeaderComponent from "@/components/common/HeaderComponent.vue";
+import { ref, computed, onMounted } from "vue";
+
+const tokenMap = "ca82b9d6-11a7-4156-bb2e-179a6ab45654";
+const tokenData = "2434b854869e51278c13dd76c38c075ee12a49c5";
+
+let myMap
 
 const props = defineProps<{
   modelValue: string;
@@ -58,6 +64,7 @@ const emit = defineEmits<{
 const searchLocate = ref("");
 const activElem = ref("");
 const isOpen = ref();
+const isShowMap = ref(false);
 const drop: Ref<HTMLDivElement | null> = ref(null);
 
 const styleDropDown = computed(() => {
@@ -84,14 +91,88 @@ const listItemSearch = computed(() => {
 function handlerOpenDrop() {
   isOpen.value = true;
 }
+
 function handlerChooseItem(item: string) {
   isOpen.value = false;
   activElem.value = item;
   emit("update:modelValue", activElem.value);
 }
+
+function handlerOpenMap() {
+  isShowMap.value = !isShowMap.value;
+  console.log('open');
+}
+
+function postLoadFunction() {
+  /* eslint-disable */
+  ymaps.ready(init);
+  function init(){
+    /* eslint-disable */
+    myMap = new ymaps.Map("map", {
+      center: [55.76, 37.64],
+      zoom: 7,
+    },
+      {
+        searchControlProvider: 'yandex#search'
+      }
+    );
+
+    myMap.events.add('click', function (e) {
+        var coords = e.get('coords');
+        loadAddress(coords[0], coords[1]);
+    });
+  
+    // var accessor = myMap.cursors.push("arrow");
+  }
+}
+
+function loadAddress(lat: any, lon: any) {
+  console.log(lat, lon)
+  const response = geolocate(lat, lon);
+  console.log(myMap.geoObjects)
+  myMap.geoObjects.removeAll()
+  myMap.geoObjects.add(new ymaps.Placemark([lat, lon]))
+  console.log('response: ', response)
+}
+
+function geolocate(lat: any, lon: any) {
+  const serviceUrl = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate/address";
+  const request = {
+    "lat": lat,
+    "lon": lon
+  };
+  const req = new XMLHttpRequest();
+  req.open("POST", serviceUrl, false);
+  req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  req.setRequestHeader("Authorization", "Token " + tokenData);
+  req.send(JSON.stringify(request));
+
+	return req.response;
+}
+
+onMounted(() => {
+  const script = document.createElement("script");
+  script.setAttribute("type", "text/javascript");
+  script.setAttribute(
+    "src",
+    `https://api-maps.yandex.ru/2.1/?apikey=${tokenMap}&lang=ru_RU`
+  );
+  script.addEventListener("load", postLoadFunction);
+  if(drop.value) {
+    drop.value.appendChild(script);
+  }
+})
 </script>
 
 <style lang="scss" scoped>
+#map {
+  position: absolute;
+  right: 0;
+  width: 300px;
+  height: 300px;
+  z-index: 1;
+  transform: translateX(80%);
+}
 .locate-cmpt {
   position: relative;
   width: 100%;
