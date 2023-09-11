@@ -59,11 +59,11 @@
 .test-enter-active,
 .test-leave-active {
   transition: transform .6s ease;
-  transform: translateY(0);
+  transform: translateX(0);
 }
 .test-enter-from,
 .test-leave-to {
-  transform: translateY(65vh);
+  transform: translateX(100vw);
 }
 
 

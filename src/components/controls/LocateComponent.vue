@@ -46,7 +46,7 @@ import { ref, computed, onMounted } from "vue";
 const tokenMap = "ca82b9d6-11a7-4156-bb2e-179a6ab45654";
 const tokenData = "2434b854869e51278c13dd76c38c075ee12a49c5";
 
-let myMap
+let myMap;
 
 const props = defineProps<{
   modelValue: string;
@@ -100,7 +100,7 @@ function handlerChooseItem(item: string) {
 
 function handlerOpenMap() {
   isShowMap.value = !isShowMap.value;
-  console.log('open');
+  console.log("open");
 }
 
 function postLoadFunction() {

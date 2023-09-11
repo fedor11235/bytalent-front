@@ -6,11 +6,12 @@
     :class="[
       'card',
       {
-        card_hover: isHover && !isSearch && !isLogin,
+        card_hover: (isHoverCard || isHover) && !isSearch && !isLogin,
         card_search: isSearch,
+        card_login: isLogin && !isSearch,
       },
     ]"
-    :style="styleSearch"
+    :style="styleCard"
   >
     <div
       :style="{
@@ -19,15 +20,12 @@
       }"
       class="card_img"
     ></div>
-    <div v-if="isHover && !isSearch && !isLogin" class="card__title">
-      {{ text }}
-    </div>
-    <div v-else class="card__text">{{ name }}</div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { ref, computed } from "vue";
+import { useRootStore } from "@/store";
 
 const props = defineProps<{
   isSearch: boolean;
@@ -36,44 +34,48 @@ const props = defineProps<{
   backgroundImage: string;
   name: string;
   text: string;
+  loginPosX?: string;
+  // searchPosY: string;
   searchPosX: string;
   searchPosY: string;
 }>();
 
-const styleSearch = computed(() => {
+const rootStore = useRootStore();
+
+const isHoverCard = ref();
+
+const styleCard = computed(() => {
   if (props.isSearch) {
     return {
       left: props.searchPosX,
       top: props.searchPosY,
+    };
+  } else if (props.isLogin) {
+    return {
+      left: props.loginPosX,
     };
   }
   return {};
 });
 
 function opactiImg(isHover: boolean, isLogin: boolean, isSearch: boolean) {
-  if (isHover || isLogin || isSearch) {
+  if (isLogin || isSearch) {
     return "0";
   } else {
     return "1";
   }
 }
 
-function handlerMouseenterImg(event: any) {
+function handlerMouseenterImg() {
   if (props.isLogin || props.isSearch) return;
-  const childText = event.target.querySelector(".card__text");
-  if (childText) {
-    event.target.classList.add("card_big");
-    childText.style.transform = "translate(0)";
-  }
+  rootStore.isHoverCard = true;
+  isHoverCard.value = true;
 }
 
-function handlerMouseleaveImg(event: any) {
+function handlerMouseleaveImg() {
   if (props.isLogin || props.isSearch) return;
-  const childText = event.target.querySelector(".card__text");
-  if (childText) {
-    event.target.classList.remove("card_big");
-    childText.style.transform = "translate(calc(100% + 0.41vw), 100%)";
-  }
+  rootStore.isHoverCard = false;
+  isHoverCard.value = false;
 }
 </script>
 
@@ -89,6 +91,7 @@ function handlerMouseleaveImg(event: any) {
   font-size: 0;
   transition: all 0.6s;
   background-color: rgba(0, 0, 0, 0.55);
+  z-index: 1;
   &_img {
     position: absolute;
     top: 0;
@@ -98,22 +101,16 @@ function handlerMouseleaveImg(event: any) {
     background-position: center;
     background-size: 120%;
     opacity: 1;
+    background-repeat: no-repeat;
+    background-size: cover;
     transition: all 0.6s;
   }
-  &_big {
-    width: 39.06vw;
-    height: 20.83vh;
-  }
   &_hover {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    left: 13vw;
-    width: 100vw;
-    height: 20.83vh;
-    box-shadow: 0px 40px 40px 0px rgba(0, 0, 0, 0.2);
-    font-size: 4.6vh;
-    backdrop-filter: blur(5px);
+    height: 100vh;
+  }
+  &_login {
+    height: 55.555vh;
+    width: 10.416vw;
   }
   &_search {
     // position: absolute;

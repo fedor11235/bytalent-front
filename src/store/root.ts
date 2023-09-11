@@ -44,11 +44,15 @@ export const useRootStore = defineStore("root", {
     auth: false,
     hiddenHeader: false,
     noHover: false,
+    isHoverCard: false,
     indexBackgrounds: 0,
     projectId: 0,
 
     loadPercentage: 0,
     loaderFilePercentage: 0,
+
+    // isActiveLoginPopup: true;
+    // isActiveSearchPopup: true,
   }),
   getters: {
     isActiveLoginPopup: (state) => state.loginStartHover || state.popuplogin,
@@ -88,7 +92,10 @@ type StreamingStore = {
 
   popupPersonalData: boolean;
   popupTermsUser: boolean;
+  isHoverCard: boolean;
   // popupSettings: boolean;
+  // isActiveLoginPopup?: boolean;
+  // isActiveSearchPopup?: boolean;
 
   auth: boolean;
   hiddenHeader: boolean;

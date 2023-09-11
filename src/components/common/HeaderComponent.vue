@@ -134,12 +134,14 @@ function handlerMouseOverBtn(name: PageName) {
   }
   if (route.name === "start") {
     rootStore[`${name}StartHover`] = true;
+    rootStore.isHoverCard = true;
   }
 }
 
 function handlerMouseOutBtn(name: PageName) {
   rootStore[`${name}Hover`] = false;
   rootStore[`${name}StartHover`] = false;
+  rootStore.isHoverCard = false;
 }
 
 async function handlerSwitchPage(name: PageName) {
@@ -168,6 +170,7 @@ function closeHover() {
   }
   rootStore.projectHover = false;
   rootStore.popupProfile = false;
+  rootStore.isHoverCard = false;
 }
 
 function logoStyle() {

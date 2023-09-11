@@ -2,12 +2,12 @@
   <div class="start-view">
     <div class="start-view__backdrop">
       <HeaderComponent />
+      <!-- 'start-view__content_login':
+        rootStore.isActiveLoginPopup && !rootStore.isActiveSearchPopup, -->
       <div
         :class="[
           'start-view__content',
           {
-            'start-view__content_login':
-              rootStore.isActiveLoginPopup && !rootStore.isActiveSearchPopup,
             'start-view__content_search':
               rootStore.searchStartHover && !rootStore.popuplogin,
           },
@@ -44,39 +44,77 @@
             absolutePos
           />
         </Transition>
-        <CardComponent
-          @click="handlerClickApp"
-          :isHover="rootStore.appStartHover && !rootStore.popuplogin"
-          :isLogin="rootStore.isActiveLoginPopup"
-          :isSearch="rootStore.isActiveSearchPopup && !rootStore.popuplogin"
-          searchPosX="-200%"
-          searchPosY="17.01vh"
-          backgroundImage="app.jpg"
-          name="Приложение"
-          text="Каждая деталь важна: Визуализация 3D с Unreal Engine 5"
-        />
-        <CardComponent
-          @click="handlerClickProject"
-          :isHover="rootStore.projectStartHover && !rootStore.popuplogin"
-          :isLogin="rootStore.isActiveLoginPopup"
-          :isSearch="rootStore.isActiveSearchPopup && !rootStore.popuplogin"
-          searchPosX="-100%"
-          searchPosY="0"
-          backgroundImage="projects-auth.jpg"
-          name="Проекты"
-          text="Управляйте пространством: создайте свое приложение создания интерьеров Unreal Engine 5"
-        />
-        <CardComponent
-          @click="handlerClickStreaming"
-          :isHover="rootStore.streamingStartHover && !rootStore.popuplogin"
-          :isLogin="rootStore.isActiveLoginPopup"
-          :isSearch="rootStore.isActiveSearchPopup && !rootStore.popuplogin"
-          searchPosX="0"
-          searchPosY="-17.01vh"
-          backgroundImage="streaming-new.jpg"
-          name="Стриминг"
-          text="3D миры в реальном времени: Онлайн стриминг с by Talent"
-        />
+        <div class="card-cntner">
+          <!-- :isHover="rootStore.appStartHover && !rootStore.popuplogin" -->
+          <CardComponent
+            @click="handlerClickApp"
+            :isHover="rootStore.appStartHover && !rootStore.popuplogin"
+            :isLogin="rootStore.isActiveLoginPopup"
+            :isSearch="rootStore.isActiveSearchPopup && !rootStore.popuplogin"
+            loginPosX="2.5vw"
+            searchPosX="2.5vw"
+            backgroundImage="app.jpg"
+            name="Приложение"
+            text="Каждая деталь важна: Визуализация 3D с Unreal Engine 5"
+          />
+          <div
+            :class="[
+              'lolki',
+              {
+                'lolki-up':
+                  rootStore.isHoverCard || rootStore.isActiveSearchPopup,
+              },
+            ]"
+          >
+            Приложение
+          </div>
+        </div>
+        <div class="card-cntner">
+          <CardComponent
+            @click="handlerClickProject"
+            :isHover="rootStore.projectStartHover && !rootStore.popuplogin"
+            :isLogin="rootStore.isActiveLoginPopup"
+            :isSearch="rootStore.isActiveSearchPopup && !rootStore.popuplogin"
+            backgroundImage="projects-auth.jpg"
+            name="Проекты"
+            text="Управляйте пространством: создайте свое приложение создания интерьеров Unreal Engine 5"
+          />
+          <div
+            :class="[
+              'lolki',
+              {
+                'lolki-up':
+                  rootStore.isHoverCard || rootStore.isActiveSearchPopup,
+              },
+            ]"
+          >
+            Проекты
+          </div>
+        </div>
+        <div class="card-cntner">
+          <CardComponent
+            @click="handlerClickStreaming"
+            :isHover="rootStore.streamingStartHover && !rootStore.popuplogin"
+            :isLogin="rootStore.isActiveLoginPopup"
+            :isSearch="rootStore.isActiveSearchPopup && !rootStore.popuplogin"
+            loginPosX="-2.5vw"
+            searchPosX="-2.5vw"
+            backgroundImage="streaming-new.jpg"
+            name="Стриминг"
+            text="3D миры в реальном времени: Онлайн стриминг с by Talent"
+          />
+          <div
+            :class="[
+              'lolki',
+              {
+                'lolki-up':
+                  rootStore.isHoverCard || rootStore.isActiveSearchPopup,
+              },
+            ]"
+          >
+            Стриминг
+          </div>
+        </div>
       </div>
     </div>
     <FAQControl />
@@ -115,6 +153,25 @@ async function handlerClickStreaming() {
 </script>
 
 <style lang="scss" scoped>
+.card-cntner {
+  position: relative;
+}
+.lolki {
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: JuraSemiBold;
+  font-size: 4.6vh;
+  line-height: 125%;
+  letter-spacing: -1.5px;
+  text-align: center;
+  transition: all 0.6s;
+  &-up {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
 .test {
   position: fixed;
   top: 50%;
@@ -134,7 +191,7 @@ async function handlerClickStreaming() {
   animation: login-back-active 0.6s linear;
   width: 100vw;
   height: 100vh;
-  z-index: 1;
+  z-index: 2;
   transition: all 0.6s;
   &__title {
     color: rgba(255, 255, 255, 0.85);
@@ -156,7 +213,6 @@ async function handlerClickStreaming() {
   }
   &__form {
     min-width: 300px;
-    // width: 15.625vw;
     display: flex;
     flex-direction: column;
     row-gap: 14px;
@@ -205,27 +261,13 @@ async function handlerClickStreaming() {
   &__content {
     position: fixed;
     top: 50%;
-    transform: translateY(-50%);
-    right: 13vw;
+    translate: -50% -50%;
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    row-gap: 2.31vh;
+    align-items: center;
+    -moz-column-gap: 2.5vw;
+    column-gap: 2.5vw;
     transition: all 0.6s;
-    z-index: 3;
-    &_login {
-      right: 50%;
-      row-gap: 0;
-      transform: translate(50%, -50%);
-    }
+    left: 50%;
   }
 }
 </style>
-
-<!-- <template>
-  <HoverLayout
-    bg="visualization-first.jpeg"
-    content="Unite, Create, Excel: Your new life, Empowered by Talent"
-    :noHover="check"
-  />
-</template> -->

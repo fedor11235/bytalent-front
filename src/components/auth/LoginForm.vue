@@ -92,7 +92,7 @@ async function yourCallbackFunctionTelegram(user: any) {
 <style lang="scss" scoped>
 .test-login-card {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   top: 50%;
   left: 50%;
   translate: -50% -50%;
