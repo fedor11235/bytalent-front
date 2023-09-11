@@ -52,7 +52,7 @@
     />
     <router-view />
 
-    <Transition name="fade">
+    <!-- <Transition name="fade">
       <VisualizationHover v-if="rootStore.projectHover" />
     </Transition>
     <Transition name="fade">
@@ -66,7 +66,7 @@
     </Transition>
     <Transition name="fade">
       <SearchHover v-if="rootStore.searchHover" />
-    </Transition>
+    </Transition> -->
 
     <Transition name="fade">
       <ProfilePopup v-if="rootStore.popupProfile" />
@@ -96,11 +96,11 @@
 <script setup lang="ts">
 import { ref, computed, watch } from "vue";
 
-import VisualizationHover from "@/components/popup/VisualizationHover.vue";
-import AppHover from "@/components/popup/AppHover.vue";
-import StreamingHover from "@/components/popup/StreamingHover.vue";
-import ProfileHover from "@/components/popup/ProfileHover.vue";
-import SearchHover from "@/components/popup/SearchHover.vue";
+// import VisualizationHover from "@/components/popup/VisualizationHover.vue";
+// import AppHover from "@/components/popup/AppHover.vue";
+// import StreamingHover from "@/components/popup/StreamingHover.vue";
+// import ProfileHover from "@/components/popup/ProfileHover.vue";
+// import SearchHover from "@/components/popup/SearchHover.vue";
 
 import AddFileBgr from "@/components/newLavel/AddFileBgr.vue";
 import AddFileProject from "@/components/newLavel/AddFileProject.vue";
