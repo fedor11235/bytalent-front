@@ -19,7 +19,15 @@
           class="popup-level__slider"
           @click.self="rootStore.showPopupBgr = false"
         >
-          <img
+          <div>
+            <BgrComponent
+              :type="background.type"
+              :content="background.content"
+              :poster="background.poster"
+              class="layout-welcome__img"
+            />
+          </div>
+          <!-- <img
             v-if="background.type === 'img'"
             :src="background.content"
             alt="img"
@@ -32,7 +40,7 @@
             @mouseleave="handlerVideoMouseleave"
           >
             <source :src="background.content" />
-          </video>
+          </video> -->
         </div>
       </div>
       <div class="popup-level__sliders"></div>
@@ -58,6 +66,7 @@ import type { Ref } from "vue";
 import { ref } from "vue";
 import { useProjectStore } from "@/store";
 import projectService from "@/services/projectService";
+import BgrComponent from "@/components/controls/BgrComponent.vue";
 import { useRootStore } from "@/store";
 
 const rootStore = useRootStore();
@@ -76,13 +85,6 @@ let move = indexBackgrounds.value * -widthSlid;
 
 const sliders: Ref<HTMLDivElement | null> = ref(null);
 
-// function handlerVideoLoad(event: any) {
-//   event.target.play();
-//   setTimeout(() => {
-//     event.target.pause();
-//   }, 1000);
-// }
-
 function handlerVideoMouseenter(event: any) {
   event.target.play();
 }
@@ -92,17 +94,14 @@ function handlerVideoMouseleave(event: any) {
 }
 
 function handlerAddBackground() {
-  const backgroundId = projectStore.backgroundsFill[indexBackgrounds.value].id;
-  const backgroundContent =
-    projectStore.backgroundsFill[indexBackgrounds.value].content;
-  const backgroundType =
-    projectStore.backgroundsFill[indexBackgrounds.value].type;
+  const background = projectStore.backgroundsFill[indexBackgrounds.value];
   projectStore.background = {
     projectId: props.projectId,
-    content: backgroundContent,
-    type: backgroundType,
+    content: background.content,
+    type: background.type,
+    poster: background?.poster,
   };
-  projectService.selectBackground(projectStore.project.id, backgroundId);
+  projectService.selectBackground(projectStore.project.id, background.id);
 }
 
 function handlerDeleteBackground() {

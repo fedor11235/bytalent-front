@@ -1,37 +1,15 @@
 <template>
   <div class="layout-welcome">
-    <!-- :style="{
-      backgroundImage: `linear-gradient(
-      to bottom right,
-      rgba(0, 0, 0, 0.7),
-      rgba(0, 0, 0, 0.2)
-    ), url(${require(`@/assets/backgrounds/${bg}`)})`,
-    }" -->
-    <img class="test" :src="require(`@/assets/backgrounds/${bg}`)" />
-    <div class="overlay"></div>
     <div v-if="bgBase">
-      <img
-        v-if="bgBase.type === 'img'"
+      <BgrComponent
+        :type="bgBase.type"
+        :content="bgBase.content"
+        :poster="bgBase.poster"
+        autoPlay
         class="layout-welcome__img"
-        :src="bgBase.content"
-        alt="img"
       />
-      <video
-        v-else-if="bgBase.type === 'video'"
-        :poster="
-          bgBase.poster
-            ? bgBase.poster
-            : require(`@/assets/backgrounds/${bg}.png`)
-        "
-        volume="0.0"
-        class="layout-welcome__img"
-        autoplay
-        loop
-        muted
-      >
-        <source :src="bgBase.content" />
-      </video>
     </div>
+    <img v-else class="test" :src="require(`@/assets/backgrounds/${bg}`)" />
     <div
       class="layout-welcome__backdrop"
       :style="{
@@ -64,8 +42,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+// import { ref } from "vue";
 import EmptyComponent from "@/components/common/EmptyComponent.vue";
+import BgrComponent from "@/components/controls/BgrComponent.vue";
 import LineComponent from "@/components/common/LineComponent.vue";
 
 defineProps<{
@@ -121,9 +100,9 @@ defineProps<{
   background-size: cover;
   &__img {
     position: fixed;
-    object-fit: cover;
-    height: 100vh;
-    width: 100vw;
+    // object-fit: cover;
+    // height: 100vh;
+    // width: 100vw;
   }
   &__backdrop {
     top: 0;

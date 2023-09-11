@@ -28,11 +28,10 @@
               },
             ]"
           >
-            <img
-              v-if="bgr.img"
-              class="add-file-bgr_elem__img"
-              :src="bgr.img"
-              alt="img"
+            <BgrComponent
+              :type="bgr.type"
+              :content="bgr.content"
+              :poster="bgr.poster"
             />
           </div>
         </div>
@@ -54,20 +53,21 @@ import projectService from "@/services/projectService";
 import { useRootStore } from "@/store";
 import { useProjectStore } from "@/store";
 import { getURLForFile, getURLForFilePoster } from "@/utils/str";
+import BgrComponent from "@/components/controls/BgrComponent.vue";
 
 const rootStore = useRootStore();
 const projectStore = useProjectStore();
 
 const backgroundsEmpty = [
-  { id: "0-emty", img: "", plus: true },
-  { id: "1-emty", img: "" },
-  { id: "2-emty", img: "" },
-  { id: "3-emty", img: "" },
-  { id: "4-emty", img: "" },
-  { id: "5-emty", img: "" },
-  { id: "6-emty", img: "" },
-  { id: "7-emty", img: "" },
-  { id: "8-emty", img: "" },
+  { id: "0-emty", content: "", type: "empty", plus: true },
+  { id: "1-emty", content: "", type: "empty" },
+  { id: "2-emty", content: "", type: "empty" },
+  { id: "3-emty", content: "", type: "empty" },
+  { id: "4-emty", content: "", type: "empty" },
+  { id: "5-emty", content: "", type: "empty" },
+  { id: "6-emty", content: "", type: "empty" },
+  { id: "7-emty", content: "", type: "empty" },
+  { id: "8-emty", content: "", type: "empty" },
 ];
 
 const widthSlid = 33.75;
@@ -106,18 +106,26 @@ function handlerRightMove() {
 }
 
 async function saveFaileBgr(filteredFile: File) {
+  projectStore.backgroundsFill.push({
+    id: 0,
+    content: "",
+    poster: "",
+    type: "load",
+  });
+  updateBgrCarusel();
+  if (projectStore.backgroundsEmpty.length > 1) {
+    projectStore.backgroundsEmpty.pop();
+  }
   const backgroundNew = await projectService.postBackgrounds({
     file: filteredFile,
   });
+  projectStore.backgroundsFill.pop();
   projectStore.backgroundsFill.push({
     id: backgroundNew.id,
     content: getURLForFile(backgroundNew.name, backgroundNew.format),
     poster: getURLForFilePoster(backgroundNew.poster_path),
     type: backgroundNew.type,
   });
-  if (projectStore.backgroundsEmpty.length > 1) {
-    projectStore.backgroundsEmpty.pop();
-  }
   updateBgrCarusel();
 }
 
@@ -146,10 +154,19 @@ function updateBgrCarusel() {
       index * 9 + remainder
     );
     backgrounds.value[index] = endArrayBgr;
-    backgrounds.value[index].push({ id: "0-emty", img: "", plus: true });
+    backgrounds.value[index].push({
+      id: "0-emty",
+      content: "",
+      type: "empty",
+      plus: true,
+    });
     let endArrayBgrIndex = endArrayBgr.length;
     while (endArrayBgrIndex < 9) {
-      backgrounds.value[index].push({ id: "0-emty", img: "" });
+      backgrounds.value[index].push({
+        id: "0-emty",
+        content: "",
+        type: "empty",
+      });
       endArrayBgrIndex += 1;
     }
   } else {

@@ -21,32 +21,13 @@
         @click="handlerUploadBgr(background.plus)"
       >
         <!-- v-if="!background.load && background.type !== 'empty'" -->
-        <LoaderComponent
-          v-if="!background.load && background.type !== 'empty'"
-          size="48px"
-        />
-        <img
-          v-if="background.type == 'img'"
-          v-show="background.load"
-          class="carousel__img"
-          @click="handlerShowPopup($event, index)"
-          @load="background.load = true"
-          :src="background.content"
-          alt="img"
-        />
-        <video
-          v-else-if="background.type == 'video'"
-          v-show="background.load"
-          volume="0.0"
+        <BgrComponent
+          :type="background.type"
+          :content="background.content"
           :poster="background.poster"
-          @click.prevent="handlerShowPopup($event, index, background)"
-          @loadeddata="handlerVideoLoad($event, background)"
-          @mouseenter="handlerVideoMouseenter"
-          @mouseleave="handlerVideoMouseleave"
+          @click.prevent="handlerShowPopup($event, index, background.type)"
           class="carousel__img"
-        >
-          <source :src="background.content" />
-        </video>
+        />
       </div>
     </div>
     <div
@@ -67,7 +48,8 @@ import { useRootStore } from "@/store";
 import { useProjectStore } from "@/store";
 import projectService from "@/services/projectService";
 import { fileInput, fileInsertion, browseFile } from "@/utils/file";
-import LoaderComponent from "@/components/common/LoaderComponent.vue";
+// import LoaderComponent from "@/components/common/LoaderComponent.vue";
+import BgrComponent from "@/components/controls/BgrComponent.vue";
 import { getURLForFile, getURLForFilePoster } from "@/utils/str";
 
 const props = defineProps<{
@@ -94,22 +76,12 @@ function getFilteredFileBg(file: File) {
   return null;
 }
 
-function handlerVideoLoad(event: any, background: any) {
-  background.load = true;
-}
-
-function handlerVideoMouseenter(event: any) {
-  event.target.play();
-}
-
-function handlerVideoMouseleave(event: any) {
-  event.target.pause();
-}
-
-async function handlerShowPopup(event: any, index: number, background?: any) {
-  rootStore.projectId = props.projectId;
-  rootStore.indexBackgrounds = index;
-  rootStore.showPopupBgr = true;
+async function handlerShowPopup(event: any, index: number, type: string) {
+  if (type !== "empty") {
+    rootStore.projectId = props.projectId;
+    rootStore.indexBackgrounds = index;
+    rootStore.showPopupBgr = true;
+  }
 }
 
 function handlerUploadBgr(enabled: boolean | undefined) {
@@ -120,9 +92,17 @@ function handlerUploadBgr(enabled: boolean | undefined) {
 }
 
 async function saveFaileBgr(filteredFile: File) {
+  projectStore.backgroundsFill.push({
+    id: 0,
+    content: "",
+    poster: "",
+    type: "load",
+  });
+
   const backgroundNew = await projectService.postBackgrounds({
     file: filteredFile,
   });
+  projectStore.backgroundsFill.pop();
 
   projectStore.backgroundsFill.push({
     id: backgroundNew.id,
@@ -191,12 +171,12 @@ function handlerRightMove() {
     }
   }
   &__img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    max-width: none;
-    border-radius: 10px;
-    box-shadow: 0 7px 8px -5px #000;
+    // height: 100%;
+    // width: 100%;
+    // object-fit: cover;
+    // max-width: none;
+    // border-radius: 10px;
+    // box-shadow: 0 7px 8px -5px #000;
     cursor: pointer;
   }
   &__arrow {

@@ -1,25 +1,13 @@
 <template>
   <div v-if="finishLoad">
     <div v-if="project" class="new-level">
-      <img
-        v-if="bgr.type === 'img'"
+      <BgrComponent
+        :type="bgr.type"
+        :content="bgr.content"
+        :poster="bgr.poster"
+        autoPlay
         class="new-level__img"
-        :src="bgr.content"
-        alt="img"
       />
-      <video
-        v-else-if="bgr.type === 'video'"
-        volume="0.0"
-        class="new-level__img"
-        autoplay
-        :poster="
-          bgr.poster ? bgr.poster : require('@/assets/backgrounds/lvel.jpeg')
-        "
-        loop
-        muted
-      >
-        <source :src="bgr.content" />
-      </video>
       <div class="new-level__backdrop"></div>
       <div class="new-level__content">
         <EmptyComponent />
@@ -188,6 +176,7 @@ import { provide, ref, computed, onMounted } from "vue";
 import { useProjectStore } from "@/store";
 import { useRouter } from "vue-router";
 import projectService from "@/services/projectService";
+import BgrComponent from "@/components/controls/BgrComponent.vue";
 import EmptyComponent from "@/components/common/EmptyComponent.vue";
 import LineComponent from "@/components/common/LineComponent.vue";
 import CarouselComponent from "@/components/controls/CarouselComponent.vue";
@@ -352,9 +341,9 @@ onMounted(async () => {
   background-size: cover;
   &__img {
     position: fixed;
-    object-fit: cover;
-    height: 100vh;
-    width: 100vw;
+    // object-fit: cover;
+    // height: 100vh;
+    // width: 100vw;
   }
   &__backdrop {
     position: fixed;
