@@ -20,6 +20,7 @@
           paddingY="1.85vh"
           icon="locate"
           :listItem="menuLocate"
+          :selectAdress="selectAdress"
         />
       </div>
       <div class="add__visualization__enter">
@@ -100,6 +101,11 @@ async function handlerCreate() {
   });
   router.push({ name: "project-id", params: { idProject: project.id } });
   emit("close");
+}
+
+async function selectAdress(value: string) {
+  console.log("value: ", value);
+  address.value = value;
 }
 </script>
 

@@ -42,8 +42,10 @@
 <script setup lang="ts">
 import type { Ref } from "vue";
 import { ref, computed, onMounted } from "vue";
+// import projectService from "@/services/projectService";
 
-const tokenMap = "ca82b9d6-11a7-4156-bb2e-179a6ab45654";
+// const tokenMap = "ca82b9d6-11a7-4156-bb2e-179a6ab45654";
+const tokenMap = "4be55f9e-9e12-4365-8e03-f54341d1713b";
 const tokenData = "2434b854869e51278c13dd76c38c075ee12a49c5";
 
 let myMap;
@@ -55,7 +57,12 @@ const props = defineProps<{
   paddingY: string;
   icon: string;
   listItem: string[];
+  selectAdress?: (value: string) => void;
 }>();
+
+// projectService.updateProject(props.idProject, {
+//       address: address.value,
+//     });
 
 const emit = defineEmits<{
   (e: "update:modelValue", value: string): void;
@@ -129,10 +136,16 @@ function postLoadFunction() {
 function loadAddress(lat: any, lon: any) {
   console.log(lat, lon)
   const response = geolocate(lat, lon);
-  console.log(myMap.geoObjects)
   myMap.geoObjects.removeAll()
   myMap.geoObjects.add(new ymaps.Placemark([lat, lon]))
-  console.log('response: ', response)
+  if(response) {
+    console.log(response)
+    activElem.value = response
+    emit("update:modelValue", response);
+    // props.selectAdress(response)
+  } else {
+    alert('вы выбрали место без адресса на карте')
+  }
 }
 
 function geolocate(lat: any, lon: any) {
@@ -147,7 +160,13 @@ function geolocate(lat: any, lon: any) {
   req.setRequestHeader("Authorization", "Token " + tokenData);
   req.send(JSON.stringify(request));
 
-	return req.response;
+  const responseJSON = JSON.parse(req.response)
+
+  if(responseJSON.suggestions.length > 0) {
+    return responseJSON.suggestions[0].value
+  } else {
+    return false
+  }
 }
 
 onMounted(() => {
