@@ -45,10 +45,11 @@ import { ref, computed, onMounted } from "vue";
 // import projectService from "@/services/projectService";
 
 // const tokenMap = "ca82b9d6-11a7-4156-bb2e-179a6ab45654";
-const tokenMap = "4be55f9e-9e12-4365-8e03-f54341d1713b";
+// const tokenMap = "4be55f9e-9e12-4365-8e03-f54341d1713b";
+const tokenMap = "efca8882-b520-4d9f-b688-bc5b7cf00149";
 const tokenData = "2434b854869e51278c13dd76c38c075ee12a49c5";
 
-let myMap;
+let myMap: any;
 
 const props = defineProps<{
   modelValue: string;

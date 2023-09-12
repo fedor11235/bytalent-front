@@ -121,21 +121,24 @@ const theme = toRef(props, "theme");
 
 async function handlerLogin() {
   closeHover();
-  if (route.name === "start") {
-    rootStore.popuplogin = !rootStore.popuplogin;
-  } else {
-    await router.push({ name: "login" });
-  }
+  // if (route.name === "start") {
+  //   rootStore.popuplogin = !rootStore.popuplogin;
+  // } else {
+  //   await router.push({ name: "login" });
+  // }
+  await router.push({ name: "login" });
 }
 
 function handlerMouseOverBtn(name: PageName) {
-  if (!props.noHover && route.name !== "start") {
-    rootStore[`${name}Hover`] = true;
-  }
-  if (route.name === "start") {
-    rootStore[`${name}StartHover`] = true;
-    rootStore.isHoverCard = true;
-  }
+  // if (!props.noHover && route.name !== "start") {
+  //   rootStore[`${name}Hover`] = true;
+  // }
+  // if (route.name === "start") {
+  //   rootStore[`${name}StartHover`] = true;
+  //   rootStore.isHoverCard = true;
+  // }
+  rootStore[`${name}StartHover`] = true;
+  rootStore.isHoverCard = true;
 }
 
 function handlerMouseOutBtn(name: PageName) {
@@ -145,9 +148,7 @@ function handlerMouseOutBtn(name: PageName) {
 }
 
 async function handlerSwitchPage(name: PageName) {
-  if (route.name === "start" && name === "search") {
-    rootStore.popupSearch = !rootStore.popupSearch;
-  } else if (name === "profile") {
+  if (name === "profile") {
     rootStore.popupProfile = !rootStore.popupProfile;
   } else if (name === "project") {
     closeHover();
