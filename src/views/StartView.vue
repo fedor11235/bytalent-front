@@ -1,5 +1,6 @@
 <template>
   <div class="start-view">
+    <LoadStartPage v-if="loader" />
     <div
       @mouseover="handlerMouseoverBtn('app')"
       @mouseleave="handlerMouseleaveBtn"
@@ -75,11 +76,8 @@
 import { ref, computed, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useRootStore } from "@/store";
-// import HeaderComponent from "@/components/common/HeaderComponent.vue";
-// import CardComponent from "@/components/start/CardComponent.vue";
-// import SearchComponent from "@/components/common/SearchComponent.vue";
+import LoadStartPage from "@/pages/LoadStartPage.vue";
 import FAQControl from "@/components/controls/FAQControl.vue";
-// import LoginForm from "@/components/auth/LoginForm.vue";
 
 const router = useRouter();
 
@@ -89,6 +87,7 @@ const rootStore = useRootStore();
 
 const isHoverName = ref("");
 const endAnimate = ref(false);
+const loader = ref(true);
 
 const app = ref("");
 const projects = ref("");
@@ -135,30 +134,33 @@ function handlerMouseleaveBtn() {
 
 onMounted(async () => {
   setTimeout(() => {
-    app.value.style.translate = "0";
+    loader.value = false;
     setTimeout(() => {
-      projects.value.style.translate = "0";
+      app.value.style.translate = "0";
       setTimeout(() => {
-        streaming.value.style.translate = "0";
+        projects.value.style.translate = "0";
         setTimeout(() => {
-          btns.value.style.display = "flex";
+          streaming.value.style.translate = "0";
           setTimeout(() => {
-            btnApp.value.style.opacity = "1";
-            btnApp.value.style.transform = "translate(0, 0)";
+            btns.value.style.display = "flex";
             setTimeout(() => {
-              btnProjects.value.style.opacity = "1";
-              btnProjects.value.style.transform = "translate(0, 0)";
+              btnApp.value.style.opacity = "1";
+              btnApp.value.style.transform = "translate(0, 0)";
               setTimeout(() => {
-                btnStreaming.value.style.opacity = "1";
-                btnStreaming.value.style.transform = "translate(0, 0)";
-                endAnimate.value = true;
+                btnProjects.value.style.opacity = "1";
+                btnProjects.value.style.transform = "translate(0, 0)";
+                setTimeout(() => {
+                  btnStreaming.value.style.opacity = "1";
+                  btnStreaming.value.style.transform = "translate(0, 0)";
+                  endAnimate.value = true;
+                }, 600);
               }, 600);
             }, 600);
           }, 600);
         }, 600);
       }, 600);
     }, 600);
-  }, 600);
+  }, 7000);
 });
 </script>
 

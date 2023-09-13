@@ -1,8 +1,7 @@
 <template>
   <div class="load-page">
-    <div class="test"></div>
-    <!-- <div class="load-page__img" alt="logo"></div>
-    <div class="load-page__window"></div> -->
+    <div class="load-page__img" alt="logo"></div>
+    <div class="load-page__window"></div>
   </div>
 </template>
 
@@ -20,16 +19,6 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.test {
-  position: fixed;
-  left: 30%;
-  height: 100vh;
-  width: 200px;
-  // background-color: red;
-  background: lightgray;
-  background: radial-gradient(circle, white 15em, lightgray 35em);
-  background-size: cover;
-}
 .load-page {
   position: fixed;
   top: 0;
@@ -63,14 +52,16 @@ onUnmounted(() => {
 
     animation-duration: 7s;
     animation-name: moved;
-    animation-iteration-count: infinite;
+    // animation-iteration-count: infinite;
+
+    box-shadow: inset 0 10px 10px 20px black;
 
     @keyframes moved {
       from {
-        left: -85vw;
+        left: -25vw;
       }
       to {
-        left: -25vw;
+        left: -85vw;
       }
     }
   }
