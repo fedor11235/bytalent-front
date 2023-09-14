@@ -255,6 +255,7 @@ function controllClass() {
   column-gap: 16px;
   height: 7.4vh;
   max-height: 80px;
+  pointer-events: none;
   z-index: 3;
   &__burger {
     position: relative;
@@ -347,6 +348,7 @@ function controllClass() {
   &__btn {
     padding: 6px 12px;
     border: 1px solid transparent;
+    pointer-events: all;
     cursor: pointer;
     &-light {
       padding: 6px 12px;

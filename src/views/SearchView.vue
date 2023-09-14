@@ -1,7 +1,6 @@
 <template>
-  <div class="search-view" v-if="finishLoad">
+  <div class="search-view" ref="bgr" v-show="finishLoad">
     <div class="search-view__backdrop">
-      <HeaderComponent class="search-view__header" :noHover="check" />
       <div class="search-view__input">
         <InputComponent
           v-model="searchText"
@@ -18,11 +17,11 @@
       />
     </div>
   </div>
-  <LoadPage v-else />
+  <LoadPage v-if="!finishLoad" />
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import LoadPage from "@/pages/LoadPage.vue";
 import HeaderComponent from "@/components/common/HeaderComponent.vue";
@@ -40,12 +39,28 @@ const searchText = ref("");
 
 const check = ref(false);
 const finishLoad = ref(false);
+const bgr = ref();
+
+onMounted(() => {
+  const bgrImage = new Image()
+  console.log(bgr.value)
+  bgrImage.onload = () => {
+    console.log(bgr.value)
+    console.log(bgrImage)
+    bgr.value.appendChild(bgrImage)
+
+    // bgr.value.style.backgroundImage = `url(${bgrImage})`
+    finishLoad.value = true;
+  }
+  bgrImage.src = "/search.jpg";
+})
 
 watch(
   () => route.params,
   async () => {
     check.value = await authService.checkToken();
-    finishLoad.value = true;
+
+    // finishLoad.value = true;
   },
   { immediate: true }
 );
@@ -60,7 +75,7 @@ watch(
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url(@/assets/backgrounds/search.jpg);
+  // background-image: url(@/assets/backgrounds/search.jpg);
   &__backdrop {
     position: fixed;
     height: 100vh;

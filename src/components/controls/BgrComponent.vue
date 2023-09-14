@@ -12,13 +12,20 @@
       class="bgr__content"
       alt="img"
     />
+    <img
+      v-if="type === 'video' && !loadVideo && autoPlay"
+      @load="bgrLoadLocal"
+      :src="poster"
+      class="bgr__content bgr__poster"
+      alt="poster"
+    />
     <video
-      v-else-if="type === 'video'"
-      v-show="load"
+      v-if="type === 'video'"
+      v-show="loadVideo"
       ref="video"
       volume="0.0"
       :poster="poster"
-      @loadeddata="bgrLoadLocal"
+      @loadeddata="bgrVideoLoadLocal"
       @mouseenter="handlerVideoMouseenter"
       @mouseleave="handlerVideoMouseleave"
       class="bgr__content"
@@ -41,6 +48,7 @@ const props = defineProps<{
 }>();
 
 const load = ref(false);
+const loadVideo = ref(false);
 const video = ref();
 
 function bgrLoadLocal() {
@@ -48,7 +56,14 @@ function bgrLoadLocal() {
   if (props.autoPlay && video.value) {
     video.value.play();
   }
-  // props.bgrLoad();
+}
+
+function bgrVideoLoadLocal() {
+  load.value = true;
+  loadVideo.value = true;
+  if (props.autoPlay && video.value) {
+    video.value.play();
+  }
 }
 
 function handlerVideoMouseenter() {

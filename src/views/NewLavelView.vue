@@ -1,13 +1,13 @@
 <template>
   <div v-if="finishLoad">
+    <BgrComponent
+      :type="bgr.type"
+      :content="bgr.content"
+      :poster="bgr.poster"
+      autoPlay
+      class="new-level__img"
+    />
     <div v-if="project" class="new-level">
-      <BgrComponent
-        :type="bgr.type"
-        :content="bgr.content"
-        :poster="bgr.poster"
-        autoPlay
-        class="new-level__img"
-      />
       <div class="new-level__backdrop"></div>
       <div class="new-level__content">
         <EmptyComponent />
@@ -161,7 +161,7 @@
               @click="rootStore.FAQPopup = true"
               class="assistant__btns_btn assistant__btns_faq"
             ></div>
-            <div class="assistant__btns_btn assistant__btns_delete"></div>
+            <div @click="handlerDeleteProject" class="assistant__btns_btn assistant__btns_delete"></div>
           </div>
         </div>
       </div>
@@ -256,6 +256,11 @@ function handlerEdit() {
 
 function handlerSendCahnge() {
   console.log("отправить");
+}
+
+async function handlerDeleteProject() {
+  await projectService.deleteProject(Number(props.idProject))
+  await router.push({name: "project-main"})
 }
 
 function handlerOpenBgrPopup() {

@@ -31,4 +31,7 @@ export default {
   updateProject(projectId: any, payload: FormData) {
     return api.post(`/project/update/${projectId}`, payload);
   },
+  deleteProject(projectId: any) {
+    return api.delete(`/project/project/${projectId}`);
+  },
 };

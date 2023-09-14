@@ -34,8 +34,8 @@ export default {
     return new Promise((resolve, reject) => {
       const urlBase =
         process.env.NODE_ENV === "production"
-          ? "https://bytalent.ru/api/"
-          : "http://localhost:3000/";
+          ? "https://bytalent.ru/api"
+          : "http://localhost:3000";
 
       const formData = createFormData(payload);
       const token = window.localStorage.getItem("token");
@@ -48,7 +48,7 @@ export default {
       };
       req.onreadystatechange = reqChange;
 
-      req.open("POST", `${urlBase}project/backgrounds`, true);
+      req.open("POST", `${urlBase}/project/backgrounds`, true);
       req.setRequestHeader("Authorization", "Bearer " + token);
       req.send(formData);
 
@@ -91,8 +91,8 @@ export default {
     return new Promise((resolve, reject) => {
       const urlBase =
         process.env.NODE_ENV === "production"
-          ? "https://bytalent.ru/api/"
-          : "http://localhost:3000/";
+          ? "https://bytalent.ru/api"
+          : "http://localhost:3000";
 
       const formData = createFormData(payload);
       const token = window.localStorage.getItem("token");
@@ -137,6 +137,14 @@ export default {
   async deleteBackgrounds(id: number) {
     try {
       const { data } = await projectApi.deleteBackgrounds(id);
+      return data;
+    } catch (e) {
+      console.error(e);
+    }
+  },
+  async deleteProject(id: number) {
+    try {
+      const { data } = await projectApi.deleteProject(id);
       return data;
     } catch (e) {
       console.error(e);
