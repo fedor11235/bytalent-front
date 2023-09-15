@@ -346,9 +346,6 @@ onMounted(async () => {
   background-size: cover;
   &__img {
     position: fixed;
-    // object-fit: cover;
-    // height: 100vh;
-    // width: 100vw;
   }
   &__backdrop {
     position: fixed;

@@ -73,17 +73,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
-import { useRouter, useRoute } from "vue-router";
-import { useRootStore } from "@/store";
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import LoadStartPage from "@/pages/LoadStartPage.vue";
 import FAQControl from "@/components/controls/FAQControl.vue";
 
 const router = useRouter();
-
-const rootStore = useRootStore();
-
-// rootStore.hiddenHeader = true;
 
 const isHoverName = ref("");
 const endAnimate = ref(false);
@@ -97,16 +92,6 @@ const btns = ref("");
 const btnApp = ref("");
 const btnProjects = ref("");
 const btnStreaming = ref("");
-
-// const hoverClass = computed(() => {
-//   if(isHoverName.value) {
-//     return true;
-//   } else {
-//     setTimeout(() => {
-//       rootStore.popupWarning = false;
-//     }, 3000);
-//   }
-// })
 
 async function handlerClickApp() {
   await router.push({ name: "app" });
@@ -127,10 +112,6 @@ function handlerMouseleaveBtn() {
   if(!endAnimate.value) return
   isHoverName.value = "";
 }
-
-// const btnApp = ref("");
-// const btnProjects = ref("");
-// const btnStreaming = ref("");
 
 onMounted(async () => {
   setTimeout(() => {

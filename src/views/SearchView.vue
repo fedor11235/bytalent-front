@@ -43,22 +43,19 @@ const bgr = ref();
 
 onMounted(() => {
   const bgrImage = new Image()
-  console.log(bgr.value)
-  bgrImage.onload = () => {
-    console.log(bgr.value)
-    console.log(bgrImage)
-    bgr.value.appendChild(bgrImage)
 
-    // bgr.value.style.backgroundImage = `url(${bgrImage})`
+  bgrImage.onload = function(){
+    bgr.value.style.backgroundImage = 'url(' + bgrImage.src + ')';
     finishLoad.value = true;
-  }
-  bgrImage.src = "/search.jpg";
+  };
+  bgrImage.src = "/backgrounds/search.jpg";
 })
 
 watch(
   () => route.params,
   async () => {
     check.value = await authService.checkToken();
+    rootStore.noHover = check.value 
 
     // finishLoad.value = true;
   },
@@ -85,7 +82,7 @@ watch(
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(17.5px);
+    // backdrop-filter: blur(17.5px);
     row-gap: 32px;
   }
   &__header {

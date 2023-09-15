@@ -13,6 +13,7 @@
     imgBtn="control"
     :btnClick="HandkerClickControl"
     isLine
+    @finishLoad="emit('finish-load')"
   >
     <template v-slot:content-bottom>
       <FooterComponent
@@ -39,6 +40,8 @@ import { useRouter } from "vue-router";
 import { useRootStore } from "@/store";
 import { getURLForFile, getURLForFilePoster } from "@/utils/str";
 
+const emit = defineEmits(["finish-load"]);
+
 const rootStore = useRootStore();
 
 rootStore.noHover = true;
@@ -56,6 +59,7 @@ const router = useRouter();
 const isPopupAdd = ref(false);
 
 const bgr = computed(() => {
+  if(props.project) return
   if (props.project.background) {
     const background = props.project.background;
     return {

@@ -34,6 +34,7 @@
     :btnClick="HandkerClickLaunch"
     noHover
     isLine
+    @finishLoad="emit('finish-load')"
   >
     <template v-slot:content-bottom>
       <FooterComponent
@@ -50,16 +51,15 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { useRouter } from "vue-router";
 import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
 import EmptyComponent from "@/components/common/EmptyComponent.vue";
 import FooterComponent from "@/components/common/FooterComponent.vue";
 import FAQControl from "@/components/controls/FAQControl.vue";
 import { useRootStore } from "@/store";
 
-const rootStore = useRootStore();
+const emit = defineEmits(["finish-load"]);
 
-rootStore.noHover = true;
+const rootStore = useRootStore();
 
 const notes = ref(false);
 
@@ -83,7 +83,6 @@ function handlerBtnFooterClick() {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background-image: url(@/assets/backgrounds/streaming-new.png);
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;

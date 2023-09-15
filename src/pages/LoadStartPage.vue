@@ -8,7 +8,6 @@
 <script setup lang="ts">
 import { onUnmounted } from "vue";
 import { useRootStore } from "@/store";
-import LoaderComponent from "@/components/common/LoaderComponent.vue";
 
 const rootStore = useRootStore();
 
@@ -58,10 +57,10 @@ onUnmounted(() => {
 
     @keyframes moved {
       from {
-        left: -25vw;
+        left: -85vw;
       }
       to {
-        left: -85vw;
+        left: -25vw;
       }
     }
   }

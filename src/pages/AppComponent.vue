@@ -7,6 +7,7 @@
     isLine
     imgBtn="download"
     :btnClick="HandkerClickDomnload"
+    @finishLoad="emit('finish-load')"
   >
     <template v-slot:content-top>
       <div class="carusel">
@@ -39,10 +40,11 @@
 import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
 import { useRootStore } from "@/store";
 
+const emit = defineEmits(["finish-load"]);
+
 const rootStore = useRootStore();
 const sliders = ["architecture", "interiors", "art"];
 
-rootStore.noHover = false;
 function HandkerClickDomnload() {
   let a = document.createElement("a");
   a.href = "https://apptest.hb.ru-msk.vkcs.cloud/Talent.zip";

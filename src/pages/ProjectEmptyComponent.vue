@@ -7,6 +7,7 @@
     description="Вы можете заказть новый проет либо загрузить свой"
     imgBtn="create-light"
     :btnClick="handlerBtnFooterClick"
+    @finishLoad="emit('finish-load')"
   >
     <template v-slot:content-bottom>
       <FooterComponent
@@ -28,6 +29,8 @@ import projectService from "@/services/projectService";
 import FAQControl from "@/components/controls/FAQControl.vue";
 import { useRouter } from "vue-router";
 import { useRootStore } from "@/store";
+
+const emit = defineEmits(["finish-load"]);
 
 const rootStore = useRootStore();
 

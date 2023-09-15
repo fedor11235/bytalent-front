@@ -1,11 +1,11 @@
 <template>
-  <div v-if="finishLoad">
+  <div v-show="finishLoad && finishLoadBg">
     <div v-if="check">
-      <ProjectEmptyComponent />
+      <ProjectEmptyComponent @finishLoad="finishLoadBg = true" />
     </div>
     <ErrorComponent v-else />
   </div>
-  <LoadPage v-else />
+  <LoadPage v-if="!finishLoad && !finishLoadBg" />
 </template>
 
 <script setup lang="ts">
@@ -27,6 +27,7 @@ const route = useRoute();
 
 const check = ref(false);
 const finishLoad = ref(false);
+const finishLoadBg = ref(false);
 
 watch(
   () => route.params,

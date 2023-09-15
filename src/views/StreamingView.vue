@@ -1,9 +1,9 @@
 <template>
-  <div v-if="finishLoad">
-    <StreamingComponentAuth v-if="check" />
-    <StreamingComponent v-else />
+  <div v-show="finishLoad && finishLoadBg">
+    <StreamingComponentAuth @finishLoad="finishLoadBg = true"  v-show="check" />
+    <StreamingComponent @finishLoad="finishLoadBg = true" v-show="!check" />
   </div>
-  <LoadPage v-else />
+  <LoadPage v-if="!finishLoad && !finishLoadBg" />
 </template>
 
 <script setup lang="ts">
@@ -23,12 +23,14 @@ const route = useRoute();
 
 const check = ref(false);
 const finishLoad = ref(false);
+const finishLoadBg = ref(false);
 
 watch(
   () => route.params,
   async () => {
     check.value = await authService.checkToken();
     finishLoad.value = true;
+    rootStore.noHover = check.value;
   },
   { immediate: true }
 );

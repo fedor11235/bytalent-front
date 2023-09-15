@@ -1,16 +1,18 @@
 <template>
-  <div v-if="finishLoad">
+  <div v-show="finishLoad && finishLoadBg">
     <ProjectIdComponent
       v-if="check && project"
+      v-show="check && project && finishLoadBg"
       :total="total"
       :project="project"
       :projects="projects"
       :idProject="idProject"
       :indexProject="indexProject + 1"
+      @finishLoad="finishLoadBg = true" 
     />
-    <ErrorComponent v-else />
+    <ErrorComponent v-show="!check && !project" />
   </div>
-  <LoadPage v-else />
+  <LoadPage v-if="!finishLoad && !finishLoadBg" />
 </template>
 
 <script setup lang="ts">
@@ -36,6 +38,7 @@ const route = useRoute();
 
 const check = ref(false);
 const finishLoad = ref(false);
+const finishLoadBg = ref(false);
 
 const projects = ref([]);
 const project: Ref<null | any> = ref(null);

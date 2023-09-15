@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-welcome">
+  <div ref="bgr" class="layout-welcome">
     <div v-if="bgBase">
       <BgrComponent
         :type="bgBase.type"
@@ -9,7 +9,6 @@
         class="layout-welcome__img"
       />
     </div>
-    <img v-else class="test" :src="require(`@/assets/backgrounds/${bg}`)" />
     <div
       class="layout-welcome__backdrop"
       :style="{
@@ -42,12 +41,14 @@
 </template>
 
 <script setup lang="ts">
-// import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import EmptyComponent from "@/components/common/EmptyComponent.vue";
 import BgrComponent from "@/components/controls/BgrComponent.vue";
 import LineComponent from "@/components/common/LineComponent.vue";
 
-defineProps<{
+const emit = defineEmits(["finish-load"]);
+
+const props = defineProps<{
   bg: string;
   imgBtn: string;
   isLine?: boolean;
@@ -61,32 +62,22 @@ defineProps<{
   noHover?: boolean;
 }>();
 
-// const previewImage = ref()
-// const newImage = ref()
+const bgr = ref()
 
-// onMounted(() => {
-//   var image = new Image();
+onMounted(() => {
+  if(props.bgBase) return
+  const bgrImage = new Image();
 
-//   image.onload = function(){
-//     newImage.value.css('background-image', 'url(' + image.src + ')');
-//     newImage.value.css('opacity', '1');
-//     console.log('complete');
-//   };
-
-//   image.src = previewImage.value.data('image');
-// })
+  bgrImage.onload = function(){
+    if(!bgr.value) return
+    bgr.value.style.backgroundImage = 'url(' + bgrImage.src + ')';
+    emit('finish-load')
+  };
+  bgrImage.src = "/backgrounds/" + props.bg;
+})
 </script>
 
 <style lang="scss" scoped>
-.test {
-  position: fixed;
-  height: 100vh;
-  width: 100vw;
-}
-// .overlay {
-//   height: 23px;
-//   width: 23px;
-// }
 .hidden {
   opacity: 0;
 }
@@ -100,9 +91,6 @@ defineProps<{
   background-size: cover;
   &__img {
     position: fixed;
-    // object-fit: cover;
-    // height: 100vh;
-    // width: 100vw;
   }
   &__backdrop {
     top: 0;
@@ -110,6 +98,9 @@ defineProps<{
     width: 100vw;
     position: fixed;
     background-color: rgba(0, 0, 0, 0.35);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
     // backdrop-filter: blur(12.5px);
   }
   &__content {

@@ -8,6 +8,7 @@
     isLine
     imgBtn="upload-w"
     :btnClick="HandkerClickUpload"
+    @finishLoad="emit('finish-load')"
   >
     <template v-slot:content-bottom>
       <div class="requirements">
@@ -27,6 +28,8 @@ import { useRouter } from "vue-router";
 import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
 import FAQControl from "@/components/controls/FAQControl.vue";
 import { useRootStore } from "@/store";
+
+const emit = defineEmits(["finish-load"]);
 
 const rootStore = useRootStore();
 

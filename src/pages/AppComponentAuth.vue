@@ -6,6 +6,7 @@
     description="Персональное приложение для доступа в проекты Unreal Engine 5"
     noHover
     :btnClick="HandkerClickDomnload"
+    @finishLoad="emit('finish-load')"
   >
     <template v-slot:content-bottom>
       <FooterComponent
@@ -26,9 +27,9 @@ import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
 import FAQControl from "@/components/controls/FAQControl.vue";
 import { useRootStore } from "@/store";
 
-const rootStore = useRootStore();
+const emit = defineEmits(["finish-load"]);
 
-rootStore.noHover = true;
+const rootStore = useRootStore();
 
 function HandkerClickDomnload() {
   let a = document.createElement("a");

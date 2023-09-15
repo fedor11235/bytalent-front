@@ -14,6 +14,7 @@
     imgBtn="control"
     :btnClick="HandkerClickControl"
     isLine
+    @finishLoad="emit('finish-load')"
   >
     <template v-slot:content-bottom>
       <FooterComponent
@@ -34,12 +35,13 @@
 import { computed, ref } from "vue";
 import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
 import FooterComponent from "@/components/common/FooterComponent.vue";
-import projectService from "@/services/projectService";
 import PopupAdd from "@/components/visualization/PopupAdd.vue";
 import FAQControl from "@/components/controls/FAQControl.vue";
 import { useRouter } from "vue-router";
 import { useRootStore } from "@/store";
 import { getURLForFile, getURLForFilePoster } from "@/utils/str";
+
+const emit = defineEmits(["finish-load"]);
 
 const rootStore = useRootStore();
 
