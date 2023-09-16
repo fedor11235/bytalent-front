@@ -1,6 +1,6 @@
 <template>
   <div class="start-view">
-    <LoadStartPage :hiddenHeade="true" v-if="loader" />
+    <LoadStartPageDemo v-if="loader" />
     <div
       @mouseover="handlerMouseoverBtn('app')"
       @mouseleave="handlerMouseleaveBtn"
@@ -75,7 +75,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import LoadStartPage from "@/pages/LoadStartPage.vue";
+import LoadStartPageDemo from "@/pages/LoadStartPageDemo.vue";
 import FAQControl from "@/components/controls/FAQControl.vue";
 import { useRootStore } from "@/store";
 
