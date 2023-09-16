@@ -19,7 +19,8 @@
           @drop="handlerDropProject"
         >
           <div class="add-file-prg_elem_title">
-            Поддерживаемые форматы: *3dm, *fbx, *dwg
+            <!-- Поддерживаемые форматы: *3dm, *fbx, *dwg -->
+            Поддерживаемые форматы: *
           </div>
           <div v-if="rootStore.loaderFile" class="add-file-prg__loader-file">
             <div class="add-file-prg__loader-file__title">
@@ -90,15 +91,17 @@ function saveFailesProject(filteredFiles: File[]) {
 }
 
 function getFilteredFileProject(file: File) {
-  if (/\.(3dm|fbx|dwg|3DM|FBX|DWG)$/.test(file.name)) {
-    console.log(file);
-    // return null;
-    return file;
-  }
-  rootStore.popupWarning = true;
-  rootStore.titleWarning = "Неподдерживаемый формат файла";
-  rootStore.textWarning = "Поддерживаемые форматы:  *3dm, *fbx, *dwg";
-  return null;
+  // if (/\.(3dm|fbx|dwg|3DM|FBX|DWG)$/.test(file.name)) {
+  //   console.log(file);
+  //   // return null;
+  //   return file;
+  // }
+  // rootStore.popupWarning = true;
+  // rootStore.titleWarning = "Неподдерживаемый формат файла";
+  // rootStore.textWarning = "Поддерживаемые форматы:  *3dm, *fbx, *dwg";
+  // return null;
+
+  return file;
 }
 
 function handlerDropProject(event: DragEvent) {

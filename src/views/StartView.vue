@@ -66,7 +66,7 @@
     <div ref="btns" class="test__btns">
       <div ref="btnApp" :class="['test__title', {'test__title_hover': isHoverName === 'app'}]">Приложение</div>
       <div ref="btnProjects" :class="['test__title', {'test__title_hover': isHoverName === 'projects'}]">Проекты</div>
-      <div ref="btnStreaming" :class="['test__title', {'test__title_hover': isHoverName === 'streaming'}]">Стрминг</div>
+      <div ref="btnStreaming" :class="['test__title', {'test__title_hover': isHoverName === 'streaming'}]">Стриминг</div>
     </div>
     <FAQControl />
   </div>
@@ -177,6 +177,7 @@ onMounted(async () => {
       translate: 0 -50%;
       justify-content: space-around;
       z-index: 10;
+      pointer-events: none;
     }
     &__title {
       color: white;
@@ -221,6 +222,7 @@ onMounted(async () => {
       z-index: 1;
       transition: all 0.6s;
       translate: 0 -100%;
+      cursor: pointer;
       &_hover {
         scale: 1.1;
         z-index: 2;
