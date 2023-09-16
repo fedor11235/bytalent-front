@@ -16,6 +16,7 @@ import AdminLoginView from "@/views/AdminLoginView.vue";
 import ProjectEmptyView from "@/views/ProjectEmptyView.vue";
 import ProjectIdView from "@/views/ProjectIdView.vue";
 import ReviewerView from "@/views/ReviewerView.vue";
+import StartViewDemo from "@/views/StartViewDemo.vue";
 
 // for test
 import LoadStartPage from "@/pages/LoadStartPage.vue";
@@ -111,7 +112,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/demo",
     name: "demo",
-    component: LoadStartPage,
+    component: StartViewDemo,
   },
   {
     path: "/reviewer",

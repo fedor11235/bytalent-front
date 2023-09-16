@@ -8,12 +8,19 @@
 <script setup lang="ts">
 import { onUnmounted } from "vue";
 import { useRootStore } from "@/store";
+import ProgressSpinner from "primevue/progressspinner";
+
+const props = defineProps<{
+  hiddenHeader?: boolean;
+}>();
 
 const rootStore = useRootStore();
 
 rootStore.hiddenHeader = true;
 onUnmounted(() => {
-  rootStore.hiddenHeader = false;
+  if(!props.hiddenHeader) {
+    rootStore.hiddenHeader = false;
+  }
 });
 </script>
 
