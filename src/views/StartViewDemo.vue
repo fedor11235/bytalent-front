@@ -102,6 +102,9 @@ import { useRootStore } from "@/store";
 
 const rootStore = useRootStore();
 
+rootStore.loadApiTest = true;
+rootStore.loadBgrTest = true;
+
 const router = useRouter();
 // rootStore.hiddenHeader = true;
 const isHoverName = ref("");

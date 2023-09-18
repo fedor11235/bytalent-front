@@ -98,8 +98,13 @@ import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import LoadStartPage from "@/pages/LoadStartPage.vue";
 import FAQControl from "@/components/controls/FAQControl.vue";
+import { useRootStore } from "@/store";
 
+const rootStore = useRootStore();
 const router = useRouter();
+
+rootStore.loadApiTest = true;
+rootStore.loadBgrTest = true;
 
 const isHoverName = ref("");
 const endAnimate = ref(false);
