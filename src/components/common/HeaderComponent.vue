@@ -248,13 +248,12 @@ function controllClass() {
   left: 0;
   right: 0;
   display: flex;
-  margin: 3.7vh 2%;
-  padding-right: 15px;
+  margin: 3.7vh 2.08vw;
+  padding: 0 1.04vw;
   align-items: center;
   justify-content: space-between;
   column-gap: 16px;
   height: 7.4vh;
-  max-height: 80px;
   pointer-events: none;
   z-index: 3;
   &__burger {
@@ -318,12 +317,12 @@ function controllClass() {
     }
   }
   &__logo {
-    width: 150px;
-    height: 100%;
+    height: 4.44vh;
+    width: 100%;
     padding: 0 30px;
-    background-position: 50%;
+    background-position: left;
     background-repeat: no-repeat;
-    background-size: 70%;
+    background-size: contain;
     &-light {
       border-color: rgba(0, 0, 0, 0.33);
     }

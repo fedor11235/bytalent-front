@@ -8,6 +8,5 @@
 .empty {
   margin: 3.7vh;
   height: 7.4vh;
-  max-height: 80px;
 }
 </style>

@@ -21,17 +21,19 @@
         <div class="layout-welcome__content_top">
           <slot name="content-top"></slot>
         </div>
-        <div class="layout-welcome__title">{{ title }}</div>
-        <div class="layout-welcome__description">
-          <LineComponent v-if="isLine" />
-          {{ description }}
+        <div class="test">
+          <div class="layout-welcome__title">{{ title }}</div>
+          <div class="layout-welcome__description">
+            <LineComponent v-if="isLine" />
+            {{ description }}
+          </div>
+          <div
+            @click="btnClick"
+            class="layout-welcome__btn"
+            :style="{backgroundImage: `url(${require(`@/assets/components/${imgBtn}.svg`)})`}"
+            alt="download"
+          ></div>
         </div>
-        <img
-          @click="btnClick"
-          class="layout-welcome__btn"
-          :src="require(`@/assets/components/${imgBtn}.svg`)"
-          alt="download"
-        />
         <div class="layout-welcome__content_bottom">
           <slot name="content-bottom"></slot>
         </div>
@@ -109,13 +111,14 @@ onMounted(() => {
     width: 74vw;
     margin: auto;
     &_top {
-      height: 21vh;
-      margin: 5.3vh 0;
+      height: 23.518vh;
+      margin-top: 7.037vh;
+      margin-bottom: 4.166vh;
     }
     &_bottom {
       position: absolute;
       width: 74vw;
-      bottom: 7.2vh;
+      bottom: 3.7vh;
     }
   }
   &__title {
@@ -136,17 +139,24 @@ onMounted(() => {
     letter-spacing: -0.4px;
     display: flex;
     align-items: center;
-    margin-bottom: 5.5vh;
+    margin-bottom: 5.185vh;
     overflow-x: hidden;
     text-wrap: nowrap;
     text-overflow: ellipsis;
   }
   &__btn {
+    // width: 15.625vw;
+    // height: 5.89vh;
+    // object-position: left;
+    // object-fit: contain;
+    // cursor: pointer;
+
     width: 15.625vw;
     height: 5.89vh;
-    object-position: left;
-    object-fit: contain;
     cursor: pointer;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: unset;
   }
 }
 </style>
