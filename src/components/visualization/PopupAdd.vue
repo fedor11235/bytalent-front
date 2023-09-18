@@ -99,7 +99,7 @@ async function handlerCreate() {
     address: address.value,
     type: projectType.value,
   });
-  router.push({ name: "project-id", params: { idProject: project.id } });
+  await router.push({ name: "new-lavel", params: { idProject: project.id } });
   emit("close");
 }
 

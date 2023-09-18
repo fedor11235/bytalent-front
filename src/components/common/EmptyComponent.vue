@@ -8,5 +8,6 @@
 .empty {
   margin: 3.7vh;
   height: 7.4vh;
+  pointer-events: none;
 }
 </style>

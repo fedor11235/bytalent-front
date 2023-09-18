@@ -121,13 +121,13 @@ const btnProjects = ref("");
 const btnStreaming = ref("");
 
 async function handlerClickApp() {
-  await router.push({ name: "app" });
+  // await router.push({ name: "app" });
 }
 async function handlerClickProject() {
-  await router.push({ name: "project-main" });
+  // await router.push({ name: "project-main" });
 }
 async function handlerClickStreaming() {
-  await router.push({ name: "streaming" });
+  // await router.push({ name: "streaming" });
 }
 
 function handlerMouseoverBtn(name: string) {
