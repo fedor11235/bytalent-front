@@ -30,6 +30,7 @@ import { useRootStore } from "@/store";
 const emit = defineEmits(["finish-load"]);
 
 const rootStore = useRootStore();
+rootStore.hiddenHeader = false;
 
 function HandkerClickDomnload() {
   let a = document.createElement("a");

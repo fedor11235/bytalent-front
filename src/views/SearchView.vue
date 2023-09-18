@@ -1,5 +1,5 @@
 <template>
-  <div class="search-view" ref="bgr" v-show="finishLoad">
+  <div class="search-view" ref="bgr" v-show="rootStore.isShowLoad">
     <div class="search-view__backdrop">
       <div class="search-view__input">
         <InputComponent
@@ -17,14 +17,11 @@
       />
     </div>
   </div>
-  <LoadPage v-if="!finishLoad" />
 </template>
 
 <script setup lang="ts">
 import { ref, watch, onMounted } from "vue";
 import { useRoute } from "vue-router";
-import LoadPage from "@/pages/LoadPage.vue";
-import HeaderComponent from "@/components/common/HeaderComponent.vue";
 import InputComponent from "@/components/controls/InputComponent.vue";
 import authService from "@/services/authService";
 import { useRootStore } from "@/store";
@@ -38,24 +35,30 @@ const route = useRoute();
 const searchText = ref("");
 
 const check = ref(false);
-const finishLoad = ref(false);
 const bgr = ref();
 
-onMounted(() => {
-  const bgrImage = new Image()
+rootStore.loadApiTest = false;
+rootStore.loadBgrTest = false;
 
-  bgrImage.onload = function(){
-    bgr.value.style.backgroundImage = 'url(' + bgrImage.src + ')';
-    finishLoad.value = true;
+onMounted(() => {
+  const bgrImage = new Image();
+
+  bgrImage.onload = function () {
+    bgr.value.style.backgroundImage = "url(" + bgrImage.src + ")";
+    rootStore.loadBgrTest = true;
   };
   bgrImage.src = "/backgrounds/search.jpg";
-})
+});
 
 watch(
   () => route.params,
   async () => {
+    rootStore.loadApiTest = false;
+
     check.value = await authService.checkToken();
-    rootStore.noHover = check.value 
+    rootStore.noHover = check.value;
+
+    rootStore.loadApiTest = true;
 
     // finishLoad.value = true;
   },

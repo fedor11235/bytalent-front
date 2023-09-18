@@ -1,24 +1,18 @@
 <template>
-  <div v-show="finishLoad && finishLoadBg">
-    <ProjectComponent
-      @finishLoad="finishLoadBg = true" 
-    />
+  <div v-show="rootStore.isShowLoad">
+    <ProjectComponent @finishLoad="rootStore.loadBgrTest = true" />
   </div>
-  <LoadPage v-if="!finishLoad && !finishLoadBg" />
 </template>
 
 <script setup lang="ts">
 import { useRouter, useRoute } from "vue-router";
 import { ref, watch } from "vue";
-import LoadPage from "@/pages/LoadPage.vue";
 import ProjectComponent from "@/pages/ProjectComponent.vue";
 import authService from "@/services/authService";
 import projectService from "@/services/projectService";
 import { useRootStore } from "@/store";
 
 const rootStore = useRootStore();
-
-rootStore.hiddenHeader = false;
 
 defineProps<{
   idProject?: string;
@@ -28,13 +22,14 @@ const router = useRouter();
 const route = useRoute();
 
 const check = ref(false);
-const finishLoad = ref(false);
-const finishLoadBg = ref(false);
+
+rootStore.loadApiTest = false;
+rootStore.loadBgrTest = false;
 
 watch(
   () => route.params,
   async () => {
-    finishLoad.value = false;
+    rootStore.loadApiTest = false;
     //TODO Проверки нужно будет вынести в роуты
     check.value = await authService.checkToken();
     if (check.value) {
@@ -48,7 +43,7 @@ watch(
         await router.push({ name: "project-empty" });
       }
     }
-    finishLoad.value = true;
+    rootStore.loadApiTest = true;
   },
   { immediate: true }
 );

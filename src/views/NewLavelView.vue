@@ -161,14 +161,16 @@
               @click="rootStore.FAQPopup = true"
               class="assistant__btns_btn assistant__btns_faq"
             ></div>
-            <div @click="handlerDeleteProject" class="assistant__btns_btn assistant__btns_delete"></div>
+            <div
+              @click="handlerDeleteProject"
+              class="assistant__btns_btn assistant__btns_delete"
+            ></div>
           </div>
         </div>
       </div>
     </div>
     <ErrorComponent v-else />
   </div>
-  <LoadPage v-else />
 </template>
 
 <script setup lang="ts">
@@ -181,7 +183,6 @@ import EmptyComponent from "@/components/common/EmptyComponent.vue";
 import LineComponent from "@/components/common/LineComponent.vue";
 import CarouselComponent from "@/components/controls/CarouselComponent.vue";
 import ErrorComponent from "@/pages/ErrorComponent.vue";
-import LoadPage from "@/pages/LoadPage.vue";
 import { useRootStore } from "@/store";
 import { getURLForFile, getURLForFilePoster } from "@/utils/str";
 
@@ -189,6 +190,8 @@ const rootStore = useRootStore();
 
 rootStore.hiddenHeader = false;
 rootStore.noHover = true;
+rootStore.loadApiTest = false;
+rootStore.loadBgrTest = false;
 
 const props = defineProps<{
   idProject: string;
@@ -259,8 +262,8 @@ function handlerSendCahnge() {
 }
 
 async function handlerDeleteProject() {
-  await projectService.deleteProject(Number(props.idProject))
-  await router.push({name: "project-main"})
+  await projectService.deleteProject(Number(props.idProject));
+  await router.push({ name: "project-main" });
 }
 
 function handlerOpenBgrPopup() {
@@ -321,6 +324,8 @@ onMounted(async () => {
       { id: "1-emty", content: "", type: "empty" },
     ];
   }
+  rootStore.loadApiTest = true;
+  rootStore.loadBgrTest = true;
   finishLoad.value = true;
 });
 </script>

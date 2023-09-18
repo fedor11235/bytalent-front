@@ -62,19 +62,19 @@ const props = defineProps<{
   noHover?: boolean;
 }>();
 
-const bgr = ref()
+const bgr = ref();
 
 onMounted(() => {
-  if(props.bgBase) return
+  if (props.bgBase) return;
   const bgrImage = new Image();
 
-  bgrImage.onload = function(){
-    if(!bgr.value) return
-    bgr.value.style.backgroundImage = 'url(' + bgrImage.src + ')';
-    emit('finish-load')
+  bgrImage.onload = function () {
+    if (!bgr.value) return;
+    bgr.value.style.backgroundImage = "url(" + bgrImage.src + ")";
+    emit("finish-load");
   };
   bgrImage.src = "/backgrounds/" + props.bg;
-})
+});
 </script>
 
 <style lang="scss" scoped>

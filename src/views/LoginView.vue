@@ -38,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import authService from "@/services/authService";
 import PopupTermsUser from "@/components/docs/PopupTermsUser.vue";
@@ -61,6 +61,8 @@ const isPersonalData = ref(false);
 const isTermsUser = ref(false);
 
 rootStore.hiddenHeader = true;
+rootStore.loadApiTest = false;
+rootStore.loadBgrTest = false;
 
 function callBackRedirect() {
   if (props.nextPage) {
@@ -79,14 +81,10 @@ async function handlerLogin() {
   );
 }
 
-// #telegram-login-ByTALENTBot
-// onMounted(() => {
-//   const iFrame = document.getElementById('telegram-login-ByTALENTBot')
-//   if(iFrame?.style) {
-//     iFrame.style.width = '100%'
-//   }
-//   console.log('iFrame', iFrame)
-// })
+onMounted(() => {
+  rootStore.loadApiTest = true;
+  rootStore.loadBgrTest = true;
+});
 </script>
 
 <style lang="scss" scoped>

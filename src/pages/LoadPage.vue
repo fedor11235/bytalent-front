@@ -11,10 +11,10 @@ import LoaderComponent from "@/components/common/LoaderComponent.vue";
 
 const rootStore = useRootStore();
 
-rootStore.hiddenHeader = true;
-onUnmounted(() => {
-  rootStore.hiddenHeader = false;
-});
+// rootStore.hiddenHeader = true;
+// onUnmounted(() => {
+//   rootStore.hiddenHeader = false;
+// });
 </script>
 
 <style lang="scss" scoped>
@@ -28,5 +28,6 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   background-color: #191919;
+  z-index: 4;
 }
 </style>

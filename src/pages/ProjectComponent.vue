@@ -34,6 +34,7 @@ const emit = defineEmits(["finish-load"]);
 const rootStore = useRootStore();
 
 rootStore.noHover = false;
+rootStore.hiddenHeader = false;
 
 const router = useRouter();
 

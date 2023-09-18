@@ -45,6 +45,7 @@ const emit = defineEmits(["finish-load"]);
 const rootStore = useRootStore();
 
 rootStore.noHover = true;
+rootStore.hiddenHeader = false;
 
 const props = defineProps<{
   idProject: string | undefined;
@@ -59,7 +60,7 @@ const router = useRouter();
 const isPopupAdd = ref(false);
 
 const bgr = computed(() => {
-  if(props.project) return
+  if (props.project) return;
   if (props.project.background) {
     const background = props.project.background;
     return {

@@ -1,6 +1,6 @@
 <template>
   <div class="start-view">
-    <LoadStartPageDemo v-if="loader" />
+    <LoadStartPage v-if="loader" />
     <div
       @mouseover="handlerMouseoverBtn('app')"
       @mouseleave="handlerMouseleaveBtn"
@@ -64,9 +64,30 @@
       </div>
     </div>
     <div ref="btns" class="test__btns">
-      <div ref="btnApp" :class="['test__title', {'test__title_hover': isHoverName === 'app'}]">Недвижимость</div>
-      <div ref="btnProjects" :class="['test__title', {'test__title_hover': isHoverName === 'projects'}]">Проектировщики</div>
-      <div ref="btnStreaming" :class="['test__title', {'test__title_hover': isHoverName === 'streaming'}]">Производитель</div>
+      <div
+        ref="btnApp"
+        :class="['test__title', { test__title_hover: isHoverName === 'app' }]"
+      >
+        Недвижимость
+      </div>
+      <div
+        ref="btnProjects"
+        :class="[
+          'test__title',
+          { test__title_hover: isHoverName === 'projects' },
+        ]"
+      >
+        Проектировщики
+      </div>
+      <div
+        ref="btnStreaming"
+        :class="[
+          'test__title',
+          { test__title_hover: isHoverName === 'streaming' },
+        ]"
+      >
+        Производители
+      </div>
     </div>
     <FAQControl />
   </div>
@@ -75,7 +96,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import LoadStartPageDemo from "@/pages/LoadStartPageDemo.vue";
+import LoadStartPage from "@/pages/LoadStartPage.vue";
 import FAQControl from "@/components/controls/FAQControl.vue";
 import { useRootStore } from "@/store";
 
@@ -107,12 +128,12 @@ async function handlerClickStreaming() {
 }
 
 function handlerMouseoverBtn(name: string) {
-  if(!endAnimate.value) return
+  if (!endAnimate.value) return;
   isHoverName.value = name;
 }
 
 function handlerMouseleaveBtn() {
-  if(!endAnimate.value) return
+  if (!endAnimate.value) return;
   isHoverName.value = "";
 }
 

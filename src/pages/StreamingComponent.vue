@@ -61,6 +61,8 @@ const emit = defineEmits(["finish-load"]);
 
 const rootStore = useRootStore();
 
+rootStore.hiddenHeader = false;
+
 const router = useRouter();
 const notes = ref(false);
 

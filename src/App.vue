@@ -1,4 +1,5 @@
 <template>
+  <LoadPage v-if="!rootStore.isShowLoad" />
   <MobileWarningPage v-if="isMobile" />
   <div v-else>
     <Transition name="drop">
@@ -95,6 +96,7 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from "vue";
+import LoadPage from "@/pages/LoadPage.vue";
 
 // import VisualizationHover from "@/components/popup/VisualizationHover.vue";
 // import AppHover from "@/components/popup/AppHover.vue";

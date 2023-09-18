@@ -61,6 +61,7 @@ const emit = defineEmits(["finish-load"]);
 
 const rootStore = useRootStore();
 
+rootStore.hiddenHeader = false;
 const notes = ref(false);
 
 function HandkerClickLaunch() {

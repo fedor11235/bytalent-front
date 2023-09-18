@@ -18,9 +18,7 @@ const rootStore = useRootStore();
 
 rootStore.hiddenHeader = true;
 onUnmounted(() => {
-  if(!props.hiddenHeader) {
-    rootStore.hiddenHeader = false;
-  }
+  rootStore.hiddenHeader = false;
 });
 </script>
 

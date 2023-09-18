@@ -64,9 +64,30 @@
       </div>
     </div>
     <div ref="btns" class="test__btns">
-      <div ref="btnApp" :class="['test__title', {'test__title_hover': isHoverName === 'app'}]">Приложение</div>
-      <div ref="btnProjects" :class="['test__title', {'test__title_hover': isHoverName === 'projects'}]">Проекты</div>
-      <div ref="btnStreaming" :class="['test__title', {'test__title_hover': isHoverName === 'streaming'}]">Стриминг</div>
+      <div
+        ref="btnApp"
+        :class="['test__title', { test__title_hover: isHoverName === 'app' }]"
+      >
+        Приложение
+      </div>
+      <div
+        ref="btnProjects"
+        :class="[
+          'test__title',
+          { test__title_hover: isHoverName === 'projects' },
+        ]"
+      >
+        Проекты
+      </div>
+      <div
+        ref="btnStreaming"
+        :class="[
+          'test__title',
+          { test__title_hover: isHoverName === 'streaming' },
+        ]"
+      >
+        Стриминг
+      </div>
     </div>
     <FAQControl />
   </div>
@@ -104,12 +125,12 @@ async function handlerClickStreaming() {
 }
 
 function handlerMouseoverBtn(name: string) {
-  if(!endAnimate.value) return
+  if (!endAnimate.value) return;
   isHoverName.value = name;
 }
 
 function handlerMouseleaveBtn() {
-  if(!endAnimate.value) return
+  if (!endAnimate.value) return;
   isHoverName.value = "";
 }
 

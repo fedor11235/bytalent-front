@@ -51,12 +51,16 @@ export const useRootStore = defineStore("root", {
     loadPercentage: 0,
     loaderFilePercentage: 0,
 
+    loadApiTest: false,
+    loadBgrTest: false,
+
     // isActiveLoginPopup: true;
     // isActiveSearchPopup: true,
   }),
   getters: {
     isActiveLoginPopup: (state) => state.loginStartHover || state.popuplogin,
     isActiveSearchPopup: (state) => state.searchStartHover || state.popupSearch,
+    isShowLoad: (state) => state.loadApiTest && state.loadBgrTest,
   },
 });
 
@@ -106,4 +110,6 @@ type StreamingStore = {
   projectId: number;
   loadPercentage: number;
   loaderFilePercentage: number;
+  loadApiTest: boolean;
+  loadBgrTest: boolean;
 };

@@ -4,7 +4,12 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useRootStore } from "@/store";
+
+const rootStore = useRootStore();
+rootStore.hiddenHeader = false;
+</script>
 
 <style lang="scss" scoped>
 .mobile-page {

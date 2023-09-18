@@ -1,25 +1,23 @@
 <template>
-  <div v-show="finishLoad && finishLoadBg">
+  <div v-show="rootStore.loadApiTest">
     <ProjectIdComponent
       v-if="check && project"
-      v-show="check && project && finishLoadBg"
+      v-show="check && project && rootStore.loadBgrTest"
       :total="total"
       :project="project"
       :projects="projects"
       :idProject="idProject"
       :indexProject="indexProject + 1"
-      @finishLoad="finishLoadBg = true" 
+      @finishLoad="rootStore.loadBgrTest = true"
     />
     <ErrorComponent v-show="!check && !project" />
   </div>
-  <LoadPage v-if="!finishLoad && !finishLoadBg" />
 </template>
 
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 import type { Ref } from "vue";
 import { ref, watch, toRef } from "vue";
-import LoadPage from "@/pages/LoadPage.vue";
 import ProjectIdComponent from "@/pages/ProjectIdComponent.vue";
 import ErrorComponent from "@/pages/ErrorComponent.vue";
 import authService from "@/services/authService";
@@ -28,7 +26,8 @@ import { useRootStore } from "@/store";
 
 const rootStore = useRootStore();
 
-rootStore.hiddenHeader = false;
+rootStore.loadApiTest = false;
+rootStore.loadBgrTest = false;
 
 const props = defineProps<{
   idProject?: string;
@@ -37,7 +36,6 @@ const props = defineProps<{
 const route = useRoute();
 
 const check = ref(false);
-const finishLoad = ref(false);
 const finishLoadBg = ref(false);
 
 const projects = ref([]);
@@ -48,7 +46,7 @@ const indexProject = ref(0);
 watch(
   () => route.params,
   async () => {
-    finishLoad.value = false;
+    rootStore.loadApiTest = false;
     //TODO Проверки нужно будет вынести в роуты
     check.value = await authService.checkToken();
     if (check.value) {
@@ -64,7 +62,7 @@ watch(
         );
       }
     }
-    finishLoad.value = true;
+    rootStore.loadApiTest = true;
   },
   { immediate: true }
 );
