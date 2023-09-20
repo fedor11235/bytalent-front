@@ -126,13 +126,14 @@ async function handlerLogin() {
   // } else {
   //   await router.push({ name: "login" });
   // }
-  await router.push({ name: "login" });
+  rootStore.popupLogin = true;
+  // await router.push({ name: "login" });
 }
 
 function handlerMouseOverBtn(name: PageName) {
-  // if (!props.noHover && route.name !== "start") {
-  //   rootStore[`${name}Hover`] = true;
-  // }
+  if (!props.noHover && route.name !== "start") {
+    rootStore[`${name}Hover`] = true;
+  }
   // if (route.name === "start") {
   //   rootStore[`${name}StartHover`] = true;
   //   rootStore.isHoverCard = true;
@@ -208,6 +209,7 @@ function btnClass(name: string) {
           route.name === "project-empty") &&
         theme.value === "light" &&
         !rootStore.popupProfile,
+      header__btn_hover: rootStore[`${name}StartHover`],
     };
   } else if (name === "profile") {
     return {
@@ -230,6 +232,7 @@ function btnClass(name: string) {
       route.name === name && theme.value !== "light" && !rootStore.popupProfile,
     "header__btn-light_active":
       route.name === name && theme.value === "light" && !rootStore.popupProfile,
+    header__btn_hover: rootStore[`${name}StartHover`],
   };
 }
 
@@ -349,6 +352,11 @@ function controllClass() {
     border: 1px solid transparent;
     pointer-events: all;
     cursor: pointer;
+    &_hover {
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0px 0px 12px 0px rgba(227, 227, 227, 0.7);
+    }
     &-light {
       padding: 6px 12px;
       border: 1px solid transparent;

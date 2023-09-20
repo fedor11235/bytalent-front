@@ -2,12 +2,18 @@
   <LoadPage v-if="!rootStore.isShowLoad" />
   <MobileWarningPage v-if="isMobile" />
   <div v-else>
+    <Transition name="fade">
+      <LoginPopup v-if="rootStore.popupLogin" />
+    </Transition>
     <Transition name="drop">
       <PopupWarning
         v-if="rootStore.popupWarning"
         :titleWarning="rootStore.titleWarning"
         :textWarning="rootStore.textWarning"
       />
+    </Transition>
+    <Transition name="drop">
+      <DeleteProjectPopup v-if="rootStore.popupDelete" />
     </Transition>
     <Transition name="fade">
       <InfoComponents v-if="rootStore.infoPage" />
@@ -77,15 +83,6 @@
       <PopupFAQ v-if="rootStore.FAQPopup" @close="rootStore.FAQPopup = false" />
     </Transition>
 
-    <!-- <Transition name="kek">
-    <div v-if="rootStore.popuplogin" class="test"></div>
-    </Transition> -->
-
-    <!-- <LoaderFileComponent
-      :loadPercentage="rootStore.loadPercentage"
-      class="loader-file"
-    /> -->
-
     <LoaderFileComponent
       v-show="rootStore.loaderMain"
       :loadPercentage="rootStore.loadPercentage"
@@ -104,11 +101,14 @@ import LoadPage from "@/pages/LoadPage.vue";
 // import ProfileHover from "@/components/popup/ProfileHover.vue";
 // import SearchHover from "@/components/popup/SearchHover.vue";
 
+import LoginPopup from "@/components/popup/LoginPopup.vue";
+
 import AddFileBgr from "@/components/newLavel/AddFileBgr.vue";
 import AddFileProject from "@/components/newLavel/AddFileProject.vue";
 
 import InfoComponents from "@/components/common/InfoComponents.vue";
 import PopupWarning from "@/components/common/PopupWarning.vue";
+import DeleteProjectPopup from "@/components/popup/DeleteProjectPopup.vue";
 import PopupOrder from "@/components/common/PopupOrder.vue";
 import PopupLavel from "@/components/newLavel/PopupLavel.vue";
 

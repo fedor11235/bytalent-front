@@ -10,7 +10,7 @@ import AppView from "@/views/AppView.vue";
 import StreamingView from "@/views/StreamingView.vue";
 import SearchView from "@/views/SearchView.vue";
 // import ProfileView from "@/views/ProfileView.vue";
-import LoginView from "@/views/LoginView.vue";
+// import LoginView from "@/views/LoginView.vue";
 import AdminHomeView from "@/views/AdminHomeView.vue";
 import AdminLoginView from "@/views/AdminLoginView.vue";
 import ProjectEmptyView from "@/views/ProjectEmptyView.vue";
@@ -72,23 +72,23 @@ const routes: Array<RouteRecordRaw> = [
     name: "search",
     component: SearchView,
   },
-  {
-    path: "/login",
-    name: "login",
-    component: LoginView,
-    meta: {
-      login: true,
-    },
-  },
-  {
-    path: "/login/:nextPage",
-    name: "login-redirect",
-    component: LoginView,
-    props: true,
-    meta: {
-      login: true,
-    },
-  },
+  // {
+  //   path: "/login",
+  //   name: "login",
+  //   component: LoginView,
+  //   meta: {
+  //     login: true,
+  //   },
+  // },
+  // {
+  //   path: "/login/:nextPage",
+  //   name: "login-redirect",
+  //   component: LoginView,
+  //   props: true,
+  //   meta: {
+  //     login: true,
+  //   },
+  // },
   {
     path: "/admin",
     redirect: { name: "admin-home" },

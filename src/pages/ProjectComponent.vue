@@ -1,6 +1,6 @@
 <template>
   <WelcomeLayout
-    bg="projects.jpg"
+    bg="projects-start.jpg"
     title="Разместите свой проект"
     bgrDropColor="rgba(0, 0, 0, 0.50)"
     bgrDropBlur="blur(7.5px)"
@@ -49,8 +49,8 @@ function HandkerClickUpload() {
 <style lang="scss" scoped>
 .requirements {
   border-radius: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  // border-top: 1px solid rgba(255, 255, 255, 0.25);
+  // border-bottom: 1px solid rgba(255, 255, 255, 0.25);
   background-color: rgba(0, 0, 0, 0.55);
   height: 100%;
   width: 60%;

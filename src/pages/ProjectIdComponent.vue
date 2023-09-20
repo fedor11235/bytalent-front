@@ -60,7 +60,7 @@ const router = useRouter();
 const isPopupAdd = ref(false);
 
 const bgr = computed(() => {
-  if (props.project) return;
+  if (!props.project) return false;
   if (props.project.background) {
     const background = props.project.background;
     return {

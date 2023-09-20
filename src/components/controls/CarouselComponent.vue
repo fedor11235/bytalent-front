@@ -6,38 +6,48 @@
     ref="fileInputBgr"
     accept="image/*,video/*"
   />
-  <div class="carousel">
-    <div class="sliders" ref="sliders">
-      <div
-        v-for="(background, index) in projectStore.backgrounds"
-        :key="background.id"
-        :class="[
-          'sliders__bacdrop',
-          {
-            index: index,
-            sliders__bacdrop_last: background.plus,
-          },
-        ]"
-        @click="handlerUploadBgr(background.plus)"
-      >
-        <!-- v-if="!background.load && background.type !== 'empty'" -->
-        <BgrComponent
-          :type="background.type"
-          :content="background.content"
-          :poster="background.poster"
-          @click.prevent="handlerShowPopup($event, index, background.type)"
-          class="carousel__img"
-        />
+  <div class="test">
+    <div class="carousel">
+      <div class="sliders">
+        <div class="sliders__bacdrop sliders__bacdrop_bgr"></div>
+        <div class="sliders__bacdrop sliders__bacdrop_bgr"></div>
+        <div class="sliders__bacdrop sliders__bacdrop_bgr"></div>
       </div>
     </div>
-    <div
-      @click="handlerLeftMove"
-      class="carousel__arrow carousel__arrow-left"
-    ></div>
-    <div
-      @click="handlerRightMove"
-      class="carousel__arrow carousel__arrow-right"
-    ></div>
+    <div class="carousel">
+      <div class="sliders" ref="sliders">
+        <div
+          v-for="(background, index) in projectStore.backgrounds"
+          :key="background.id"
+          :class="[
+            'sliders__bacdrop',
+            {
+              index: index,
+              sliders__bacdrop_last: background.plus,
+            },
+          ]"
+          @click="handlerUploadBgr(background.plus)"
+        >
+          <!-- v-if="!background.load && background.type !== 'empty'" -->
+          <BgrComponent
+            :type="background.type"
+            :content="background.content"
+            :poster="background.poster"
+            borderRadius="10px"
+            @click.prevent="handlerShowPopup($event, index, background.type)"
+            class="carousel__img"
+          />
+        </div>
+      </div>
+      <div
+        @click="handlerLeftMove"
+        class="carousel__arrow carousel__arrow-left"
+      ></div>
+      <div
+        @click="handlerRightMove"
+        class="carousel__arrow carousel__arrow-right"
+      ></div>
+    </div>
   </div>
 </template>
 
@@ -137,8 +147,12 @@ function handlerRightMove() {
 </script>
 
 <style lang="scss" scoped>
+.test {
+  width: 66%;
+  height: 21vh;
+}
 .carousel {
-  position: relative;
+  position: absolute;
   box-sizing: border-box;
   width: 66%;
   height: 21vh;
@@ -147,7 +161,28 @@ function handlerRightMove() {
   border-radius: 24px;
   background-color: rgba(0, 0, 0, 0.15);
   padding: 8px;
+  &_cntner {
+    position: absolute;
+    box-sizing: border-box;
+    width: 66%;
+    height: 21vh;
+    max-height: 241px;
+    overflow: hidden;
+    border-radius: 24px;
+    background-color: rgba(0, 0, 0, 0.15);
+    padding: 8px;
+  }
+  &__backdrop {
+    // position: absolute;
+    height: 100%;
+    width: 100%;
+    background-image: url(@/assets/test.svg);
+    background-size: 33%;
+    background-repeat: space;
+    background-position: center;
+  }
   .sliders {
+    width: 100%;
     display: flex;
     column-gap: 1.25%;
     transition: transform 0.3s;
@@ -156,11 +191,13 @@ function handlerRightMove() {
       height: 100%;
       width: 32.5%;
       border-radius: 20px;
-      background-color: rgba(0, 0, 0, 0.25);
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
+      &_bgr {
+        background-color: rgba(0, 0, 0, 0.25);
+      }
       &_last {
         background-image: url(@/assets/icons/plus.svg);
         background-repeat: no-repeat;

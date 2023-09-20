@@ -18,15 +18,15 @@
           {{ name }}
         </div>
         <div class="media">
-          <div class="new-level__content__control">
-            <div @click="handlerOpenBgrPopup" class="media__btn"></div>
+          <div @click="handlerOpenBgrPopup" class="new-level__content__control">
+            <div class="media__btn"></div>
           </div>
           <CarouselComponent :projectId="Number(idProject)" />
         </div>
         <div class="new-level__info">
-          <div class="new-level__header">
-            <div class="new-level__content__control">
-              <div class="new-level__header__btn" @click="handlerEdit"></div>
+          <div class="edit">
+            <div @click="handlerEdit" class="new-level__content__control">
+              <div class="edit__btn"></div>
             </div>
             <div class="new-level__text_wrap">
               <div
@@ -74,8 +74,11 @@
           </div>
         </div>
         <div class="assistant">
-          <div class="new-level__content__control">
-            <div @click="handlerOpenProjectPopup" class="assistant__btn"></div>
+          <div
+            @click="handlerOpenProjectPopup"
+            class="new-level__content__control"
+          >
+            <div class="assistant__btn"></div>
           </div>
           <div class="new-level__assistant">
             <div class="new-level__assistant_menu">
@@ -174,7 +177,7 @@
 </template>
 
 <script setup lang="ts">
-import { provide, ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useProjectStore } from "@/store";
 import { useRouter } from "vue-router";
 import projectService from "@/services/projectService";
@@ -262,8 +265,10 @@ function handlerSendCahnge() {
 }
 
 async function handlerDeleteProject() {
-  await projectService.deleteProject(Number(props.idProject));
-  await router.push({ name: "project-main" });
+  rootStore.idActiveProject = Number(props.idProject);
+  rootStore.popupDelete = true;
+  // await projectService.deleteProject(Number(props.idProject));
+  // await router.push({ name: "project-main" });
 }
 
 function handlerOpenBgrPopup() {
@@ -276,12 +281,7 @@ function handlerOpenProjectPopup() {
   if (finishLoad.value) {
     rootStore.popupAddProject = true;
     rootStore.idActiveProject = Number(props.idProject);
-    console.log("idActiveProject: ", rootStore.idActiveProject);
   }
-}
-
-function returnHome() {
-  router.push({ name: "project-main" });
 }
 
 function setIconMenu(name: string) {
@@ -290,8 +290,6 @@ function setIconMenu(name: string) {
   if (name === "Правли размещения") return "scales";
   if (name === "Интеграция") return "integration";
 }
-
-provide("handlerBtnHeaderClick", returnHome);
 
 onMounted(async () => {
   const projects = await projectService.getAllNumberProjects();
@@ -371,6 +369,27 @@ onMounted(async () => {
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
+      &:hover {
+        .media__btn {
+          background-image: url(@/assets/icons/image-hover.svg);
+          &::before {
+            opacity: 1;
+          }
+        }
+        .edit__btn {
+          background-image: url(@/assets/icons/pen-hover.svg);
+          &::before {
+            opacity: 1;
+          }
+        }
+        .assistant__btn {
+          background-image: url(@/assets/icons/upload-hover.svg);
+          &::before {
+            opacity: 1;
+          }
+        }
+      }
     }
     .media {
       display: flex;
@@ -405,7 +424,7 @@ onMounted(async () => {
       }
     }
   }
-  &__header {
+  .edit {
     display: flex;
     &__btn {
       width: 32px;
@@ -584,6 +603,7 @@ onMounted(async () => {
       align-items: center;
       justify-content: flex-end;
       row-gap: 2.2vh;
+      padding-bottom: 0.74vh;
       &_btn {
         width: 70%;
         height: 4.44vh;

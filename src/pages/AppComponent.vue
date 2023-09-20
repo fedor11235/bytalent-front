@@ -1,6 +1,6 @@
 <template>
   <WelcomeLayout
-    bg="app-noauth.jpg"
+    bg="app-start.jpg"
     title="Приложение «by Talent»"
     bgrDropColor="rgba(0, 0, 0, 0.75)"
     description="Персональное приложение для доступа в проекты Unreal Engine 5"
@@ -65,17 +65,17 @@ function HandkerClickDomnload() {
   &__slider {
     width: 32.5%;
     height: 100%;
-    border-radius: 22.438px;
+    // border-radius: 22.438px;
     background-position: bottom;
-    background-size: cover;
+    background-size: 110%;
     background-repeat: no-repeat;
     cursor: pointer;
   }
 }
 .requirements {
   border-radius: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  // border-top: 1px solid rgba(255, 255, 255, 0.25);
+  // border-bottom: 1px solid rgba(255, 255, 255, 0.25);
   background-color: rgba(0, 0, 0, 0.55);
   height: 100%;
   width: 100%;

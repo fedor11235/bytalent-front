@@ -30,7 +30,9 @@
           <div
             @click="btnClick"
             class="layout-welcome__btn"
-            :style="{backgroundImage: `url(${require(`@/assets/components/${imgBtn}.svg`)})`}"
+            :style="{
+              backgroundImage: `url(${require(`@/assets/components/${imgBtn}.svg`)})`,
+            }"
             alt="download"
           ></div>
         </div>
@@ -66,8 +68,12 @@ const props = defineProps<{
 
 const bgr = ref();
 
+console.log(props.bgBase)
 onMounted(() => {
-  if (props.bgBase) return;
+  if (props.bgBase) {
+    emit("finish-load");
+    return;
+  }
   const bgrImage = new Image();
 
   bgrImage.onload = function () {
@@ -123,7 +129,7 @@ onMounted(() => {
   }
   &__title {
     color: #f9f9f9;
-    font-family: JuraSemiBold;
+    font-family: JuraRegular;
     font-size: 6.1vh;
     line-height: 125%;
     letter-spacing: -1.32px;

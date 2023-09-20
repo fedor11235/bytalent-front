@@ -93,9 +93,9 @@ function chooseIconMenu(item: string) {
   backdrop-filter: blur(7.5px);
   &__card {
     height: 100%;
-    border-radius: 24px;
-    border-top: 2px solid rgba(255, 255, 255, 0.25);
-    border-bottom: 2px solid rgba(255, 255, 255, 0.25);
+    // border-radius: 24px;
+    // border-top: 2px solid rgba(255, 255, 255, 0.25);
+    // border-bottom: 2px solid rgba(255, 255, 255, 0.25);
     background-color: rgba(255, 255, 255, 0.1);
     padding: 4.44vh 1.6vw;
     box-sizing: border-box;

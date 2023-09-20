@@ -94,8 +94,13 @@ const menuLocate = [
 ];
 
 async function handlerCreate() {
+  if (name.value.length < 8) {
+    alert("В названии проекта должно быть минимум 8 символов");
+    return;
+  }
+  const nameUpperWord = name.value[0].toUpperCase() + name.value.slice(1);
   const project = await projectService.createProject({
-    name: name.value,
+    name: nameUpperWord,
     address: address.value,
     type: projectType.value,
   });
@@ -104,7 +109,6 @@ async function handlerCreate() {
 }
 
 async function selectAdress(value: string) {
-  console.log("value: ", value);
   address.value = value;
 }
 </script>

@@ -10,6 +10,7 @@
       @load="bgrLoadLocal"
       :src="content"
       class="bgr__content"
+      :style="{borderRadius: borderRadius}"
       alt="img"
     />
     <img
@@ -17,6 +18,7 @@
       @load="bgrLoadLocal"
       :src="poster"
       class="bgr__content bgr__poster"
+      :style="{borderRadius: borderRadius}"
       alt="poster"
     />
     <video
@@ -29,6 +31,7 @@
       @mouseenter="handlerVideoMouseenter"
       @mouseleave="handlerVideoMouseleave"
       class="bgr__content"
+      :style="{borderRadius: borderRadius}"
     >
       <source :src="content" />
     </video>
@@ -44,6 +47,7 @@ const props = defineProps<{
   content: string;
   autoPlay?: boolean;
   poster?: string;
+  borderRadius?: string;
   // bgrLoad?: () => void
 }>();
 
@@ -91,7 +95,7 @@ function handlerVideoMouseleave() {
     width: 100%;
     object-fit: cover;
     max-width: none;
-    border-radius: 10px;
+    // border-radius: 10px;
     box-shadow: 0 7px 8px -5px #000;
   }
 }

@@ -32,6 +32,7 @@
               :type="bgr.type"
               :content="bgr.content"
               :poster="bgr.poster"
+              borderRadius="10px"
             />
           </div>
         </div>

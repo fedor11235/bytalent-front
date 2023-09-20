@@ -28,6 +28,6 @@ const rootStore = useRootStore();
   align-items: center;
   justify-content: center;
   background-color: #191919;
-  z-index: 4;
+  z-index: 10;
 }
 </style>

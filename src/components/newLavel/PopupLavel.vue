@@ -25,22 +25,9 @@
               :content="background.content"
               :poster="background.poster"
               class="layout-welcome__img"
+              borderRadius="10px"
             />
           </div>
-          <!-- <img
-            v-if="background.type === 'img'"
-            :src="background.content"
-            alt="img"
-          />
-          <video
-            v-else-if="background.type == 'video'"
-            volume="0.0"
-            :poster="background.poster"
-            @mouseenter="handlerVideoMouseenter"
-            @mouseleave="handlerVideoMouseleave"
-          >
-            <source :src="background.content" />
-          </video> -->
         </div>
       </div>
       <div class="popup-level__sliders"></div>
@@ -85,14 +72,6 @@ let move = indexBackgrounds.value * -widthSlid;
 
 const sliders: Ref<HTMLDivElement | null> = ref(null);
 
-function handlerVideoMouseenter(event: any) {
-  event.target.play();
-}
-
-function handlerVideoMouseleave(event: any) {
-  event.target.pause();
-}
-
 function handlerAddBackground() {
   const background = projectStore.backgroundsFill[indexBackgrounds.value];
   projectStore.background = {
@@ -105,10 +84,16 @@ function handlerAddBackground() {
 }
 
 function handlerDeleteBackground() {
+  if(indexBackgrounds.value !== 0) {
+    handlerLeftMove()
+  }
   projectService.deleteBackgrounds(
     projectStore.backgroundsFill[indexBackgrounds.value].id
   );
   projectStore.backgroundsFill.splice(indexBackgrounds.value, 1);
+  if(projectStore.backgroundsFill.length === 0) {
+    rootStore.showPopupBgr = false
+  }
 }
 
 function handlerLeftMove() {

@@ -24,7 +24,6 @@ export const useRootStore = defineStore("root", {
     textWarning: "",
     titleWarning: "",
 
-    popuplogin: false,
     popupSearch: false,
 
     popupAddBgr: false,
@@ -33,6 +32,7 @@ export const useRootStore = defineStore("root", {
 
     popupPersonalData: false,
     popupTermsUser: false,
+    popupDelete: false,
 
     popupProfile: false,
     loaderFile: false,
@@ -54,12 +54,14 @@ export const useRootStore = defineStore("root", {
     loadApiTest: false,
     loadBgrTest: false,
 
+    popupLogin: false,
+
     // isActiveLoginPopup: true;
     // isActiveSearchPopup: true,
   }),
   getters: {
-    isActiveLoginPopup: (state) => state.loginStartHover || state.popuplogin,
-    isActiveSearchPopup: (state) => state.searchStartHover || state.popupSearch,
+    // isActiveLoginPopup: (state) => state.loginStartHover || state.popuplogin,
+    // isActiveSearchPopup: (state) => state.searchStartHover || state.popupSearch,
     isShowLoad: (state) => state.loadApiTest && state.loadBgrTest,
   },
 });
@@ -77,7 +79,7 @@ type StreamingStore = {
   loginStartHover: boolean;
   searchStartHover: boolean;
 
-  popuplogin: boolean;
+  popupLogin: boolean;
   FAQPopup: boolean;
   popupUpload: boolean;
   uploadProject: boolean;
@@ -93,6 +95,7 @@ type StreamingStore = {
   loaderMain: boolean;
   showPopupBgr: boolean;
   popupSearch: boolean;
+  popupDelete: boolean;
 
   popupPersonalData: boolean;
   popupTermsUser: boolean;

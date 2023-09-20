@@ -213,9 +213,9 @@ onMounted(async () => {
   width: 100%;
   height: 28.5vh;
   box-sizing: border-box;
-  border-radius: 24px;
-  border-top: 2px solid rgba(255, 255, 255, 0.25);
-  border-bottom: 2px solid rgba(255, 255, 255, 0.25);
+  // border-radius: 24px;
+  // border-top: 2px solid rgba(255, 255, 255, 0.25);
+  // border-bottom: 2px solid rgba(255, 255, 255, 0.25);
   background-color: rgba(255, 255, 255, 0.1);
 
   display: flex;
@@ -282,9 +282,9 @@ onMounted(async () => {
   width: 100%;
   height: 28.5vh;
   box-sizing: border-box;
-  border-radius: 24px;
-  border-top: 2px solid rgba(255, 255, 255, 0.25);
-  border-bottom: 2px solid rgba(255, 255, 255, 0.25);
+  // border-radius: 24px;
+  // border-top: 2px solid rgba(255, 255, 255, 0.25);
+  // border-bottom: 2px solid rgba(255, 255, 255, 0.25);
   background-color: rgba(255, 255, 255, 0.1);
   padding: 1.48vh 1.66vw;
   margin-bottom: 3.3vh;
@@ -295,10 +295,11 @@ onMounted(async () => {
   }
   &_tab {
     width: 100%;
-    border-radius: 12px;
-    border-top: 1px solid rgba(255, 255, 255, 0.65);
-    background-color: rgba(0, 0, 0, 0.1);
-    padding: 0.784vh 0.833vw;
+    // border-radius: 12px;
+    // border-top: 1px solid rgba(255, 255, 255, 0.65);
+    // background-color: rgba(0, 0, 0, 0.1);
+    margin: 0.784vh 0.833vw;
+    padding-bottom: 0.784vh;
     text-align: center;
 
     color: #f9f9f9;
@@ -312,10 +313,11 @@ onMounted(async () => {
     overflow: hidden;
     cursor: pointer;
     &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+      // background-color: rgba(255, 255, 255, 0.1);
     }
     &-active {
-      background-color: rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid #f9f9f9;
+      // background-color: rgba(255, 255, 255, 0.1);
     }
   }
   &_item {

@@ -18,8 +18,8 @@ defineProps<{
   margin-right: 0.625vw;
   &_left {
     width: 3.125vw;
-    height: 4px;
-    border-radius: 4px;
+    height: 2px;
+    // border-radius: 4px;
     background-color: rgba(255, 255, 255, 0.25);
     &-wrt {
       background-color: rgba(0, 0, 0, 0.25);
@@ -27,8 +27,8 @@ defineProps<{
   }
   &_right {
     width: 1.04vw;
-    height: 4px;
-    border-radius: 4px;
+    height: 2px;
+    // border-radius: 4px;
     background-color: rgba(255, 255, 255, 0.85);
     &-wrt {
       background-color: rgba(0, 0, 0, 0.85);

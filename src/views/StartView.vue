@@ -9,35 +9,35 @@
       :class="[
         'test__clipping',
         'test__clipping_app',
-        { test__clipping_hover: isHoverName === 'app' },
+        { test__clipping_hover: rootStore.appStartHover },
       ]"
     >
       <div class="test test__app">
         <div
           :class="[
             'test__backdrop',
-            { test__backdrop_hover: isHoverName === 'app' },
+            { test__backdrop_hover: rootStore.appStartHover },
           ]"
         ></div>
       </div>
     </div>
 
     <div
-      @mouseover="handlerMouseoverBtn('projects')"
+      @mouseover="handlerMouseoverBtn('project')"
       @mouseleave="handlerMouseleaveBtn"
       @click="handlerClickProject"
       ref="projects"
       :class="[
         'test__clipping',
         'test__clipping_projects',
-        { test__clipping_hover: isHoverName === 'projects' },
+        { test__clipping_hover: rootStore.projectStartHover },
       ]"
     >
       <div class="test test__projects">
         <div
           :class="[
             'test__backdrop',
-            { test__backdrop_hover: isHoverName === 'projects' },
+            { test__backdrop_hover: rootStore.projectStartHover },
           ]"
         ></div>
       </div>
@@ -51,14 +51,14 @@
       :class="[
         'test__clipping',
         'test__clipping_streaming',
-        { test__clipping_hover: isHoverName === 'streaming' },
+        { test__clipping_hover: rootStore.streamingStartHover },
       ]"
     >
       <div class="test test__streaming">
         <div
           :class="[
             'test__backdrop',
-            { test__backdrop_hover: isHoverName === 'streaming' },
+            { test__backdrop_hover: rootStore.streamingStartHover },
           ]"
         ></div>
       </div>
@@ -66,7 +66,7 @@
     <div ref="btns" class="test__btns">
       <div
         ref="btnApp"
-        :class="['test__title', { test__title_hover: isHoverName === 'app' }]"
+        :class="['test__title', { test__title_hover: rootStore.appStartHover }]"
       >
         Приложение
       </div>
@@ -74,7 +74,7 @@
         ref="btnProjects"
         :class="[
           'test__title',
-          { test__title_hover: isHoverName === 'projects' },
+          { test__title_hover: rootStore.projectStartHover },
         ]"
       >
         Проекты
@@ -83,7 +83,7 @@
         ref="btnStreaming"
         :class="[
           'test__title',
-          { test__title_hover: isHoverName === 'streaming' },
+          { test__title_hover: rootStore.streamingStartHover },
         ]"
       >
         Стриминг
@@ -100,24 +100,25 @@ import LoadStartPage from "@/pages/LoadStartPage.vue";
 import FAQControl from "@/components/controls/FAQControl.vue";
 import { useRootStore } from "@/store";
 
+const pages = ["app", "project", "streaming"];
+
 const rootStore = useRootStore();
 const router = useRouter();
 
 rootStore.loadApiTest = true;
 rootStore.loadBgrTest = true;
 
-const isHoverName = ref("");
 const endAnimate = ref(false);
 const loader = ref(true);
 
-const app = ref("");
-const projects = ref("");
-const streaming = ref("");
-const btns = ref("");
+const app = ref();
+const projects = ref();
+const streaming = ref();
+const btns = ref();
 
-const btnApp = ref("");
-const btnProjects = ref("");
-const btnStreaming = ref("");
+const btnApp = ref();
+const btnProjects = ref();
+const btnStreaming = ref();
 
 async function handlerClickApp() {
   await router.push({ name: "app" });
@@ -131,23 +132,27 @@ async function handlerClickStreaming() {
 
 function handlerMouseoverBtn(name: string) {
   if (!endAnimate.value) return;
-  isHoverName.value = name;
+  // isHoverName.value = name;
+  rootStore[`${name}StartHover`] = true;
 }
 
 function handlerMouseleaveBtn() {
   if (!endAnimate.value) return;
-  isHoverName.value = "";
+  // isHoverName.value = "";
+  for (const name of pages) {
+    rootStore[`${name}StartHover`] = false;
+  }
 }
 
 onMounted(async () => {
   setTimeout(() => {
     loader.value = false;
     setTimeout(() => {
-      app.value.style.translate = "0";
+      app.value.style.opacity = "1";
       setTimeout(() => {
-        projects.value.style.translate = "0";
+        projects.value.style.opacity = "1";
         setTimeout(() => {
-          streaming.value.style.translate = "0";
+          streaming.value.style.opacity = "1";
           setTimeout(() => {
             btns.value.style.display = "flex";
             setTimeout(() => {
@@ -247,7 +252,7 @@ onMounted(async () => {
       overflow: hidden;
       z-index: 1;
       transition: all 0.6s;
-      translate: 0 -100%;
+      opacity: 0;
       cursor: pointer;
       &_hover {
         scale: 1.1;
