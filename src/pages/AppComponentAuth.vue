@@ -1,7 +1,7 @@
 <template>
   <WelcomeLayout
     bg="app.jpg"
-    imgBtn="download"
+    imgBtn="app"
     title="Приложение просмотра интерьеров"
     description="Персональное приложение для доступа в проекты Unreal Engine 5"
     noHover

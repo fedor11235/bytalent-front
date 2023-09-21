@@ -35,24 +35,20 @@
         />
       </div>
       <img
-        v-if="isBtnActive"
         @click="handlerCreate"
         class="add__visualization__btn"
-        src="@/assets/components/create-new-active.svg"
-        alt="create"
-      />
-      <img
-        v-else
-        class="add__visualization__btn"
-        src="@/assets/components/create-new.svg"
-        alt="create"
+        @mouseover="handlerOverBtn"
+        @mouseleave="handlerLeaveOverBtn"
+        @mousedown="handlerMousedown"
+        :src="require(`@/assets/btns/${choiceBtn('create')}`)"
+        alt="serach"
       />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import { useRouter } from "vue-router";
 import projectService from "@/services/projectService";
 import InputComponent from "@/components/controls/InputComponent.vue";
@@ -66,6 +62,42 @@ const router = useRouter();
 const name = ref("");
 const address = ref("");
 const projectType = ref("");
+
+const btnState = ref("disabled");
+
+function choiceBtn(name: string) {
+  if(btnState.value === "default") {
+    return `${name}.svg`
+  }
+  if(btnState.value === "disabled") {
+    return `${name}-disabled.svg`
+  }
+  if(btnState.value === "hover") {
+    return `${name}-hover.svg`
+  }
+  if(btnState.value === "pressed") {
+    return `${name}-pressed.svg`
+  }
+}
+
+
+function handlerOverBtn() {
+  if(isBtnActive.value) {
+    btnState.value = "hover"
+  }
+}
+
+function handlerMousedown() {
+  if(isBtnActive.value) {
+    btnState.value = "pressed"
+  }
+}
+
+function handlerLeaveOverBtn() {
+  if(isBtnActive.value) {
+    btnState.value = "default"
+  }
+}
 
 const isBtnActive = computed(
   () => name.value && address.value && projectType.value
@@ -111,6 +143,17 @@ async function handlerCreate() {
 async function selectAdress(value: string) {
   address.value = value;
 }
+
+watch(
+  () => isBtnActive.value,
+  (newVal) => {
+    if(newVal) {
+      btnState.value = "default"
+    } else {
+      btnState.value = "disabled"
+    }
+  },
+);
 </script>
 
 <style lang="scss" scoped>

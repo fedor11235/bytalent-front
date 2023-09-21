@@ -5,7 +5,7 @@
     bgrDropColor="rgba(0, 0, 0, 0.75)"
     description="Персональное приложение для доступа в проекты Unreal Engine 5"
     isLine
-    imgBtn="download"
+    imgBtn="app"
     :btnClick="HandkerClickDomnload"
     @finishLoad="emit('finish-load')"
   >

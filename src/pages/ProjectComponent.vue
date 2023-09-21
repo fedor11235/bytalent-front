@@ -6,7 +6,7 @@
     bgrDropBlur="blur(7.5px)"
     description="Откройте свои проекты UE5 для клиентов со всего мира"
     isLine
-    imgBtn="upload-w"
+    imgBtn="download"
     :btnClick="HandkerClickUpload"
     @finishLoad="emit('finish-load')"
   >
@@ -39,10 +39,11 @@ rootStore.hiddenHeader = false;
 const router = useRouter();
 
 function HandkerClickUpload() {
-  router.push({
-    name: "login-redirect",
-    params: { nextPage: "/project" },
-  });
+  rootStore.popupLogin = true;
+//   router.push({
+//     name: "login-redirect",
+//     params: { nextPage: "/project" },
+//   });
 }
 </script>
 

@@ -1,51 +1,56 @@
 <template>
-  <div v-if="notes" class="notes">
-    <div class="notes__backdrop">
-      <EmptyComponent />
-      <div class="notes__contents">
-        <div class="notes__info">
-          <div class="notes__info_elem">
-            Для качественного подключения вам необходимо стабильное интернет
-            соединение
+  <div>
+    <div v-if="notes" class="notes">
+      <div class="notes__backdrop">
+        <EmptyComponent />
+        <div class="notes__contents">
+          <div class="notes__info">
+            <div class="notes__info_elem">
+              Для качественного подключения вам необходимо стабильное интернет
+              соединение
+            </div>
+            <div class="notes__info_elem">
+              В правом углу вы можете выбрать переключение на мобильную версию
+            </div>
+            <div class="notes__info_elem">
+              Для управления на телефоне используйте джойстики (левый -
+              передвижение / правый - обзор)
+            </div>
           </div>
-          <div class="notes__info_elem">
-            В правом углу вы можете выбрать переключение на мобильную версию
-          </div>
-          <div class="notes__info_elem">
-            Для управления на телефоне используйте джойстики (левый -
-            передвижение / правый - обзор)
-          </div>
+          <img
+            @click="HandkerClickConfirmLaunch"
+            class="notes__btn"
+            @mouseover="handlerOverBtn"
+            @mouseleave="handlerLeaveOverBtn"
+            :src="require(`@/assets/btns/${choiceBtn('start')}`)"
+            alt="serach"
+          />
         </div>
-        <img
-          @click="HandkerClickConfirmLaunch"
-          class="notes__btn"
-          src="@/assets/components/launch-w.svg"
-        />
       </div>
     </div>
+    <WelcomeLayout
+      v-else
+      bg="streaming-start.jpg"
+      title="Подключите онлайн доступ к проекту"
+      bgrDropColor="rgba(0, 0, 0, 0.55)"
+      description="Доступ через бразуер к любому проекту"
+      imgBtn="start"
+      :btnClick="HandkerClickLaunch"
+      isLine
+      @finishLoad="emit('finish-load')"
+    >
+      <template v-slot:content-bottom>
+        <FooterComponent
+          :handlerBtnFooterClick="handlerBtnFooterClick"
+          :curentPages="0"
+          :numberPages="0"
+          textButton="+ Подключить стриминг"
+          colorTwoPages="#c7c7c7"
+        />
+      </template>
+    </WelcomeLayout>
+    <FAQControl />
   </div>
-  <WelcomeLayout
-    v-else
-    bg="streaming-start.jpg"
-    title="Подключите онлайн доступ к проекту"
-    bgrDropColor="rgba(0, 0, 0, 0.55)"
-    description="Доступ через бразуер к любому проекту"
-    imgBtn="launch-w3"
-    :btnClick="HandkerClickLaunch"
-    isLine
-    @finishLoad="emit('finish-load')"
-  >
-    <template v-slot:content-bottom>
-      <FooterComponent
-        :handlerBtnFooterClick="handlerBtnFooterClick"
-        :curentPages="0"
-        :numberPages="0"
-        textButton="+ Подключить стриминг"
-        colorTwoPages="#c7c7c7"
-      />
-    </template>
-  </WelcomeLayout>
-  <FAQControl />
 </template>
 
 <script setup lang="ts">
@@ -66,6 +71,26 @@ rootStore.hiddenHeader = false;
 const router = useRouter();
 const notes = ref(false);
 
+const btnState = ref("default");
+
+function choiceBtn(name: string) {
+  if(btnState.value === "default") {
+    return `${name}.svg`
+  }
+  if(btnState.value === "hover") {
+    return `${name}-hover.svg`
+  }
+}
+
+
+function handlerOverBtn() {
+  btnState.value = "hover"
+}
+
+function handlerLeaveOverBtn() {
+  btnState.value = "default"
+}
+
 function HandkerClickLaunch() {
   notes.value = true;
 }
@@ -76,7 +101,7 @@ function HandkerClickConfirmLaunch() {
 }
 
 function handlerBtnFooterClick() {
-  router.push({ name: "login-redirect", params: { nextPage: "/streaming" } });
+  rootStore.popupLogin = true;
 }
 </script>
 
@@ -89,6 +114,7 @@ function handlerBtnFooterClick() {
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
+  background-image: url('@/assets/backgrounds/streaming-start.jpg');
   &__backdrop {
     height: 100vh;
     width: 100vw;

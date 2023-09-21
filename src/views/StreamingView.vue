@@ -34,6 +34,8 @@ watch(
     check.value = await authService.checkToken();
     rootStore.loadApiTest = true;
     rootStore.noHover = check.value;
+
+    rootStore.loadBgrTest = true
   },
   { immediate: true }
 );

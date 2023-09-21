@@ -13,8 +13,7 @@
 import { ref } from "vue";
 
 defineProps<{
-  url: string;
-  urlHover: string;
+  nameBtn: string;
 }>();
 
 const hover = ref(false);

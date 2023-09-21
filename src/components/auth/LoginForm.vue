@@ -28,6 +28,7 @@ import { useRouter } from "vue-router";
 import authService from "@/services/authService";
 import ApleAuth from "@/components/auth/ApleAuth.vue";
 import TelegramAuth from "@/components/auth/TelegramAuthTest.vue";
+import { useRootStore } from "@/store";
 
 import { telegramLoginTemp } from "vue3-telegram-login";
 
@@ -36,6 +37,7 @@ const props = defineProps<{
   absolutePos?: boolean;
 }>();
 
+const rootStore = useRootStore();
 const router = useRouter();
 
 const appleIdBtn = ref();
@@ -53,11 +55,12 @@ async function onTelegramAuth(user: any) {
   );
 }
 
-function callBackRedirect() {
+async function callBackRedirect() {
   if (props.nextPage) {
     window.location.href = props.nextPage;
   } else {
-    router.push({ name: "project-main" });
+    rootStore.popupLogin = false;
+    await router.push({ name: "project-main" });
   }
 }
 

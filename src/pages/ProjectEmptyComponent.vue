@@ -5,7 +5,7 @@
     title="Нет активных проектов"
     bgrDropColor="rgba(0, 0, 0, 0.50)"
     description="Вы можете заказть новый проет либо загрузить свой"
-    imgBtn="create-light"
+    imgBtn="create"
     :btnClick="handlerBtnFooterClick"
     @finishLoad="emit('finish-load')"
   >
