@@ -18,14 +18,15 @@
     >
       {{ activElem ? activElem : placeholder }}
     </div>
-    <div v-if="isOpen" class="locate-cmpt__items">
-      <div class="locate-cmpt__scroll">
+    <div v-show="isOpen" class="locate-cmpt__items">
+      <!-- <div class="locate-cmpt__scroll"> -->
         <input
+          id="suggest"
           class="locate-cmpt__input"
           :style="styleItem"
           v-model="searchLocate"
         />
-        <div
+        <!-- <div
           v-for="item in listItemSearch"
           :key="item"
           @click="handlerChooseItem(item)"
@@ -33,19 +34,21 @@
           class="locate-cmpt__item"
         >
           {{ item }}
-        </div>
-      </div>
+        </div> -->
+      <!-- </div> -->
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+/* eslint-disable */
 import type { Ref } from "vue";
 import { ref, computed, onMounted } from "vue";
 // import projectService from "@/services/projectService";
 
 // const tokenMap = "ca82b9d6-11a7-4156-bb2e-179a6ab45654";
 // const tokenMap = "4be55f9e-9e12-4365-8e03-f54341d1713b";
+const tokenGeo = "fe9870e6-e126-4b66-8ee8-78d9eff183e9";
 const tokenMap = "efca8882-b520-4d9f-b688-bc5b7cf00149";
 const tokenData = "2434b854869e51278c13dd76c38c075ee12a49c5";
 
@@ -100,37 +103,58 @@ function handlerOpenDrop() {
   isOpen.value = true;
 }
 
-function handlerChooseItem(item: string) {
-  isOpen.value = false;
-  activElem.value = item;
-  emit("update:modelValue", activElem.value);
-}
+// function handlerChooseItem(item: string) {
+//   isOpen.value = false;
+//   activElem.value = item;
+//   emit("update:modelValue", activElem.value);
+// }
 
 function handlerOpenMap() {
   isShowMap.value = !isShowMap.value;
   console.log("open");
 }
 
+// const find = function (arr, find) {
+// return arr.filter(function (value) {
+// return (value + "").toLowerCase().indexOf(find.toLowerCase()) != -1;
+// });
+// };
+
 function postLoadFunction() {
-  /* eslint-disable */
   ymaps.ready(init);
+
+  // const suggestView = new ymaps.SuggestView('suggest');
   function init(){
-    /* eslint-disable */
+
     myMap = new ymaps.Map("map", {
       center: [55.76, 37.64],
       zoom: 7,
-    },
-      {
-        searchControlProvider: 'yandex#search'
-      }
-    );
+    });
+
+    var searchControl = new ymaps.control.SearchControl({
+        options: {
+            // Будет производиться поиск только по топонимам.
+            provider: 'yandex#map'
+        }
+    });
+
+    // Добавляем элемент управления на карту.
+    myMap.controls.add(searchControl);
 
     myMap.events.add('click', function (e) {
         var coords = e.get('coords');
         loadAddress(coords[0], coords[1]);
     });
-  
-    // var accessor = myMap.cursors.push("arrow");
+
+
+    const suggestView = new ymaps.SuggestView('suggest', {
+        offset: [10, 10]
+    });
+    // ymaps3.getDefaultConfig().setApikeys({suggest: tokenGeo})
+    suggestView.events.add('select', function (e) {
+      const select = e.originalEvent?.item?.value;
+      searchControl.search(select);
+    });
   }
 }
 
@@ -175,7 +199,7 @@ onMounted(() => {
   script.setAttribute("type", "text/javascript");
   script.setAttribute(
     "src",
-    `https://api-maps.yandex.ru/2.1/?apikey=${tokenMap}&lang=ru_RU`
+    `https://api-maps.yandex.ru/2.1/?apikey=${tokenMap}&suggest_apikey=${tokenGeo}&lang=ru_RU`
   );
   script.addEventListener("load", postLoadFunction);
   if(drop.value) {
@@ -190,7 +214,7 @@ onMounted(() => {
   right: 0;
   width: 300px;
   height: 300px;
-  z-index: 1;
+  z-index: 2;
   transform: translateX(80%);
 }
 .locate-cmpt {
