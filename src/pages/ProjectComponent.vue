@@ -49,10 +49,9 @@ function HandkerClickUpload() {
 
 <style lang="scss" scoped>
 .requirements {
-  border-radius: 16px;
-  // border-top: 1px solid rgba(255, 255, 255, 0.25);
-  // border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-  background-color: rgba(0, 0, 0, 0.55);
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  background-color: rgba(0, 0, 0, 0.25);
   height: 100%;
   width: 60%;
   padding: 0.74vh 1.6vw;

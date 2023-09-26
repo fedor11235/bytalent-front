@@ -27,7 +27,12 @@
             <LineComponent v-if="isLine" />
             {{ description }}
           </div>
-          <div
+          <BtnComponent
+            class="layout-welcome__btn"
+            :imgBtn="imgBtn"
+            :btnClick="btnClick"
+          />
+          <!-- <div
             @mouseover="handlerOverBtn"
             @mouseleave="handlerLeaveOverBtn"
             @mousedown="handlerMousedown"
@@ -39,7 +44,7 @@
               )}`)})`,
             }"
             alt="download"
-          ></div>
+          ></div> -->
         </div>
         <div class="layout-welcome__content_bottom">
           <slot name="content-bottom"></slot>
@@ -53,6 +58,7 @@
 import { ref, onMounted } from "vue";
 import EmptyComponent from "@/components/common/EmptyComponent.vue";
 import BgrComponent from "@/components/controls/BgrComponent.vue";
+import BtnComponent from "@/components/controls/BtnComponent.vue";
 import LineComponent from "@/components/common/LineComponent.vue";
 
 const emit = defineEmits(["finish-load"]);
@@ -72,31 +78,31 @@ const props = defineProps<{
 }>();
 
 const bgr = ref();
-const btnState = ref("default");
+// const btnState = ref("default");
 
-function choiceBtn(name: string) {
-  if (btnState.value === "default") {
-    return `${name}.svg`;
-  }
-  if (btnState.value === "hover") {
-    return `${name}-hover.svg`;
-  }
-  if (btnState.value === "pressed") {
-    return `${name}-pressed.svg`;
-  }
-}
+// function choiceBtn(name: string) {
+//   if (btnState.value === "default") {
+//     return `${name}.svg`;
+//   }
+//   if (btnState.value === "hover") {
+//     return `${name}-hover.svg`;
+//   }
+//   if (btnState.value === "pressed") {
+//     return `${name}-pressed.svg`;
+//   }
+// }
 
-function handlerMousedown() {
-  btnState.value = "pressed";
-}
+// function handlerMousedown() {
+//   btnState.value = "pressed";
+// }
 
-function handlerOverBtn() {
-  btnState.value = "hover";
-}
+// function handlerOverBtn() {
+//   btnState.value = "hover";
+// }
 
-function handlerLeaveOverBtn() {
-  btnState.value = "default";
-}
+// function handlerLeaveOverBtn() {
+//   btnState.value = "default";
+// }
 
 onMounted(() => {
   if (props.bgBase) {
@@ -180,14 +186,8 @@ onMounted(() => {
     text-overflow: ellipsis;
   }
   &__btn {
-    // width: 15.625vw;
-    // height: 5.89vh;
-    // object-position: left;
-    // object-fit: contain;
-    // cursor: pointer;
-
-    width: 15.625vw;
-    height: 5.89vh;
+    width: 12.5vw;
+    height: 5.555vh;
     cursor: pointer;
     background-size: contain;
     background-repeat: no-repeat;
