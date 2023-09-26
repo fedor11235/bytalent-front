@@ -40,10 +40,10 @@ const router = useRouter();
 
 function HandkerClickUpload() {
   rootStore.popupLogin = true;
-//   router.push({
-//     name: "login-redirect",
-//     params: { nextPage: "/project" },
-//   });
+  //   router.push({
+  //     name: "login-redirect",
+  //     params: { nextPage: "/project" },
+  //   });
 }
 </script>
 

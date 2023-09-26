@@ -84,15 +84,15 @@ function handlerAddBackground() {
 }
 
 function handlerDeleteBackground() {
-  if(indexBackgrounds.value !== 0) {
-    handlerLeftMove()
+  if (indexBackgrounds.value !== 0) {
+    handlerLeftMove();
   }
   projectService.deleteBackgrounds(
     projectStore.backgroundsFill[indexBackgrounds.value].id
   );
   projectStore.backgroundsFill.splice(indexBackgrounds.value, 1);
-  if(projectStore.backgroundsFill.length === 0) {
-    rootStore.showPopupBgr = false
+  if (projectStore.backgroundsFill.length === 0) {
+    rootStore.showPopupBgr = false;
   }
 }
 

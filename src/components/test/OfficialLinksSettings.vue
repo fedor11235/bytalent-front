@@ -8,7 +8,8 @@
         class="settings-view__card_input"
       />
       <div v-else class="settings-view__card_text">
-        {{ parseTextSetting(website) }}
+        <div v-if="website">{{ parseTextSetting(website) }}</div>
+        <div v-else class="settings-view__card_btn">Подключить</div>
       </div>
     </div>
   </div>
@@ -22,7 +23,8 @@
         class="settings-view__card_input"
       />
       <div v-else class="settings-view__card_text">
-        {{ parseTextSetting(telegram) }}
+        <div v-if="telegram">{{ parseTextSetting(telegram) }}</div>
+        <div v-else class="settings-view__card_btn">Подключить</div>
       </div>
     </div>
   </div>
@@ -36,7 +38,8 @@
         class="settings-view__card_input"
       />
       <div v-else class="settings-view__card_text">
-        {{ parseTextSetting(instagram) }}
+        <div v-if="instagram">{{ parseTextSetting(instagram) }}</div>
+        <div v-else class="settings-view__card_btn">Подключить</div>
       </div>
     </div>
   </div>
@@ -50,7 +53,8 @@
         class="settings-view__card_input"
       />
       <div v-else class="settings-view__card_text">
-        {{ parseTextSetting(twitter) }}
+        <div v-if="twitter">{{ parseTextSetting(twitter) }}</div>
+        <div v-else class="settings-view__card_btn">Подключить</div>
       </div>
     </div>
   </div>
@@ -64,7 +68,8 @@
         class="settings-view__card_input"
       />
       <div v-else class="settings-view__card_text">
-        {{ parseTextSetting(behance) }}
+        <div v-if="behance">{{ parseTextSetting(behance) }}</div>
+        <div v-else class="settings-view__card_btn">Подключить</div>
       </div>
     </div>
   </div>
@@ -78,11 +83,12 @@
         class="settings-view__card_input"
       />
       <div v-else class="settings-view__card_text">
-        {{ parseTextSetting(artstation) }}
+        <div v-if="artstation">{{ parseTextSetting(artstation) }}</div>
+        <div v-else class="settings-view__card_btn">Подключить</div>
       </div>
     </div>
   </div>
-  <div
+  <!-- <div
     v-if="isProfileEdit"
     @click="handlerSave"
     class="settings-view__card_edit_cntnr"
@@ -109,7 +115,7 @@
       />
       Редактировать
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script setup lang="ts">
@@ -166,12 +172,30 @@ onMounted(async () => {
     background-color: rgba(255, 255, 255, 0.1);
     padding: 4.44vh 1.6vw;
     box-sizing: border-box;
+    &_btn {
+      cursor: pointer;
+      height: 3.703vh;
+      // width: 100%;
+      display: flex;
+      border-top: 1px solid rgba(255, 255, 255, 0.65);
+      background: rgba(255, 255, 255, 0.1);
+      align-items: center;
+      justify-content: center;
+
+      color: #f9f9f9;
+      font-family: JuraMedium;
+      font-size: 1.85vh;
+      line-height: 120%;
+      letter-spacing: -0.4px;
+    }
     &_title {
       color: rgba(255, 255, 255, 0.55);
       font-family: JuraMedium;
       font-size: 1.85vh;
       line-height: 120%;
       letter-spacing: -0.4px;
+      display: flex;
+      align-items: center;
     }
     &_input {
       border: none;

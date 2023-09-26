@@ -1,150 +1,163 @@
 <template>
-  <div class="profile-view__right-panel">
-    <div class="profile-view__cards">
-      <div class="profile-view__card-profile">
-        <div class="profile-view__card-profile_title">
-          Информация профиля
-          <img
-            class="profile-view__card-profile_title_img"
-            src="@/assets/icons/edit.svg"
-            @click="handlerProfileEdit"
-          />
-        </div>
-        <div class="profile-view__card-profile_info">
-          <img
-            class="profile-view__card-profile_img"
-            src="@/assets/icons/person.svg"
-          />
-          <input
-            v-model="name"
-            class="profile-view__card-profile_info__input"
-            v-if="profileEdit"
-          />
-          <div class="profile-view__card-profile_info__text" v-else>
-            {{ parseTextSetting(name) }}
+  <div class="profile-view">
+    <div class="right-panel"></div>
+    <div class="profile-view__content">
+      <div class="profile-view__cards">
+        <div class="profile-view__card-profile">
+          <div class="profile-view__card-profile_title">
+            Информация профиля
+            <img
+              class="profile-view__card-profile_title_img"
+              src="@/assets/icons/edit.svg"
+              @click="handlerProfileEdit"
+            />
+          </div>
+          <div class="profile-view__card-profile_info">
+            <img
+              class="profile-view__card-profile_img"
+              src="@/assets/icons/person.svg"
+            />
+            <input
+              v-model="name"
+              class="profile-view__card-profile_info__input"
+              v-if="profileEdit"
+            />
+            <div class="profile-view__card-profile_info__text" v-else>
+              {{ parseTextSetting(name) }}
+            </div>
+          </div>
+          <div class="profile-view__card-profile_info">
+            <img
+              class="profile-view__card-profile_img"
+              src="@/assets/icons/company.svg"
+            />
+            <input
+              v-model="organization"
+              class="profile-view__card-profile_info__input"
+              v-if="profileEdit"
+            />
+            <div class="profile-view__card-profile_info__text" v-else>
+              {{ parseTextSetting(organization) }}
+            </div>
+          </div>
+          <div class="profile-view__card-profile_info">
+            <img
+              class="profile-view__card-profile_img"
+              src="@/assets/icons/role.svg"
+            />
+            <input
+              v-model="position"
+              class="profile-view__card-profile_info__input"
+              v-if="profileEdit"
+            />
+            <div class="profile-view__card-profile_info__text" v-else>
+              {{ parseTextSetting(position) }}
+            </div>
+          </div>
+          <div class="profile-view__card-profile_info">
+            <img
+              class="profile-view__card-profile_img"
+              src="@/assets/icons/phone-profile.svg"
+            />
+            <input
+              v-model="phone"
+              class="profile-view__card-profile_info__input"
+              v-if="profileEdit"
+            />
+            <div class="profile-view__card-profile_info__text" v-else>
+              {{ parseTextSetting(phone) }}
+            </div>
+          </div>
+          <div class="profile-view__card-profile_info">
+            <img
+              class="profile-view__card-profile_img"
+              src="@/assets/icons/telegram-profile.svg"
+            />
+            <div class="profile-view__card-profile_info__text">
+              {{ parseTextSetting(username) }}
+            </div>
           </div>
         </div>
-        <div class="profile-view__card-profile_info">
-          <img
-            class="profile-view__card-profile_img"
-            src="@/assets/icons/company.svg"
-          />
-          <input
-            v-model="organization"
-            class="profile-view__card-profile_info__input"
-            v-if="profileEdit"
-          />
-          <div class="profile-view__card-profile_info__text" v-else>
-            {{ parseTextSetting(organization) }}
+        <div class="profile-view__card-not">
+          <div class="profile-view__card-not_tabs">
+            <div
+              v-for="tab of tabs"
+              :key="tab"
+              @click="tabActive = tab"
+              :class="[
+                'profile-view__card-not_tab',
+                { 'profile-view__card-not_tab-active': tabActive === tab },
+              ]"
+            >
+              {{ tab }}
+            </div>
+          </div>
+          <div v-if="tabActive == 'Активные проекты'">
+            <div
+              v-for="(item, index) of projectsActive"
+              :key="item.id"
+              :class="[
+                'profile-view__card-not_item',
+                { 'profile-view__card-not_item-border': index !== 0 },
+              ]"
+            >
+              <div>{{ item.name }}</div>
+              <div>{{ item.status }}</div>
+            </div>
+          </div>
+          <div v-if="tabActive == 'Коммерция'">
+            <div
+              v-for="(item, index) of nots"
+              :key="item"
+              :class="[
+                'profile-view__card-not_item',
+                { 'profile-view__card-not_item-border': index !== 0 },
+              ]"
+            >
+              {{ item }}
+            </div>
+          </div>
+          <div v-if="tabActive == 'Уведомления'">
+            <div
+              v-for="(item, index) of notifications"
+              :key="item"
+              :class="[
+                'profile-view__card-not_item',
+                { 'profile-view__card-not_item-border': index !== 0 },
+              ]"
+            >
+              {{ item }}
+            </div>
           </div>
         </div>
-        <div class="profile-view__card-profile_info">
-          <img
-            class="profile-view__card-profile_img"
-            src="@/assets/icons/role.svg"
-          />
-          <input
-            v-model="position"
-            class="profile-view__card-profile_info__input"
-            v-if="profileEdit"
-          />
-          <div class="profile-view__card-profile_info__text" v-else>
-            {{ parseTextSetting(position) }}
-          </div>
-        </div>
-        <div class="profile-view__card-profile_info">
-          <img
-            class="profile-view__card-profile_img"
-            src="@/assets/icons/phone-profile.svg"
-          />
-          <input
-            v-model="phone"
-            class="profile-view__card-profile_info__input"
-            v-if="profileEdit"
-          />
-          <div class="profile-view__card-profile_info__text" v-else>
-            {{ parseTextSetting(phone) }}
-          </div>
-        </div>
-        <div class="profile-view__card-profile_info">
-          <img
-            class="profile-view__card-profile_img"
-            src="@/assets/icons/telegram-profile.svg"
-          />
-          <div class="profile-view__card-profile_info__text">
-            {{ parseTextSetting(username) }}
+        <div class="profile-view__btns">
+          <div @click="handlerSetting" class="profile-view__btn">Настройки</div>
+          <div @click="handlerExit" class="profile-view__btn">
+            Выйти из профиля
           </div>
         </div>
       </div>
-      <div class="profile-view__card-not">
-        <div class="profile-view__card-not_tabs">
-          <div
-            v-for="tab of tabs"
-            :key="tab"
-            @click="tabActive = tab"
-            :class="[
-              'profile-view__card-not_tab',
-              { 'profile-view__card-not_tab-active': tabActive === tab },
-            ]"
-          >
-            {{ tab }}
-          </div>
-        </div>
-        <div v-if="tabActive == 'Активные проекты'">
-          <div
-            v-for="(item, index) of projectsActive"
-            :key="item.id"
-            :class="[
-              'profile-view__card-not_item',
-              { 'profile-view__card-not_item-border': index !== 0 },
-            ]"
-          >
-            <div>{{ item.name }}</div>
-            <div>{{ item.status }}</div>
-          </div>
-        </div>
-        <div v-if="tabActive == 'Коммерция'">
-          <div
-            v-for="(item, index) of nots"
-            :key="item"
-            :class="[
-              'profile-view__card-not_item',
-              { 'profile-view__card-not_item-border': index !== 0 },
-            ]"
-          >
-            {{ item }}
-          </div>
-        </div>
-        <div v-if="tabActive == 'Уведомления'">
-          <div
-            v-for="(item, index) of notifications"
-            :key="item"
-            :class="[
-              'profile-view__card-not_item',
-              { 'profile-view__card-not_item-border': index !== 0 },
-            ]"
-          >
-            {{ item }}
-          </div>
-        </div>
-      </div>
-      <div class="profile-view__doc">
-        Пользовательское соглашение АО ТК Талент" в соответствии со статьёй 428
-        гражданского кодекса Российской Федерации Политика обработки
-        персональных данных согласно Федеральному закону “О персональных данных“
-        от 27.07.2006 №152-ФЗ Договор публичной оферты АО “ГК Талент"
-      </div>
+    </div>
+    <div class="profile-view__doc">
+      Пользовательское соглашение АО ТК Талент" в соответствии со статьёй 428
+      гражданского кодекса Российской Федерации Политика обработки персональных
+      данных согласно Федеральному закону “О персональных данных“ от 27.07.2006
+      №152-ФЗ Договор публичной оферты АО “ГК Талент"
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import profileService from "@/services/profileService";
 import projectService from "@/services/projectService";
 import commerceService from "@/services/commerceService";
 import notificationsService from "@/services/notificationsService";
 import { parseTextSetting } from "@/utils/parse";
+import { useRootStore } from "@/store";
+
+const rootStore = useRootStore();
 
 const tabs = ["Активные проекты", "Коммерция", "Уведомления"];
 
@@ -162,6 +175,8 @@ const nots = ref([]);
 const notifications = ref([]);
 const tabActive = ref("Активные проекты");
 
+const router = useRouter();
+
 function handlerProfileEdit() {
   if (profileEdit.value) {
     profileService.setProfile({
@@ -172,6 +187,17 @@ function handlerProfileEdit() {
     });
   }
   profileEdit.value = !profileEdit.value;
+}
+
+function handlerSetting() {
+  rootStore.activePanel = "settings";
+}
+
+async function handlerExit() {
+  localStorage.removeItem("token");
+  rootStore.popupProfile = false;
+  await router.push({ name: "start" });
+  location.reload();
 }
 
 onMounted(async () => {
@@ -191,18 +217,62 @@ onMounted(async () => {
 </script>
 
 <style lang="scss" scoped>
-.profile-view__right-panel {
-  position: absolute;
-  height: calc(100% - 3.7vh - min(80px, 7.4vh));
+.right-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 50vw;
+  scale: 1.2;
+  transform-origin: left;
+  background-color: rgba(0, 0, 0, 0.25);
+  transform: skew(10deg);
+  z-index: -1;
+}
+.profile-view {
+  position: fixed;
+  height: 100vh;
   right: 0;
   bottom: 0;
-  max-width: 45vw;
-  width: 100%;
-  background-image: url(@/assets/components/profile-right-panel.svg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  padding: 7.5vh 5.156vw 7.03vh 6.66vw;
+  pointer-events: none;
+  width: 100vw;
   box-sizing: border-box;
+  &__content {
+    position: fixed;
+    padding: 7.5vh 5.156vw 7.03vh 6.66vw;
+    bottom: 0;
+    right: 0;
+    height: calc(100% - 3.7vh - min(80px, 7.4vh));
+    width: 50vw;
+    pointer-events: all;
+  }
+  &__btns {
+    margin-top: 4.705vh;
+    margin-right: 20%;
+    display: flex;
+    height: 4.44vh;
+    column-gap: 1.25vw;
+    width: 80%;
+  }
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-top: 1px solid rgba(255, 255, 255, 0.65);
+    background-color: rgba(0, 0, 0, 0.35);
+    width: 100%;
+
+    color: #f9f9f9;
+    text-align: center;
+    font-family: JuraSemiBold;
+    font-size: 1.6vh;
+    line-height: 100%;
+    letter-spacing: -0.36px;
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
 }
 .profile-view__cards {
   display: flex;
@@ -213,10 +283,8 @@ onMounted(async () => {
   width: 100%;
   height: 28.5vh;
   box-sizing: border-box;
-  // border-radius: 24px;
-  // border-top: 2px solid rgba(255, 255, 255, 0.25);
-  // border-bottom: 2px solid rgba(255, 255, 255, 0.25);
-  background-color: rgba(255, 255, 255, 0.1);
+  border-left: 2px solid rgba(255, 255, 255, 0.25);
+  background-color: rgba(0, 0, 0, 0.35);
 
   display: flex;
   padding: 1.48vh 1.66vw;
@@ -282,10 +350,8 @@ onMounted(async () => {
   width: 100%;
   height: 28.5vh;
   box-sizing: border-box;
-  // border-radius: 24px;
-  // border-top: 2px solid rgba(255, 255, 255, 0.25);
-  // border-bottom: 2px solid rgba(255, 255, 255, 0.25);
-  background-color: rgba(255, 255, 255, 0.1);
+  border-left: 2px solid rgba(255, 255, 255, 0.25);
+  background-color: rgba(0, 0, 0, 0.35);
   padding: 1.48vh 1.66vw;
   margin-bottom: 3.3vh;
   &_tabs {
@@ -341,28 +407,19 @@ onMounted(async () => {
   flex-direction: column;
   align-items: flex-start;
 }
-.profile-view__btn {
-  cursor: pointer;
-  border-radius: 12px;
-  border-top: 2px solid rgba(255, 255, 255, 0.65);
-  background-color: rgba(0, 0, 0, 0.35);
-  padding: 1.15vh 1.6vw;
-
-  color: #f9f9f9;
-  font-family: JuraMedium;
-  font-size: 1.6vh;
-  line-height: 100%;
-  letter-spacing: -0.36px;
-}
 .profile-view__doc {
-  width: 100%;
-  color: var(--element-white, #fff);
+  position: fixed;
+  padding-left: 12.6041666667vw;
+  left: 0;
+  bottom: 9.8148vh;
+  width: 50vw;
+  color: #fff;
   font-family: JuraBold;
   font-size: 1.2vh;
   font-style: normal;
   font-weight: 700;
   line-height: 200%;
-  padding-right: 20%;
   box-sizing: border-box;
+  pointer-events: all;
 }
 </style>

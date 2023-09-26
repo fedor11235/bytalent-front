@@ -35,7 +35,7 @@ watch(
     rootStore.loadApiTest = true;
     rootStore.noHover = check.value;
 
-    rootStore.loadBgrTest = true
+    rootStore.loadBgrTest = true;
   },
   { immediate: true }
 );

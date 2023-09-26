@@ -46,27 +46,27 @@ rootStore.loadBgrTest = false;
 const btnState = ref("default");
 
 function choiceBtn(name: string) {
-  if(btnState.value === "default") {
-    return `${name}.svg`
+  if (btnState.value === "default") {
+    return `${name}.svg`;
   }
-  if(btnState.value === "hover") {
-    return `${name}-hover.svg`
+  if (btnState.value === "hover") {
+    return `${name}-hover.svg`;
   }
-  if(btnState.value === "pressed") {
-    return `${name}-pressed.svg`
+  if (btnState.value === "pressed") {
+    return `${name}-pressed.svg`;
   }
 }
 
 function handlerMousedown() {
-  btnState.value = "pressed"
+  btnState.value = "pressed";
 }
 
 function handlerOverBtn() {
-  btnState.value = "hover"
+  btnState.value = "hover";
 }
 
 function handlerLeaveOverBtn() {
-  btnState.value = "default"
+  btnState.value = "default";
 }
 
 onMounted(() => {

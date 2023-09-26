@@ -1,9 +1,7 @@
 <template>
-  <div
-    @click.self="rootStore.popupProfile = false"
-    class="settings-view__content"
-  >
-    <div class="settings-view__left-panel">
+  <div @click.self="rootStore.popupProfile = false" class="settings-view">
+    <div class="left-panel"></div>
+    <div class="settings-view__content">
       <div class="settings-view__card">
         <div v-if="aciveItem === 'Коммерция'">
           <CommerceSettings />
@@ -21,6 +19,7 @@
           <SafetySettings />
         </div>
       </div>
+      <div @click="handlerProfile" class="settings-view__btn">В профиль</div>
     </div>
     <div class="settings-view__menu">
       <div
@@ -80,102 +79,83 @@ function chooseIconMenu(item: string) {
   if (item === "Официальные ссылки") return "integration";
   if (item === "Безопасность") return "integration";
 }
+
+function handlerProfile() {
+  rootStore.activePanel = "profile";
+}
 </script>
 
 <style lang="scss" scoped>
+.left-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 50vw;
+  scale: 1.2;
+  transform-origin: right;
+  background-color: rgba(0, 0, 0, 0.25);
+  transform: skew(-10deg);
+  z-index: -1;
+}
 .settings-view {
   position: fixed;
+  top: 0;
   height: 100vh;
   width: 100vw;
-  overflow: hidden;
   z-index: 2;
-  background-color: rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(7.5px);
+  // background-color: rgba(0, 0, 0, 0.15);
+  // backdrop-filter: blur(7.5px);
+  &__btn {
+    width: 50%;
+    cursor: pointer;
+    display: flex;
+    margin-top: 2.2vh;
+    border-top: 1px solid rgba(255, 255, 255, 0.65);
+    background: rgba(0, 0, 0, 0.35);
+    min-height: 4.44vh;
+    color: #f9f9f9;
+    text-align: center;
+    font-family: JuraSemiBold;
+    font-size: 1.6vh;
+    line-height: 100%;
+    letter-spacing: -0.36px;
+    align-items: center;
+    justify-content: center;
+    margin-left: 50%;
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
   &__card {
     height: 100%;
-    // border-radius: 24px;
-    // border-top: 2px solid rgba(255, 255, 255, 0.25);
-    // border-bottom: 2px solid rgba(255, 255, 255, 0.25);
-    background-color: rgba(255, 255, 255, 0.1);
+    width: 100%;
+    border-left: 2px solid rgba(255, 255, 255, 0.25);
+    background-color: rgba(0, 0, 0, 0.35);
     padding: 4.44vh 1.6vw;
     box-sizing: border-box;
-    &_title {
-      color: rgba(255, 255, 255, 0.55);
-      font-family: JuraMedium;
-      font-size: 1.85vh;
-      line-height: 120%;
-      letter-spacing: -0.4px;
-    }
-    &_fill-btn {
-      display: flex;
-      width: 8.33vw;
-      padding: 1.38vh 1.6vw;
-      justify-content: center;
-      align-items: center;
-      border-radius: 12px;
-      border-top: 1px solid rgba(255, 255, 255, 0.65);
-      background-color: rgba(0, 0, 0, 0.1);
-      color: #f9f9f9;
-      font-family: JuraMedium;
-      font-size: 1.6vh;
-      line-height: 100%;
-      letter-spacing: -0.36px;
-      cursor: pointer;
-      margin-top: 2.2vh;
-      box-sizing: border-box;
-      margin-left: calc(100% - 8.33vw);
-    }
-    &_edit {
-      border-radius: 12px;
-      border-top: 1px solid rgba(255, 255, 255, 0.65);
-      background-color: rgba(255, 255, 255, 0.1);
-      padding: 1.11vh 1.25vw;
-      color: #f9f9f9;
-      font-family: JuraMedium;
-      font-size: 1.6vh;
-      line-height: 100%;
-      letter-spacing: -0.36px;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      &_cntnr {
-        margin-top: 7.77vh;
-        display: flex;
-        justify-content: center;
-      }
-      &_icon {
-        width: 1.25vw;
-        height: 1.25vw;
-        margin-right: 0.8vw;
-      }
-    }
   }
   &__content {
     position: absolute;
     bottom: 0;
     height: calc(100% - 3.7vh - min(80px, 7.4vh));
-    width: 100%;
+    width: 50vw;
     display: flex;
+    flex-direction: column;
     align-items: center;
-  }
-  &__left-panel {
-    height: 100%;
-    max-width: 45vw;
-    width: 100%;
-    background-image: url(@/assets/components/profile-left-panel.svg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    padding: 8.7vh 6.66vw 7.68vh 3.125vw;
+    padding: 8.7vh 6.66vw 13.796vh 3.125vw;
     box-sizing: border-box;
-    background-position: right;
   }
   &__menu {
+    position: fixed;
+    top: 42.222vh;
+    left: 56.3vw;
     display: flex;
     width: 400px;
     flex-direction: column;
     align-items: flex-start;
     width: 20.83vw;
-    margin-left: 3.3vw;
+    row-gap: 0.74vh;
     &_img {
       height: 1.6vw;
       width: 1.6vw;
@@ -187,8 +167,9 @@ function chooseIconMenu(item: string) {
       align-items: center;
       column-gap: 0.8vw;
       align-self: stretch;
-      border-radius: 12px;
       border-top: 1px solid rgba(255, 255, 255, 0.65);
+      background-color: rgba(0, 0, 0, 0.35);
+
       color: #f9f9f9;
       font-family: JuraSemiBold;
       font-size: 1.6vh;

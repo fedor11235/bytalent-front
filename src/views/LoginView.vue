@@ -23,10 +23,6 @@
           правилами платформы и согласен с пользовательским соглашением
         </div>
       </div>
-
-      <!-- <div v-show="false" class="login__apple" ref="appleIdBtn">
-        <ApleAuth />
-      </div> -->
       <!-- TODO тестовый вход -->
       <div class="login__test" v-if="isDevelopment">
         <div class="login__title">Тестовый вход</div>
@@ -64,11 +60,13 @@ rootStore.hiddenHeader = true;
 rootStore.loadApiTest = false;
 rootStore.loadBgrTest = false;
 
-function callBackRedirect() {
+async function callBackRedirect() {
   if (props.nextPage) {
     window.location.href = props.nextPage;
   } else {
-    router.push({ name: "project-main" });
+    rootStore.popupLogin = false;
+    await router.push({ name: "project-main" });
+    location.reload();
   }
 }
 

@@ -88,11 +88,11 @@
     class="settings-view__card_edit_cntnr"
   >
     <div class="settings-view__card_edit">
-      <img
+      <!-- <img
         class="settings-view__card_edit_icon"
         src="@/assets/icons/save.svg"
         alt="edit"
-      />
+      /> -->
       Сохранить
     </div>
   </div>
@@ -102,11 +102,11 @@
     class="settings-view__card_edit_cntnr"
   >
     <div class="settings-view__card_edit">
-      <img
+      <!-- <img
         class="settings-view__card_edit_icon"
         src="@/assets/icons/pen.svg"
         alt="edit"
-      />
+      /> -->
       Редактировать
     </div>
   </div>
@@ -204,10 +204,14 @@ onMounted(async () => {
       margin-left: calc(100% - 8.33vw);
     }
     &_edit {
-      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      width: 50%;
+      margin-left: 50%;
       border-top: 1px solid rgba(255, 255, 255, 0.65);
       background-color: rgba(255, 255, 255, 0.1);
-      padding: 1.11vh 1.25vw;
+      height: 4.44vh;
+      // padding: 1.11vh 1.25vw;
       color: #f9f9f9;
       font-family: JuraMedium;
       font-size: 1.6vh;
@@ -217,15 +221,15 @@ onMounted(async () => {
       align-items: center;
       cursor: pointer;
       &_cntnr {
-        margin-top: 7.77vh;
+        margin-top: 3.703vh;
         display: flex;
         justify-content: center;
       }
-      &_icon {
-        width: 1.25vw;
-        height: 1.25vw;
-        margin-right: 0.8vw;
-      }
+      // &_icon {
+      //   width: 1.25vw;
+      //   height: 1.25vw;
+      //   margin-right: 0.8vw;
+      // }
     }
     &_delimiter {
       height: 1px;

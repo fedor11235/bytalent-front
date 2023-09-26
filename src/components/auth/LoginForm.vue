@@ -60,7 +60,9 @@ async function callBackRedirect() {
     window.location.href = props.nextPage;
   } else {
     rootStore.popupLogin = false;
+    rootStore.loadApiTest = false;
     await router.push({ name: "project-main" });
+    location.reload();
   }
 }
 

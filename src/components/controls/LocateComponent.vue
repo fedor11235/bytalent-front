@@ -20,13 +20,13 @@
     </div>
     <div v-show="isOpen" class="locate-cmpt__items">
       <!-- <div class="locate-cmpt__scroll"> -->
-        <input
-          id="suggest"
-          class="locate-cmpt__input"
-          :style="styleItem"
-          v-model="searchLocate"
-        />
-        <!-- <div
+      <input
+        id="suggest"
+        class="locate-cmpt__input"
+        :style="styleItem"
+        v-model="searchLocate"
+      />
+      <!-- <div
           v-for="item in listItemSearch"
           :key="item"
           @click="handlerChooseItem(item)"
@@ -90,14 +90,14 @@ const styleItem = computed(() => {
   return { marginLeft: props.paddingX, marginRight: props.paddingX };
 });
 
-const listItemSearch = computed(() => {
-  if (searchLocate.value) {
-    return props.listItem.filter((item) =>
-      item.toLowerCase().includes(searchLocate.value.toLowerCase())
-    );
-  }
-  return props.listItem;
-});
+// const listItemSearch = computed(() => {
+//   if (searchLocate.value) {
+//     return props.listItem.filter((item) =>
+//       item.toLowerCase().includes(searchLocate.value.toLowerCase())
+//     );
+//   }
+//   return props.listItem;
+// });
 
 function handlerOpenDrop() {
   isOpen.value = true;
@@ -132,10 +132,10 @@ function postLoadFunction() {
     });
 
     var searchControl = new ymaps.control.SearchControl({
-        options: {
-            // Будет производиться поиск только по топонимам.
-            provider: 'yandex#map'
-        }
+      options: {
+        // Будет производиться поиск только по топонимам.
+        provider: 'yandex#map'
+      }
     });
 
     // Добавляем элемент управления на карту.
@@ -209,6 +209,12 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+ymaps {
+  background-color: red;
+}
+.ymaps-2-1-79-search__suggest {
+  background-color: red;
+}
 #map {
   position: absolute;
   right: 0;

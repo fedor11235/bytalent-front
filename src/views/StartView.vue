@@ -121,12 +121,15 @@ const btnProjects = ref();
 const btnStreaming = ref();
 
 async function handlerClickApp() {
+  if (!endAnimate.value) return;
   await router.push({ name: "app" });
 }
 async function handlerClickProject() {
+  if (!endAnimate.value) return;
   await router.push({ name: "project-main" });
 }
 async function handlerClickStreaming() {
+  if (!endAnimate.value) return;
   await router.push({ name: "streaming" });
 }
 

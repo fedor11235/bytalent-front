@@ -48,17 +48,20 @@ onMounted(async () => {
     padding: 4.44vh 1.6vw;
     box-sizing: border-box;
     &_connect {
+      cursor: pointer;
+      height: 3.703vh;
+      // width: 100%;
+      display: flex;
+      border-top: 1px solid rgba(255, 255, 255, 0.65);
+      background: rgba(255, 255, 255, 0.1);
+      align-items: center;
+      justify-content: center;
+
       color: #f9f9f9;
       font-family: JuraMedium;
       font-size: 1.85vh;
       line-height: 120%;
       letter-spacing: -0.4px;
-      padding: 0.74vh 1.6vw;
-      border-radius: 12px;
-      border-top: 1px solid rgba(255, 255, 255, 0.65);
-      background-color: rgba(0, 0, 0, 0.35);
-      display: inline;
-      cursor: pointer;
     }
     &_title {
       color: rgba(255, 255, 255, 0.55);
@@ -66,6 +69,8 @@ onMounted(async () => {
       font-size: 1.85vh;
       line-height: 120%;
       letter-spacing: -0.4px;
+      display: flex;
+      align-items: center;
     }
     &_fill-btn {
       display: flex;

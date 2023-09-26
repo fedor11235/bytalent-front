@@ -33,13 +33,12 @@
   background-color: rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(7.5px);
   &__card {
-    height: 100%;
-    border-radius: 24px;
-    // border-top: 2px solid rgba(255, 255, 255, 0.25);
-    // border-bottom: 2px solid rgba(255, 255, 255, 0.25);
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 4.44vh 1.6vw;
-    box-sizing: border-box;
+    // height: 100%;
+    // width: 100%;
+    // border-left: 2px solid rgba(255, 255, 255, 0.25);
+    // background-color: rgba(0, 0, 0, 0.35);
+    // padding: 4.44vh 1.6vw;
+    // box-sizing: border-box;
     &_title {
       color: rgba(255, 255, 255, 0.55);
       font-family: JuraMedium;
@@ -50,12 +49,12 @@
     &_fill-btn {
       display: flex;
       width: 8.33vw;
-      padding: 1.38vh 1.6vw;
+      padding: 0 1.6vw;
+      height: 4.444vh;
       justify-content: center;
       align-items: center;
-      border-radius: 12px;
       border-top: 1px solid rgba(255, 255, 255, 0.65);
-      background-color: rgba(0, 0, 0, 0.1);
+      background: rgba(255, 255, 255, 0.1);
       color: #f9f9f9;
       font-family: JuraMedium;
       font-size: 1.6vh;

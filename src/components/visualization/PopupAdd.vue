@@ -66,36 +66,35 @@ const projectType = ref("");
 const btnState = ref("disabled");
 
 function choiceBtn(name: string) {
-  if(btnState.value === "default") {
-    return `${name}.svg`
+  if (btnState.value === "default") {
+    return `${name}.svg`;
   }
-  if(btnState.value === "disabled") {
-    return `${name}-disabled.svg`
+  if (btnState.value === "disabled") {
+    return `${name}-disabled.svg`;
   }
-  if(btnState.value === "hover") {
-    return `${name}-hover.svg`
+  if (btnState.value === "hover") {
+    return `${name}-hover.svg`;
   }
-  if(btnState.value === "pressed") {
-    return `${name}-pressed.svg`
+  if (btnState.value === "pressed") {
+    return `${name}-pressed.svg`;
   }
 }
 
-
 function handlerOverBtn() {
-  if(isBtnActive.value) {
-    btnState.value = "hover"
+  if (isBtnActive.value) {
+    btnState.value = "hover";
   }
 }
 
 function handlerMousedown() {
-  if(isBtnActive.value) {
-    btnState.value = "pressed"
+  if (isBtnActive.value) {
+    btnState.value = "pressed";
   }
 }
 
 function handlerLeaveOverBtn() {
-  if(isBtnActive.value) {
-    btnState.value = "default"
+  if (isBtnActive.value) {
+    btnState.value = "default";
   }
 }
 
@@ -147,12 +146,12 @@ async function selectAdress(value: string) {
 watch(
   () => isBtnActive.value,
   (newVal) => {
-    if(newVal) {
-      btnState.value = "default"
+    if (newVal) {
+      btnState.value = "default";
     } else {
-      btnState.value = "disabled"
+      btnState.value = "disabled";
     }
-  },
+  }
 );
 </script>
 

@@ -10,7 +10,7 @@
       @load="bgrLoadLocal"
       :src="content"
       class="bgr__content"
-      :style="{borderRadius: borderRadius}"
+      :style="{ borderRadius: borderRadius }"
       alt="img"
     />
     <img
@@ -18,7 +18,7 @@
       @load="bgrLoadLocal"
       :src="poster"
       class="bgr__content bgr__poster"
-      :style="{borderRadius: borderRadius}"
+      :style="{ borderRadius: borderRadius }"
       alt="poster"
     />
     <video
@@ -31,7 +31,7 @@
       @mouseenter="handlerVideoMouseenter"
       @mouseleave="handlerVideoMouseleave"
       class="bgr__content"
-      :style="{borderRadius: borderRadius}"
+      :style="{ borderRadius: borderRadius }"
     >
       <source :src="content" />
     </video>

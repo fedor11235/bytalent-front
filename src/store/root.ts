@@ -53,6 +53,7 @@ export const useRootStore = defineStore("root", {
 
     loadApiTest: false,
     loadBgrTest: false,
+    activePanel: "profile",
 
     popupLogin: false,
 
@@ -103,6 +104,7 @@ type StreamingStore = {
   // popupSettings: boolean;
   // isActiveLoginPopup?: boolean;
   // isActiveSearchPopup?: boolean;
+  activePanel: string;
 
   auth: boolean;
   hiddenHeader: boolean;

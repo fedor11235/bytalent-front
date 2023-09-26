@@ -74,21 +74,20 @@ const notes = ref(false);
 const btnState = ref("default");
 
 function choiceBtn(name: string) {
-  if(btnState.value === "default") {
-    return `${name}.svg`
+  if (btnState.value === "default") {
+    return `${name}.svg`;
   }
-  if(btnState.value === "hover") {
-    return `${name}-hover.svg`
+  if (btnState.value === "hover") {
+    return `${name}-hover.svg`;
   }
 }
 
-
 function handlerOverBtn() {
-  btnState.value = "hover"
+  btnState.value = "hover";
 }
 
 function handlerLeaveOverBtn() {
-  btnState.value = "default"
+  btnState.value = "default";
 }
 
 function HandkerClickLaunch() {
@@ -114,7 +113,7 @@ function handlerBtnFooterClick() {
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url('@/assets/backgrounds/streaming-start.jpg');
+  background-image: url("@/assets/backgrounds/streaming-start.jpg");
   &__backdrop {
     height: 100vh;
     width: 100vw;
