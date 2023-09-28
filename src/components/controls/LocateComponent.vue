@@ -1,41 +1,23 @@
 <template>
   <div ref="drop" class="locate-cmpt">
-    <div v-show="isShowMap" id="map"></div>
+    <div v-show="isShowMap || isOpen" id="map"></div>
     <img
-      v-if="!isOpen"
-      @click="handlerOpenMap"
       class="locate-cmpt_icon"
       :src="require(`@/assets/icons/${icon}.svg`)"
       height="24"
       width="24"
       alt="icon"
     />
-    <div
-      @click="handlerOpenDrop"
-      class="locate-cmpt__enter"
+    <input
+      id="suggest"
       :style="styleDropDown"
-      :placeholder="placeholder"
-    >
-      {{ activElem ? activElem : placeholder }}
-    </div>
-    <div v-show="isOpen" class="locate-cmpt__items">
-      <!-- <div class="locate-cmpt__scroll"> -->
-      <input
-        id="suggest"
-        class="locate-cmpt__input"
-        :style="styleItem"
-        v-model="searchLocate"
-      />
-      <!-- <div
-          v-for="item in listItemSearch"
-          :key="item"
-          @click="handlerChooseItem(item)"
-          :style="styleItem"
-          class="locate-cmpt__item"
-        >
-          {{ item }}
-        </div> -->
-      <!-- </div> -->
+      @focus="handlerfocusSuggest"
+      @blur="handlerblurSuggest"
+      class="locate-cmpt__input"
+      v-model="searchLocate"
+    />
+    <div id="suggest-test">
+      {{ editLocate? editLocate: searchLocate? searchLocate: placeholder }}
     </div>
   </div>
 </template>
@@ -43,11 +25,9 @@
 <script setup lang="ts">
 /* eslint-disable */
 import type { Ref } from "vue";
-import { ref, computed, onMounted } from "vue";
+import { ref, watch, computed, onMounted } from "vue";
 // import projectService from "@/services/projectService";
 
-// const tokenMap = "ca82b9d6-11a7-4156-bb2e-179a6ab45654";
-// const tokenMap = "4be55f9e-9e12-4365-8e03-f54341d1713b";
 const tokenGeo = "fe9870e6-e126-4b66-8ee8-78d9eff183e9";
 const tokenMap = "efca8882-b520-4d9f-b688-bc5b7cf00149";
 const tokenData = "2434b854869e51278c13dd76c38c075ee12a49c5";
@@ -64,17 +44,13 @@ const props = defineProps<{
   selectAdress?: (value: string) => void;
 }>();
 
-// projectService.updateProject(props.idProject, {
-//       address: address.value,
-//     });
-
 const emit = defineEmits<{
   (e: "update:modelValue", value: string): void;
 }>();
 
 const searchLocate = ref("");
-const activElem = ref("");
-const isOpen = ref();
+const editLocate = ref("");
+const isOpen = ref(false);
 const isShowMap = ref(false);
 const drop: Ref<HTMLDivElement | null> = ref(null);
 
@@ -86,11 +62,9 @@ const styleDropDown = computed(() => {
     paddingBottom: props.paddingY,
   };
 });
-const styleItem = computed(() => {
-  return { marginLeft: props.paddingX, marginRight: props.paddingX };
-});
-
-// const listItemSearch = computed(() => {
+// const styleItem = computed(() => {
+//   return { marginLeft: props.paddingX, marginRight: props.paddingX };
+// });
 //   if (searchLocate.value) {
 //     return props.listItem.filter((item) =>
 //       item.toLowerCase().includes(searchLocate.value.toLowerCase())
@@ -99,61 +73,114 @@ const styleItem = computed(() => {
 //   return props.listItem;
 // });
 
-function handlerOpenDrop() {
-  isOpen.value = true;
+function handlerfocusSuggest() {
+  isShowMap.value = true
 }
 
-// function handlerChooseItem(item: string) {
-//   isOpen.value = false;
-//   activElem.value = item;
-//   emit("update:modelValue", activElem.value);
-// }
-
-function handlerOpenMap() {
-  isShowMap.value = !isShowMap.value;
-  console.log("open");
+function handlerblurSuggest() {
+  isShowMap.value = false
 }
-
-// const find = function (arr, find) {
-// return arr.filter(function (value) {
-// return (value + "").toLowerCase().indexOf(find.toLowerCase()) != -1;
-// });
-// };
 
 function postLoadFunction() {
   ymaps.ready(init);
 
-  // const suggestView = new ymaps.SuggestView('suggest');
-  function init(){
+  function init() {
+    const searchControl = new ymaps.control.SearchControl({
+      options: {
+        // Будет производиться поиск только по топонимам.
+        provider: 'yandex#map'
+      }
+    });
+    const yandexListResultList = ymaps.templateLayoutFactory.createClass([
+      "<style>#dropdawn {background-color: #fff;} .item{background-color: #fff; color: #191919; font-family: JuraMedium; font-size: 2vh; line-height: 125%; letter-spacing: -0.76px; padding: 4px 8px;}.item:hover{background-color: rgba(0, 0, 0, 0.1);}</style>",
+      "<div id='dropdawn'>",
+      "{% for item in state.items %}",
+      "<div class='item' data-value=\"{{ item.value }}\">{{ item.displayName }}</div>",
+      "{% endfor %}",
+      "</div>"
+    ].join(''), {
+      build: function () {
+        console.log('build')
+        const dropdawn = document.getElementById("dropdawn");
+        if (dropdawn) {
+          dropdawn.style.display = "block";
+        }
+        yandexListResultList.superclass.build.call(this);
+        this.itemSelectCallback = ymaps.util.bind(this.itemSelect, this);
+
+        const items = document.getElementsByClassName("item")
+        for (let index = 0; index < items.length; index += 1) {
+          if (index === 0) {
+            searchControl.search(items[index].innerText);
+            console.log(items[index].innerText)
+          }
+          items[index].addEventListener("click", this.itemSelectCallback)
+        }
+        if (items.length === 0) {
+          isOpen.value = false
+        } else {
+          isOpen.value = true
+        }
+      },
+      clear: function () {
+        console.log('clear')
+        const items = document.getElementsByClassName("item")
+        for (const item of items) {
+          item.removeEventListener("click", this.itemSelectCallback)
+        }
+        yandexListResultList.superclass.clear.call(this);
+      },
+      itemSelect: function (e: any) {
+        console.log('itemSelect')
+        const place = e.target.dataset.value
+        console.log("place: ", place)
+        searchControl.search(place);
+        searchLocate.value = place;
+        editLocate.value = place;
+        emit("update:modelValue", place);
+        const dropdawn = document.getElementById("dropdawn");
+        if (dropdawn) {
+          dropdawn.style.display = "none";
+        }
+        // const myGeocoder = ymaps.geocode(place);
+
+        // myGeocoder.then(
+        //   async function (res) {
+        //     const coordinates = res.geoObjects.get(0).geometry.getCoordinates();
+        //     const newPlacemark = new ymaps.Placemark(coordinates,
+        //       {
+        //         balloonContent: '<strong>' + place + '</strong>'
+        //       },
+        //       {
+        //         preset: 'islands#dotIcon',
+        //         iconColor: '#f1500b'
+        //       },
+        //       {});
+        //     myMap.geoObjects.removeAll()
+        //     myMap.geoObjects.add(newPlacemark);
+        //   }
+        // );
+      }
+    });
+
 
     myMap = new ymaps.Map("map", {
       center: [55.76, 37.64],
       zoom: 7,
     });
 
-    var searchControl = new ymaps.control.SearchControl({
-      options: {
-        // Будет производиться поиск только по топонимам.
-        provider: 'yandex#map'
-      }
-    });
-
     // Добавляем элемент управления на карту.
     myMap.controls.add(searchControl);
 
     myMap.events.add('click', function (e) {
-        var coords = e.get('coords');
-        loadAddress(coords[0], coords[1]);
+      var coords = e.get('coords');
+      loadAddress(coords[0], coords[1]);
     });
 
 
-    const suggestView = new ymaps.SuggestView('suggest', {
-        offset: [10, 10]
-    });
-    // ymaps3.getDefaultConfig().setApikeys({suggest: tokenGeo})
-    suggestView.events.add('select', function (e) {
-      const select = e.originalEvent?.item?.value;
-      searchControl.search(select);
+    new ymaps.SuggestView('suggest', {
+      offset: [0, 10],
+      layout: yandexListResultList
     });
   }
 }
@@ -162,12 +189,16 @@ function loadAddress(lat: any, lon: any) {
   console.log(lat, lon)
   const response = geolocate(lat, lon);
   myMap.geoObjects.removeAll()
-  myMap.geoObjects.add(new ymaps.Placemark([lat, lon]))
-  if(response) {
-    console.log(response)
-    activElem.value = response
+  myMap.geoObjects.add(new ymaps.Placemark([lat, lon], {
+    balloonContent: '<strong>' + response + '</strong>'
+  },
+    {
+      preset: 'islands#dotIcon',
+      iconColor: '#f1500b'
+    },))
+  if (response) {
+    editLocate.value = response
     emit("update:modelValue", response);
-    // props.selectAdress(response)
   } else {
     alert('вы выбрали место без адресса на карте')
   }
@@ -187,7 +218,7 @@ function geolocate(lat: any, lon: any) {
 
   const responseJSON = JSON.parse(req.response)
 
-  if(responseJSON.suggestions.length > 0) {
+  if (responseJSON.suggestions.length > 0) {
     return responseJSON.suggestions[0].value
   } else {
     return false
@@ -202,47 +233,74 @@ onMounted(() => {
     `https://api-maps.yandex.ru/2.1/?apikey=${tokenMap}&suggest_apikey=${tokenGeo}&lang=ru_RU`
   );
   script.addEventListener("load", postLoadFunction);
-  if(drop.value) {
+  if (drop.value) {
     drop.value.appendChild(script);
   }
 })
+
+watch(
+  () => searchLocate.value,
+  (newVal) => {
+    editLocate.value = newVal;
+  },
+);
 </script>
 
 <style lang="scss" scoped>
-ymaps {
-  background-color: red;
-}
-.ymaps-2-1-79-search__suggest {
-  background-color: red;
-}
 #map {
-  position: absolute;
-  right: 0;
-  width: 300px;
-  height: 300px;
-  z-index: 2;
-  transform: translateX(80%);
-}
-.locate-cmpt {
-  position: relative;
-  width: 100%;
-  box-sizing: border-box;
-  border-radius: 40px;
-  border: 3px solid #fff;
+  position: fixed;
   left: 0;
-  background-color: #fff;
+  bottom: 0;
+  width: 100vw;
+  height: 42vh;
+  z-index: -1;
+  pointer-events: all;
+}
+
+#suggest-test {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: absolute;
+  transform: translateY(-100%);
+  pointer-events: none;
+  border: 3px solid transparent;
+  outline: none;
   color: #191919;
   font-family: JuraMedium;
   font-size: 19px;
   line-height: 125%;
   letter-spacing: -0.76px;
+  width: 100%;
+  padding: 1.48vh 1.6vw;
+  padding-right: 5.6vw;
+  text-wrap: nowrap;
   cursor: pointer;
+}
+
+.locate-cmpt {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  // border-radius: 40px;
+  // border: 3px solid #fff;
+  left: 0;
+  background-color: #fff;
+  color: #191919;
+  font-family: JuraMedium;
+  font-size: 2.59vh;
+  line-height: 125%;
+  letter-spacing: -0.76px;
+  // overflow-x: hidden;
+  // overflow-y: none;
+  cursor: pointer;
+
   &_icon {
     position: absolute;
     right: 32px;
     top: 50%;
     transform: translateY(-50%);
   }
+
   &__scroll {
     overflow-y: scroll;
     display: flex;
@@ -251,35 +309,43 @@ ymaps {
     max-height: 300px;
     margin-right: 16px;
   }
-  &__items {
-    position: absolute;
-    top: -3px;
-    left: -3px;
-    right: -3px;
-    background-color: white;
-    padding: 12px 0;
-    border: 3px solid #191919;
-    border-radius: 20px;
-    z-index: 1;
-    max-height: 300px;
-  }
+
   &__input {
-    border: none;
+    border: 3px solid #fff;
     outline: none;
-    color: #191919;
+    color: #fff;
     font-family: JuraMedium;
     font-size: 19px;
     line-height: 125%;
     letter-spacing: -0.76px;
-  }
-  &__item {
-    &:hover {
-      padding: 0 12px;
-      border-radius: 16px;
-      box-shadow: -3px -1px 8px 0px rgba(26, 26, 26, 0.25),
-        4px 6px 12px 0px rgba(26, 26, 26, 0.25),
-        1px 1px 2px 0px rgba(232, 232, 232, 0.5) inset;
+    width: 100%;
+    padding: 1.48vh 1.6vw;
+    cursor: pointer;
+    caret-color: #191919;
+    padding-right: 5.6vw;
+
+    // &::placeholder {
+    //   color: #191919;
+    //   font-family: JuraMedium;
+    //   font-size: 19px;
+    //   line-height: 125%;
+    //   letter-spacing: -0.76px;
+    // }
+
+    &:focus-visible {
+      border: 3px solid #191919;
+      outline: 0;
     }
   }
+
+  // &__item {
+  //   &:hover {
+  //     padding: 0 12px;
+  //     // border-radius: 16px;
+  //     box-shadow: -3px -1px 8px 0px rgba(26, 26, 26, 0.25),
+  //       4px 6px 12px 0px rgba(26, 26, 26, 0.25),
+  //       1px 1px 2px 0px rgba(232, 232, 232, 0.5) inset;
+  //   }
+  // }
 }
 </style>

@@ -7,8 +7,9 @@
         <InputComponent
           v-model="name"
           placeholder="Введите название"
-          :iconDisable="true"
-          padding="1.85vh 3.33vw"
+          padding="1.48vh 1.6vw"
+          iconEnablePerm
+          icon="pen-black"
         />
       </div>
       <div class="add__visualization__enter">
@@ -16,8 +17,8 @@
         <LocateComponent
           v-model="address"
           placeholder="Введите адрес"
-          paddingX="3.33vw"
-          paddingY="1.85vh"
+          paddingX="1.6vw"
+          paddingY="1.48vh"
           icon="locate"
           :listItem="menuLocate"
           :selectAdress="selectAdress"
@@ -28,21 +29,15 @@
         <DropDownComponent
           v-model="projectType"
           placeholder="Выберите тип проекта"
-          paddingX="3.33vw"
-          paddingY="1.85vh"
+          paddingX="1.6vw"
+          paddingY="1.48vh"
           icon="drop"
           :listItem="menuDropType"
         />
       </div>
-      <img
-        @click="handlerCreate"
-        class="add__visualization__btn"
-        @mouseover="handlerOverBtn"
-        @mouseleave="handlerLeaveOverBtn"
-        @mousedown="handlerMousedown"
-        :src="require(`@/assets/btns/${choiceBtn('create')}`)"
-        alt="serach"
-      />
+      <div @click="handlerCreate" class="add__visualization__btn">
+        Создать проект
+      </div>
     </div>
   </div>
 </template>
@@ -196,11 +191,23 @@ watch(
       }
     }
     &__btn {
-      height: 5.89vh;
-      width: 15.625vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      height: 5.925vh;
+      width: 100%;
       margin: 0 auto;
       margin-top: 5.185vh;
       cursor: pointer;
+      border-top: 1px solid rgba(255, 255, 255, 0.65);
+      background-color: rgba(0, 0, 0, 0.35);
+
+      color: #f9f9f9;
+      font-family: JuraSemiBold;
+      font-size: 2.59vh;
+      line-height: 100%;
+      letter-spacing: -0.56px;
     }
   }
 }

@@ -79,7 +79,7 @@ function handlerChooseItem(item: string) {
   position: relative;
   width: 100%;
   box-sizing: border-box;
-  border-radius: 40px;
+  // border-radius: 40px;
   border: 3px solid #fff;
   left: 0;
   background-color: #fff;
@@ -106,13 +106,13 @@ function handlerChooseItem(item: string) {
     row-gap: 12px;
     padding: 12px 0;
     border: 3px solid #191919;
-    border-radius: 20px;
+    // border-radius: 20px;
     z-index: 1;
   }
   &__item {
     &:hover {
       padding: 0 12px;
-      border-radius: 16px;
+      // border-radius: 16px;
       box-shadow: -3px -1px 8px 0px rgba(26, 26, 26, 0.25),
         4px 6px 12px 0px rgba(26, 26, 26, 0.25),
         1px 1px 2px 0px rgba(232, 232, 232, 0.5) inset;

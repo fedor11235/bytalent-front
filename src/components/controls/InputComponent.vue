@@ -44,23 +44,23 @@ const emit = defineEmits<{
   &__enter {
     box-sizing: border-box;
     width: 100%;
-    border-radius: 40px;
+    // border-radius: 40px;
     border: 3px solid #fff;
     left: 0;
-    border-radius: 40px;
     background-color: #fff;
     color: #191919;
     font-family: JuraMedium;
-    font-size: 19px;
-    line-height: 125%;
-    letter-spacing: -0.76px;
+    font-size: 2.59vh;
     cursor: pointer;
+    line-height: 100%;
+    letter-spacing: -0.56px;
     &::placeholder {
       color: #191919;
       font-family: JuraMedium;
-      font-size: 19px;
-      line-height: 125%;
-      letter-spacing: -0.76px;
+      font-size: 2.59vh;
+      cursor: pointer;
+      line-height: 100%;
+      letter-spacing: -0.56px;
     }
     &:focus-visible {
       border: 3px solid #191919;
