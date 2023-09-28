@@ -2,7 +2,7 @@
   <div :class="['login-form', { 'test-login-card': absolutePos }]">
     <div class="login-form__enter" @click="handlerClickPhone">
       <img src="@/assets/icons/phone.svg" height="24" width="24" alt="apple" />
-      <span class="login__text">Войти по номеру</span>
+      <span class="login-form__text">Войти по номеру</span>
     </div>
     <telegram-login-temp
       class="crutch-telegram"
