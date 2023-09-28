@@ -8,7 +8,12 @@
           padding="20px 32px"
         />
       </div>
-      <img
+      <BtnComponent
+        class="search-view__btn"
+        imgBtn="search"
+        :btnClick="handlerClickSearch"
+      />
+      <!-- <img
         @mouseover="handlerOverBtn"
         @mouseleave="handlerLeaveOverBtn"
         @mousedown="handlerMousedown"
@@ -17,7 +22,7 @@
         width="200"
         height="42"
         alt="serach"
-      />
+      /> -->
     </div>
   </div>
 </template>
@@ -28,6 +33,7 @@ import { useRoute } from "vue-router";
 import InputComponent from "@/components/controls/InputComponent.vue";
 import authService from "@/services/authService";
 import { useRootStore } from "@/store";
+import BtnComponent from "@/components/controls/BtnComponent.vue";
 
 const rootStore = useRootStore();
 
@@ -45,28 +51,28 @@ rootStore.loadBgrTest = false;
 
 const btnState = ref("default");
 
-function choiceBtn(name: string) {
-  if (btnState.value === "default") {
-    return `${name}.svg`;
-  }
-  if (btnState.value === "hover") {
-    return `${name}-hover.svg`;
-  }
-  if (btnState.value === "pressed") {
-    return `${name}-pressed.svg`;
-  }
-}
+// function choiceBtn(name: string) {
+//   if (btnState.value === "default") {
+//     return `${name}.svg`;
+//   }
+//   if (btnState.value === "hover") {
+//     return `${name}-hover.svg`;
+//   }
+//   if (btnState.value === "pressed") {
+//     return `${name}-pressed.svg`;
+//   }
+// }
 
-function handlerMousedown() {
-  btnState.value = "pressed";
-}
+// function handlerMousedown() {
+//   btnState.value = "pressed";
+// }
 
-function handlerOverBtn() {
-  btnState.value = "hover";
-}
+// function handlerOverBtn() {
+//   btnState.value = "hover";
+// }
 
-function handlerLeaveOverBtn() {
-  btnState.value = "default";
+function handlerClickSearch() {
+  console.log("search")
 }
 
 onMounted(() => {
@@ -127,6 +133,8 @@ watch(
     width: 80vw;
   }
   &__btn {
+    width: 12.5vw;
+    height: 5.555vh;
     cursor: pointer;
   }
 }

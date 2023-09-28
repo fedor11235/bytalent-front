@@ -95,7 +95,7 @@ function handlerProfile() {
   scale: 1.2;
   transform-origin: right;
   background-color: rgba(0, 0, 0, 0.25);
-  transform: skew(-10deg);
+  transform: skew(10deg);
   z-index: -1;
 }
 .settings-view {

@@ -1,10 +1,12 @@
 <template>
   <div v-show="rootStore.isShowLoad">
     <StreamingComponentAuth
+      v-if="check"
       @finishLoad="rootStore.loadBgrTest = true"
       v-show="check"
     />
     <StreamingComponent
+      v-else
       @finishLoad="rootStore.loadBgrTest = true"
       v-show="!check"
     />
@@ -34,8 +36,6 @@ watch(
     check.value = await authService.checkToken();
     rootStore.loadApiTest = true;
     rootStore.noHover = check.value;
-
-    rootStore.loadBgrTest = true;
   },
   { immediate: true }
 );

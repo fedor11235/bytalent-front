@@ -15,7 +15,6 @@
         backgroundColor: bgrDropColor,
       }"
     >
-      <!-- backdropFilter: bgrDropBlur, -->
       <EmptyComponent />
       <div class="layout-welcome__content">
         <div class="layout-welcome__content_top">
@@ -32,19 +31,6 @@
             :imgBtn="imgBtn"
             :btnClick="btnClick"
           />
-          <!-- <div
-            @mouseover="handlerOverBtn"
-            @mouseleave="handlerLeaveOverBtn"
-            @mousedown="handlerMousedown"
-            @click="btnClick"
-            class="layout-welcome__btn"
-            :style="{
-              backgroundImage: `url(${require(`@/assets/btns/${choiceBtn(
-                imgBtn
-              )}`)})`,
-            }"
-            alt="download"
-          ></div> -->
         </div>
         <div class="layout-welcome__content_bottom">
           <slot name="content-bottom"></slot>
@@ -78,31 +64,6 @@ const props = defineProps<{
 }>();
 
 const bgr = ref();
-// const btnState = ref("default");
-
-// function choiceBtn(name: string) {
-//   if (btnState.value === "default") {
-//     return `${name}.svg`;
-//   }
-//   if (btnState.value === "hover") {
-//     return `${name}-hover.svg`;
-//   }
-//   if (btnState.value === "pressed") {
-//     return `${name}-pressed.svg`;
-//   }
-// }
-
-// function handlerMousedown() {
-//   btnState.value = "pressed";
-// }
-
-// function handlerOverBtn() {
-//   btnState.value = "hover";
-// }
-
-// function handlerLeaveOverBtn() {
-//   btnState.value = "default";
-// }
 
 onMounted(() => {
   if (props.bgBase) {

@@ -1,19 +1,47 @@
 <template>
-  <div
-    v-if="btnLoadFinish"
-    @mouseover="handlerOverBtn"
-    @mouseleave="handlerLeaveOverBtn"
-    @mousedown="handlerMousedown"
-    @click="btnClick"
-    class="btnn"
-    ref="btn"
-    :style="{
-      backgroundImage: `url(${`/btns/${choiceBtn(imgBtn)}`})`,
-    }"
-  ></div>
-  <div v-else class="btnn btnn_empty">
-    <div class="btnn_empty_left"></div>
-    <div class="btnn_empty_right"></div>
+  <div>
+    <div v-show="btnLoadFinish" class="ioi">
+      <div
+        v-show="btnState === 'default'"
+        @mouseover="handlerOverBtn"
+        @mouseleave="handlerLeaveOverBtn"
+        @mousedown="handlerMousedown"
+        @click="btnClick"
+        class="btnn"
+        ref="btn"
+        :style="{
+          backgroundImage: `url(${`/btns/${imgBtn}.svg`})`,
+        }"
+      ></div>
+      <div
+        v-show="btnState === 'hover'"
+        @mouseover="handlerOverBtn"
+        @mouseleave="handlerLeaveOverBtn"
+        @mousedown="handlerMousedown"
+        @click="btnClick"
+        class="btnn"
+        ref="btn"
+        :style="{
+          backgroundImage: `url(${`/btns/${imgBtn}-hover.svg`})`,
+        }"
+      ></div>
+      <div
+        v-show="btnState === 'pressed'"
+        @mouseover="handlerOverBtn"
+        @mouseleave="handlerLeaveOverBtn"
+        @mousedown="handlerMousedown"
+        @click="btnClick"
+        class="btnn"
+        ref="btn"
+        :style="{
+          backgroundImage: `url(${`/btns/${imgBtn}-pressed.svg`})`,
+        }"
+      ></div>
+    </div>
+    <div v-show="!btnLoadFinish" class="btnn btnn_empty">
+      <div class="btnn_empty_left"></div>
+      <div class="btnn_empty_right"></div>
+    </div>
   </div>
 </template>
 
@@ -49,17 +77,6 @@ function handlerLeaveOverBtn() {
 function handlerMousedown() {
   btnState.value = "pressed";
 }
-function choiceBtn(name: string) {
-  if (btnState.value === "default") {
-    return `${name}.svg`;
-  }
-  if (btnState.value === "hover") {
-    return `${name}-hover.svg`;
-  }
-  if (btnState.value === "pressed") {
-    return `${name}-pressed.svg`;
-  }
-}
 
 onMounted(() => {
   const btnImageDefault = new Image();
@@ -87,9 +104,16 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+.ioi {
+  height: 100%;
+  width: 100%;
+}
 .btnn {
   height: 100%;
   width: 100%;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
   &_empty {
     display: flex;
     justify-content: space-around;
