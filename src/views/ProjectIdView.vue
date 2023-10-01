@@ -10,7 +10,7 @@
       :indexProject="indexProject + 1"
       @finishLoad="rootStore.loadBgrTest = true"
     />
-    <ErrorComponent v-if="!check && !project && rootStore.loadApiTest" />
+    <!-- <ErrorComponent v-if="!check && !project && rootStore.loadApiTest" /> -->
   </div>
 </template>
 
