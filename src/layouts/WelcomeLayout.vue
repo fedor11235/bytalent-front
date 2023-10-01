@@ -9,43 +9,56 @@
         class="layout-welcome__img"
       />
     </div>
-    <div
-      class="layout-welcome__backdrop"
-      :style="{
-        backgroundColor: bgrDropColor,
-      }"
-    >
+    <div>
+      <Transition name="fade">
+        <div
+          v-if="rootStore.contentBackdrop"
+          class="layout-welcome__backdrop"
+          :style="{
+            backgroundColor: bgrDropColor,
+          }"
+        ></div>
+      </Transition>
       <EmptyComponent />
       <div class="layout-welcome__content">
-        <div class="layout-welcome__content_top">
-          <slot name="content-top"></slot>
-        </div>
-        <div class="test">
-          <div class="layout-welcome__title">{{ title }}</div>
-          <div class="layout-welcome__description">
-            <LineComponent v-if="isLine" />
-            {{ description }}
+        <Transition name="top-layout">
+          <div v-if="rootStore.contentTop" class="layout-welcome__content_top">
+            <slot name="content-top"></slot>
           </div>
-          <BtnComponent
-            class="layout-welcome__btn"
-            :imgBtn="imgBtn"
-            :btnClick="btnClick"
-          />
-        </div>
-        <div class="layout-welcome__content_bottom">
-          <slot name="content-bottom"></slot>
-        </div>
+        </Transition>
+        <Transition name="middle-layout">
+          <div v-if="rootStore.contentMiddle">
+            <div class="layout-welcome__title">{{ title }}</div>
+            <div class="layout-welcome__description">
+              <LineComponent v-if="isLine" />
+              {{ description }}
+            </div>
+            <BtnComponent
+              class="layout-welcome__btn"
+              :imgBtn="imgBtn"
+              :btnClick="btnClick"
+            />
+          </div>
+        </Transition>
+        <Transition name="bottom-layout">
+          <div v-if="rootStore.contentBottom" class="layout-welcome__content_bottom">
+            <slot name="content-bottom"></slot>
+          </div>
+        </Transition>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch, onUnmounted } from "vue";
 import EmptyComponent from "@/components/common/EmptyComponent.vue";
 import BgrComponent from "@/components/controls/BgrComponent.vue";
 import BtnComponent from "@/components/controls/BtnComponent.vue";
 import LineComponent from "@/components/common/LineComponent.vue";
+import { useRootStore } from "@/store";
+
+const rootStore = useRootStore();
 
 const emit = defineEmits(["finish-load"]);
 
@@ -65,9 +78,19 @@ const props = defineProps<{
 
 const bgr = ref();
 
+rootStore.contentTop=false
+rootStore.contentMiddle=false
+rootStore.contentBottom=false
+
 onMounted(() => {
   if (props.bgBase) {
     emit("finish-load");
+    setTimeout(() => {
+      rootStore.contentTop=true;
+      rootStore.contentMiddle=true;
+      rootStore.contentBottom=true;
+      rootStore.contentBackdrop = true;
+    }, 100);
     return;
   }
   const bgrImage = new Image();
@@ -76,9 +99,22 @@ onMounted(() => {
     if (!bgr.value) return;
     bgr.value.style.backgroundImage = "url(" + bgrImage.src + ")";
     emit("finish-load");
+    setTimeout(() => {
+      rootStore.contentTop=true;
+      rootStore.contentMiddle=true;
+      rootStore.contentBottom=true;
+      rootStore.contentBackdrop = true;
+    }, 500);
   };
   bgrImage.src = "/backgrounds/" + props.bg;
 });
+
+onUnmounted(() => {
+  rootStore.contentTop=false
+  rootStore.contentMiddle=false
+  rootStore.contentBottom=false
+  rootStore.contentBackdrop = false;
+})
 </script>
 
 <style lang="scss" scoped>
@@ -105,6 +141,7 @@ onMounted(() => {
     background-position: 50%;
     background-repeat: no-repeat;
     background-size: cover;
+    z-index: -1;
     // backdrop-filter: blur(12.5px);
   }
   &__content {

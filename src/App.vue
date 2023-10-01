@@ -1,5 +1,5 @@
 <template>
-  <LoadPage v-if="!rootStore.isShowLoad" />
+  <!-- <LoadPage v-if="!rootStore.isShowLoad" /> -->
   <MobileWarningPage v-if="isMobile" />
   <div v-else>
     <Transition name="fade">
@@ -57,8 +57,20 @@
       v-if="!rootStore.hiddenHeader"
       :noHover="rootStore.noHover"
     />
-    <router-view />
 
+    <!-- <Transition name="test" mode="in-out" :css="false" @before-enter="handlerBeforeEnter" @enter="handlerEnter" @leave="handlerLeave">
+      <router-view />
+    </Transition> -->
+
+    <router-view v-slot="{ Component }">
+      <transition :name="animate">
+        <component :is="Component" />
+      </transition>
+    </router-view>
+
+    <!-- <Transition name="moveInUp">
+      <router-view />
+    </Transition> -->
     <!-- <Transition name="fade">
       <VisualizationHover v-if="rootStore.projectHover" />
     </Transition>
@@ -126,6 +138,9 @@ import PopupPersonalData from "@/components/docs/PopupPersonalData.vue";
 import { useRoute } from "vue-router";
 import { useRootStore } from "@/store";
 
+// eslint-disable-next-line
+// import { gsap, Power2 } from "gsap";
+
 const route = useRoute();
 const rootStore = useRootStore();
 
@@ -134,11 +149,50 @@ const minWidth = 840;
 const screenWidth = ref(window.innerWidth);
 const finish = ref(false);
 const isMobile = computed(() => screenWidth.value < minWidth && finish.value);
+
+const animate = computed(() => {
+  if(rootStore.pageNext === 'project-main') {
+    return 'project'
+  } else   if(rootStore.pageNext === 'streaming') {
+    return 'streaming'
+  }
+  return 'fade'
+})
 window.addEventListener("resize", setScrennWidth);
 
 function setScrennWidth() {
   screenWidth.value = window.innerWidth;
 }
+console.log(route.params)
+// function handlerBeforeEnter(el: any) {
+//   gsap.to(el, 0, {
+//     yPercent: -100, scale: 0.9, ease: Power2.easeInOut
+//   })
+// }
+
+// function handlerEnter(el: any, done: any) {
+//   done()
+//   gsap.to(el, 1, {
+//       gsap: -50, scale: 0.9, ease: Power2.easeInOut,
+//       onComplete: function() {
+//         gsap.to(el, 1, {
+//           yPercent: 0, scale: 1, ease: Power2.easeInOut
+//         })
+//       }
+//   })
+// }
+
+// function handlerLeave(el: any, done: any) {
+//   gsap.to(el, 1, {
+//     yPercent: -50, scale: 0.9, ease: Power2.easeInOut,
+//     onComplete: function() {
+//       gsap.to(el, 1, {
+//         yPercent: -100, scale: 1, ease: Power2.easeInOut,
+//         onComplete: function() { done() }
+//       })
+//     }
+//   })
+// }
 
 watch(
   () => route.params,
@@ -150,6 +204,9 @@ watch(
 </script>
 
 <style lang="scss" scoped>
+.test {
+  // transform-origin: center;
+}
 .loader-file {
   position: fixed;
   width: 74vw;

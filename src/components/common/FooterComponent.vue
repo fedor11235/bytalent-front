@@ -134,10 +134,11 @@ const rightArrowImg = computed(() => {
 .footer {
   display: flex;
   align-items: center;
-  position: fixed;
+  // position: fixed;
   width: 100%;
   height: 5.83vh;
-  bottom: 9.8vh;
+  // bottom: 9.8vh;
+  margin-bottom: 6.1vh;
   justify-content: flex-start;
   column-gap: 7.343vw;
   &__navigation {

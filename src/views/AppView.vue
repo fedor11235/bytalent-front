@@ -1,7 +1,7 @@
 <template>
   <div v-show="rootStore.isShowLoad">
-    <AppComponentAuth @finishLoad="rootStore.loadBgrTest = true" v-if="check" />
-    <AppComponent @finishLoad="rootStore.loadBgrTest = true" v-else />
+    <AppComponentAuth @finishLoad="handlerFinishLoad" v-if="check" />
+    <AppComponent @finishLoad="handlerFinishLoad" v-else />
   </div>
 </template>
 
@@ -24,12 +24,27 @@ const check = ref(false);
 rootStore.loadApiTest = false;
 rootStore.loadBgrTest = false;
 
+// rootStore.contentTop=false
+// rootStore.contentMiddle=false
+// rootStore.contentBottom=false
+function handlerFinishLoad() {
+  rootStore.loadBgrTest = true
+
+  // rootStore.contentTop=true
+  // rootStore.contentMiddle=true
+  // rootStore.contentBottom=true
+  console.log('11111111111111')
+}
 watch(
   () => route.params,
   async () => {
     check.value = await authService.checkToken();
     rootStore.loadApiTest = true;
     rootStore.noHover = check.value;
+
+    // rootStore.contentTop=false
+    // rootStore.contentMiddle=false
+    // rootStore.contentBottom=false
   },
   { immediate: true }
 );

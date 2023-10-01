@@ -7,6 +7,38 @@
   opacity: 0;
 }
 
+// тразишены для шаблона страниц
+.top-layout-enter-active,
+.top-layout-leave-active {
+  transition: opacity .6s, transform .6s, scale .6s;
+}
+.top-layout-enter-from,
+.top-layout-leave-to {
+  opacity: 0;
+  transform: translateY(-100%);
+  scale: .5;
+}
+
+.middle-layout-enter-active,
+.middle-layout-leave-active {
+  transition: opacity .6s, transform .6s;
+}
+.middle-layout-enter-from,
+.middle-layout-leave-to {
+  opacity: 0;
+  transform: translateX(50%)
+}
+
+.bottom-layout-enter-active,
+.bottom-layout-leave-active {
+  transition: opacity .6s, transform .6s;
+}
+.bottom-layout-enter-from,
+.bottom-layout-leave-to {
+  opacity: 0;
+  transform: translateY(100%)
+}
+//
 .move-right-enter-active,
 .move-right-leave-active {
   transition: transform .6s ease;
@@ -88,3 +120,35 @@
   width: 26vw;
   // opacity: 0;
 }
+
+
+
+
+// .moveInUp-enter-active{
+//   animation: fadeIn 1s ease-in;
+// }
+
+// анимация для проектов
+.project-enter-active {
+  transition: all .6s ease;
+}
+.project-leave-active {
+  transition: all .6s ease;
+}
+.project-enter-from {
+  scale: .5;
+  transform: translateY(20vw);
+}
+
+// анимация для стриминга
+.streaming-enter-active {
+  transition: all .6s ease;
+}
+.streaming-leave-active {
+  transition: all .6s ease;
+}
+.streaming-enter-from {
+  transform: translate(100vw, -10vh);
+}
+
+

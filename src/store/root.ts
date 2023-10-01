@@ -57,6 +57,13 @@ export const useRootStore = defineStore("root", {
 
     popupLogin: false,
 
+    contentBackdrop: false,
+    contentTop: false,
+    contentMiddle: false,
+    contentBottom: false,
+
+    pageNext : ''
+
     // isActiveLoginPopup: true;
     // isActiveSearchPopup: true,
   }),
@@ -117,4 +124,11 @@ type StreamingStore = {
   loaderFilePercentage: number;
   loadApiTest: boolean;
   loadBgrTest: boolean;
+
+  contentBackdrop: boolean;
+  contentTop: boolean;
+  contentMiddle: boolean;
+  contentBottom: boolean;
+
+  pageNext: string;
 };

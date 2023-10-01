@@ -17,6 +17,8 @@ import ProjectEmptyView from "@/views/ProjectEmptyView.vue";
 import ProjectIdView from "@/views/ProjectIdView.vue";
 import ReviewerView from "@/views/ReviewerView.vue";
 import StartViewDemo from "@/views/StartViewDemo.vue";
+import { useRootStore } from "@/store";
+import projectService from "@/services/projectService";
 
 // for test
 import LoadStartPage from "@/pages/LoadStartPage.vue";
@@ -132,9 +134,23 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+  const rootStore = useRootStore();
+  rootStore.pageNext = (to.name as string)
   setToken();
   const check = await authService.checkToken();
   const enter = window.localStorage.getItem("enter");
+
+  if(check && to.name === "project-main") {
+    const projects = await projectService.getAllNumberProjects();
+    if (projects.projects.length > 0) {
+      await router.push({
+        name: "project-id",
+        params: { idProject: projects.projects[0].id },
+      });
+    } else {
+      await router.push({ name: "project-empty" });
+    }
+  }
 
   if (to.meta?.auth) {
     if (check) {
