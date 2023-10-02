@@ -38,7 +38,7 @@
   opacity: 0;
   transform: translateY(100%)
 }
-//
+// сдвиг в разные стороны
 .move-right-enter-active,
 .move-right-leave-active {
   transition: transform .6s ease;
@@ -58,6 +58,29 @@
 .move-left-leave-to {
   transform: translateX(-100%);
 }
+
+.move-top-enter-active,
+.move-top-leave-active {
+  transition: translate .6s ease;
+  translate: 0 0;
+}
+.move-top-enter-from,
+.move-top-leave-to {
+  translate: 0 -70vw;
+}
+
+
+.move-bottom-enter-active,
+.move-bottom-leave-active {
+  transition: transform .6s ease;
+  transform: translateY(0);
+}
+.move-bottom-enter-from,
+.move-bottom-leave-to {
+  transform: translateY(70vw);
+}
+
+
 
 .trans-enter-active,
 .trans-leave-active {
@@ -107,26 +130,6 @@
 .login-leave-to {
   opacity: 0;
 }
-
-.kek-enter-active,
-.kek-leave-active {
-  transition: all .6s;
-  width: 100vw;
-  height: 100vh;
-}
-.kek-enter-from,
-.kek-leave-to {
-  height: 44.1vh;
-  width: 26vw;
-  // opacity: 0;
-}
-
-
-
-
-// .moveInUp-enter-active{
-//   animation: fadeIn 1s ease-in;
-// }
 
 // анимация для проектов
 .project-enter-active {

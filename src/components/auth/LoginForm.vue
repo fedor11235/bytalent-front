@@ -1,5 +1,6 @@
 <template>
   <div :class="['login-form', { 'test-login-card': absolutePos }]">
+    <!-- <div class="login-form"> -->
     <div class="login-form__enter" @click="handlerClickPhone">
       <img src="@/assets/icons/phone.svg" height="24" width="24" alt="apple" />
       <span class="login-form__text">Войти по номеру</span>
@@ -101,29 +102,36 @@ async function yourCallbackFunctionTelegram(user: any) {
   top: 50%;
   left: 50%;
   translate: -50% -50%;
+  z-index: 3;
 }
 .crutch-telegram {
   display: none;
 }
 .login-form {
+  // top: 50%;
+  // left: 50%;
+  // translate: -50% -50%;
+  // position: absolute;
+  // z-index: 3;
   min-width: 300px;
   width: 15.625vw;
   display: flex;
   flex-direction: column;
   row-gap: 14px;
   align-items: center;
-  transition: opacity 0.6s ease;
+  // transition: opacity 0.6s ease;
   // opacity: 1;
   &__enter {
     width: 100%;
-    padding: 16px 48px;
-    border-radius: 28px;
+    padding: 1.48vh 2.5vw;
+    // border-radius: 28px;
     background-color: white;
     display: flex;
     align-items: center;
-    column-gap: 16px;
+    column-gap: 0.8vw;
     box-sizing: border-box;
     cursor: pointer;
+    justify-content: center;
     &:hover {
       box-shadow: -3px -1px 8px 0px rgba(232, 232, 232, 0.25),
         4px 6px 12px 0px rgba(232, 232, 232, 0.25),
@@ -142,6 +150,8 @@ async function yourCallbackFunctionTelegram(user: any) {
     font-weight: 600;
     line-height: 100%;
     letter-spacing: -0.38px;
+    width: 145px;
+    text-wrap: nowrap;
   }
 }
 .login-apple {

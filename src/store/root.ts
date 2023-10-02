@@ -62,7 +62,7 @@ export const useRootStore = defineStore("root", {
     contentMiddle: false,
     contentBottom: false,
 
-    pageNext : ''
+    pageNext: "",
 
     // isActiveLoginPopup: true;
     // isActiveSearchPopup: true,

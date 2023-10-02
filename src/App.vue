@@ -58,19 +58,29 @@
       :noHover="rootStore.noHover"
     />
 
-    <!-- <Transition name="test" mode="in-out" :css="false" @before-enter="handlerBeforeEnter" @enter="handlerEnter" @leave="handlerLeave">
-      <router-view />
-    </Transition> -->
+    <RouterView v-slot="{ Component, route }">
+      <Transition
+        :name="(route.meta.transition as string | undefined) || 'fade'"
+      >
+        <Component :is="Component" />
+      </Transition>
+    </RouterView>
 
-    <router-view v-slot="{ Component }">
-      <transition :name="animate">
-        <component :is="Component" />
-      </transition>
-    </router-view>
+    <!-- попап входа при ховере -->
+    <Transition name="move-top">
+      <div v-if="rootStore.loginHover" class="background"></div>
+    </Transition>
 
-    <!-- <Transition name="moveInUp">
-      <router-view />
-    </Transition> -->
+    <Transition name="move-bottom">
+      <LoginForm v-if="rootStore.loginHover" absolutePos name="fade" />
+    </Transition>
+
+    <!-- попап поиска при ховере -->
+    <Transition name="move-right">
+      <SearchPopup v-if="rootStore.searchHover" />
+    </Transition>
+
+    <!-- старые попапы при наведении на разделы -->
     <!-- <Transition name="fade">
       <VisualizationHover v-if="rootStore.projectHover" />
     </Transition>
@@ -105,13 +115,16 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from "vue";
-import LoadPage from "@/pages/LoadPage.vue";
+// import LoadPage from "@/pages/LoadPage.vue";
 
 // import VisualizationHover from "@/components/popup/VisualizationHover.vue";
 // import AppHover from "@/components/popup/AppHover.vue";
 // import StreamingHover from "@/components/popup/StreamingHover.vue";
 // import ProfileHover from "@/components/popup/ProfileHover.vue";
 // import SearchHover from "@/components/popup/SearchHover.vue";
+
+// import SearchComponent from "@/components/common/SearchComponent.vue";
+import SearchPopup from "@/components/popup/SearchPopup.vue";
 
 import LoginPopup from "@/components/popup/LoginPopup.vue";
 
@@ -135,6 +148,8 @@ import LoaderFileComponent from "@/components/common/LoaderFileComponent.vue";
 import PopupTermsUser from "@/components/docs/PopupTermsUser.vue";
 import PopupPersonalData from "@/components/docs/PopupPersonalData.vue";
 
+import LoginForm from "@/components/auth/LoginForm.vue";
+
 import { useRoute } from "vue-router";
 import { useRootStore } from "@/store";
 
@@ -150,20 +165,11 @@ const screenWidth = ref(window.innerWidth);
 const finish = ref(false);
 const isMobile = computed(() => screenWidth.value < minWidth && finish.value);
 
-const animate = computed(() => {
-  if(rootStore.pageNext === 'project-main') {
-    return 'project'
-  } else   if(rootStore.pageNext === 'streaming') {
-    return 'streaming'
-  }
-  return 'fade'
-})
 window.addEventListener("resize", setScrennWidth);
 
 function setScrennWidth() {
   screenWidth.value = window.innerWidth;
 }
-console.log(route.params)
 // function handlerBeforeEnter(el: any) {
 //   gsap.to(el, 0, {
 //     yPercent: -100, scale: 0.9, ease: Power2.easeInOut
@@ -204,13 +210,20 @@ watch(
 </script>
 
 <style lang="scss" scoped>
-.test {
-  // transform-origin: center;
-}
 .loader-file {
   position: fixed;
   width: 74vw;
   bottom: 1.48vh;
   left: 13vw;
+}
+
+.background {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background-color: #191919;
+  z-index: 3;
+  scale: 0.5;
+  transform: skew(10deg, 0);
 }
 </style>

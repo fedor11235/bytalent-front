@@ -41,7 +41,10 @@
           </div>
         </Transition>
         <Transition name="bottom-layout">
-          <div v-if="rootStore.contentBottom" class="layout-welcome__content_bottom">
+          <div
+            v-if="rootStore.contentBottom"
+            class="layout-welcome__content_bottom"
+          >
             <slot name="content-bottom"></slot>
           </div>
         </Transition>
@@ -78,17 +81,17 @@ const props = defineProps<{
 
 const bgr = ref();
 
-rootStore.contentTop=false
-rootStore.contentMiddle=false
-rootStore.contentBottom=false
+rootStore.contentTop = false;
+rootStore.contentMiddle = false;
+rootStore.contentBottom = false;
 
 onMounted(() => {
   if (props.bgBase) {
     emit("finish-load");
     setTimeout(() => {
-      rootStore.contentTop=true;
-      rootStore.contentMiddle=true;
-      rootStore.contentBottom=true;
+      rootStore.contentTop = true;
+      rootStore.contentMiddle = true;
+      rootStore.contentBottom = true;
       rootStore.contentBackdrop = true;
     }, 100);
     return;
@@ -100,9 +103,9 @@ onMounted(() => {
     bgr.value.style.backgroundImage = "url(" + bgrImage.src + ")";
     emit("finish-load");
     setTimeout(() => {
-      rootStore.contentTop=true;
-      rootStore.contentMiddle=true;
-      rootStore.contentBottom=true;
+      rootStore.contentTop = true;
+      rootStore.contentMiddle = true;
+      rootStore.contentBottom = true;
       rootStore.contentBackdrop = true;
     }, 500);
   };
@@ -110,11 +113,11 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  rootStore.contentTop=false
-  rootStore.contentMiddle=false
-  rootStore.contentBottom=false
+  rootStore.contentTop = false;
+  rootStore.contentMiddle = false;
+  rootStore.contentBottom = false;
   rootStore.contentBackdrop = false;
-})
+});
 </script>
 
 <style lang="scss" scoped>

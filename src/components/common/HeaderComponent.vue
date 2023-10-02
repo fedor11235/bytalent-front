@@ -140,6 +140,7 @@ function handlerMouseOverBtn(name: PageName) {
   // }
   rootStore[`${name}StartHover`] = true;
   rootStore.isHoverCard = true;
+  // console.log("name: ", name)
 }
 
 function handlerMouseOutBtn(name: PageName) {
@@ -155,7 +156,6 @@ async function handlerSwitchPage(name: PageName) {
     closeHover();
     await router.push({ name: "project-main" });
   } else {
-    console.log("else name: ", name);
     closeHover();
     await router.push({ name: name });
   }

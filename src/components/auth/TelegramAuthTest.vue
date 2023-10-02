@@ -1,19 +1,12 @@
 <template>
-  <div
-    ref="buttonTelegram"
-    @click="test"
-    class="telegram-auth"
-    :style="{
-      justifyContent: finishLoad ? 'flex-start' : '',
-    }"
-  >
+  <div ref="buttonTelegram" @click="test" class="telegram-auth">
     <LoaderComponent size="19px" v-if="!finishLoad" />
     <img
       v-if="finishLoad"
       src="@/assets/icons/telegram-w.svg"
       height="24"
       width="24"
-      alt="apple"
+      alt="telegram"
     />
     <div v-if="finishLoad" class="telegram-auth__text">
       Войти через Telegram
@@ -51,15 +44,16 @@ function test() {
 <style lang="scss" scoped>
 .telegram-auth {
   width: 100%;
-  padding: 16px 48px;
-  border-radius: 28px;
+  padding: 1.48vh 2.5vw;
+  align-items: center;
+  // border-radius: 28px;
   background-color: #6aa7e5;
   display: flex;
-  align-items: center;
-  column-gap: 16px;
+  column-gap: 0.8vw;
   box-sizing: border-box;
   justify-content: space-around;
   cursor: pointer;
+  justify-content: center;
   &:hover {
     box-shadow: -3px -1px 8px 0px rgba(232, 232, 232, 0.25),
       4px 6px 12px 0px rgba(232, 232, 232, 0.25),
@@ -71,6 +65,8 @@ function test() {
     font-size: 1.759vh;
     line-height: 100%;
     letter-spacing: -0.38px;
+    width: 145px;
+    text-wrap: nowrap;
   }
 }
 </style>

@@ -17,7 +17,7 @@
       v-model="searchLocate"
     />
     <div id="suggest-test">
-      {{ editLocate? editLocate: searchLocate? searchLocate: placeholder }}
+      {{ editLocate ? editLocate : searchLocate ? searchLocate : placeholder }}
     </div>
   </div>
 </template>

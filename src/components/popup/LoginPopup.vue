@@ -28,11 +28,11 @@
         <ApleAuth />
       </div> -->
       <!-- TODO тестовый вход -->
-      <div class="login__test" v-if="isDevelopment">
+      <!-- <div class="login__test" v-if="isDevelopment">
         <div class="login__title">Тестовый вход</div>
         <input class="test-input" v-model="login" />
         <div @click="handlerLogin" class="test-button">Вход</div>
-      </div>
+      </div> -->
       <FAQControl />
     </div>
   </div>

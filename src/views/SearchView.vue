@@ -72,7 +72,7 @@ const btnState = ref("default");
 // }
 
 function handlerClickSearch() {
-  console.log("search")
+  console.log("search");
 }
 
 onMounted(() => {

@@ -38,9 +38,11 @@
       </div>
     </template>
   </WelcomeLayout>
+  <FAQControl />
 </template>
 
 <script setup lang="ts">
+import FAQControl from "@/components/controls/FAQControl.vue";
 import WelcomeLayout from "@/layouts/WelcomeLayout.vue";
 import { useRootStore } from "@/store";
 

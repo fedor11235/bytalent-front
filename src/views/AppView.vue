@@ -24,16 +24,8 @@ const check = ref(false);
 rootStore.loadApiTest = false;
 rootStore.loadBgrTest = false;
 
-// rootStore.contentTop=false
-// rootStore.contentMiddle=false
-// rootStore.contentBottom=false
 function handlerFinishLoad() {
-  rootStore.loadBgrTest = true
-
-  // rootStore.contentTop=true
-  // rootStore.contentMiddle=true
-  // rootStore.contentBottom=true
-  console.log('11111111111111')
+  rootStore.loadBgrTest = true;
 }
 watch(
   () => route.params,
@@ -41,10 +33,6 @@ watch(
     check.value = await authService.checkToken();
     rootStore.loadApiTest = true;
     rootStore.noHover = check.value;
-
-    // rootStore.contentTop=false
-    // rootStore.contentMiddle=false
-    // rootStore.contentBottom=false
   },
   { immediate: true }
 );

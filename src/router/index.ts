@@ -17,11 +17,11 @@ import ProjectEmptyView from "@/views/ProjectEmptyView.vue";
 import ProjectIdView from "@/views/ProjectIdView.vue";
 import ReviewerView from "@/views/ReviewerView.vue";
 import StartViewDemo from "@/views/StartViewDemo.vue";
-import { useRootStore } from "@/store";
+// import { useRootStore } from "@/store";
 import projectService from "@/services/projectService";
 
 // for test
-import LoadStartPage from "@/pages/LoadStartPage.vue";
+// import LoadStartPage from "@/pages/LoadStartPage.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -49,6 +49,9 @@ const routes: Array<RouteRecordRaw> = [
         props: true,
       },
     ],
+    meta: {
+      transition: "project",
+    },
   },
   {
     path: "/new-lavel/:idProject",
@@ -68,6 +71,9 @@ const routes: Array<RouteRecordRaw> = [
     path: "/streaming",
     name: "streaming",
     component: StreamingView,
+    meta: {
+      transition: "streaming",
+    },
   },
   {
     path: "/search",
@@ -134,13 +140,11 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  const rootStore = useRootStore();
-  rootStore.pageNext = (to.name as string)
   setToken();
   const check = await authService.checkToken();
   const enter = window.localStorage.getItem("enter");
 
-  if(check && to.name === "project-main") {
+  if (check && to.name === "project-main") {
     const projects = await projectService.getAllNumberProjects();
     if (projects.projects.length > 0) {
       await router.push({
