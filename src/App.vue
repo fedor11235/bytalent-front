@@ -144,8 +144,55 @@ import PopupPersonalData from "@/components/docs/PopupPersonalData.vue";
 
 import LoginForm from "@/components/auth/LoginForm.vue";
 
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useRootStore } from "@/store";
+import authService from "@/services/authService";
+
+const router = useRouter();
+
+const staticBackgroundsAuth = [
+  "streaming-start.jpg",
+  "projects-start.jpg",
+  // "app-start.jpg",
+  "app.jpg",
+  // "architecture.jpg",
+  // "art.jpg",
+  // "interiors.jpg",
+  "lvel.jpg",
+  "project-new.jpg",
+  "projects-auth.jpg",
+  // "projects.jpg",
+  // "search.jpg",
+  "streaming-new.jpg",
+  // "test.jpg",
+];
+
+const staticBackgroundsNoauth = [
+  "streaming-start.jpg",
+  "projects-start.jpg",
+  "app-start.jpg",
+  // "app.jpg",
+  "architecture.jpg",
+  "art.jpg",
+  "interiors.jpg",
+  // "lvel.jpg",
+  // "project-new.jpg",
+  // "projects-auth.jpg",
+  // "projects.jpg",
+  // "search.jpg",
+  // "streaming-new.jpg",
+  // "test.jpg",
+];
+authService.checkToken().then((res)=> {
+  console.log(res)
+  if(res) {
+    uploadImageStatic("backgrounds", staticBackgroundsAuth);
+  } else {
+    uploadImageStatic("backgrounds", staticBackgroundsNoauth);
+    router.push({ name: "start" });
+  }
+})
+
 
 // eslint-disable-next-line
 // import { gsap, Power2 } from "gsap";
@@ -160,6 +207,22 @@ const finish = ref(false);
 const isMobile = computed(() => screenWidth.value < minWidth && finish.value);
 
 window.addEventListener("resize", setScrennWidth);
+
+// window.addEventListener("beforeunload", handlerRedirectStart);
+
+// function handlerRedirectStart() {
+//   console.log('!!')
+//   // event.preventDefault()
+//   // window.location.href = 'https://localhost:8080/start'
+//   history.pushState(null, '', 'https://localhost:8080/start')
+//   // router.push({ name: "start" });
+//   return
+// }
+// window.onunload = (event: any)=> {
+//   event.preventDefault()
+//   router.push({ name: "start" });
+//   return
+// }
 
 function setScrennWidth() {
   screenWidth.value = window.innerWidth;
@@ -193,6 +256,61 @@ function setScrennWidth() {
 //     }
 //   })
 // }
+
+//загрузка статики
+//массив статичных данных для их загрузки
+
+
+// const staticFonts = [
+//   "Jost100Hairline",
+//   "JuraBold",
+//   "JuraLight",
+//   "JuraMedium",
+//   "JuraRegular",
+//   "JuraSemiBold",
+//   "MontserratRegular400",
+//   "OswaldExtraLight.ttf",
+//   "SFProDisplaySemibold",
+//   "source-sans-pro.regular",
+// ];
+
+// uploadImageStatic("backgrounds", staticBackgroundsNoauth);
+// uploadFontsStatic("fonts", staticFonts)
+
+function uploadImageStatic(folder: string, staticArray: string[]) {
+  for (const staticFile of staticArray) {
+    const img = new Image();
+
+    img.onload = function () {
+      console.log(`окончание загрузки  ${staticFile}`);
+    };
+    img.src = `/${folder}/${staticFile}`;
+  }
+}
+
+// <link rel="preload" as="font" href="<%= BASE_URL %>fonts/Jost100Hairline.ttf" type="font/ttf" crossorigin="anonymous">
+// function uploadFontsStatic(folder: string, staticArray: string[]) {
+//   for(const staticFile of staticArray) {
+//     let googleFont = new FontFace(
+//       staticFile,
+//       `url(/${folder}/${staticFile}ttf)`
+//     );
+//   }
+// }
+
+// fetch(`/${folder}/${staticFile}`).then((e) => {
+//   console.log(e)
+// })
+// console.log('???')
+// const req = new XMLHttpRequest();
+
+// req.onload = function (event: any) {
+//   console.log(event)
+//   console.log(`окончание загрузки  ${staticFile}`);
+// };
+
+// req.open("GET", `/${folder}/${staticFile}`);
+// req.send();
 
 watch(
   () => route.params,

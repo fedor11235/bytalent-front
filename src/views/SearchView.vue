@@ -1,5 +1,5 @@
 <template>
-  <div class="search-view" ref="bgr" v-show="rootStore.isShowLoad">
+  <div class="search-view">
     <div class="search-view__backdrop">
       <div class="search-view__input">
         <InputComponent
@@ -44,12 +44,12 @@ const route = useRoute();
 const searchText = ref("");
 
 const check = ref(false);
-const bgr = ref();
+// const bgr = ref();
 
 rootStore.loadApiTest = false;
 rootStore.loadBgrTest = false;
 
-const btnState = ref("default");
+// const btnState = ref("default");
 
 // function choiceBtn(name: string) {
 //   if (btnState.value === "default") {
@@ -75,15 +75,15 @@ function handlerClickSearch() {
   console.log("search");
 }
 
-onMounted(() => {
-  const bgrImage = new Image();
+// onMounted(() => {
+//   const bgrImage = new Image();
 
-  bgrImage.onload = function () {
-    bgr.value.style.backgroundImage = "url(" + bgrImage.src + ")";
-    rootStore.loadBgrTest = true;
-  };
-  bgrImage.src = "/backgrounds/search.jpg";
-});
+//   bgrImage.onload = function () {
+//     bgr.value.style.backgroundImage = "url(" + bgrImage.src + ")";
+//     rootStore.loadBgrTest = true;
+//   };
+//   bgrImage.src = "/backgrounds/search.jpg";
+// });
 
 watch(
   () => route.params,
@@ -110,6 +110,7 @@ watch(
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
+  background-color: rgba(42, 42, 42, 1);
   // background-image: url(@/assets/backgrounds/search.jpg);
   &__backdrop {
     position: fixed;
