@@ -16,9 +16,6 @@
       <DeleteProjectPopup v-if="rootStore.popupDelete" />
     </Transition>
     <Transition name="fade">
-      <InfoComponents v-if="rootStore.infoPage" />
-    </Transition>
-    <Transition name="fade">
       <PopupOrder v-if="rootStore.uploadProject" />
     </Transition>
     <Transition name="fade">
@@ -58,22 +55,20 @@
       :noHover="rootStore.noHover"
     />
 
-    <RouterView v-slot="{ Component, route }">
-      <Transition
-        :name="(route.meta.transition as string | undefined) || 'fade'"
-      >
+    <RouterView v-slot="{ Component }">
+      <Transition name="fade">
         <Component :is="Component" />
       </Transition>
     </RouterView>
 
     <!-- попап входа при ховере -->
-    <Transition name="move-top">
+    <!-- <Transition name="move-top">
       <div v-if="rootStore.loginHover" class="background"></div>
     </Transition>
 
     <Transition name="move-bottom">
       <LoginForm v-if="rootStore.loginHover" absolutePos name="fade" />
-    </Transition>
+    </Transition> -->
 
     <!-- попап поиска при ховере -->
     <Transition name="move-right">
@@ -131,7 +126,6 @@ import LoginPopup from "@/components/popup/LoginPopup.vue";
 import AddFileBgr from "@/components/newLavel/AddFileBgr.vue";
 import AddFileProject from "@/components/newLavel/AddFileProject.vue";
 
-import InfoComponents from "@/components/common/InfoComponents.vue";
 import PopupWarning from "@/components/common/PopupWarning.vue";
 import DeleteProjectPopup from "@/components/popup/DeleteProjectPopup.vue";
 import PopupOrder from "@/components/common/PopupOrder.vue";

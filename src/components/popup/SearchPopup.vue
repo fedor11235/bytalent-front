@@ -22,5 +22,6 @@ import SearchComponent from "@/components/common/SearchComponent.vue";
   background-color: rgba(42, 42, 42, 0.85);
   width: 100vw;
   height: 100vh;
+  z-index: 2;
 }
 </style>

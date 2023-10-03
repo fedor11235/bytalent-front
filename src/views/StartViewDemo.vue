@@ -12,7 +12,10 @@
         { test__clipping_hover: isHoverName === 'app' },
       ]"
     >
-      <div class="test test__app">
+      <div
+        class="test test__app"
+        style="background-image: url(/backgrounds/app-start.jpg)"
+      >
         <div
           :class="[
             'test__backdrop',
@@ -33,7 +36,10 @@
         { test__clipping_hover: isHoverName === 'projects' },
       ]"
     >
-      <div class="test test__projects">
+      <div
+        class="test test__projects"
+        style="background-image: url(/backgrounds/test.jpg)"
+      >
         <div
           :class="[
             'test__backdrop',
@@ -54,7 +60,10 @@
         { test__clipping_hover: isHoverName === 'streaming' },
       ]"
     >
-      <div class="test test__streaming">
+      <div
+        class="test test__streaming"
+        style="background-image: url(/backgrounds/streaming-start.jpg)"
+      >
         <div
           :class="[
             'test__backdrop',
@@ -231,17 +240,15 @@ onMounted(async () => {
         opacity: 0;
       }
     }
-    &__app {
-      background-image: url("@/assets/backgrounds/app-start.jpg");
-    }
-    &__streaming {
-      // background-image: url("@/assets/backgrounds/test.jpg");
-      background-image: url("@/assets/backgrounds/projects-start.jpg");
-    }
-    &__projects {
-      background-image: url("@/assets/backgrounds/test.jpg");
-      // background-image: url("@/assets/backgrounds/streaming-start.jpg");
-    }
+    // &__app {
+    //   background-image: url("@/assets/backgrounds/app-start.jpg");
+    // }
+    // &__streaming {
+    //   background-image: url("@/assets/backgrounds/projects-start.jpg");
+    // }
+    // &__projects {
+    //   background-image: url("@/assets/backgrounds/test.jpg");
+    // }
     &__clipping {
       position: relative;
       height: 100%;

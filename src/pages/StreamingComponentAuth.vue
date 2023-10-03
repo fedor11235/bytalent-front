@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div v-if="notes" class="notes">
+    <div
+      v-if="notes"
+      class="notes"
+      style="background-image: url(/backgrounds/streaming-new.jpg)"
+    >
       <div class="notes__backdrop">
         <EmptyComponent />
         <div class="notes__contents">
@@ -111,7 +115,6 @@ function handlerBtnFooterClick() {
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url("@/assets/backgrounds/streaming-new.jpg");
   &__backdrop {
     height: 100vh;
     width: 100vw;

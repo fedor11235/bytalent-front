@@ -138,6 +138,9 @@ function handlerMouseOverBtn(name: PageName) {
   //   rootStore[`${name}StartHover`] = true;
   //   rootStore.isHoverCard = true;
   // }
+  if (name === "search") {
+    rootStore.searchHover = true;
+  }
   rootStore[`${name}StartHover`] = true;
   rootStore.isHoverCard = true;
   // console.log("name: ", name)

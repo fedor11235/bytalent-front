@@ -243,7 +243,7 @@ const bgr = computed(() => {
   } else {
     return {
       type: "img",
-      content: require("@/assets/backgrounds/lvel.jpeg"),
+      content: "/backgrounds/lvel.jpeg",
     };
   }
 });

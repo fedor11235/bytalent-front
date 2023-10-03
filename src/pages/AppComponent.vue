@@ -17,7 +17,7 @@
           class="carusel__slider"
         >
           <img
-            :src="require(`@/assets/backgrounds/${index}.jpg`)"
+            :src="`/backgrounds/${index}.jpg`"
             alt="info"
             class="carusel__slider_img"
           />
