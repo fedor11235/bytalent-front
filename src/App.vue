@@ -72,7 +72,7 @@
 
     <!-- попап поиска при ховере -->
     <Transition name="move-right">
-      <SearchPopup v-if="rootStore.searchHover" />
+      <SearchPopup v-if="rootStore.isShowSearch" />
     </Transition>
 
     <!-- старые попапы при наведении на разделы -->

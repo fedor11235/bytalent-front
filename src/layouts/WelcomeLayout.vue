@@ -182,7 +182,7 @@ onUnmounted(() => {
       margin-bottom: 4.166vh;
     }
     &_bottom {
-      position: absolute;
+      // position: absolute;
       width: 74vw;
       bottom: 3.7vh;
     }
@@ -205,12 +205,13 @@ onUnmounted(() => {
     letter-spacing: -0.4px;
     display: flex;
     align-items: center;
-    margin-bottom: 5.185vh;
+    // margin-bottom: 5.185vh;
     overflow-x: hidden;
     text-wrap: nowrap;
     text-overflow: ellipsis;
   }
   &__btn {
+    margin: 5.925vh 0;
     width: 12.5vw;
     height: 5.555vh;
     cursor: pointer;

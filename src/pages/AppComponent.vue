@@ -68,7 +68,7 @@ function HandkerClickDomnload() {
 <style lang="scss" scoped>
 .carusel {
   position: relative;
-  left: -1vw;
+  // left: -1vw;
   display: flex;
   column-gap: 1.25%;
   padding: 0.74vh 0;
@@ -82,7 +82,7 @@ function HandkerClickDomnload() {
     background-size: 110%;
     background-repeat: no-repeat;
     cursor: pointer;
-    transform: skew(10deg);
+    // transform: skew(10deg);
     overflow: hidden;
     &:hover {
       box-shadow: 0 0 3px #f9f9f9;
@@ -94,7 +94,7 @@ function HandkerClickDomnload() {
       bottom: 0.74vh;
       height: 3.3vh;
       background-color: rgba(0, 0, 0, 0.55);
-      transform: skew(-10deg);
+      // transform: skew(-10deg);
 
       color: #f9f9f9;
       text-align: center;
@@ -104,8 +104,8 @@ function HandkerClickDomnload() {
       letter-spacing: -0.4px;
     }
     &_img {
-      transform: skew(-10deg);
-      scale: 1.1;
+      // transform: skew(-10deg);
+      // scale: 1.1;
       height: 100%;
       width: 100%;
     }

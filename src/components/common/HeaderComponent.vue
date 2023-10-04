@@ -154,11 +154,17 @@ function handlerMouseOutBtn(name: PageName) {
 
 async function handlerSwitchPage(name: PageName) {
   if (name === "profile") {
+    rootStore.searchPage = false
     rootStore.popupProfile = !rootStore.popupProfile;
   } else if (name === "project") {
+    rootStore.searchPage = false
     closeHover();
     await router.push({ name: "project-main" });
+  } else if (name === "search") {
+    rootStore.searchPage = !rootStore.searchPage 
+    closeHover();
   } else {
+    rootStore.searchPage = false
     closeHover();
     await router.push({ name: name });
   }

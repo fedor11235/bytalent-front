@@ -41,7 +41,7 @@
 // сдвиг в разные стороны
 .move-right-enter-active,
 .move-right-leave-active {
-  transition: transform .6s ease;
+  transition: all .6s ease;
   transform: translateX(0);
 }
 .move-right-enter-from,

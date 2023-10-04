@@ -62,6 +62,8 @@ export const useRootStore = defineStore("root", {
     contentMiddle: false,
     contentBottom: false,
 
+    searchPage: false,
+
     pageNext: "",
 
     // isActiveLoginPopup: true;
@@ -71,6 +73,7 @@ export const useRootStore = defineStore("root", {
     // isActiveLoginPopup: (state) => state.loginStartHover || state.popuplogin,
     // isActiveSearchPopup: (state) => state.searchStartHover || state.popupSearch,
     isShowLoad: (state) => state.loadApiTest && state.loadBgrTest,
+    isShowSearch: (state) => state.searchHover || state.searchPage,
   },
 });
 
@@ -131,4 +134,5 @@ type StreamingStore = {
   contentBottom: boolean;
 
   pageNext: string;
+  searchPage: boolean;
 };

@@ -75,11 +75,11 @@ const routes: Array<RouteRecordRaw> = [
       transition: "streaming",
     },
   },
-  {
-    path: "/search",
-    name: "search",
-    component: SearchView,
-  },
+  // {
+  //   path: "/search",
+  //   name: "search",
+  //   component: SearchView,
+  // },
   // {
   //   path: "/login",
   //   name: "login",

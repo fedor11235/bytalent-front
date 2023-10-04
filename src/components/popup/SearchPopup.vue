@@ -1,5 +1,5 @@
 <template>
-  <div class="search-popup">
+  <div class="search-popup" :class="{'search-popup_fill': rootStore.searchPage}">
     <SearchComponent
       bg="visualization-first.jpg"
       content="Найти"
@@ -11,6 +11,9 @@
 
 <script setup lang="ts">
 import SearchComponent from "@/components/common/SearchComponent.vue";
+import { useRootStore } from "@/store";
+
+const rootStore = useRootStore()
 </script>
 
 <style lang="scss" scoped>
@@ -23,5 +26,9 @@ import SearchComponent from "@/components/common/SearchComponent.vue";
   width: 100vw;
   height: 100vh;
   z-index: 2;
+  transition: all .6s;
+  &_fill {
+    background-color: #2A2A2A;
+  }
 }
 </style>
