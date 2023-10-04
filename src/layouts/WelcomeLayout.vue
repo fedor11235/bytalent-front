@@ -10,7 +10,7 @@
       />
     </div>
     <div>
-      <Transition name="fade">
+      <!-- <Transition name="fade">
         <div
           v-if="rootStore.contentBackdrop"
           class="layout-welcome__backdrop"
@@ -18,15 +18,24 @@
             backgroundColor: bgrDropColor,
           }"
         ></div>
-      </Transition>
+      </Transition> -->
+      <div
+        class="layout-welcome__backdrop"
+        :style="{
+          backgroundColor: bgrDropColor,
+        }"
+      ></div>
       <EmptyComponent />
       <div class="layout-welcome__content">
-        <Transition name="top-layout">
+        <!-- <Transition name="top-layout">
           <div v-if="rootStore.contentTop" class="layout-welcome__content_top">
             <slot name="content-top"></slot>
           </div>
-        </Transition>
-        <Transition name="middle-layout">
+        </Transition> -->
+        <div class="layout-welcome__content_top">
+          <slot name="content-top"></slot>
+        </div>
+        <!-- <Transition name="middle-layout">
           <div v-if="rootStore.contentMiddle">
             <div class="layout-welcome__title">{{ title }}</div>
             <div class="layout-welcome__description">
@@ -39,15 +48,30 @@
               :btnClick="btnClick"
             />
           </div>
-        </Transition>
-        <Transition name="bottom-layout">
+        </Transition> -->
+        <div>
+          <div class="layout-welcome__title">{{ title }}</div>
+          <div class="layout-welcome__description">
+            <LineComponent v-if="isLine" />
+            {{ description }}
+          </div>
+          <BtnComponent
+            class="layout-welcome__btn"
+            :imgBtn="imgBtn"
+            :btnClick="btnClick"
+          />
+        </div>
+        <!-- <Transition name="bottom-layout">
           <div
             v-if="rootStore.contentBottom"
             class="layout-welcome__content_bottom"
           >
             <slot name="content-bottom"></slot>
           </div>
-        </Transition>
+        </Transition> -->
+        <div class="layout-welcome__content_bottom">
+          <slot name="content-bottom"></slot>
+        </div>
       </div>
     </div>
   </div>

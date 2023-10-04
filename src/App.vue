@@ -142,7 +142,7 @@ import LoaderFileComponent from "@/components/common/LoaderFileComponent.vue";
 import PopupTermsUser from "@/components/docs/PopupTermsUser.vue";
 import PopupPersonalData from "@/components/docs/PopupPersonalData.vue";
 
-import LoginForm from "@/components/auth/LoginForm.vue";
+// import LoginForm from "@/components/auth/LoginForm.vue";
 
 import { useRoute, useRouter } from "vue-router";
 import { useRootStore } from "@/store";
