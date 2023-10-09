@@ -122,7 +122,6 @@ const startView = ref();
 const app = ref();
 const projects = ref();
 const streaming = ref();
-const btns = ref();
 
 const btnApp = ref();
 const btnProjects = ref();
@@ -228,8 +227,6 @@ watch(
   () => {
     animate.value=true
     app.value.style.width="110vw"
-    btns.value.style.transition="opacity 0.6s"
-    btns.value.style.opacity="0"
     btnApp.value.style.opacity = "0";
     setTimeout(() => {
 
@@ -273,21 +270,6 @@ watch(
 );
 
 watch(
-  () => rootStore.popupStartLogin,
-  (newVal) => {
-    if(newVal) {
-      animate.value=true
-      projects.value.style.width="120vw"
-      app.value.style.marginLeft="-38vw"
-    } else {
-      animate.value=false
-      projects.value.style.width = ''
-      app.value.style.marginLeft = ''
-    }
-  }
-);
-
-watch(
   () => rootStore.streamingStart,
   () => {
     animate.value=true
@@ -304,6 +286,21 @@ watch(
         router.push({ name: "streaming" });
       }, 600);
     }, 600);
+  }
+);
+
+watch(
+  () => rootStore.popupStartLogin,
+  (newVal) => {
+    if(newVal) {
+      animate.value=true
+      projects.value.style.width="120vw"
+      app.value.style.marginLeft="-38vw"
+    } else {
+      animate.value=false
+      projects.value.style.width = ''
+      app.value.style.marginLeft = ''
+    }
   }
 );
 </script>

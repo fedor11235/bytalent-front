@@ -24,10 +24,10 @@ import projectService from "@/services/projectService";
 // import LoadStartPage from "@/pages/LoadStartPage.vue";
 
 const routes: Array<RouteRecordRaw> = [
-  {
-    path: "/",
-    redirect: { name: "start" },
-  },
+  // {
+  //   path: "/",
+  //   redirect: { name: "start" },
+  // },
   {
     path: "/start",
     name: "start",

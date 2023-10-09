@@ -187,6 +187,7 @@ authService.checkToken().then((res)=> {
   console.log(res)
   if(res) {
     uploadImageStatic("backgrounds", staticBackgroundsAuth);
+    router.push({ name: "project-main" });
   } else {
     uploadImageStatic("backgrounds", staticBackgroundsNoauth);
     router.push({ name: "start" });
