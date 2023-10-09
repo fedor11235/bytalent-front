@@ -14,6 +14,13 @@ export const useRootStore = defineStore("root", {
     loginStartHover: false,
     searchStartHover: false,
 
+
+    appStart: false,
+    projectStart: false,
+    streamingStart: false,
+    loginStart: false,
+    searchStart: false,
+
     FAQPopup: false,
     popupUpload: false,
     popupAdd: false,
@@ -38,6 +45,8 @@ export const useRootStore = defineStore("root", {
     loaderFile: false,
     loaderMain: false,
     // popupSettings: false,
+
+    popupStartLogin: false,
 
     // for test
     idActiveProject: 0,
@@ -84,11 +93,19 @@ type StreamingStore = {
   loginHover: boolean;
   searchHover: boolean;
 
+  popupStartLogin: boolean;
+
   appStartHover: boolean;
   projectStartHover: boolean;
   streamingStartHover: boolean;
   loginStartHover: boolean;
   searchStartHover: boolean;
+
+  appStart: boolean
+  projectStart: boolean
+  streamingStart: boolean
+  loginStart: boolean
+  searchStart: boolean
 
   popupLogin: boolean;
   FAQPopup: boolean;

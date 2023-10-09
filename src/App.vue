@@ -62,12 +62,12 @@
     </RouterView>
 
     <!-- попап входа при ховере -->
-    <!-- <Transition name="move-top">
-      <div v-if="rootStore.loginHover" class="background"></div>
+    <!-- <Transition name="move-bottom">
+      <div v-if="true" class="background"></div>
     </Transition>
 
     <Transition name="move-bottom">
-      <LoginForm v-if="rootStore.loginHover" absolutePos name="fade" />
+      <LoginForm v-if="true" absolutePos name="fade" />
     </Transition> -->
 
     <!-- попап поиска при ховере -->

@@ -1,5 +1,5 @@
 <template>
-  <div class="start-view">
+  <div ref="startView" class="start-view">
     <LoadStartPage v-if="loader" />
     <div
       @mouseover="handlerMouseoverBtn('app')"
@@ -9,19 +9,25 @@
       :class="[
         'test__clipping',
         'test__clipping_app',
-        { test__clipping_hover: rootStore.appStartHover },
+        { test__clipping_hover: rootStore.appStartHover && !animate },
       ]"
     >
+    
       <div
+        ref="appBgr"
         class="test test__app"
         style="background-image: url(/backgrounds/app-start.jpg)"
       >
+        <div ref="btnApp" :class="['btn', 'btn_app', {'btn_hover': rootStore.appStartHover && !animate}]">
+            Приложение
+          </div>
         <div
           :class="[
             'test__backdrop',
-            { test__backdrop_hover: rootStore.appStartHover },
+            { test__backdrop_hover: rootStore.appStartHover && !animate },
           ]"
-        ></div>
+        >
+        </div>
       </div>
     </div>
 
@@ -33,17 +39,29 @@
       :class="[
         'test__clipping',
         'test__clipping_projects',
-        { test__clipping_hover: rootStore.projectStartHover },
+        { test__clipping_hover: rootStore.projectStartHover && !animate },
       ]"
     >
+      <Transition name="move-bottom">
+        <div :class="['login-cntr', {'login-cntr_full': rootStore.popupStartLogin}]" v-show="rootStore.loginHover || rootStore.popupStartLogin">
+          <div ref="formLogin" class="login-cntr_form">
+            <LoginForm absolutePos />
+          </div>
+        </div>
+      </Transition>
+
       <div
+        ref="projectsBgr"
         class="test test__projects"
         style="background-image: url(/backgrounds/projects-start.jpg)"
       >
+          <div ref="btnProjects" :class="['btn', 'btn_projects', {'btn_hover': rootStore.projectStartHover && !animate}]">
+            Проекты
+          </div>
         <div
           :class="[
             'test__backdrop',
-            { test__backdrop_hover: rootStore.projectStartHover },
+            { test__backdrop_hover: rootStore.projectStartHover && !animate },
           ]"
         ></div>
       </div>
@@ -57,45 +75,23 @@
       :class="[
         'test__clipping',
         'test__clipping_streaming',
-        { test__clipping_hover: rootStore.streamingStartHover },
+        { test__clipping_hover: rootStore.streamingStartHover && !animate },
       ]"
     >
       <div
+        ref="streamingBgr"
         class="test test__streaming"
         style="background-image: url(/backgrounds/streaming-start.jpg)"
       >
+        <div ref="btnStreaming" :class="['btn', 'btn_streaming', {'btn_hover': rootStore.streamingStartHover && !animate}]">
+          Стриминг
+        </div>
         <div
           :class="[
             'test__backdrop',
-            { test__backdrop_hover: rootStore.streamingStartHover },
+            { test__backdrop_hover: rootStore.streamingStartHover && !animate },
           ]"
         ></div>
-      </div>
-    </div>
-    <div ref="btns" class="test__btns">
-      <div
-        ref="btnApp"
-        :class="['test__title', { test__title_hover: rootStore.appStartHover }]"
-      >
-        Приложение
-      </div>
-      <div
-        ref="btnProjects"
-        :class="[
-          'test__title',
-          { test__title_hover: rootStore.projectStartHover },
-        ]"
-      >
-        Проекты
-      </div>
-      <div
-        ref="btnStreaming"
-        :class="[
-          'test__title',
-          { test__title_hover: rootStore.streamingStartHover },
-        ]"
-      >
-        Стриминг
       </div>
     </div>
     <FAQControl />
@@ -103,10 +99,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useRouter } from "vue-router";
 import LoadStartPage from "@/pages/LoadStartPage.vue";
 import FAQControl from "@/components/controls/FAQControl.vue";
+import LoginForm from "@/components/auth/LoginForm.vue";
 import { useRootStore } from "@/store";
 
 const pages = ["app", "project", "streaming"];
@@ -120,6 +117,8 @@ rootStore.loadBgrTest = true;
 const endAnimate = ref(false);
 const loader = ref(true);
 
+const startView = ref();
+
 const app = ref();
 const projects = ref();
 const streaming = ref();
@@ -128,6 +127,14 @@ const btns = ref();
 const btnApp = ref();
 const btnProjects = ref();
 const btnStreaming = ref();
+
+const projectsBgr = ref();
+const appBgr = ref();
+const streamingBgr = ref();
+
+const formLogin = ref();
+
+const animate = ref(false);
 
 async function handlerClickApp() {
   if (!endAnimate.value) return;
@@ -144,17 +151,46 @@ async function handlerClickStreaming() {
 
 function handlerMouseoverBtn(name: string) {
   if (!endAnimate.value) return;
-  // isHoverName.value = name;
   rootStore[`${name}StartHover`] = true;
 }
 
 function handlerMouseleaveBtn() {
   if (!endAnimate.value) return;
-  // isHoverName.value = "";
   for (const name of pages) {
     rootStore[`${name}StartHover`] = false;
   }
 }
+
+// onMounted(() => {
+//   setTimeout(() => {
+//     loader.value = false;
+//     setTimeout(() => {
+//       app.value.style.opacity = "1";
+//       setTimeout(() => {
+//         projects.value.style.opacity = "1";
+//         setTimeout(() => {
+//           streaming.value.style.opacity = "1";
+//           setTimeout(() => {
+//             // btns.value.style.display = "flex";
+//             setTimeout(() => {
+//               btnApp.value.style.opacity = "1";
+//               btnApp.value.style.transform = "translate(0, 0)";
+//               setTimeout(() => {
+//                 btnProjects.value.style.opacity = "1";
+//                 btnProjects.value.style.transform = "translate(0, 0)";
+//                 setTimeout(() => {
+//                   btnStreaming.value.style.opacity = "1";
+//                   btnStreaming.value.style.transform = "translate(0, 0)";
+//                   endAnimate.value = true;
+//                 }, 0);
+//               }, 0);
+//             }, 0);
+//           }, 0);
+//         }, 0);
+//       }, 0);
+//     }, 0);
+//   }, 0);
+// });
 
 onMounted(async () => {
   setTimeout(() => {
@@ -166,7 +202,7 @@ onMounted(async () => {
         setTimeout(() => {
           streaming.value.style.opacity = "1";
           setTimeout(() => {
-            btns.value.style.display = "flex";
+            // btns.value.style.display = "flex";
             setTimeout(() => {
               btnApp.value.style.opacity = "1";
               btnApp.value.style.transform = "translate(0, 0)";
@@ -186,19 +222,165 @@ onMounted(async () => {
     }, 600);
   }, 7000);
 });
+
+watch(
+  () => rootStore.appStart,
+  () => {
+    animate.value=true
+    app.value.style.width="110vw"
+    btns.value.style.transition="opacity 0.6s"
+    btns.value.style.opacity="0"
+    btnApp.value.style.opacity = "0";
+    setTimeout(() => {
+
+      projects.value.style.translate="10vw 0"
+      streaming.value.style.translate="10vw 0"
+      startView.value.style.marginLeft="0"
+
+      app.value.style.transform="none"
+      appBgr.value.style.scale="1"
+      appBgr.value.style.transform="none"
+      app.value.style.width="100vw"
+      setTimeout(() => {
+        router.push({ name: "app" });
+      }, 600);
+    }, 600);
+  }
+);
+
+watch(
+  () => rootStore.projectStart,
+  () => {
+    animate.value=true
+    projects.value.style.width="110vw"
+    app.value.style.marginLeft="-38vw"
+    btnProjects.value.style.opacity = "0";
+    setTimeout(() => {
+
+      startView.value.style.marginLeft="0"
+      app.value.style.translate="10vw 0"
+      streaming.value.style.translate="10vw 0"
+
+      projects.value.style.transform="none"
+      projectsBgr.value.style.scale="1"
+      projectsBgr.value.style.transform="none"
+      projects.value.style.width="100vw"
+      setTimeout(() => {
+        router.push({ name: "project-main" })
+      }, 600);
+    }, 600);
+  }
+);
+
+watch(
+  () => rootStore.popupStartLogin,
+  (newVal) => {
+    if(newVal) {
+      animate.value=true
+      projects.value.style.width="120vw"
+      app.value.style.marginLeft="-38vw"
+    } else {
+      animate.value=false
+      projects.value.style.width = ''
+      app.value.style.marginLeft = ''
+    }
+  }
+);
+
+watch(
+  () => rootStore.streamingStart,
+  () => {
+    animate.value=true
+    streaming.value.style.width="110vw"
+    app.value.style.marginLeft="-76vw"
+    btnStreaming.value.style.opacity = "0";
+    setTimeout(() => {
+      startView.value.style.marginLeft="0"
+      streaming.value.style.transform="none"
+      streamingBgr.value.style.scale="1"
+      streamingBgr.value.style.transform="none"
+      streaming.value.style.width="100vw"
+      setTimeout(() => {
+        router.push({ name: "streaming" });
+      }, 600);
+    }, 600);
+  }
+);
 </script>
 
 <style lang="scss" scoped>
+.btn {
+  color: white;
+  font-family: JuraSemiBold;
+  font-size: 3.5vh;
+  line-height: 125%;
+  letter-spacing: -0.76px;
+  padding: 10px 40px;
+  transition: all 0.6s;
+  scale: .6;
+  cursor: pointer;
+  opacity: 0;
+  transform: translate(-30px, -30px);
+  translate: -50%;
+  &_hover {
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 10px 40px;
+  }
+  &_app {
+    position: absolute;
+    left: 50%;
+    top: 50vh;
+    translate: -30% -50%;
+  }
+  &_projects {
+    position: absolute;
+    left: 50%;
+    top: 50vh;
+    translate: -50% -50%;
+  }
+  &_streaming {
+    position: absolute;
+    left: 50%;
+    top: 50vh;
+    translate: -50% -50%;
+  }
+}
+.btn-pr {
+  translate: -8vw 0;
+}
+.login-cntr {
+  position: absolute;
+  height: 100%;
+  width: 200%;
+  translate: -25%;
+  background-color: rgba(42, 42, 42, 0.75);
+  z-index: 11;
+  transition: all .6s;
+  &_full {
+    background-color: rgba(42, 42, 42, 1);
+  }
+  &_form {
+    transition: all .6s;
+    transform: skew(-10deg, 0);
+    height: 100%;
+  }
+}
+.test-btn {
+  position: fixed;
+  top: 60px;
+  left: 60px;
+  z-index: 3;
+}
 .start-view {
-  margin-left: -5%;
-  display: grid;
-  grid-template-columns: 35% 35% 35%;
+  margin-left: -8%;
   position: fixed;
   height: 100vh;
-  width: 105vw;
+  width: 115vw;
   overflow: hidden;
   background-color: black;
   z-index: 2;
+  text-wrap: nowrap;
+  transition: all .6s;
   .test {
     height: 100%;
     width: 100%;
@@ -257,9 +439,10 @@ onMounted(async () => {
     //   background-image: url(https://localhost:8080/backgrounds/projects-start.jpg);
     // }
     &__clipping {
+      display: inline-block;
       position: relative;
       height: 100%;
-      width: 100%;
+      width: 38vw;
       transform: skew(10deg, 0);
       overflow: hidden;
       z-index: 1;

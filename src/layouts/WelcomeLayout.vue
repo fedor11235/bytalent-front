@@ -158,6 +158,7 @@ onUnmounted(() => {
   background-size: cover;
   &__img {
     position: fixed;
+    z-index: -1;
   }
   &__backdrop {
     top: 0;
@@ -211,7 +212,7 @@ onUnmounted(() => {
     text-overflow: ellipsis;
   }
   &__btn {
-    margin: 5.925vh 0;
+    margin: 4.5vh 0;
     width: 12.5vw;
     height: 5.555vh;
     cursor: pointer;

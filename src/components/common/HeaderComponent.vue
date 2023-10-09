@@ -121,27 +121,32 @@ const theme = toRef(props, "theme");
 
 async function handlerLogin() {
   closeHover();
-  // if (route.name === "start") {
-  //   rootStore.popuplogin = !rootStore.popuplogin;
-  // } else {
-  //   await router.push({ name: "login" });
-  // }
-  rootStore.popupLogin = true;
-  // await router.push({ name: "login" });
+  if (route.name === "start") {
+    rootStore.popupStartLogin = !rootStore.popupStartLogin;
+    if(!rootStore.popupStartLogin ) {
+      setTimeout(() => {
+        rootStore.loginHover = false
+      }, 600);
+    }
+  } else {
+    rootStore.popupLogin = true;
+  }
 }
 
 function handlerMouseOverBtn(name: PageName) {
   if (!props.noHover && route.name !== "start") {
     rootStore[`${name}Hover`] = true;
   }
-  // if (route.name === "start") {
-  //   rootStore[`${name}StartHover`] = true;
-  //   rootStore.isHoverCard = true;
-  // }
+  if (route.name === "start") {
+    rootStore[`${name}StartHover`] = true;
+    if(name === 'login') {
+      rootStore.loginHover = true;
+    }
+  }
   if (name === "search") {
     rootStore.searchHover = true;
   }
-  rootStore[`${name}StartHover`] = true;
+  // rootStore[`${name}StartHover`] = true;
   rootStore.isHoverCard = true;
   // console.log("name: ", name)
 }
@@ -153,7 +158,10 @@ function handlerMouseOutBtn(name: PageName) {
 }
 
 async function handlerSwitchPage(name: PageName) {
-  if (name === "profile") {
+  if (route.name === "start") {
+    rootStore[`${name}Start`] = true;
+    // rootStore[`${name}StartHover`] = false;
+  } else if (name === "profile") {
     rootStore.searchPage = false
     rootStore.popupProfile = !rootStore.popupProfile;
   } else if (name === "project") {
@@ -218,7 +226,7 @@ function btnClass(name: string) {
           route.name === "project-empty") &&
         theme.value === "light" &&
         !rootStore.popupProfile,
-      header__btn_hover: rootStore[`${name}StartHover`],
+      header__btn_hover: rootStore[`${name}StartHover`]&& route.name !== "project-main",
     };
   } else if (name === "profile") {
     return {
@@ -241,7 +249,7 @@ function btnClass(name: string) {
       route.name === name && theme.value !== "light" && !rootStore.popupProfile,
     "header__btn-light_active":
       route.name === name && theme.value === "light" && !rootStore.popupProfile,
-    header__btn_hover: rootStore[`${name}StartHover`],
+    header__btn_hover: rootStore[`${name}StartHover`] && route.name !== name,
   };
 }
 
