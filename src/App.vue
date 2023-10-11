@@ -19,9 +19,6 @@
       <PopupOrder v-if="rootStore.uploadProject" />
     </Transition>
     <Transition name="fade">
-      <AddFileBgr v-if="rootStore.popupAddBgr" />
-    </Transition>
-    <Transition name="fade">
       <AddFileProject
         v-if="rootStore.popupAddProject"
         :projectId="rootStore.idActiveProject"
@@ -147,6 +144,7 @@ import PopupPersonalData from "@/components/docs/PopupPersonalData.vue";
 import { useRoute, useRouter } from "vue-router";
 import { useRootStore } from "@/store";
 import authService from "@/services/authService";
+import { setToken } from "@/utils/token";
 
 const router = useRouter();
 
@@ -183,10 +181,12 @@ const staticBackgroundsNoauth = [
   // "streaming-new.jpg",
   // "test.jpg",
 ];
+setToken();
 authService.checkToken().then((res)=> {
   console.log(res)
   if(res) {
     uploadImageStatic("backgrounds", staticBackgroundsAuth);
+  
     router.push({ name: "project-main" });
   } else {
     uploadImageStatic("backgrounds", staticBackgroundsNoauth);

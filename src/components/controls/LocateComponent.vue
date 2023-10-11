@@ -1,6 +1,6 @@
 <template>
   <div ref="drop" class="locate-cmpt">
-    <div v-show="isShowMap || isOpen" id="map"></div>
+    <!-- <div v-show="isShowMap || isOpen" id="map"></div> -->
     <img
       class="locate-cmpt_icon"
       :src="require(`@/assets/icons/${icon}.svg`)"
@@ -8,8 +8,8 @@
       width="24"
       alt="icon"
     />
+          <!-- id="suggest" -->
     <input
-      id="suggest"
       :style="styleDropDown"
       @focus="handlerfocusSuggest"
       @blur="handlerblurSuggest"
@@ -81,161 +81,161 @@ function handlerblurSuggest() {
   isShowMap.value = false
 }
 
-function postLoadFunction() {
-  ymaps.ready(init);
+// function postLoadFunction() {
+//   ymaps.ready(init);
 
-  function init() {
-    const searchControl = new ymaps.control.SearchControl({
-      options: {
-        // Будет производиться поиск только по топонимам.
-        provider: 'yandex#map'
-      }
-    });
-    const yandexListResultList = ymaps.templateLayoutFactory.createClass([
-      "<style>#dropdawn {background-color: #fff;} .item{background-color: #fff; color: #191919; font-family: JuraMedium; font-size: 2vh; line-height: 125%; letter-spacing: -0.76px; padding: 4px 8px;}.item:hover{background-color: rgba(0, 0, 0, 0.1);}</style>",
-      "<div id='dropdawn'>",
-      "{% for item in state.items %}",
-      "<div class='item' data-value=\"{{ item.value }}\">{{ item.displayName }}</div>",
-      "{% endfor %}",
-      "</div>"
-    ].join(''), {
-      build: function () {
-        console.log('build')
-        const dropdawn = document.getElementById("dropdawn");
-        if (dropdawn) {
-          dropdawn.style.display = "block";
-        }
-        yandexListResultList.superclass.build.call(this);
-        this.itemSelectCallback = ymaps.util.bind(this.itemSelect, this);
+//   function init() {
+//     const searchControl = new ymaps.control.SearchControl({
+//       options: {
+//         // Будет производиться поиск только по топонимам.
+//         provider: 'yandex#map'
+//       }
+//     });
+//     const yandexListResultList = ymaps.templateLayoutFactory.createClass([
+//       "<style>#dropdawn {background-color: #fff;} .item{background-color: #fff; color: #191919; font-family: JuraMedium; font-size: 2vh; line-height: 125%; letter-spacing: -0.76px; padding: 4px 8px;}.item:hover{background-color: rgba(0, 0, 0, 0.1);}</style>",
+//       "<div id='dropdawn'>",
+//       "{% for item in state.items %}",
+//       "<div class='item' data-value=\"{{ item.value }}\">{{ item.displayName }}</div>",
+//       "{% endfor %}",
+//       "</div>"
+//     ].join(''), {
+//       build: function () {
+//         console.log('build')
+//         const dropdawn = document.getElementById("dropdawn");
+//         if (dropdawn) {
+//           dropdawn.style.display = "block";
+//         }
+//         yandexListResultList.superclass.build.call(this);
+//         this.itemSelectCallback = ymaps.util.bind(this.itemSelect, this);
 
-        const items = document.getElementsByClassName("item")
-        for (let index = 0; index < items.length; index += 1) {
-          if (index === 0) {
-            searchControl.search(items[index].innerText);
-            console.log(items[index].innerText)
-          }
-          items[index].addEventListener("click", this.itemSelectCallback)
-        }
-        if (items.length === 0) {
-          isOpen.value = false
-        } else {
-          isOpen.value = true
-        }
-      },
-      clear: function () {
-        console.log('clear')
-        const items = document.getElementsByClassName("item")
-        for (const item of items) {
-          item.removeEventListener("click", this.itemSelectCallback)
-        }
-        yandexListResultList.superclass.clear.call(this);
-      },
-      itemSelect: function (e: any) {
-        console.log('itemSelect')
-        const place = e.target.dataset.value
-        console.log("place: ", place)
-        searchControl.search(place);
-        searchLocate.value = place;
-        editLocate.value = place;
-        emit("update:modelValue", place);
-        const dropdawn = document.getElementById("dropdawn");
-        if (dropdawn) {
-          dropdawn.style.display = "none";
-        }
-        // const myGeocoder = ymaps.geocode(place);
+//         const items = document.getElementsByClassName("item")
+//         for (let index = 0; index < items.length; index += 1) {
+//           if (index === 0) {
+//             searchControl.search(items[index].innerText);
+//             console.log(items[index].innerText)
+//           }
+//           items[index].addEventListener("click", this.itemSelectCallback)
+//         }
+//         if (items.length === 0) {
+//           isOpen.value = false
+//         } else {
+//           isOpen.value = true
+//         }
+//       },
+//       clear: function () {
+//         console.log('clear')
+//         const items = document.getElementsByClassName("item")
+//         for (const item of items) {
+//           item.removeEventListener("click", this.itemSelectCallback)
+//         }
+//         yandexListResultList.superclass.clear.call(this);
+//       },
+//       itemSelect: function (e: any) {
+//         console.log('itemSelect')
+//         const place = e.target.dataset.value
+//         console.log("place: ", place)
+//         searchControl.search(place);
+//         searchLocate.value = place;
+//         editLocate.value = place;
+//         emit("update:modelValue", place);
+//         const dropdawn = document.getElementById("dropdawn");
+//         if (dropdawn) {
+//           dropdawn.style.display = "none";
+//         }
+//         // const myGeocoder = ymaps.geocode(place);
 
-        // myGeocoder.then(
-        //   async function (res) {
-        //     const coordinates = res.geoObjects.get(0).geometry.getCoordinates();
-        //     const newPlacemark = new ymaps.Placemark(coordinates,
-        //       {
-        //         balloonContent: '<strong>' + place + '</strong>'
-        //       },
-        //       {
-        //         preset: 'islands#dotIcon',
-        //         iconColor: '#f1500b'
-        //       },
-        //       {});
-        //     myMap.geoObjects.removeAll()
-        //     myMap.geoObjects.add(newPlacemark);
-        //   }
-        // );
-      }
-    });
-
-
-    myMap = new ymaps.Map("map", {
-      center: [55.76, 37.64],
-      zoom: 7,
-    });
-
-    // Добавляем элемент управления на карту.
-    myMap.controls.add(searchControl);
-
-    myMap.events.add('click', function (e) {
-      var coords = e.get('coords');
-      loadAddress(coords[0], coords[1]);
-    });
+//         // myGeocoder.then(
+//         //   async function (res) {
+//         //     const coordinates = res.geoObjects.get(0).geometry.getCoordinates();
+//         //     const newPlacemark = new ymaps.Placemark(coordinates,
+//         //       {
+//         //         balloonContent: '<strong>' + place + '</strong>'
+//         //       },
+//         //       {
+//         //         preset: 'islands#dotIcon',
+//         //         iconColor: '#f1500b'
+//         //       },
+//         //       {});
+//         //     myMap.geoObjects.removeAll()
+//         //     myMap.geoObjects.add(newPlacemark);
+//         //   }
+//         // );
+//       }
+//     });
 
 
-    new ymaps.SuggestView('suggest', {
-      offset: [0, 10],
-      layout: yandexListResultList
-    });
-  }
-}
+//     myMap = new ymaps.Map("map", {
+//       center: [55.76, 37.64],
+//       zoom: 7,
+//     });
 
-function loadAddress(lat: any, lon: any) {
-  console.log(lat, lon)
-  const response = geolocate(lat, lon);
-  myMap.geoObjects.removeAll()
-  myMap.geoObjects.add(new ymaps.Placemark([lat, lon], {
-    balloonContent: '<strong>' + response + '</strong>'
-  },
-    {
-      preset: 'islands#dotIcon',
-      iconColor: '#f1500b'
-    },))
-  if (response) {
-    editLocate.value = response
-    emit("update:modelValue", response);
-  } else {
-    alert('вы выбрали место без адресса на карте')
-  }
-}
+//     // Добавляем элемент управления на карту.
+//     myMap.controls.add(searchControl);
 
-function geolocate(lat: any, lon: any) {
-  const serviceUrl = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate/address";
-  const request = {
-    "lat": lat,
-    "lon": lon
-  };
-  const req = new XMLHttpRequest();
-  req.open("POST", serviceUrl, false);
-  req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-  req.setRequestHeader("Authorization", "Token " + tokenData);
-  req.send(JSON.stringify(request));
+//     myMap.events.add('click', function (e) {
+//       var coords = e.get('coords');
+//       loadAddress(coords[0], coords[1]);
+//     });
 
-  const responseJSON = JSON.parse(req.response)
 
-  if (responseJSON.suggestions.length > 0) {
-    return responseJSON.suggestions[0].value
-  } else {
-    return false
-  }
-}
+//     new ymaps.SuggestView('suggest', {
+//       offset: [0, 10],
+//       layout: yandexListResultList
+//     });
+//   }
+// }
+
+// function loadAddress(lat: any, lon: any) {
+//   console.log(lat, lon)
+//   const response = geolocate(lat, lon);
+//   myMap.geoObjects.removeAll()
+//   myMap.geoObjects.add(new ymaps.Placemark([lat, lon], {
+//     balloonContent: '<strong>' + response + '</strong>'
+//   },
+//     {
+//       preset: 'islands#dotIcon',
+//       iconColor: '#f1500b'
+//     },))
+//   if (response) {
+//     editLocate.value = response
+//     emit("update:modelValue", response);
+//   } else {
+//     alert('вы выбрали место без адресса на карте')
+//   }
+// }
+
+// function geolocate(lat: any, lon: any) {
+//   const serviceUrl = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate/address";
+//   const request = {
+//     "lat": lat,
+//     "lon": lon
+//   };
+//   const req = new XMLHttpRequest();
+//   req.open("POST", serviceUrl, false);
+//   req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+//   req.setRequestHeader("Authorization", "Token " + tokenData);
+//   req.send(JSON.stringify(request));
+
+//   const responseJSON = JSON.parse(req.response)
+
+//   if (responseJSON.suggestions.length > 0) {
+//     return responseJSON.suggestions[0].value
+//   } else {
+//     return false
+//   }
+// }
 
 onMounted(() => {
-  const script = document.createElement("script");
-  script.setAttribute("type", "text/javascript");
-  script.setAttribute(
-    "src",
-    `https://api-maps.yandex.ru/2.1/?apikey=${tokenMap}&suggest_apikey=${tokenGeo}&lang=ru_RU`
-  );
-  script.addEventListener("load", postLoadFunction);
-  if (drop.value) {
-    drop.value.appendChild(script);
-  }
+  // const script = document.createElement("script");
+  // script.setAttribute("type", "text/javascript");
+  // script.setAttribute(
+  //   "src",
+  //   `https://api-maps.yandex.ru/2.1/?apikey=${tokenMap}&suggest_apikey=${tokenGeo}&lang=ru_RU`
+  // );
+  // script.addEventListener("load", postLoadFunction);
+  // if (drop.value) {
+  //   drop.value.appendChild(script);
+  // }
 })
 
 watch(

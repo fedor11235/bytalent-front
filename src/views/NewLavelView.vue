@@ -304,7 +304,7 @@ onMounted(async () => {
     info.value = project.value.info ?? "Описание объекта";
     infoDop.value = project.value.info_dop ?? "Дополнительная информация";
   }
-  const backgroundsResp = await projectService.getBackgrounds();
+  const backgroundsResp = await projectService.getBackgrounds(props.idProject);
   const backgrounds = backgroundsResp.backgrounds;
   for (const background of backgrounds) {
     background.content = getURLForFile(background.name, background.format);

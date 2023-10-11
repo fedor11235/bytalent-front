@@ -1,4 +1,7 @@
 <template>
+  <Transition name="fade">
+    <AddFileBgr v-if="rootStore.popupAddBgr" :projectId="$props.projectId" />
+  </Transition>
   <input
     class="file-input"
     type="file"
@@ -55,6 +58,10 @@ import { useRootStore } from "@/store";
 import { useProjectStore } from "@/store";
 import { getURLForFile, getURLForFilePoster } from "@/utils/str";
 import BgrComponent from "@/components/controls/BgrComponent.vue";
+
+const props = defineProps<{
+  projectId: number;
+}>();
 
 const rootStore = useRootStore();
 const projectStore = useProjectStore();
@@ -119,13 +126,13 @@ async function saveFaileBgr(filteredFile: File) {
   }
   const backgroundNew = await projectService.postBackgrounds({
     file: filteredFile,
-  });
+  }, props.projectId);
   projectStore.backgroundsFill.pop();
   projectStore.backgroundsFill.push({
-    id: backgroundNew.id,
-    content: getURLForFile(backgroundNew.name, backgroundNew.format),
-    poster: getURLForFilePoster(backgroundNew.poster_path),
-    type: backgroundNew.type,
+    id: (backgroundNew as any).id,
+    content: getURLForFile((backgroundNew as any).name, (backgroundNew as any).format),
+    poster: getURLForFilePoster((backgroundNew as any).poster_path),
+    type: (backgroundNew as any).type,
   });
   updateBgrCarusel();
 }

@@ -19,15 +19,15 @@ export default {
       console.error(e);
     }
   },
-  async getBackgrounds() {
+  async getBackgrounds(projectId: any) {
     try {
-      const { data } = await projectApi.getBackgrounds();
+      const { data } = await projectApi.getBackgrounds(projectId);
       return data;
     } catch (e) {
       console.error(e);
     }
   },
-  async postBackgrounds(payload: any) {
+  async postBackgrounds(payload: any, projectId: any) {
     const rootStore = useRootStore();
     rootStore.loadPercentage = 0;
     rootStore.loaderMain = true;
@@ -48,7 +48,7 @@ export default {
       };
       req.onreadystatechange = reqChange;
 
-      req.open("POST", `${urlBase}/project/backgrounds`, true);
+      req.open("POST", `${urlBase}/project/backgrounds/${projectId}`, true);
       req.setRequestHeader("Authorization", "Bearer " + token);
       req.send(formData);
 

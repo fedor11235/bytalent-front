@@ -13,8 +13,8 @@ export default {
   uploadFileProject(id: number, payload: FormData) {
     return api.post(`/project/upload/${id}`, payload);
   },
-  getBackgrounds() {
-    return api.get("/project/backgrounds");
+  getBackgrounds(projectId: any) {
+    return api.get(`/project/backgrounds/${projectId}`);
   },
   // postBackgrounds(payload: FormData) {
   //   return api.post("/project/backgrounds", payload);

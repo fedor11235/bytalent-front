@@ -32,7 +32,7 @@
           <BgrComponent
             :type="background.type"
             :content="background.content"
-            :poster="background.poster"
+            :poster="(background as any).poster"
             borderRadius="10px"
             @click.prevent="handlerShowPopup($event, index, background.type)"
             class="carousel__img"
@@ -111,14 +111,14 @@ async function saveFaileBgr(filteredFile: File) {
 
   const backgroundNew = await projectService.postBackgrounds({
     file: filteredFile,
-  });
+  }, props.projectId);
   projectStore.backgroundsFill.pop();
 
   projectStore.backgroundsFill.push({
-    id: backgroundNew.id,
-    content: getURLForFile(backgroundNew.name, backgroundNew.format),
-    poster: getURLForFilePoster(backgroundNew.poster_path),
-    type: backgroundNew.type,
+    id: (backgroundNew as any).id,
+    content: getURLForFile((backgroundNew as any).name, (backgroundNew as any).format),
+    poster: getURLForFilePoster((backgroundNew as any).poster_path),
+    type: (backgroundNew as any).type,
   });
   if (projectStore.backgroundsEmpty.length > 1) {
     projectStore.backgroundsEmpty.pop();

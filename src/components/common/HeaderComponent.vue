@@ -122,8 +122,11 @@ const theme = toRef(props, "theme");
 async function handlerLogin() {
   closeHover();
   if (route.name === "start") {
-    rootStore.popupStartLogin = !rootStore.popupStartLogin;
-    if(!rootStore.popupStartLogin ) {
+    if(rootStore.popupStartLogin) {
+      rootStore.popupStartLogin = false;
+      rootStore.popupLogin = true;
+    } else {
+      rootStore.popupStartLogin = true;
       setTimeout(() => {
         rootStore.loginHover = false
       }, 600);
@@ -159,7 +162,14 @@ function handlerMouseOutBtn(name: PageName) {
 
 async function handlerSwitchPage(name: PageName) {
   if (route.name === "start") {
-    rootStore[`${name}Start`] = true;
+    if(rootStore.popupStartLogin) {
+      await router.push({ name: name });
+      closeHover();
+      rootStore.popupStartLogin = false;
+    } else {
+      rootStore[`${name}Start`] = true;
+    }
+    // rootStore[`${name}Start`] = true;
     // rootStore[`${name}StartHover`] = false;
   } else if (name === "profile") {
     rootStore.searchPage = false
